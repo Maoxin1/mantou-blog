@@ -3,5 +3,4 @@ languageCode = "zh-cn"
 title = "Mantou Blog"
 theme = "LoveIt-0.3.0"
 
-[params.analytics]
-  enable = true
+googleAnalytics = "G-0DGXTWGC32"
