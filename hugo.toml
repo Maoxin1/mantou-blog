@@ -19,9 +19,11 @@ googleAnalytics = "G-0DGXTWGC32"
   avatar = "/images/mantou.jpg"
   link = "https://github.com/mantou"
 
+# ❌ 删除或注释掉这一行（GA4 不用这个）
+# googleAnalytics = "G-0DGXTWGC32"
+
 [params.analytics]
   enable = true
-  google = true
 
 [params.analytics.google]
   id = "G-0DGXTWGC32"
