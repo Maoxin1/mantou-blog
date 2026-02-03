@@ -1,13 +1,13 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>所有文章 - Mantou Blog</title>
+        <title>所有文章 - mantou&#39;s blog</title>
         <link>http://localhost:1313/posts/</link>
-        <description>所有文章 | Mantou Blog</description>
+        <description>所有文章 | mantou&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 03 Feb 2026 16:00:00 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
     <title>把自己当做一个项目来操作</title>
     <link>http://localhost:1313/posts/2026.2.3/</link>
     <pubDate>Tue, 03 Feb 2026 16:00:00 &#43;0800</pubDate>
-    <author>xxxx</author>
+    <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.2.3/</guid>
     <description><![CDATA[<p>最近的相当一段时间里，我很惊诧地会发现一个现象：<em>每天中午自己手捧着一本《圣经》坐在草地上晒着太阳，珠江从眼前流过时的状态下自己的大脑最为活跃！脑中就好像有着一片永远无法宁静下来的湖面，常常会随时迸发出各种 plan 或 idea 类的水花出来</em>。它们出现的同时似乎还充满着催促和激情，这也常常迫使着自己随时停下来进行记录和规划。或许是太阳赐予我的乐观，我常常会满脸满足地望着江边的广州塔，以及其周边那一大群的CBD。与此同时，自己望向那里的同时又好像在望着自己：似乎面部的神态表情是清晰可见的…</p>
 <p>我无法评估那些点子为我带来的价值将会是怎样的，只是觉得尽快的记录才是当时那一刻下所能做出的**“最好的践行”**。常常反思和梳理脑中想法的我，其实是能够相当客观且真切地感悟到自己的不足是多么的致命，对那些“bug”的处理将会是怎样的迫在眉睫。于是，在这样的状态下的我既是痛苦的，也是喜悦的；既是恐惧的，也是急迫的；既是时刻紧绷的，又是“孤傲清高”的。你说这是清醒的状态，这是对的。说它也是迷茫的，这也是对的。<strong>一旦开始把自己当作一个 project 来看待，那么这样的状态便会永远地持续下去。因为最好的自己永远是明天的那个…</strong></p>
@@ -21,7 +21,7 @@
     <title>AI的影响不容小觑</title>
     <link>http://localhost:1313/posts/2026-02-02/</link>
     <pubDate>Mon, 02 Feb 2026 20:01:01 &#43;0800</pubDate>
-    <author>xxxx</author>
+    <author>mantou</author>
     <guid>http://localhost:1313/posts/2026-02-02/</guid>
     <description><![CDATA[<p>记得上周自己的关注焦点还是一个名叫<strong>clawdbot</strong>的开源AI项目，这周就开始转为微信搜一搜里面自带的AI分析工具。关注前者是为了<strong>赶潮流和追热度</strong>，后者是因为<strong>实用需要</strong>拿它来分析自己的微信公众号文章质量。不过说到底，两者给我带来的影响其实同样的重要：一个让我越发清晰地感知到资本对于AI这门技术的喜爱，一个是让我更加清晰地感知到了自己当前文章所存在的问题点，从一个资深客观的视角来帮助我对当前文章做出更有针对性的调整优化。</p>
 <p></p>
@@ -36,7 +36,7 @@
     <title>友谊万岁：我的感动日记！</title>
     <link>http://localhost:1313/posts/2026-02-01/</link>
     <pubDate>Sun, 01 Feb 2026 23:01:01 &#43;0800</pubDate>
-    <author>xxxx</author>
+    <author>mantou</author>
     <guid>http://localhost:1313/posts/2026-02-01/</guid>
     <description><![CDATA[<p><strong>没有朋友的日子绝对是无趣的，这个想法一直在过去半年的时间内长期存在于我的脑中，并且这种声音的响声越来越大。</strong></p>
 <p>至今都清晰地记得，在过去的四年大学时光里自己其实并没有任何实际意义上的社交活动。只要有时间我就去图书馆，一坐就是一整天。有时候心情实在憋屈的慌，就会挨个在微信列表中寻找好朋友挨个来“骚扰”他们，让他们陪我聊天。可这样的做法长期来看效果挺糟糕的，因为我常常需要情感倾诉时，就去找他们，反而让他们对我有了一种厌烦感。大抵是我寻找他们的时间点也确实不太合适吧，同时也更有可能是由于自己的感知力过差所致，给他们造成了不少了麻烦所致&hellip;</p>
@@ -52,7 +52,7 @@
     <title>一月的最后一天</title>
     <link>http://localhost:1313/posts/2026-01-31/</link>
     <pubDate>Sat, 31 Jan 2026 16:00:00 &#43;0800</pubDate>
-    <author>xxxx</author>
+    <author>mantou</author>
     <guid>http://localhost:1313/posts/2026-01-31/</guid>
     <description><![CDATA[<p>今天早上起床算是近期自然醒的最早的一天，早上差不多七点醒来后就起床拉练日语。甚至拉练完口语，出了门到了商圈的时候商场还没到了营业时间。于是间自己突然变得无聊甚至无所适从了起来。对呀，由于没有这么早到这里的经历，所以到了这里后的我在简单溜达了一圈后便朝着地铁口走去。虽然天气下着点小雨，虽然一时间无所适从，但自己至少仍然爱喝咖啡嘛！于是就这样有一头没一头地想着，就搭地铁去了一家星巴克在广州新开的概念店去了。</p>
 <p>全程差不多半个多小时的路程，虽然有雨，但终究熄灭不了星巴克星粉的热情。在我十一点前到店时，那时里面早已人满为患了。颇为侥幸的是，尽管如此，自己还是发现留有一个空缺的桌位。为了省时间，也为了更好地利用整块时间，于是我索性便在星巴克点了杯美式外加面包来当做自己的午餐吃。虽然这并不能填饱我的肚子，但由于心中有更重要的事情在，进而不由得使得我脑中充满了一种“以中有足乐者，不知口体之奉不若人也”的感觉。就这样，这样的状态陪我度过了近三个小时后，便开始被外界所打扰了。
@@ -65,7 +65,7 @@
     <title>1.30</title>
     <link>http://localhost:1313/posts/2026.1.30/</link>
     <pubDate>Fri, 30 Jan 2026 15:01:01 &#43;0800</pubDate>
-    <author>xxxx</author>
+    <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.1.30/</guid>
     <description><![CDATA[<p>最近计谋着想要做些事情来着，可自己终究精力有限，太多有趣的想法难以落地。虽有可惜之意，但这毕竟也符合实际情况嘛。像我这类的人呢，谁不想很快地在半年之内搞流量就到上万粉丝的地步？谁又不想每篇输出的文章都完美至极？或者谁又不想尽快地把每天的时间利用到极致？可每每这类追求“完美”和“速成”的人，大多也都会事与愿违地草草收场。这样的情况好像才是常态，尤其是在针对于那些企图在短期内做成一些不太符合实际情况的事情上更是如此。如果这类的事情做得够多，反思的也够勤的话，你会发觉到的：原来长期主义观才是真正的解药。
 于是在经过近四、五年的大量折腾后才惊奇地发现：原来慢便是快。而最开始的“快”才是做错或做慢的真正祸根。
@@ -76,7 +76,7 @@
     <title>1.29</title>
     <link>http://localhost:1313/posts/2026.1.29/</link>
     <pubDate>Thu, 29 Jan 2026 15:01:01 &#43;0800</pubDate>
-    <author>xxxx</author>
+    <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.1.29/</guid>
     <description><![CDATA[<p>今天主要做了一类事：断舍离（日语：<strong>断捨離</strong>）。对手机的卡顿问题、电脑书签杂乱无章的问题进行了一次较为彻底的处理行动。整个过程采用了“第一性原理”的原则，耗时近4个小时才完成。在一切工作都完成的时候，原本易乱易燥的情绪也渐渐地平静了下来。在一切都疏通后，脑中的各种想法也仿佛渐渐地清晰了起来。</p>
 <p>如果想要读懂这种激动且又幸福的感受，其实是需要更加具体地了解一下我究竟做了哪些事情；
@@ -89,7 +89,7 @@
     <title>1.28</title>
     <link>http://localhost:1313/posts/2026.1.28/</link>
     <pubDate>Wed, 28 Jan 2026 15:01:01 &#43;0800</pubDate>
-    <author>xxxx</author>
+    <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.1.28/</guid>
     <description><![CDATA[<p>最近几天几乎全身精力都扑在了微信公众号的身上，为了搞流量同时兼顾着必要的质量，真的付出了相当多的精力在其中。所幸，自己的付出还算是有所收获。截至目前，文章也从阅读量、阅读时长、转发量和推荐数量等量化指标上有了较为明显的提升，让我也有所放心地自信……
 这个月16号凌晨开始疯狂购书，一直到今天。我已经差不多精读完了《上帝的错觉》这本书的绝大多数的内容。读这类书是快不得的，因为你永远都想象不到什么时候会蹦出几个精彩的类比或令人惊叹不已的论证；同时又慢不得，因为第一遍的阅读倘若过于“字字珠玑”的话，反倒会容易出现较为明显的挫败感。当然，前者和后者之间并不矛盾。因为前者更加强调的是精读的重要性，而后者更加强调的是恰到好处的初读节奏。
@@ -104,7 +104,7 @@
     <title>My Post</title>
     <link>http://localhost:1313/posts/my-post/</link>
     <pubDate>Fri, 23 Jan 2026 16:12:33 &#43;0800</pubDate>
-    <author>xxxx</author>
+    <author>mantou</author>
     <guid>http://localhost:1313/posts/my-post/</guid>
     <description><![CDATA[<p>只要开始造，就会发现一大堆之前未曾想象到的困难。最近想着写一篇有关优化投资策略的方案指南出来，可当自己真正准备着笔来写时又发现自己还有无数方面需要继续优化才行。
 不想写得过于俗套，又想把之前写文章时收到的反馈来优化上去，于是此篇文章还在不停地反反复复中推倒又重来地撰写中……
@@ -118,7 +118,7 @@
     <title>First</title>
     <link>http://localhost:1313/posts/first/</link>
     <pubDate>Sun, 18 Jan 2026 15:01:01 &#43;0800</pubDate>
-    <author>xxxx</author>
+    <author>mantou</author>
     <guid>http://localhost:1313/posts/first/</guid>
     <description><![CDATA[<p>大家好呀～这是我的第一篇博客文章</p>
 <p>说实话，连我自己都有些意外。没想到这件事真的被我推进到了「上线」这一步，而且几乎比最初预期 <strong>提前了整整一个月</strong>。当然，稍微自夸一下也是允许的（笑）。不过熟悉我的读者可能也并不意外——这确实算是我的老传统了：一旦决定开始，就会不自觉地加速。</p>

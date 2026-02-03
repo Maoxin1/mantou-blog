@@ -1,6 +1,19 @@
+title = "mantou's blog"
+theme = "LoveIt-0.3.0"
 baseURL = "https://mantou-blog.pages.dev/"
 languageCode = "zh-cn"
-title = "Mantou Blog"
-theme = "LoveIt-0.3.0"
-
 googleAnalytics = "G-0DGXTWGC32"
+
+[params.home.profile]
+  avatarURL = "/images/mantou .jpg"
+  enable = true
+  title = "mantou"
+  subtitle = "变还是不变？这是个问题..."
+  typeit = true
+  social = true
+
+[params.author]
+  avatar = "/images/mantou .jpg"
+  enable = true
+  name = "mantou"
+  link = "https://github.com/mantou"
