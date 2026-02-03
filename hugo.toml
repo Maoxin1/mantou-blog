@@ -19,3 +19,10 @@ googleAnalytics = "G-0DGXTWGC32"
   avatar = "/images/mantou.jpg"
   link = "https://github.com/mantou"
 
+[params.analytics]
+  enable = true
+  google = true
+
+[params.analytics.google]
+  id = "G-0DGXTWGC32"
+  anonymizeIP = false
