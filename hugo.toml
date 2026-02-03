@@ -1,4 +1,7 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+baseURL = "https://mantou-blog.pages.dev/"
+languageCode = "zh-cn"
+title = "Mantou Blog"
 theme = "LoveIt-0.3.0"
+
+[params.analytics]
+  enable = true
