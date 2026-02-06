@@ -3,9 +3,69 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 05 Feb 2026 18:00:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 06 Feb 2026 17:03:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>上帝的货币 —— 比特币</title>
+    <link>http://localhost:1313/posts/2026.2.6/</link>
+    <pubDate>Fri, 06 Feb 2026 17:03:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.2.6/</guid>
+    <description><![CDATA[<blockquote>
+<p><strong>如果这个世界存在一种“不需要信任任何人”的货币，<br>
+那它必然看起来不像人造物。</strong></p>
+</blockquote>
+<hr>
+<h2 id="引言一种不像人造物的货币">引言：一种不像人造物的货币</h2>
+<blockquote>
+<p>为什么人类历史上第一次，出现了一种“不需要信任任何人”的货币？</p>
+</blockquote>
+<p>在谈论比特币之前，有必要先把一件事放在一边：价格。</p>
+<p>如果一种货币的价值只能通过涨跌来证明，那么它讨论的就不是货币，而是投机品。</p>
+<p>人类历史上几乎所有的货币体系，都有一个共同特征——它们需要被管理。<br>
+需要有人决定发行多少、何时调整、在危机中是否例外；<br>
+需要有人对规则负责，也需要有人在规则失效时出面“兜底”。</p>
+<p>比特币试图走一条完全不同的路。</p>
+<p>它不承诺稳定，不承诺增长，甚至不承诺正确的决策。<br>
+它只做了一件事：<strong>把规则写死，然后让系统自行运行。</strong></p>
+<p>在这个意义上，比特币并不是一种更聪明的管理方案，<br>
+而是一种对**“管理本身”**的放弃。</p>
+<p>这种选择并非源于技术自信，<br>
+而更像是对人类长期治理能力的一次现实评估。</p>
+<hr>
+<h2 id="第一章">第一章</h2>
+<h2 id="比特币并非天才的灵光一现而是时代的必然产物">比特币并非天才的灵光一现，而是时代的必然产物</h2>
+<h3 id="11-密码学的解禁技术首次下沉到民间">1.1 密码学的解禁：技术首次下沉到民间</h3>
+<blockquote>
+<p><em>“A specter is haunting the modern world, the specter of crypto anarchy.”</em><br>
+—— Timothy C. May</p>
+</blockquote>
+<p>20 世纪 90 年代，密码学第一次从军方与国家安全机构中“被释放”出来，开始进入民用领域。</p>
+<p>在此之前，高强度加密算法在美国长期被视为军火，其传播与使用受到严格限制。<br>
+这并非技术问题，而是权力问题——<strong>谁可以拥有「不可被窥探的通信能力」</strong>。</p>
+<p>随着互联网的普及，个人开始意识到：<br>
+网络正在放大权力对个体的监控能力，而非相反。</p>
+<p>1993 年，Eric Hughes 在《密码朋克宣言》中写道：</p>
+<blockquote>
+<p>“隐私是开放社会中所必需的。”<br>
+“我们无法期待政府、企业或其他大型无名组织施舍隐私。”</p>
+</blockquote>
+<p>（原文：<a href="https://www.activism.net/cypherpunk/manifesto.html" target="_blank" rel="noopener noreffer ">https://www.activism.net/cypherpunk/manifesto.html</a>）</p>
+<p>密码朋克的核心立场并不激进，它只是极度现实：</p>
+<p><strong>如果隐私是权利，那它就不能依赖他人的善意，只能依赖数学。</strong></p>
+<p>这一思想，后来将直接延伸到货币领域。</p>
+<blockquote>
+<p>如果通信不该被信任，<br>
+那财富，又为何需要被信任？</p>
+</blockquote>
+<hr>
+<h3 id="12-比特币之前的两次失败实验">1.2 比特币之前的两次失败实验</h3>
+<h4 id="a-中心化货币的失败信任人">a. 中心化货币的失败（信任人）</h4>
+<p>David Chaum 在 1980 年代提出的 DigiCash，是数字货币史上的重要先驱。</p>
+<p>它通过盲签名实现匿名支付，在技术上极为先进。<br>
+但 DigiCash 依赖一家中心化公司来发行与清算货币。</p>]]></description>
+</item>
+<item>
     <title>“品味”决定生活质量</title>
     <link>http://localhost:1313/posts/2026.2.5/</link>
     <pubDate>Thu, 05 Feb 2026 18:00:01 &#43;0800</pubDate>
@@ -200,20 +260,6 @@ ps：图附在文尾
 这几天还是有其它事情值得分享一下的：最近黄金涨得很乐观嘛，于是好多人就开始无脑冲进去买。买完之后又疯狂地到处找人问啥时候卖？一有点回调就担心的正事都做不了了，好像以为错过了这次的黄金牛市就错过了发财的机会似的。
 这让我想起了自己最近观察的另外一波人，一波在加密货币冲土狗的人。所谓的土狗就是那种一分钟内暴涨或者归零的代币。整天在群里分享什么什么代币十倍百倍了，又有一两个自诩“老师”的人“装神弄鬼”着唬着一群“二愣子”：跟上了没？这波吃美了等煽动性语句。然后一群人再前赴后继地“附和”着喊着“吃肉了吃肉了”、要不就是懊恼没跟上，抱怨“老师”没喊上车错过了好像可以“暴富跨越阶层”的机会似的，让人无语至极……
 大家能够很明显地感受到这次文章的字数由原来的三四百字的字数突然变成了上千字的程度。为啥？被这群人给逼的呗！甚至越是这般浮躁且疯狂的阶段越该努力些，我们是谁啊？时间会帮我们回答。</p>]]></description>
-</item>
-<item>
-    <title>My Post</title>
-    <link>http://localhost:1313/posts/my-post/</link>
-    <pubDate>Fri, 23 Jan 2026 16:12:33 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/my-post/</guid>
-    <description><![CDATA[<p>只要开始造，就会发现一大堆之前未曾想象到的困难。最近想着写一篇有关优化投资策略的方案指南出来，可当自己真正准备着笔来写时又发现自己还有无数方面需要继续优化才行。
-不想写得过于俗套，又想把之前写文章时收到的反馈来优化上去，于是此篇文章还在不停地反反复复中推倒又重来地撰写中……
-心急吃不了热豆腐嘛，慢工才能出细活。于是秉着“长期且有用、简单又易懂”的原则在疯狂地输入着各种相关的文章或视频内容，大脑也在加速地运作处理着。
-昨天写的那篇关于中医的文章也是这般由来的。虽然文章是在一个下午内写完的，但是整个写作的过程其实横跨了三年有余。再纵观那些有深度高质量的文章的出现其实都是类似的经历。
-没有哪篇好文章是作者随便某天拍个脑门或者灵机一动就可以写出来的，无一例外的都是汇聚了作者长达数年甚至数十年的经历和智慧才得以创作出来的作品。
-之所以会看到很多大家会在短时间内“轻易”且频繁地创作出那么多高质量的内容出来，只不过是因为人家的思考质量和深度已经达到了一个质变的奇点。而展示给大家的动作，只不过是一个自然而然的结果罢了。
-记住，知识的复利效应远比金钱的复利效应更惊人……</p>]]></description>
 </item>
 </channel>
 </rss>
