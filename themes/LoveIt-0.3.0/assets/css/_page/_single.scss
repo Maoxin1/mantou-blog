@@ -32,6 +32,23 @@
     .author {
       font-size: 1.05rem;
     }
+
+    .post-author {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+    }
+
+    .post-author-avatar {
+      display: inline-flex;
+
+      img {
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
   }
 
   .featured-image {

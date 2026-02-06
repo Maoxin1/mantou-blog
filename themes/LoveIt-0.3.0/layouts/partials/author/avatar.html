@@ -1,0 +1,12 @@
+{{- $profile := .Site.Params.home.profile | default dict -}}
+{{- $author := .Site.Params.Author | default dict -}}
+{{- $avatar := $profile.avatarURL -}}
+{{- with $profile.gravatarEmail -}}
+    {{- $avatar = md5 . | printf "https://www.gravatar.com/avatar/%v?s=240&d=mp" -}}
+{{- end -}}
+{{- if not $avatar -}}
+    {{- $avatar = $author.avatar -}}
+{{- end -}}
+{{- with $avatar -}}
+    {{- . -}}
+{{- end -}}
