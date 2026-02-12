@@ -5,6 +5,11 @@ languageCode = "zh-cn"
 
 googleAnalytics = "G-0DGXTWGC32"
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [params.home.profile]
   enable = true
   avatarURL = "/images/mantou.jpg"
