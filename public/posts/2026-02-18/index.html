@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>逻辑系列文章2.0正式启动！ - mantou&#39;s blog</title><meta name="Description" content="This is my cool site"><meta property="og:url" content="http://localhost:1313/posts/2026-02-18/">
+  <meta property="og:site_name" content="mantou&#39;s blog">
+  <meta property="og:title" content="逻辑系列文章2.0正式启动！">
+  <meta property="og:description" content="今天也算是开始正式撰写起了逻辑篇的系列文章。如果没记错的话，这个事情是近期所有计划列表中拖延的时长最久的一件。倒不是因为自己在偷懒，而是这件事被自己规划的过于完美了，以至于迟迟难以开始。这次的开始，其实最主要的是归功于自己决定对这一系列文章进行“模块化生产”，以及放弃“追捧流量”而导致的顺产结果。
+我想，绝对不必事事都要追求完美。在一些“急难愁盼”的问题上还真的需要做出一些明智的取舍。也就是在遇到困难时，找出更为重要的那件事来做即可。在这件事情上，很显然把自己教会很重要，但同时把读者教会那更重要。于是，这一系列的文章也算是从一个相对简单的架构写了起来，与此同时也放弃了把迎合算法作为优先考虑的头等大事来做。
+最终的我：
+亲手把水分挤干，只留干货。 着眼于长期视角， 保留最硬核的逻辑骨架和最犀利的洞察。 前天本来打算琢磨着搞一个美国虚拟银行卡，以便于后续自己长期且稳定的充值 chatgpt 的。结果因为未到工作日不走流程的原因，自己不得不得耐下性子来等一些时日才行。本以为自己也就这样了，结果这两天竟然靠着前天搞卡顺便搞定 IP 的优势，顺利地下载下来了 Claude、Gemini 和 Perplexity 等知名 AI APP。并且还在今天上午的无意尝试中搞定了顺利薅到了 Gemini 的一个月 Pro 会员。于是，瞬间我的工作效率就被无形中提升了数倍。就今天一天就生产了三篇上千字的逻辑系列文章，并且还对 CSS 的自定义设置，使得文章排版无限地接近到了心中那较为完美的审美标准。嗯，收获感满满！ 不过今天并不是全职在折腾这些内容。大部分时间依然在陪家人，就想昨天那样一样。(对比我昨天的文章，你能想象到生产工具优化后所带来的巨大变化了吧？在使用 AI 这方面上，最优的选择就是多付费！这一点对于一个已经有四年多知识付费的经验的生产者来说，其实是更有绝对的不公平优势的相较于没有这个付费意识的生产者来说。这一点没必要浪费时间来论述，反正我们这种人是乐在其中，没时间说服更多人的加入。反正爱喂自己吃点啥就吃点啥吧…)
+大年初二的公园，相当多的商户在摆成一排排的摊位来卖各地的美食。正中间是一个大舞台，上面不断地有着演员在唱歌和跳舞。在绵延不绝的公园大道上，一长队的锣鼓演员在熙熙攘攘的一大群又一大群人的簇拥中行进着。他们时而停下脚步来演奏一阵，时而又缓慢地行驶于街道上，通过锣鼓声来为这本就热闹的街道增添着红火气氛。这样的状态似乎一直延续了很久很久，那热闹声随着我们的离开而渐行渐远… 在回家的路上，正值夕阳西下。随手一拍便是一张绝佳氛围图片。或许生活的意义就在这日常的点点滴滴中显现吧！">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-02-18T22:46:01+08:00">
+    <meta property="article:modified_time" content="2026-02-18T22:46:01+08:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="逻辑系列文章2.0正式启动！">
+  <meta name="twitter:description" content="今天也算是开始正式撰写起了逻辑篇的系列文章。如果没记错的话，这个事情是近期所有计划列表中拖延的时长最久的一件。倒不是因为自己在偷懒，而是这件事被自己规划的过于完美了，以至于迟迟难以开始。这次的开始，其实最主要的是归功于自己决定对这一系列文章进行“模块化生产”，以及放弃“追捧流量”而导致的顺产结果。
+我想，绝对不必事事都要追求完美。在一些“急难愁盼”的问题上还真的需要做出一些明智的取舍。也就是在遇到困难时，找出更为重要的那件事来做即可。在这件事情上，很显然把自己教会很重要，但同时把读者教会那更重要。于是，这一系列的文章也算是从一个相对简单的架构写了起来，与此同时也放弃了把迎合算法作为优先考虑的头等大事来做。
+最终的我：
+亲手把水分挤干，只留干货。 着眼于长期视角， 保留最硬核的逻辑骨架和最犀利的洞察。 前天本来打算琢磨着搞一个美国虚拟银行卡，以便于后续自己长期且稳定的充值 chatgpt 的。结果因为未到工作日不走流程的原因，自己不得不得耐下性子来等一些时日才行。本以为自己也就这样了，结果这两天竟然靠着前天搞卡顺便搞定 IP 的优势，顺利地下载下来了 Claude、Gemini 和 Perplexity 等知名 AI APP。并且还在今天上午的无意尝试中搞定了顺利薅到了 Gemini 的一个月 Pro 会员。于是，瞬间我的工作效率就被无形中提升了数倍。就今天一天就生产了三篇上千字的逻辑系列文章，并且还对 CSS 的自定义设置，使得文章排版无限地接近到了心中那较为完美的审美标准。嗯，收获感满满！ 不过今天并不是全职在折腾这些内容。大部分时间依然在陪家人，就想昨天那样一样。(对比我昨天的文章，你能想象到生产工具优化后所带来的巨大变化了吧？在使用 AI 这方面上，最优的选择就是多付费！这一点对于一个已经有四年多知识付费的经验的生产者来说，其实是更有绝对的不公平优势的相较于没有这个付费意识的生产者来说。这一点没必要浪费时间来论述，反正我们这种人是乐在其中，没时间说服更多人的加入。反正爱喂自己吃点啥就吃点啥吧…)
+大年初二的公园，相当多的商户在摆成一排排的摊位来卖各地的美食。正中间是一个大舞台，上面不断地有着演员在唱歌和跳舞。在绵延不绝的公园大道上，一长队的锣鼓演员在熙熙攘攘的一大群又一大群人的簇拥中行进着。他们时而停下脚步来演奏一阵，时而又缓慢地行驶于街道上，通过锣鼓声来为这本就热闹的街道增添着红火气氛。这样的状态似乎一直延续了很久很久，那热闹声随着我们的离开而渐行渐远… 在回家的路上，正值夕阳西下。随手一拍便是一张绝佳氛围图片。或许生活的意义就在这日常的点点滴滴中显现吧！">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/posts/2026-02-18/" /><link rel="prev" href="http://localhost:1313/posts/2026.2.17/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "逻辑系列文章2.0正式启动！",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/posts\/2026-02-18\/"
+        },"genre": "posts","wordcount":  28 ,
+        "url": "http:\/\/localhost:1313\/posts\/2026-02-18\/","datePublished": "2026-02-18T22:46:01+08:00","dateModified": "2026-02-18T22:46:01+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mantou"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mantou&#39;s blog">My cool site</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mantou&#39;s blog">My cool site</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">逻辑系列文章2.0正式启动！</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/mantou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mantou</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-02-18">2026-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 28 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>今天也算是开始正式撰写起了逻辑篇的系列文章。如果没记错的话，这个事情是近期所有计划列表中拖延的时长最久的一件。倒不是因为自己在偷懒，而是这件事被自己规划的过于完美了，以至于迟迟难以开始。这次的开始，其实最主要的是归功于自己决定对这一系列文章进行“模块化生产”，以及放弃“追捧流量”而导致的顺产结果。</p>
+<p>我想，绝对不必事事都要追求完美。在一些“急难愁盼”的问题上还真的需要做出一些明智的取舍。也就是在遇到困难时，找出更为重要的那件事来做即可。在这件事情上，很显然把自己教会很重要，但同时把读者教会那更重要。于是，这一系列的文章也算是从一个相对简单的架构写了起来，与此同时也放弃了把迎合算法作为优先考虑的头等大事来做。</p>
+<p>最终的我：</p>
+<blockquote>
+<p>亲手把水分挤干，只留干货。
+着眼于长期视角，
+保留最硬核的逻辑骨架和最犀利的洞察。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="%e9%80%bb%e8%be%91.png"
+        data-srcset="%e9%80%bb%e8%be%91.png, %e9%80%bb%e8%be%91.png 1.5x, %e9%80%bb%e8%be%91.png 2x"
+        data-sizes="auto"
+        alt="逻辑.png"
+        title="luoji" />
+前天本来打算琢磨着搞一个美国虚拟银行卡，以便于后续自己长期且稳定的充值 chatgpt 的。结果因为未到工作日不走流程的原因，自己不得不得耐下性子来等一些时日才行。本以为自己也就这样了，结果这两天竟然靠着前天搞卡顺便搞定 IP 的优势，顺利地下载下来了 <strong>Claude、Gemini 和 Perplexity</strong> 等知名 AI APP。并且还在今天上午的无意尝试中搞定了顺利薅到了 Gemini 的一个月 Pro 会员。于是，瞬间我的工作效率就被无形中提升了数倍。就今天一天就生产了三篇上千字的逻辑系列文章，并且还对 CSS 的自定义设置，使得文章排版无限地接近到了心中那较为完美的审美标准。嗯，收获感满满！
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="AI.png"
+        data-srcset="AI.png, AI.png 1.5x, AI.png 2x"
+        data-sizes="auto"
+        alt="AI.png"
+        title="ai" /></p>
+</blockquote>
+<p>不过今天并不是全职在折腾这些内容。大部分时间依然在陪家人，就想昨天那样一样。(对比我昨天的文章，你能想象到生产工具优化后所带来的巨大变化了吧？在使用 AI 这方面上，最优的选择就是多付费！这一点对于一个已经有四年多知识付费的经验的生产者来说，其实是更有绝对的不公平优势的相较于没有这个付费意识的生产者来说。这一点没必要浪费时间来论述，反正我们这种人是乐在其中，没时间说服更多人的加入。反正爱喂自己吃点啥就吃点啥吧&hellip;)</p>
+<p>大年初二的公园，相当多的商户在摆成一排排的摊位来卖各地的美食。正中间是一个大舞台，上面不断地有着演员在唱歌和跳舞。在绵延不绝的公园大道上，一长队的锣鼓演员在熙熙攘攘的一大群又一大群人的簇拥中行进着。他们时而停下脚步来演奏一阵，时而又缓慢地行驶于街道上，通过锣鼓声来为这本就热闹的街道增添着红火气氛。这样的状态似乎一直延续了很久很久，那热闹声随着我们的离开而渐行渐远&hellip;
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="%e8%a1%97%e9%81%93.jpg"
+        data-srcset="%e8%a1%97%e9%81%93.jpg, %e8%a1%97%e9%81%93.jpg 1.5x, %e8%a1%97%e9%81%93.jpg 2x"
+        data-sizes="auto"
+        alt="街道.jpg"
+        title="jiedao" />
+在回家的路上，正值夕阳西下。随手一拍便是一张绝佳氛围图片。或许生活的意义就在这日常的点点滴滴中显现吧！</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2026-02-18</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/posts/2026-02-18/" data-title="逻辑系列文章2.0正式启动！"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/posts/2026-02-18/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/posts/2026-02-18/" data-title="逻辑系列文章2.0正式启动！"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/posts/2026-02-18/" data-title="逻辑系列文章2.0正式启动！"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/posts/2026-02-18/" data-title="逻辑系列文章2.0正式启动！"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/2026.2.17/" class="prev" rel="prev" title="大年初一：新年头一天！"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>大年初一：新年头一天！</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.154.5">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/mantou" target="_blank">mantou</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
