@@ -32,8 +32,17 @@
             <div class="post-meta-line">
                 {{- $author := $params.author | default .Site.Params.Author.name | default (T "author") -}}
                 {{- $authorLink := $params.authorlink | default .Site.Params.Author.link | default .Site.Home.RelPermalink -}}
+                {{- $avatar := partial "author/avatar.html" . -}}
                 <span class="post-author">
-                    {{- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Icon" (dict "Class" "fas fa-user-circle fa-fw") "Content" $author -}}
+                    {{- with $avatar -}}
+                        <span class="post-author-avatar">
+                            {{- dict "Src" . "Alt" $author | partial "plugin/img.html" -}}
+                        </span>
+                    {{- end -}}
+                    {{- $options := dict "Class" "author" "Destination" $authorLink "Title" "Author" "Rel" "author" "Content" $author -}}
+                    {{- if not $avatar -}}
+                        {{- $options = dict "Icon" (dict "Class" "fas fa-user-circle fa-fw") | merge $options -}}
+                    {{- end -}}
                     {{- partial "plugin/a.html" $options -}}
                 </span>
 
