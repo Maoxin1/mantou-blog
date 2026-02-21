@@ -34,7 +34,7 @@ googleAnalytics = "G-0DGXTWGC32"
     url = "https://x.com/mantouaoao"
 
     [params.social.x.icon]
-      Class = "fab fa-x-twitter fa-fw"
+      Class = "fab fa-twitter fa-fw"
 
   [params.social.wechat]
     weight = 22
@@ -42,7 +42,7 @@ googleAnalytics = "G-0DGXTWGC32"
     url = "https://weixin.sogou.com/weixin?type=1&query=mantou%20only"
 
     [params.social.wechat.icon]
-      Class = "fab fa-weixin fa-fw"
+      Src = "svg/icons/wechat-official.svg"`r`n
 
 # ❌ 删除或注释掉这一行（GA4 不用这个）
 # googleAnalytics = "G-0DGXTWGC32"
@@ -53,3 +53,4 @@ googleAnalytics = "G-0DGXTWGC32"
 [params.analytics.google]
   id = "G-0DGXTWGC32"
   anonymizeIP = false
+
