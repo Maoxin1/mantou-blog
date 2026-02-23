@@ -3,9 +3,17 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 22 Feb 2026 21:39:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 23 Feb 2026 21:39:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>这该死的长大感</title>
+    <link>http://localhost:1313/posts/2026.2.23/</link>
+    <pubDate>Mon, 23 Feb 2026 21:39:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.2.23/</guid>
+    <description><![CDATA[<p>这四天时间里，自己做的最多的事情就是与 openclaw 去聊天。不仅把它当作平时闲聊的平替，而且还把他当作自己烘托群聊气氛的工具。除此之外，就是跟 Gemini 来聊天，聊东聊西地也没把它给聊烦。对方不仅专业，而且还很有耐心。那种专业是六边形战士般的专业，那种耐心也是全方面的专业。</p>]]></description>
+</item>
+<item>
     <title>前天、昨天和今天的这二十个小时</title>
     <link>http://localhost:1313/posts/2026.2.22/</link>
     <pubDate>Sun, 22 Feb 2026 21:39:01 &#43;0800</pubDate>
@@ -85,14 +93,6 @@
     <description><![CDATA[<p>昨日坐了快二十个小时的火车，在我下车我感觉我一下子老了十多岁。
 
 车外的空气确实清新，甚至连阳光都那么的明媚。可我这具尚有些许气息的躯体却在未得以充足休息的情况下，就好像成了一具已然腐朽的尸体。没有气力继续享受阳光带来的沐浴感，有得是无力睁开双眼的无奈。</p>]]></description>
-</item>
-<item>
-    <title>回家过年的一些思考</title>
-    <link>http://localhost:1313/posts/2026-02-13/</link>
-    <pubDate>Fri, 13 Feb 2026 15:01:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026-02-13/</guid>
-    <description><![CDATA[<p>今天早上醒来的是较早的，虽然自己并不对回家抱有多大的期待，至少没把这件事太当回事吧！但奇怪的是，自己的生物钟竟然会因此而受到这么大的影响。往日听不到的闹钟，今早竟然早早地听见了。在往日听到时，自己还能继续“心安理得”地偷睡会儿，但今天的表现完全反了过来。不仅仅是猫一直在打扰我的睡眠，而且自己内心也有一股烦躁劲。</p>]]></description>
 </item>
 </channel>
 </rss>
