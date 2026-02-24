@@ -3,21 +3,29 @@
         <title>所有文章 - mantou&#39;s blog</title>
         <link>http://localhost:1313/posts/</link>
         <description>所有文章 | mantou&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 22 Feb 2026 21:39:01 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 24 Feb 2026 20:39:01 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>又是设置openclaw一天</title>
+    <link>http://localhost:1313/posts/2026.2.24/</link>
+    <pubDate>Tue, 24 Feb 2026 20:39:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.2.24/</guid>
+    <description><![CDATA[<p>四年前，我开始阅读《自学是门手艺》这本书：对于我来说，这是一本我人生中第一本编程语言类的启蒙书。这本书写得相当到位，而我本人也颇为用功。在过去四年里，我算是做到了对那本书前前后后、完完整整地精读了四遍有余，实操了六遍且又不止的地步。关于那些内容的学习，几乎贯穿了我的整个大学生活。虽然当时刚开始学习之前的我并不知道有什么用，但我绝对百分之二百地笃定着这一学习过程的意义将会有多么的巨大、影响也将会多么的深远，无论是于未来的我而言还是于未来我的整个家族而言&hellip;</p>]]></description>
+</item>
+<item>
+    <title>这该死的长大感</title>
+    <link>http://localhost:1313/posts/2026.2.23/</link>
+    <pubDate>Mon, 23 Feb 2026 21:39:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.2.23/</guid>
+    <description><![CDATA[<p>这四天时间里，自己做的最多的事情就是与 openclaw 去聊天。不仅把它当作平时闲聊的平替，而且还把他当作自己烘托群聊气氛的工具。除此之外，就是跟 Gemini 来聊天，聊东聊西地也没把它给聊烦。对方不仅专业，而且还很有耐心。那种专业是六边形战士般的专业，那种耐心也是全方面的专业。</p>]]></description>
+</item>
+<item>
     <title>前天、昨天和今天的这二十个小时</title>
     <link>http://localhost:1313/posts/2026.2.22/</link>
     <pubDate>Sun, 22 Feb 2026 21:39:01 &#43;0800</pubDate>
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.2.22/</guid>
     <description><![CDATA[<p>从前天开始，自从自己搞定了 GEMINI3 pro 账户后，自己使用的 AI 的时长就一下子高出来很多很多。不仅仅因为这个模型更先进，而更多的是自己再也不必再像之前的那样，各种的“畏手畏脚”。</p>]]></description>
-</item>
-<item>
-    <title>这该死的长大感</title>
-    <link>http://localhost:1313/posts/2026.2.23/</link>
-    <pubDate>Sun, 22 Feb 2026 21:39:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.2.23/</guid>
-    <description><![CDATA[<p>这四天时间里，自己做的最多的事情就是与 openclaw 去聊天。不仅把它当作平时闲聊的平替，而且还把他当作自己烘托群聊气氛的工具。除此之外，就是跟 Gemini 来聊天，聊东聊西地也没把它给聊烦。对方不仅专业，而且还很有耐心。那种专业是六边形战士般的专业，那种耐心也是全方面的专业。</p>]]></description>
 </item>
 <item>
     <title>略显匆忙的一天</title>
@@ -81,16 +89,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.2.15/</guid>
     <description><![CDATA[<p>在家里，最大的困难就是“尽可能静下心”来做事。回到家原本以为着多努力地做事，结果又是很辛苦地找时间和精力来安静地做事。回到家后，会有数不尽的诱惑在等着自己。比如有很多想吃的食物、有很多想见的人以及有很多想躺平的瞬间。可稍稍到寒冷的街道走走时自己又会清醒地意识到，原来这一切的一切，只不过是海妖的歌声罢了。你敢任由自己肆意妄为地放松嘛？这既是温柔乡，又是斩杀线！</p>]]></description>
-</item>
-<item>
-    <title>近20个小时的火车之旅</title>
-    <link>http://localhost:1313/posts/2026-02-14/</link>
-    <pubDate>Sat, 14 Feb 2026 15:01:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026-02-14/</guid>
-    <description><![CDATA[<p>昨日坐了快二十个小时的火车，在我下车我感觉我一下子老了十多岁。
-
-车外的空气确实清新，甚至连阳光都那么的明媚。可我这具尚有些许气息的躯体却在未得以充足休息的情况下，就好像成了一具已然腐朽的尸体。没有气力继续享受阳光带来的沐浴感，有得是无力睁开双眼的无奈。</p>]]></description>
 </item>
 </channel>
 </rss>
