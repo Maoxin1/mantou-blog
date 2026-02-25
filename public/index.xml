@@ -3,9 +3,18 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 24 Feb 2026 20:39:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 25 Feb 2026 22:49:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>这是一篇随性写作文</title>
+    <link>http://localhost:1313/posts/2026.2.25/</link>
+    <pubDate>Wed, 25 Feb 2026 22:49:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.2.25/</guid>
+    <description><![CDATA[<p>眼睛是疲乏的干涩，我不知道这种状态还会持续多久。因为这种状态本就可以靠着一顿充足的酣睡便可以解决，可这样的行为我却毫无兴致去做，或者说不知道为什么不去这么做。
+我回想去看，可能这与自己没能候补到车票有关？还是由于昨日休息不够而致使如此？又或者是因为今年过于冷清的春节以及日渐走远的朋友们？</p>]]></description>
+</item>
+<item>
     <title>又是设置龙虾的一天</title>
     <link>http://localhost:1313/posts/2026.2.24/</link>
     <pubDate>Tue, 24 Feb 2026 20:39:01 &#43;0800</pubDate>
@@ -83,14 +92,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026-02-16/</guid>
     <description><![CDATA[<p>今天就是大年初一前夕的除夕夜了，这过得属实对我来说有些“唐突”。尤其是今年，因为自己确实并未感知到太多过年的元素。尤其是过年时应有的热闹可真的一点都没够。</p>]]></description>
-</item>
-<item>
-    <title>家是温柔乡</title>
-    <link>http://localhost:1313/posts/2026.2.15/</link>
-    <pubDate>Sun, 15 Feb 2026 15:01:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.2.15/</guid>
-    <description><![CDATA[<p>在家里，最大的困难就是“尽可能静下心”来做事。回到家原本以为着多努力地做事，结果又是很辛苦地找时间和精力来安静地做事。回到家后，会有数不尽的诱惑在等着自己。比如有很多想吃的食物、有很多想见的人以及有很多想躺平的瞬间。可稍稍到寒冷的街道走走时自己又会清醒地意识到，原来这一切的一切，只不过是海妖的歌声罢了。你敢任由自己肆意妄为地放松嘛？这既是温柔乡，又是斩杀线！</p>]]></description>
 </item>
 </channel>
 </rss>
