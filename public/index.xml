@@ -3,9 +3,17 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 25 Feb 2026 22:49:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 26 Feb 2026 22:03:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>不吹不黑，客观描述</title>
+    <link>http://localhost:1313/posts/2026-02-26/</link>
+    <pubDate>Thu, 26 Feb 2026 22:03:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026-02-26/</guid>
+    <description><![CDATA[<p>今天下午两点多复训完今天的内容课程后，本来把复训中学到的、受到的一些启发和自己的 AI 助理来沟通一下，以此整合和重新修订一下当前的定投清单。结果自己又临时起意，随口问了几个 AI 的问题后，自己便将自己整整一下午的时间投入到与 AI 的交流中。越聊越深入、越聊越开心、越聊越激动、越聊越喜悦。</p>]]></description>
+</item>
+<item>
     <title>这是一篇随性写作文</title>
     <link>http://localhost:1313/posts/2026.2.25/</link>
     <pubDate>Wed, 25 Feb 2026 22:49:01 &#43;0800</pubDate>
@@ -84,14 +92,6 @@
     <description><![CDATA[<p>假如某一天突然间获得一笔闲钱，你会怎么处置你的金钱呢？
 再进一步来问，假如你突然拥有了一整块的空闲时间，你又会怎么安排你的时间呢？</p>
 <p>在回答这个问题之前的我，绝对要先冷静一下而后再做回答。因为在此之前的自己，并未对这两个甚为重要且又不可或缺的内容进行过相对认真且全面的思考和审视。</p>]]></description>
-</item>
-<item>
-    <title>赶进度，要有度</title>
-    <link>http://localhost:1313/posts/2026-02-16/</link>
-    <pubDate>Mon, 16 Feb 2026 23:45:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026-02-16/</guid>
-    <description><![CDATA[<p>今天就是大年初一前夕的除夕夜了，这过得属实对我来说有些“唐突”。尤其是今年，因为自己确实并未感知到太多过年的元素。尤其是过年时应有的热闹可真的一点都没够。</p>]]></description>
 </item>
 </channel>
 </rss>
