@@ -3,9 +3,18 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 26 Feb 2026 22:03:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 27 Feb 2026 23:58:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>AI时代，我没空想你！</title>
+    <link>http://localhost:1313/posts/2026.2.27/</link>
+    <pubDate>Fri, 27 Feb 2026 23:58:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.2.27/</guid>
+    <description><![CDATA[<p>如果说2023年被称为是“AI元年”的话，那么今年即2026年可以说是<strong>从“技术狂欢”转向“价值落地”的关键一年</strong>。</p>
+<p>上个月底我写了一篇关于 OpenClaw 的一篇文章，当时这个开源AI项目还叫 Clawdbot。似乎从一开始就立刻受到了极大的关注，人们对于其的狂欢程度几乎约等于2023年年初人们对待 chatgpt 的态度。也是这般热度下，我才得以觉察到这个项目。进而在对其进行了初步了解后，撰写了一篇科普文发在微信公众号上。随后又在二十多天后，在自己的电脑本地上开始正式部署并使用了龙虾这个火遍整个AI圈的项目。</p>]]></description>
+</item>
+<item>
     <title>不吹不黑，客观描述</title>
     <link>http://localhost:1313/posts/2026-02-26/</link>
     <pubDate>Thu, 26 Feb 2026 22:03:01 &#43;0800</pubDate>
@@ -82,16 +91,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026-02-18/</guid>
     <description><![CDATA[<p>今天也算是开始正式撰写起了逻辑篇的系列文章。如果没记错的话，这个事情是近期所有计划列表中拖延的时长最久的一件。倒不是因为自己在偷懒，而是这件事被自己规划的过于完美了，以至于迟迟难以开始。这次的开始，其实最主要的是归功于自己决定对这一系列文章进行“模块化生产”，以及放弃“追捧流量”而导致的顺产结果。</p>]]></description>
-</item>
-<item>
-    <title>大年初一：新年头一天！</title>
-    <link>http://localhost:1313/posts/2026.2.17/</link>
-    <pubDate>Tue, 17 Feb 2026 21:01:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.2.17/</guid>
-    <description><![CDATA[<p>假如某一天突然间获得一笔闲钱，你会怎么处置你的金钱呢？
-再进一步来问，假如你突然拥有了一整块的空闲时间，你又会怎么安排你的时间呢？</p>
-<p>在回答这个问题之前的我，绝对要先冷静一下而后再做回答。因为在此之前的自己，并未对这两个甚为重要且又不可或缺的内容进行过相对认真且全面的思考和审视。</p>]]></description>
 </item>
 </channel>
 </rss>
