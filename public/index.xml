@@ -3,9 +3,18 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 27 Feb 2026 23:58:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 28 Feb 2026 23:30:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>选择决定投资结果</title>
+    <link>http://localhost:1313/posts/2026.2.28/</link>
+    <pubDate>Sat, 28 Feb 2026 23:30:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.2.28/</guid>
+    <description><![CDATA[<p>似乎从很久之前开始，自己身上就有一种极度慕强的心理。当然了，这个慕强的概念或许也与现在主流的慕强概念有些出入。</p>
+<p>|比如我的慕强表现为：在金融市场中，自己慕强于各个板块的龙头企业。比如咖啡界的星巴克、电车中的特斯拉、AI领域的英伟达和数字世界里的比特币。而这一逻辑仅仅来自于自己很久之前给自己预设好的、且随着不断的亲手验证而意识到越来越正确的马太效应。</p>]]></description>
+</item>
+<item>
     <title>AI时代，我没空想你！</title>
     <link>http://localhost:1313/posts/2026.2.27/</link>
     <pubDate>Fri, 27 Feb 2026 23:58:01 &#43;0800</pubDate>
@@ -83,14 +92,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.2.19/</guid>
     <description><![CDATA[<p>今天走完了最后一天的亲戚后，这一年也就算是过完了。今年的年味对于我来说是绝对不够的，至少与201几年的那个时候相比，真的差太远了。不过对于这个年纪的我来说，这并不重要。重要的是我所需要的点是否可以被满足？</p>]]></description>
-</item>
-<item>
-    <title>逻辑系列文章2.0正式启动！</title>
-    <link>http://localhost:1313/posts/2026-02-18/</link>
-    <pubDate>Wed, 18 Feb 2026 22:46:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026-02-18/</guid>
-    <description><![CDATA[<p>今天也算是开始正式撰写起了逻辑篇的系列文章。如果没记错的话，这个事情是近期所有计划列表中拖延的时长最久的一件。倒不是因为自己在偷懒，而是这件事被自己规划的过于完美了，以至于迟迟难以开始。这次的开始，其实最主要的是归功于自己决定对这一系列文章进行“模块化生产”，以及放弃“追捧流量”而导致的顺产结果。</p>]]></description>
 </item>
 </channel>
 </rss>
