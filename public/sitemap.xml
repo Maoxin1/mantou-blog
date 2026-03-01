@@ -2,8 +2,9 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://localhost:1313/</loc><lastmod>2026-02-28T23:30:01&#43;08:00</lastmod></url><url>
-            <loc>http://localhost:1313/posts/</loc><lastmod>2026-02-28T23:30:01&#43;08:00</lastmod></url><url>
+            <loc>http://localhost:1313/</loc><lastmod>2026-03-01T20:28:01&#43;08:00</lastmod></url><url>
+            <loc>http://localhost:1313/posts/</loc><lastmod>2026-03-01T20:28:01&#43;08:00</lastmod></url><url>
+            <loc>http://localhost:1313/posts/2026.3.1/</loc><lastmod>2026-03-01T20:28:01&#43;08:00</lastmod></url><url>
             <loc>http://localhost:1313/posts/2026.2.28/</loc><lastmod>2026-02-28T23:30:01&#43;08:00</lastmod></url><url>
             <loc>http://localhost:1313/posts/2026.2.27/</loc><lastmod>2026-02-27T23:58:01&#43;08:00</lastmod></url><url>
             <loc>http://localhost:1313/posts/2026-02-26/</loc><lastmod>2026-02-26T22:03:01&#43;08:00</lastmod></url><url>

@@ -3,9 +3,18 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 28 Feb 2026 23:30:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 01 Mar 2026 20:28:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>三月一日</title>
+    <link>http://localhost:1313/posts/2026.3.1/</link>
+    <pubDate>Sun, 01 Mar 2026 20:28:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.1/</guid>
+    <description><![CDATA[<p>截至下午五点四十六分，我在今天主要做了两件事：整理了一篇有关美光科技公司的文章和卸载掉了电脑上的openclaw。</p>
+<p>前者的工作是为了加深自己最近对于AI方面学习的印象，把学到的读书笔记整理成了微信公众号文章的形式发布出去了。这也是自己的例行公事罢了。</p>]]></description>
+</item>
+<item>
     <title>选择决定投资结果</title>
     <link>http://localhost:1313/posts/2026.2.28/</link>
     <pubDate>Sat, 28 Feb 2026 23:30:01 &#43;0800</pubDate>
@@ -84,14 +93,6 @@
 
 
 一个是数字世界中的绝对龙头，另一个是这个世界中最大的本地生活龙头企业。现在的行情中，BTC相较于本轮牛市最高点位已经跌去了近一半的市值、而美团在阿里巴巴这个财大气粗的巨无霸企业面前，也已被打压的气喘吁吁的，尚且在近六年中的极端低位区歇息盘整中&hellip;</p>]]></description>
-</item>
-<item>
-    <title>大年初三这一夜</title>
-    <link>http://localhost:1313/posts/2026.2.19/</link>
-    <pubDate>Thu, 19 Feb 2026 22:46:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.2.19/</guid>
-    <description><![CDATA[<p>今天走完了最后一天的亲戚后，这一年也就算是过完了。今年的年味对于我来说是绝对不够的，至少与201几年的那个时候相比，真的差太远了。不过对于这个年纪的我来说，这并不重要。重要的是我所需要的点是否可以被满足？</p>]]></description>
 </item>
 </channel>
 </rss>
