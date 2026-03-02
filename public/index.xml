@@ -3,9 +3,19 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 01 Mar 2026 20:28:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 02 Mar 2026 23:21:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>假期的句号天</title>
+    <link>http://localhost:1313/posts/2026.3.2/</link>
+    <pubDate>Mon, 02 Mar 2026 23:21:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.2/</guid>
+    <description><![CDATA[<p>今天中午睡了个午觉，可这平平常常的觉却是自己好久好久以来第一次睡的午觉。因为在很久之前，自己就彻底放弃了午休。因为我认为只要我想要的事情，我都可以做到。尽管整个改正过程中出现了很多很多的困难和挑战，但最终我还是做到了。但今天还是去午休了一次，实在是因为最近晚上睡眠过少所致。因这些原因所致，我是一边午休一边在拼命地从梦中走出。同时，我又在睡梦中醒来后，显得异常的清爽。就是电脑重置后的畅快感。好多垃圾被卸载掉了，于是一切的一切就清爽的不行。
+下午的街道，由于昨天下的一整天的暴雪所致，使得路面充满了水、泥和尘土的混合物。走在路上的我，时常得小心翼翼地提防走着。仅仅是为了在离开家乡前再多看家乡一眼，再趁着节日的氛围来多多热闹一番。
+这一场久违的午觉，像是给超负荷运转太久的系统按下了强制执行的“一键还原”。</p>]]></description>
+</item>
+<item>
     <title>三月一日</title>
     <link>http://localhost:1313/posts/2026.3.1/</link>
     <pubDate>Sun, 01 Mar 2026 20:28:01 &#43;0800</pubDate>
@@ -80,19 +90,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.2.21/</guid>
     <description><![CDATA[<p>今天的文章需要写的更匆忙一些，因为写文章的时间已经很晚很晚了。以及到了凌晨十二点的时间了，严重耽误到了自己的睡眠时间。不过所幸一年里没几次是这种情况，同时这种情况也是一年之间必定会经历的事情。要怎么做，还得去看。</p>]]></description>
-</item>
-<item>
-    <title>对当前金融市场的些许个人看法</title>
-    <link>http://localhost:1313/posts/2026-02-20/</link>
-    <pubDate>Fri, 20 Feb 2026 20:01:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026-02-20/</guid>
-    <description><![CDATA[<p>最近美团公司发出了利润预警，我隐约间感觉到机会来了。</p>
-<p>5万块钱如何翻一倍到10万块钱，就是敏锐地在各个金融板块上找到极佳的金融资产进行伏击。</p>
-<p>按照自己当前的认知水平，我会认为在短期内，也就是一到三年中最具性价比的就两个：BTC和美团。
-
-
-一个是数字世界中的绝对龙头，另一个是这个世界中最大的本地生活龙头企业。现在的行情中，BTC相较于本轮牛市最高点位已经跌去了近一半的市值、而美团在阿里巴巴这个财大气粗的巨无霸企业面前，也已被打压的气喘吁吁的，尚且在近六年中的极端低位区歇息盘整中&hellip;</p>]]></description>
 </item>
 </channel>
 </rss>
