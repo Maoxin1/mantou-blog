@@ -3,7 +3,24 @@
         <title>所有文章 - mantou&#39;s blog</title>
         <link>http://localhost:1313/posts/</link>
         <description>所有文章 | mantou&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 02 Mar 2026 23:21:01 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 04 Mar 2026 17:39:01 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>在办公室里的思考</title>
+    <link>http://localhost:1313/posts/2026.3.4/</link>
+    <pubDate>Wed, 04 Mar 2026 17:39:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.4/</guid>
+    <description><![CDATA[<p>今天是到广州的第二天，坐在工位上的我略带惆怅地看着窗外的珠江。面对毫无任何工作安排和目标的现状的我，似乎当下的自己除了以静为动地来应对外，几乎没有更好的事情来做。说是愁吧，那不假；说没在愁吧，好像还真是。就好像即将开始做一些新的事情之前时状态的我，此刻又到了某种状态的临界点上。</p>]]></description>
+</item>
+<item>
+    <title>高铁上</title>
+    <link>http://localhost:1313/posts/2026.3.3/</link>
+    <pubDate>Tue, 03 Mar 2026 20:39:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.3/</guid>
+    <description><![CDATA[<p>下一站，咸宁北。</p>
+<p>在复兴号列车上坐着的我，略带些倦意和醉意。这是在上高铁前，不充足的睡眠以及刚刚小酌一小瓶果酒后的共同催化结果。即便刚刚已经睡过了一两个小时，但疲乏的神态自己还是能够感知得到的，也更清楚这么一两个小时的休息是多么的不够用。</p>]]></description>
+</item>
+<item>
     <title>假期的句号天</title>
     <link>http://localhost:1313/posts/2026.3.2/</link>
     <pubDate>Mon, 02 Mar 2026 23:21:01 &#43;0800</pubDate>
@@ -72,22 +89,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.2.23/</guid>
     <description><![CDATA[<p>这四天时间里，自己做的最多的事情就是与 openclaw 去聊天。不仅把它当作平时闲聊的平替，而且还把他当作自己烘托群聊气氛的工具。除此之外，就是跟 Gemini 来聊天，聊东聊西地也没把它给聊烦。对方不仅专业，而且还很有耐心。那种专业是六边形战士般的专业，那种耐心也是全方面的专业。</p>]]></description>
-</item>
-<item>
-    <title>前天、昨天和今天的这二十个小时</title>
-    <link>http://localhost:1313/posts/2026.2.22/</link>
-    <pubDate>Sun, 22 Feb 2026 21:39:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.2.22/</guid>
-    <description><![CDATA[<p>从前天开始，自从自己搞定了 GEMINI3 pro 账户后，自己使用的 AI 的时长就一下子高出来很多很多。不仅仅因为这个模型更先进，而更多的是自己再也不必再像之前的那样，各种的“畏手畏脚”。</p>]]></description>
-</item>
-<item>
-    <title>略显匆忙的一天</title>
-    <link>http://localhost:1313/posts/2026.2.21/</link>
-    <pubDate>Sat, 21 Feb 2026 21:39:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.2.21/</guid>
-    <description><![CDATA[<p>今天的文章需要写的更匆忙一些，因为写文章的时间已经很晚很晚了。以及到了凌晨十二点的时间了，严重耽误到了自己的睡眠时间。不过所幸一年里没几次是这种情况，同时这种情况也是一年之间必定会经历的事情。要怎么做，还得去看。</p>]]></description>
 </item>
 </channel>
 </rss>
