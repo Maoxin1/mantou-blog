@@ -3,9 +3,17 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 04 Mar 2026 17:39:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 05 Mar 2026 17:48:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>二十四小时后的思考</title>
+    <link>http://localhost:1313/posts/2026.3.5/</link>
+    <pubDate>Thu, 05 Mar 2026 17:48:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.5/</guid>
+    <description><![CDATA[<p>现在的自己或许是顾虑最多的时候，顾虑工资不高、顾虑做不好工作、顾虑经济压力过大什么的，结果在过去的一整天的时间里因为这事把自己的心态搞得十分的糟糕。可现在回头再去看，一切事情都没变。该什么样子的还是什么样子，一直都在客观存在着。于是在意识到这里的我，已经差不多“挣扎式地浪费”了一天的时间的。说是不后悔，是假的。</p>]]></description>
+</item>
+<item>
     <title>在办公室里的思考</title>
     <link>http://localhost:1313/posts/2026.3.4/</link>
     <pubDate>Wed, 04 Mar 2026 17:39:01 &#43;0800</pubDate>
@@ -83,14 +91,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.2.24/</guid>
     <description><![CDATA[<p>四年前，我开始阅读《自学是门手艺》这本书：对于我来说，这是一本我人生中第一本编程语言类的启蒙书。这本书写得相当到位，而我本人也颇为用功。在过去四年里，我算是做到了对那本书前前后后、完完整整地精读了四遍有余，实操了六遍且又不止的地步。关于那些内容的学习，几乎贯穿了我的整个大学生活。虽然当时刚开始学习之前的我并不知道有什么用，但我绝对百分之二百地笃定着这一学习过程的意义将会有多么的巨大、影响也将会多么的深远，无论是于未来的我而言还是于未来我的整个家族而言&hellip;</p>]]></description>
-</item>
-<item>
-    <title>这该死的长大感</title>
-    <link>http://localhost:1313/posts/2026.2.23/</link>
-    <pubDate>Mon, 23 Feb 2026 21:39:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.2.23/</guid>
-    <description><![CDATA[<p>这四天时间里，自己做的最多的事情就是与 openclaw 去聊天。不仅把它当作平时闲聊的平替，而且还把他当作自己烘托群聊气氛的工具。除此之外，就是跟 Gemini 来聊天，聊东聊西地也没把它给聊烦。对方不仅专业，而且还很有耐心。那种专业是六边形战士般的专业，那种耐心也是全方面的专业。</p>]]></description>
 </item>
 </channel>
 </rss>
