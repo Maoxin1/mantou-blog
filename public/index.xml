@@ -3,9 +3,18 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 07 Mar 2026 21:39:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 08 Mar 2026 22:20:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>这是对孤独的记录，也是在自我对话</title>
+    <link>http://localhost:1313/posts/2026.3.8/</link>
+    <pubDate>Sun, 08 Mar 2026 22:20:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.8/</guid>
+    <description><![CDATA[<p>今天下午子房回家了，结束了在我家短暂居住的两天时间。然后再他离开了没多久，我的另一个朋友也在和我吃完晚饭后也回去了&hellip;</p>
+<p>写在这里时的我，孤独感和寂寞感已经消散掉了许多。似乎这与自己开始码字的动作有关吧？但我更想说的是，这样的场景其实被我经历过了无数次。可偏偏在这一方面上，我就是显得异常的不适应。无论经历过多少次这样的离别，我在他们离开的前几个小时内我的情绪就会开始疯狂的翻腾。说不上来什么滋味，但就是会塞在肚子里难受且说不上来。然后再在他们离开时含情脉脉地看着他们的离去&hellip;</p>]]></description>
+</item>
+<item>
     <title>疯狂的输入！</title>
     <link>http://localhost:1313/posts/2026.3.7/</link>
     <pubDate>Sat, 07 Mar 2026 21:39:01 &#43;0800</pubDate>
@@ -83,14 +92,6 @@
     <guid>http://localhost:1313/posts/2026.2.27/</guid>
     <description><![CDATA[<p>如果说2023年被称为是“AI元年”的话，那么今年即2026年可以说是<strong>从“技术狂欢”转向“价值落地”的关键一年</strong>。</p>
 <p>上个月底我写了一篇关于 OpenClaw 的一篇文章，当时这个开源AI项目还叫 Clawdbot。似乎从一开始就立刻受到了极大的关注，人们对于其的狂欢程度几乎约等于2023年年初人们对待 chatgpt 的态度。也是这般热度下，我才得以觉察到这个项目。进而在对其进行了初步了解后，撰写了一篇科普文发在微信公众号上。随后又在二十多天后，在自己的电脑本地上开始正式部署并使用了龙虾这个火遍整个AI圈的项目。</p>]]></description>
-</item>
-<item>
-    <title>不吹不黑，客观描述</title>
-    <link>http://localhost:1313/posts/2026-02-26/</link>
-    <pubDate>Thu, 26 Feb 2026 22:03:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026-02-26/</guid>
-    <description><![CDATA[<p>今天下午两点多复训完今天的内容课程后，本来把复训中学到的、受到的一些启发和自己的 AI 助理来沟通一下，以此整合和重新修订一下当前的定投清单。结果自己又临时起意，随口问了几个 AI 的问题后，自己便将自己整整一下午的时间投入到与 AI 的交流中。越聊越深入、越聊越开心、越聊越激动、越聊越喜悦。</p>]]></description>
 </item>
 </channel>
 </rss>
