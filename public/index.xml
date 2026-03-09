@@ -3,9 +3,17 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 08 Mar 2026 22:20:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 09 Mar 2026 20:43:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>吃油条悟出的哲学观</title>
+    <link>http://localhost:1313/posts/2026.3.9/</link>
+    <pubDate>Mon, 09 Mar 2026 20:43:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.9/</guid>
+    <description><![CDATA[<p>这是三八妇女节后的第二天，也是又一周的周一工作日。对于这一天的到来，我没有任何的抗拒或者不情愿，有的是心甘情愿的本该如此之意的想法。因为从本周一开始，我要做很多很多的改变，也要很快尽快地迭代一下自己的工作或学习的流程。于是，今早上班的时间都提早了许多，因为自己实在是知道自己有多少重要的事情要尽快去做。</p>]]></description>
+</item>
+<item>
     <title>这是对孤独的记录，也是在自我对话</title>
     <link>http://localhost:1313/posts/2026.3.8/</link>
     <pubDate>Sun, 08 Mar 2026 22:20:01 &#43;0800</pubDate>
@@ -83,15 +91,6 @@
     <guid>http://localhost:1313/posts/2026.2.28/</guid>
     <description><![CDATA[<p>似乎从很久之前开始，自己身上就有一种极度慕强的心理。当然了，这个慕强的概念或许也与现在主流的慕强概念有些出入。</p>
 <p>|比如我的慕强表现为：在金融市场中，自己慕强于各个板块的龙头企业。比如咖啡界的星巴克、电车中的特斯拉、AI领域的英伟达和数字世界里的比特币。而这一逻辑仅仅来自于自己很久之前给自己预设好的、且随着不断的亲手验证而意识到越来越正确的马太效应。</p>]]></description>
-</item>
-<item>
-    <title>AI时代，我没空想你！</title>
-    <link>http://localhost:1313/posts/2026.2.27/</link>
-    <pubDate>Fri, 27 Feb 2026 23:58:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.2.27/</guid>
-    <description><![CDATA[<p>如果说2023年被称为是“AI元年”的话，那么今年即2026年可以说是<strong>从“技术狂欢”转向“价值落地”的关键一年</strong>。</p>
-<p>上个月底我写了一篇关于 OpenClaw 的一篇文章，当时这个开源AI项目还叫 Clawdbot。似乎从一开始就立刻受到了极大的关注，人们对于其的狂欢程度几乎约等于2023年年初人们对待 chatgpt 的态度。也是这般热度下，我才得以觉察到这个项目。进而在对其进行了初步了解后，撰写了一篇科普文发在微信公众号上。随后又在二十多天后，在自己的电脑本地上开始正式部署并使用了龙虾这个火遍整个AI圈的项目。</p>]]></description>
 </item>
 </channel>
 </rss>
