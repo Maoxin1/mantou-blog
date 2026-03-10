@@ -3,9 +3,17 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 09 Mar 2026 20:43:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 10 Mar 2026 19:39:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>忙碌的一天</title>
+    <link>http://localhost:1313/posts/2026.3.10/</link>
+    <pubDate>Tue, 10 Mar 2026 19:39:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.10/</guid>
+    <description><![CDATA[<p>今天可以说是超级疯狂 bug 和赶进度的一天。早上一到办公室就到 Gemini 那儿去请教我的“空腹行动”的一些疑难问题，最终越问越多，越问越细，越问越深入。最终不仅把自己每餐要吃什么都细化到了在超市买什么来吃，克数多少和进食顺序如何的程度，而且还找到了健身房健身的平替策略，以至于最终按照我个人的情况而量身定制出了一套极为完整的“减脂和增肌”的 MVP 模型出来。不仅如此，我还对自己在过去三个交易日中进行的 TACO 交易过程中的一些操作逻辑和执行动作进行了尽可能全方位的复盘和前瞻性的优化工作。除此之外，我又撰写了新的外语练习文稿，为第二天的晨读素材做好了最基本的准备。</p>]]></description>
+</item>
+<item>
     <title>吃油条悟出的哲学观</title>
     <link>http://localhost:1313/posts/2026.3.9/</link>
     <pubDate>Mon, 09 Mar 2026 20:43:01 &#43;0800</pubDate>
@@ -82,15 +90,6 @@
     <guid>http://localhost:1313/posts/2026.3.1/</guid>
     <description><![CDATA[<p>截至下午五点四十六分，我在今天主要做了两件事：整理了一篇有关美光科技公司的文章和卸载掉了电脑上的openclaw。</p>
 <p>前者的工作是为了加深自己最近对于AI方面学习的印象，把学到的读书笔记整理成了微信公众号文章的形式发布出去了。这也是自己的例行公事罢了。</p>]]></description>
-</item>
-<item>
-    <title>选择决定投资结果</title>
-    <link>http://localhost:1313/posts/2026.2.28/</link>
-    <pubDate>Sat, 28 Feb 2026 23:30:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.2.28/</guid>
-    <description><![CDATA[<p>似乎从很久之前开始，自己身上就有一种极度慕强的心理。当然了，这个慕强的概念或许也与现在主流的慕强概念有些出入。</p>
-<p>|比如我的慕强表现为：在金融市场中，自己慕强于各个板块的龙头企业。比如咖啡界的星巴克、电车中的特斯拉、AI领域的英伟达和数字世界里的比特币。而这一逻辑仅仅来自于自己很久之前给自己预设好的、且随着不断的亲手验证而意识到越来越正确的马太效应。</p>]]></description>
 </item>
 </channel>
 </rss>
