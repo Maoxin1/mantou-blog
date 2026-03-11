@@ -3,7 +3,16 @@
         <title>所有文章 - mantou&#39;s blog</title>
         <link>http://localhost:1313/posts/</link>
         <description>所有文章 | mantou&#39;s blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 10 Mar 2026 19:39:01 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 11 Mar 2026 17:53:01 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>严重怀疑自己有工作狂的倾向</title>
+    <link>http://localhost:1313/posts/2026.3.11/</link>
+    <pubDate>Wed, 11 Mar 2026 17:53:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.11/</guid>
+    <description><![CDATA[<p>（16：00左右开始撰写）</p>
+<p>在配备了付费 AI 后的我，几乎没有一天是闲着的。每天都在忙着和 AI 对着自己的各种想法是否可行进行着各种的研究，由于自己每日脑中的想法过多，也就导致了自己每日太多的问题要去问 AI 。虽然很多想法会被证伪，但同样有很多有趣的想法得以被落实下来，使得自己整体的做事效率从底层直接被抬高了许多。</p>]]></description>
+</item>
+<item>
     <title>忙碌的一天</title>
     <link>http://localhost:1313/posts/2026.3.10/</link>
     <pubDate>Tue, 10 Mar 2026 19:39:01 &#43;0800</pubDate>
@@ -79,15 +88,6 @@
     <description><![CDATA[<p>今天中午睡了个午觉，可这平平常常的觉却是自己好久好久以来第一次睡的午觉。因为在很久之前，自己就彻底放弃了午休。因为我认为只要我想要的事情，我都可以做到。尽管整个改正过程中出现了很多很多的困难和挑战，但最终我还是做到了。但今天还是去午休了一次，实在是因为最近晚上睡眠过少所致。因这些原因所致，我是一边午休一边在拼命地从梦中走出。同时，我又在睡梦中醒来后，显得异常的清爽。就是电脑重置后的畅快感。好多垃圾被卸载掉了，于是一切的一切就清爽的不行。
 下午的街道，由于昨天下的一整天的暴雪所致，使得路面充满了水、泥和尘土的混合物。走在路上的我，时常得小心翼翼地提防走着。仅仅是为了在离开家乡前再多看家乡一眼，再趁着节日的氛围来多多热闹一番。
 这一场久违的午觉，像是给超负荷运转太久的系统按下了强制执行的“一键还原”。</p>]]></description>
-</item>
-<item>
-    <title>三月一日</title>
-    <link>http://localhost:1313/posts/2026.3.1/</link>
-    <pubDate>Sun, 01 Mar 2026 20:28:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.3.1/</guid>
-    <description><![CDATA[<p>截至下午五点四十六分，我在今天主要做了两件事：整理了一篇有关美光科技公司的文章和卸载掉了电脑上的openclaw。</p>
-<p>前者的工作是为了加深自己最近对于AI方面学习的印象，把学到的读书笔记整理成了微信公众号文章的形式发布出去了。这也是自己的例行公事罢了。</p>]]></description>
 </item>
 </channel>
 </rss>
