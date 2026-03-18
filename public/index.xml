@@ -3,9 +3,28 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 16 Mar 2026 18:58:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 18 Mar 2026 21:49:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>鳄龟与我</title>
+    <link>http://localhost:1313/posts/2026.3.18/</link>
+    <pubDate>Wed, 18 Mar 2026 21:49:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.18/</guid>
+    <description><![CDATA[<p>最近的情绪，像极了初春连绵起伏的山雨，时而阴云密布，时而又透出一丝微光，多变却也隐隐透着一种历经千帆后的底色——总体是趋于稳定的。人到了一定的阶段，心智便不再如同脱缰的野马般容易受外界环境的惊吓与撩拨。生活在这个巨大的社会容器里，我们每天都在经历着各种无可奈何的磕磕绊绊。有时候是一份毫无头绪的繁杂工作，有时候是人际交往中难以言说的微妙缝隙，又或者是夜深人静时突然袭来的自我怀疑。</p>]]></description>
+</item>
+<item>
+    <title>3.17</title>
+    <link>http://localhost:1313/posts/2026.3.17/</link>
+    <pubDate>Tue, 17 Mar 2026 20:49:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.17/</guid>
+    <description><![CDATA[<p>目前需要很严肃地整合一下接下来要做的一下具体工作，于是我选择将它们分为以下几块来进行：</p>
+<ul>
+<li>
+<p>语言类:按照季度级别来进行拉练日语、西班牙语、法语和阿拉伯语。同时对于英语的学习必须是全天候的，比如每日英文原文的财报分析、用英文和 AI 交流和精度英文原著等等。</p>]]></description>
+</item>
+<item>
     <title>3.16</title>
     <link>http://localhost:1313/posts/2026.3.16/</link>
     <pubDate>Mon, 16 Mar 2026 18:58:01 &#43;0800</pubDate>
@@ -72,24 +91,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.3.9/</guid>
     <description><![CDATA[<p>这是三八妇女节后的第二天，也是又一周的周一工作日。对于这一天的到来，我没有任何的抗拒或者不情愿，有的是心甘情愿的本该如此之意的想法。因为从本周一开始，我要做很多很多的改变，也要很快尽快地迭代一下自己的工作或学习的流程。于是，今早上班的时间都提早了许多，因为自己实在是知道自己有多少重要的事情要尽快去做。</p>]]></description>
-</item>
-<item>
-    <title>这是对孤独的记录，也是在自我对话</title>
-    <link>http://localhost:1313/posts/2026.3.8/</link>
-    <pubDate>Sun, 08 Mar 2026 22:20:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.3.8/</guid>
-    <description><![CDATA[<p>今天下午子房回家了，结束了在我家短暂居住的两天时间。然后再他离开了没多久，我的另一个朋友也在和我吃完晚饭后也回去了&hellip;</p>
-<p>写在这里时的我，孤独感和寂寞感已经消散掉了许多。似乎这与自己开始码字的动作有关吧？但我更想说的是，这样的场景其实被我经历过了无数次。可偏偏在这一方面上，我就是显得异常的不适应。无论经历过多少次这样的离别，我在他们离开的前几个小时内我的情绪就会开始疯狂的翻腾。说不上来什么滋味，但就是会塞在肚子里难受且说不上来。然后再在他们离开时含情脉脉地看着他们的离去&hellip;</p>]]></description>
-</item>
-<item>
-    <title>疯狂的输入！</title>
-    <link>http://localhost:1313/posts/2026.3.7/</link>
-    <pubDate>Sat, 07 Mar 2026 21:39:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.3.7/</guid>
-    <description><![CDATA[<p>今天本来去公司新址看环境的，路途也异常的遥远，结果走到一大半时，公司负责人直接说不用去了。于是我随即就踏上返程的地铁，跑去吃中午饭去了。</p>
-<p>于是接下来的路径就一切有迹可循了，我在吃完午饭后就跑去咖啡馆，然后一杯又一杯的咖啡一坐就是一下午。接着吃午饭的空，我在整个下午就听完了一个小时的录播和8节课的复训工作。</p>]]></description>
 </item>
 </channel>
 </rss>
