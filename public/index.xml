@@ -3,9 +3,17 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 18 Mar 2026 21:49:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 19 Mar 2026 17:56:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>在 AI 时代下如何理解内向？</title>
+    <link>http://localhost:1313/posts/2026.3.19/</link>
+    <pubDate>Thu, 19 Mar 2026 17:56:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.19/</guid>
+    <description><![CDATA[<p>昨天有些烦心事，然后就通过写文章来试图消化。这一写其实就把很多本来要做的事情的时间给彻底占用去了，于是昨晚的睡眠也就顺理成章地被延后的很多。导致第二天起床后的我，几乎可以说是略显精神不振之态。晨读环节我可以说自己的效率确实没高到哪去，于是更别提什么收获了。但不管怎样，昨天因为一顿的输出，确实还留下了些宝贵的“遗产”。本着这样的状态，我乘势选择了在今天内一鼓作气地把它们给挨个完成…</p>]]></description>
+</item>
+<item>
     <title>鳄龟与我</title>
     <link>http://localhost:1313/posts/2026.3.18/</link>
     <pubDate>Wed, 18 Mar 2026 21:49:01 &#43;0800</pubDate>
@@ -83,14 +91,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.3.10/</guid>
     <description><![CDATA[<p>今天可以说是超级疯狂 bug 和赶进度的一天。早上一到办公室就到 Gemini 那儿去请教我的“空腹行动”的一些疑难问题，最终越问越多，越问越细，越问越深入。最终不仅把自己每餐要吃什么都细化到了在超市买什么来吃，克数多少和进食顺序如何的程度，而且还找到了健身房健身的平替策略，以至于最终按照我个人的情况而量身定制出了一套极为完整的“减脂和增肌”的 MVP 模型出来。不仅如此，我还对自己在过去三个交易日中进行的 TACO 交易过程中的一些操作逻辑和执行动作进行了尽可能全方位的复盘和前瞻性的优化工作。除此之外，我又撰写了新的外语练习文稿，为第二天的晨读素材做好了最基本的准备。</p>]]></description>
-</item>
-<item>
-    <title>吃油条悟出的哲学观</title>
-    <link>http://localhost:1313/posts/2026.3.9/</link>
-    <pubDate>Mon, 09 Mar 2026 20:43:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.3.9/</guid>
-    <description><![CDATA[<p>这是三八妇女节后的第二天，也是又一周的周一工作日。对于这一天的到来，我没有任何的抗拒或者不情愿，有的是心甘情愿的本该如此之意的想法。因为从本周一开始，我要做很多很多的改变，也要很快尽快地迭代一下自己的工作或学习的流程。于是，今早上班的时间都提早了许多，因为自己实在是知道自己有多少重要的事情要尽快去做。</p>]]></description>
 </item>
 </channel>
 </rss>
