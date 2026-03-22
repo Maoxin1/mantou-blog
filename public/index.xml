@@ -3,9 +3,29 @@
         <title>mantou&#39;s blog</title>
         <link>http://localhost:1313/</link>
         <description>This is my cool site</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 20 Mar 2026 21:34:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 22 Mar 2026 21:21:01 &#43;0800</lastBuildDate>
             <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>这周六</title>
+    <link>http://localhost:1313/posts/2026.3.22/</link>
+    <pubDate>Sun, 22 Mar 2026 21:21:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.22/</guid>
+    <description><![CDATA[<p>刚吃过午饭，我走在去往咖啡馆的路上。刚戴上耳机没多久，迎面就有一对像是夫妻的两个中年人向我走来和我搭话。于是我便迅速摘下耳机来，倾身向前倾听。</p>]]></description>
+</item>
+<item>
+    <title>壮士难凉心头热血</title>
+    <link>http://localhost:1313/posts/2026.3.21/</link>
+    <pubDate>Sat, 21 Mar 2026 22:30:01 &#43;0800</pubDate>
+    <author>mantou</author>
+    <guid>http://localhost:1313/posts/2026.3.21/</guid>
+    <description><![CDATA[<p>今天又到了一周一次的体重测量时刻，下午吃完晚饭后，我准时站上了测量器上。
+站稳&mdash;挺直&mdash;嘀～，测量结束！</p>
+<p>——过去一周空腹行动战绩：
+体重：下降2.1kg
+BMI：下降0.6</p>]]></description>
+</item>
+<item>
     <title>super改变</title>
     <link>http://localhost:1313/posts/2026.3.20/</link>
     <pubDate>Fri, 20 Mar 2026 21:34:01 &#43;0800</pubDate>
@@ -74,24 +94,6 @@
     <author>mantou</author>
     <guid>http://localhost:1313/posts/2026.3.13/</guid>
     <description><![CDATA[<p>今天把输入法练习的更熟悉了，于是也在把自己与 ai 聊天时使用的语言从中文给换成了英文。于是就突然间感觉到自己的整个输入方式都因此给拔高了一个层级，输入输出啥时都感觉高级了不少。嗯，新鲜感满满的！</p>]]></description>
-</item>
-<item>
-    <title>难得力竭...</title>
-    <link>http://localhost:1313/posts/2026.3.12/</link>
-    <pubDate>Thu, 12 Mar 2026 19:04:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.3.12/</guid>
-    <description><![CDATA[<p>又是折腾的一天，只不过这次的折腾中做成的过少，因为投入的时间不整块，断断续续的搞得实在不痛快、不顺畅，也就把任务搞得多少有些东拼西凑的模样。</p>
-<p>不过想法是记录下来了，能及时做的工作也都做了，于是我也就暂且休息一趟也挺好。</p>]]></description>
-</item>
-<item>
-    <title>严重怀疑自己有工作狂的倾向</title>
-    <link>http://localhost:1313/posts/2026.3.11/</link>
-    <pubDate>Wed, 11 Mar 2026 17:53:01 &#43;0800</pubDate>
-    <author>mantou</author>
-    <guid>http://localhost:1313/posts/2026.3.11/</guid>
-    <description><![CDATA[<p>（16：00左右开始撰写）</p>
-<p>在配备了付费 AI 后的我，几乎没有一天是闲着的。每天都在忙着和 AI 对着自己的各种想法是否可行进行着各种的研究，由于自己每日脑中的想法过多，也就导致了自己每日太多的问题要去问 AI 。虽然很多想法会被证伪，但同样有很多有趣的想法得以被落实下来，使得自己整体的做事效率从底层直接被抬高了许多。</p>]]></description>
 </item>
 </channel>
 </rss>
