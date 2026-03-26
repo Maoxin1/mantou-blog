@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: 你的GitHub用户名/你的博客仓库名
+  repo: Maoxin1/mantou-blog
   branch: main
 
 media_folder: "static/images"
