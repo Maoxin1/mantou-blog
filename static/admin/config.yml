@@ -2,7 +2,7 @@ backend:
   name: github
   repo: Maoxin1/mantou-blog
   branch: main
-  base_url: https://decap-auth.mantou.workers.dev
+  base_url: https://decap-proxy.xmiao2343.workers.dev
   auth_endpoint: /auth
 
 media_folder: "static/images"
