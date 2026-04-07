@@ -20,5 +20,4 @@ collections:
       - label: "Body"
         name: "body"
         widget: "markdown"
-        buttons: ["bold", "italic", "link", "image", "quote", "code", "bulleted-list", "numbered-list"]
-        editor_components: ["image", "code-block"]
+
