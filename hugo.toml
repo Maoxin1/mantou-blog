@@ -34,7 +34,7 @@ googleAnalytics = "G-0DGXTWGC32"
     url = "https://x.com/mantouaoao"
 
     [params.social.x.icon]
-      Class = "fab fa-twitter fa-fw"
+
 
 # ❌ 删除或注释掉这一行（GA4 不用这个）
 # googleAnalytics = "G-0DGXTWGC32"
@@ -50,4 +50,3 @@ googleAnalytics = "G-0DGXTWGC32"
   svgFavicon = "/images/mantou.jpg"
 
 [params.page]
-  lightgallery = true
