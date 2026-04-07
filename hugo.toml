@@ -36,14 +36,6 @@ googleAnalytics = "G-0DGXTWGC32"
     [params.social.x.icon]
       Class = "fab fa-twitter fa-fw"
 
-  [params.social.wechat]
-    weight = 22
-    title = "微信公众号"
-    url = "https://weixin.sogou.com/weixin?type=1&query=mantou%20only"
-
-    [params.social.wechat.icon]
-      Src = "svg/icons/wechat-official.svg"
-
 # ❌ 删除或注释掉这一行（GA4 不用这个）
 # googleAnalytics = "G-0DGXTWGC32"
 
@@ -54,4 +46,8 @@ googleAnalytics = "G-0DGXTWGC32"
   id = "G-0DGXTWGC32"
   anonymizeIP = false
 
+[params.app]
+  svgFavicon = "/images/mantou.jpg"
 
+[params.page]
+  lightgallery = true
