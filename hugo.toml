@@ -54,4 +54,6 @@ googleAnalytics = "G-0DGXTWGC32"
   id = "G-0DGXTWGC32"
   anonymizeIP = false
 
+[params.page]
+  lightgallery = true
 
