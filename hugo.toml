@@ -3,6 +3,7 @@ theme = "LoveIt-0.3.0"
 baseURL = "https://mantou-blog.pages.dev/"
 languageCode = "zh-cn"
 hasCJKLanguage = true
+buildFuture = true
 
 googleAnalytics = "G-0DGXTWGC32"
 
