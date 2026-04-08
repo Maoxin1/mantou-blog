@@ -30,14 +30,15 @@ googleAnalytics = "G-0DGXTWGC32"
 
 [params.social]
   Email = "2114206091@qq.com"
+  twitter = "mantouaoao"
 
-  [params.social.twitter]
+  [params.social.X]
     weight = 3
     title = "X"
     id = "mantouaoao"
     prefix = "https://x.com/"
 
-    [params.social.twitter.icon]
+    [params.social.X.icon]
       Class = "fab fa-twitter fa-fw"
 
 # ❌ 删除或注释掉这一行（GA4 不用这个）
