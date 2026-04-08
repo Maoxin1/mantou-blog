@@ -4,6 +4,9 @@ baseURL = "https://mantou-blog.pages.dev/"
 languageCode = "zh-cn"
 hasCJKLanguage = true
 
+[social]
+  twitter = "mantouaoao"
+
 googleAnalytics = "G-0DGXTWGC32"
 
 [markup]
