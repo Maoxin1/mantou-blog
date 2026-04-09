@@ -8,9 +8,6 @@ buildFuture = true
 [social]
   twitter = "mantouaoao"
 
-[social]
-  twitter = "mantouaoao"
-
 googleAnalytics = "G-0DGXTWGC32"
 
 [markup]
@@ -36,15 +33,7 @@ googleAnalytics = "G-0DGXTWGC32"
   Email = "2114206091@qq.com"
   twitter = "mantouaoao"
 
-  [params.social.X]
-    weight = 3
-    title = "X"
-    id = "mantouaoao"
-    prefix = "https://x.com/"
-
-    [params.social.X.icon]
-      Class = "fab fa-twitter fa-fw"
-
+  
 # ❌ 删除或注释掉这一行（GA4 不用这个）
 # googleAnalytics = "G-0DGXTWGC32"
 
@@ -60,3 +49,4 @@ googleAnalytics = "G-0DGXTWGC32"
 
 [params.page]
   lightgallery = true
+
