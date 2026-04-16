@@ -21,7 +21,6 @@ TITLE_PATTERN = re.compile(r"^title:\s*(?P<title>.+)$", re.MULTILINE)
 def main() -> int:
     issues: list[str] = []
     checked = 0
-    frontmatter_dates: list[date] = []
 
     for path in sorted(POSTS_DIR.glob("*.md")):
         m = FILE_PATTERN.match(path.name)
@@ -41,7 +40,7 @@ def main() -> int:
 
         actual_date = date_match.group("date")
         try:
-            frontmatter_dates.append(date.fromisoformat(actual_date))
+            date.fromisoformat(actual_date)
         except ValueError:
             issues.append(f"{path}: invalid front-matter date format {actual_date!r}")
 
