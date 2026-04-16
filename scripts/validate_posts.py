@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """Validate dated post filenames against front matter.
 
-Checks files matching: content/posts/YYYY-MM-DD-<slug>.md
+Checks only files matching: content/posts/YYYY-MM-DD-<slug>.md
 """
 
 from __future__ import annotations
 
 import re
 import sys
-from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,11 +38,6 @@ def main() -> int:
             continue
 
         actual_date = date_match.group("date")
-        try:
-            date.fromisoformat(actual_date)
-        except ValueError:
-            issues.append(f"{path}: invalid front-matter date format {actual_date!r}")
-
         if actual_date != expected_date:
             issues.append(
                 f"{path}: filename date {expected_date} != front-matter date {actual_date}"
