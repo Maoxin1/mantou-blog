@@ -4,6 +4,7 @@
 Checks:
 1) No unresolved git conflict markers.
 2) No duplicate YAML keys at the same indentation scope.
+3) Collection slug templates avoid unsupported placeholders.
 """
 
 from __future__ import annotations
@@ -15,6 +16,7 @@ from pathlib import Path
 CONFIG_PATH = Path(__file__).resolve().parents[1] / "static" / "admin" / "config.yml"
 KEY_LINE_RE = re.compile(r"^(?P<indent>\s*)(?P<key>[^\s:#][^:]*):")
 LIST_KEY_RE = re.compile(r"^(?P<indent>\s*)-\s+(?P<key>[^\s:#][^:]*):")
+SLUG_RE = re.compile(r"^\s*slug:\s*[\"']?(?P<slug>.+?)[\"']?\s*$")
 
 
 def main() -> int:
@@ -24,6 +26,17 @@ def main() -> int:
     for marker in ("<<<<<<<", "=======", ">>>>>>>"):
         if marker in text:
             issues.append(f"found unresolved merge marker: {marker}")
+
+    for idx, raw_line in enumerate(text.splitlines(), start=1):
+        slug_match = SLUG_RE.match(raw_line)
+        if not slug_match:
+            continue
+
+        slug = slug_match.group("slug")
+        if "{{uuid}}" in slug:
+            issues.append(
+                f"line {idx}: slug template uses unsupported placeholder '{{{{uuid}}}}'"
+            )
 
     scopes: list[tuple[int, set[str]]] = []
 
