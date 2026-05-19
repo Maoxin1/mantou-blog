@@ -5,6 +5,9 @@ Checks:
 1) No unresolved git conflict markers.
 2) No duplicate YAML keys at the same indentation scope.
 3) Collection slug templates avoid unsupported placeholders.
+4) Slug templates relying on {{hour}}/{{minute}}/{{second}} must not be paired
+   with a date field that has time_format: false (otherwise the time part
+   degenerates to a fixed value and same-day posts overwrite each other).
 """
 
 from __future__ import annotations
@@ -37,6 +40,14 @@ def main() -> int:
             issues.append(
                 f"line {idx}: slug template uses unsupported placeholder '{{{{uuid}}}}'"
             )
+
+        if re.search(r"\{\{\s*(hour|minute|second)\s*\}\}", slug):
+            if re.search(r"time_format:\s*false", text):
+                issues.append(
+                    f"line {idx}: slug uses {{{{hour/minute/second}}}} but a "
+                    "date field has 'time_format: false'; the time part will "
+                    "degenerate to a constant and cause same-day post overwrites"
+                )
 
     scopes: list[tuple[int, set[str]]] = []
 
