@@ -64,7 +64,7 @@
   (function(){
     const posts = [
       {{- range (where .Site.RegularPages "Type" "posts") }}
-      { title: {{ .Title | jsonify }}, url: {{ .RelPermalink | jsonify }} },
+      { title: {{ printf "%q" .Title | safeJS }}, url: "{{ .RelPermalink }}" },
       {{- end }}
     ];
     if (!posts.length) return;
