@@ -22,3 +22,20 @@ collections:
       - label: "Body"
         name: "body"
         widget: "markdown"
+
+  - name: "weight"
+    label: "体重记录"
+    files:
+      - name: "weight_log"
+        label: "每周体重"
+        file: "data/weight.yaml"
+        fields:
+          - label: "每周记录"
+            name: "entries"
+            label_singular: "一周"
+            widget: "list"
+            summary: "{{fields.date}} · {{fields.weight}}kg · BMI {{fields.bmi}}"
+            fields:
+              - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+              - { label: "体重(kg)", name: "weight", widget: "number", value_type: "float", step: 0.1 }
+              - { label: "BMI", name: "bmi", widget: "number", value_type: "float", step: 0.1 }

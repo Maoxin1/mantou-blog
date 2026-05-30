@@ -59,13 +59,35 @@ def main() -> int:
             # Skip flow-style inline maps in list items.
             continue
 
-        match = KEY_LINE_RE.match(line)
-        if not match:
+        if line.lstrip().startswith("- {"):
+            # Skip flow-style inline maps in list items.
+            continue
+
+        stripped = line.lstrip()
+        line_indent = len(line) - len(stripped)
+        is_list_item = bool(LIST_KEY_RE.match(line))
+
+        if is_list_item:
+            # A "- key:" line opens a NEW map (its own list element). Its keys
+            # live one scope deeper than the dash. Sibling list items at the
+            # same indent are distinct maps, so close any prior sibling/child
+            # scope and start a fresh one — otherwise two valid collections
+            # (each "- name: ...") would look like a duplicate 'name'.
             match = LIST_KEY_RE.match(line)
+            key = match.group("key").strip()
+            key_indent = line_indent + 2
+            while scopes and scopes[-1][0] > key_indent:
+                scopes.pop()
+            if scopes and scopes[-1][0] == key_indent:
+                scopes.pop()
+            scopes.append((key_indent, {key}))
+            continue
+
+        match = KEY_LINE_RE.match(line)
         if not match:
             continue
 
-        indent = len(match.group("indent"))
+        indent = line_indent
         key = match.group("key").strip()
 
         while scopes and indent < scopes[-1][0]:
