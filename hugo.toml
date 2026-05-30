@@ -15,6 +15,9 @@ googleAnalytics = "G-0DGXTWGC32"
     [markup.goldmark.renderer]
       unsafe = true
 
+[params]
+  description = "mantou 的个人博客"
+
 [params.home.profile]
   enable = true
   avatarURL = "/images/mantou.jpg"
@@ -45,7 +48,8 @@ googleAnalytics = "G-0DGXTWGC32"
   anonymizeIP = false
 
 [params.app]
-  svgFavicon = "/images/mantou.jpg"
+  # 使用 static/ 下生成的标准图标集（favicon.ico / 32 / 16 / apple-touch-icon / site.webmanifest）
+  # 不再用照片当 favicon
 
 [params.page]
   lightgallery = true
