@@ -1,4 +1,4 @@
-title = "mantou's blog"
+title = "mantou の blog"
 theme = "LoveIt-0.3.0"
 baseURL = "https://mantou-blog.pages.dev/"
 languageCode = "zh-cn"
@@ -15,6 +15,10 @@ buildFuture = true
 
 [params]
   description = "mantou 的个人博客"
+
+# 网站左上角显示的站点名（覆盖主题默认的 "My cool site"）
+[params.header.title]
+  name = "mantou の blog"
 
 [params.home.profile]
   enable = true
@@ -44,6 +48,7 @@ buildFuture = true
 [params.app]
   # 使用 static/ 下生成的标准图标集（favicon.ico / 32 / 16 / apple-touch-icon / site.webmanifest）
   # 不再用照片当 favicon
+  title = "mantou の blog"  # 加到主屏/启动器时的应用名（覆盖主题默认的 "My cool site"）
   iconColor = ""  # 置空以禁用主题默认的 mask-icon（safari-pinned-tab.svg 不存在，避免 404）
 
 [params.page]
