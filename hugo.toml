@@ -8,8 +8,6 @@ buildFuture = true
 [social]
   twitter = "mantouaoao"
 
-googleAnalytics = "G-0DGXTWGC32"
-
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
@@ -30,15 +28,11 @@ googleAnalytics = "G-0DGXTWGC32"
   enable = true
   name = "mantou"
   avatar = "/images/mantou.jpg"
-  link = "https://github.com/mantou"
+  link = "https://github.com/Maoxin1"
 
 [params.social]
   Email = "2114206091@qq.com"
   twitter = "mantouaoao"
-
-  
-# ❌ 删除或注释掉这一行（GA4 不用这个）
-# googleAnalytics = "G-0DGXTWGC32"
 
 [params.analytics]
   enable = true
