@@ -5,10 +5,6 @@ languageCode = "zh-cn"
 hasCJKLanguage = true
 buildFuture = true
 
-# 站内搜索需要首页额外输出 JSON 索引（LoveIt 用它做 Lunr 搜索）
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
-
 [social]
   twitter = "mantouaoao"
 
@@ -60,16 +56,9 @@ buildFuture = true
 [params.page]
   lightgallery = true
 
-# 站内搜索（LoveIt 内置 Lunr，索引在浏览器本地，无第三方、免费）
+# 站内搜索改用 Pagefind（页面见 /search/，需配套 Cloudflare 构建命令）；停用主题自带 Lunr
 [params.search]
-  enable = true
-  type = "lunr"
-  contentLength = 0   # 0 = 索引全文，不截断（避免长文后半段的词搜不到）
-  placeholder = "搜索文章…"
-  maxResultLength = 10
-  snippetLength = 50
-  highlightTag = "em"
-  absoluteURL = false
+  enable = false
 
 # 关闭主题默认的 jsdelivr CDN，改用本地打包的库文件
 # （jsdelivr 在中国大陆常被墙，会导致 lunr 搜索核心、FontAwesome 等加载失败）
@@ -89,4 +78,9 @@ buildFuture = true
     name = "作品"
     url = "/categories/works/"
     weight = 2
+  [[menu.main]]
+    identifier = "search"
+    name = "搜索"
+    url = "/search/"
+    weight = 3
 

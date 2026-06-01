@@ -53,4 +53,12 @@ $accent-hover: #248239;
   }
 }
 
+// ---- 4. Pagefind 搜索（/search/）配色，统一为绿色强调色 ----
+.pf-search {
+  --pagefind-ui-primary: #{$accent};
+  --pagefind-ui-font: inherit;
+  --pagefind-ui-border-radius: 8px;
+  margin: 1.4rem 0;
+}
+
 
