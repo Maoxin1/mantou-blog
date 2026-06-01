@@ -26,7 +26,7 @@ buildFuture = true
   title = "mantou"
   subtitle = "变还是不变？这是个问题..."
   typeit = true
-  social = true
+  social = false  # 关闭主页头像下方的社交图标（邮箱 / 推特），更极简
 
 [params.author]
   enable = true
