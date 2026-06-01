@@ -5,6 +5,10 @@ languageCode = "zh-cn"
 hasCJKLanguage = true
 buildFuture = true
 
+# 站内搜索需要首页额外输出 JSON 索引（LoveIt 用它做 Lunr 搜索）
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [social]
   twitter = "mantouaoao"
 
@@ -55,6 +59,17 @@ buildFuture = true
 
 [params.page]
   lightgallery = true
+
+# 站内搜索（LoveIt 内置 Lunr，索引在浏览器本地，无第三方、免费）
+[params.search]
+  enable = true
+  type = "lunr"
+  contentLength = 4000
+  placeholder = "搜索文章…"
+  maxResultLength = 10
+  snippetLength = 50
+  highlightTag = "em"
+  absoluteURL = false
 
 # 顶部导航：内容二分类（随笔 = 每日；作品 = 精选长文/分析）
 # URL 用 ASCII slug（essays/works），避免中文路径在 Cloudflare Pages 上 404
