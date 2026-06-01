@@ -71,6 +71,11 @@ buildFuture = true
   highlightTag = "em"
   absoluteURL = false
 
+# 关闭主题默认的 jsdelivr CDN，改用本地打包的库文件
+# （jsdelivr 在中国大陆常被墙，会导致 lunr 搜索核心、FontAwesome 等加载失败）
+[params.cdn]
+  data = ""
+
 # 顶部导航：内容二分类（随笔 = 每日；作品 = 精选长文/分析）
 # URL 用 ASCII slug（essays/works），避免中文路径在 Cloudflare Pages 上 404
 [menu]
