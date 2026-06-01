@@ -1,0 +1,54 @@
+// ===========================================================================
+//  极简主义自定义样式（mantou の blog）
+//  本文件由 LoveIt 主题在 style.scss 末尾 @import "_custom" 自动加载，
+//  规则位于层叠最后，因此可安全覆盖主题默认样式。
+//  不需要时整段删除即可恢复主题原样。
+// ===========================================================================
+
+// 统一强调色：沿用首页体重图的绿色，全站只保留这一种强调色
+$accent: #2ea043;
+$accent-hover: #248239;
+
+// ---- 1. 正文链接与标题装饰统一为绿色 ----
+.content {
+  a {
+    color: $accent;
+
+    &:hover {
+      color: $accent-hover;
+    }
+  }
+
+  // 标题前的 “|” / “#” 装饰符
+  .header-mark::before {
+    color: $accent !important;
+  }
+}
+
+// 暗色模式下用更亮一档的绿，保证对比度
+[theme=dark] .content a {
+  color: lighten($accent, 12%);
+
+  &:hover {
+    color: lighten($accent, 20%);
+  }
+}
+
+// ---- 2. 更舒适的正文阅读节奏（行高 + 段距）----
+.single .content {
+  line-height: 1.8;
+
+  p {
+    margin: 1rem 0;
+  }
+}
+
+// ---- 3. 收窄正文阅读宽度，长段落更易读、留白更多 ----
+// 仅在桌面宽屏生效；窄屏保持主题自适应宽度。
+@media only screen and (min-width: 1025px) {
+  .page.single {
+    max-width: 50rem;       // ≈ 800px，想更窄可调小，如 46rem
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
