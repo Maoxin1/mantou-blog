@@ -1,0 +1,75 @@
+{{- /* 留言表单 shortcode：含可选 Cloudflare Turnstile 无感人机验证。
+       站点密钥从 [params.turnstile] siteKey 读取（公开值，可入库）；
+       Secret 放 Cloudflare 环境变量 TURNSTILE_SECRET（私密，勿入库）。
+       两者都配齐后，验证才会真正启用。 */ -}}
+{{- $siteKey := "" -}}
+{{- with .Site.Params.turnstile -}}{{- $siteKey = .siteKey -}}{{- end -}}
+
+<form id="fb-form" class="fb-form" novalidate>
+  <label class="fb-label" for="fb-message">想说的话 <span class="fb-req">*</span></label>
+  <textarea id="fb-message" name="message" rows="6" maxlength="5000" required placeholder="写下你的反馈、建议或问题…"></textarea>
+
+  <div class="fb-row">
+    <div>
+      <label class="fb-label" for="fb-name">称呼（可选）</label>
+      <input id="fb-name" name="name" type="text" maxlength="120" placeholder="怎么称呼你">
+    </div>
+    <div>
+      <label class="fb-label" for="fb-contact">联系方式（可选）</label>
+      <input id="fb-contact" name="contact" type="text" maxlength="200" placeholder="邮箱 / 微信，方便我回复">
+    </div>
+  </div>
+
+  <!-- 蜜罐字段：真人看不到，机器人易填 —— 用于挡垃圾留言 -->
+  <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="fb-hp">
+
+  {{- if $siteKey -}}
+  <div class="cf-turnstile" data-sitekey="{{ $siteKey }}" data-theme="auto"></div>
+  {{- end -}}
+
+  <button type="submit" id="fb-submit" class="fb-btn">发送留言</button>
+  <p id="fb-status" class="fb-status" role="status" aria-live="polite"></p>
+</form>
+
+{{- if $siteKey -}}
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+{{- end -}}
+<script>
+(function () {
+  var form = document.getElementById('fb-form');
+  if (!form) return;
+  var status = document.getElementById('fb-status');
+  var btn = document.getElementById('fb-submit');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var message = form.message.value.trim();
+    if (!message) { status.textContent = '请先写点内容再发送 🙂'; return; }
+    var tsEl = form.querySelector('[name="cf-turnstile-response"]');
+    var tsToken = tsEl ? tsEl.value : '';
+    btn.disabled = true; status.textContent = '发送中…';
+    fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        message: message,
+        name: form.name.value.trim(),
+        contact: form.contact.value.trim(),
+        website: form.website.value,
+        'cf-turnstile-response': tsToken
+      })
+    })
+    .then(function (r) { return r.json().catch(function () { return {}; }); })
+    .then(function (d) {
+      if (d && d.ok) {
+        form.reset();
+        status.textContent = '已收到，谢谢你的留言！🙏';
+      } else {
+        status.textContent = (d && d.error) ? ('发送失败：' + d.error) : '发送失败，请稍后再试';
+      }
+      if (window.turnstile) { try { turnstile.reset(); } catch (e) {} }
+    })
+    .catch(function () { status.textContent = '网络异常，请稍后再试'; })
+    .finally(function () { btn.disabled = false; });
+  });
+})();
+</script>

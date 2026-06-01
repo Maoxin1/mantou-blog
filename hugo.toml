@@ -71,6 +71,12 @@ buildFuture = true
   highlightTag = "em"
   absoluteURL = false
 
+# 留言板防刷：Cloudflare Turnstile 无感人机验证
+# siteKey 是公开的站点密钥（可入库）；Secret 放 Cloudflare 环境变量 TURNSTILE_SECRET。
+# 留空则不启用验证。两处都配齐后才生效。
+[params.turnstile]
+  siteKey = ""
+
 # 顶部导航：内容二分类（随笔 = 每日；作品 = 精选长文/分析）
 # URL 用 ASCII slug（essays/works），避免中文路径在 Cloudflare Pages 上 404
 [menu]
