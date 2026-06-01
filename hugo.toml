@@ -64,7 +64,7 @@ buildFuture = true
 [params.search]
   enable = true
   type = "lunr"
-  contentLength = 4000
+  contentLength = 0   # 0 = 索引全文，不截断（避免长文后半段的词搜不到）
   placeholder = "搜索文章…"
   maxResultLength = 10
   snippetLength = 50
