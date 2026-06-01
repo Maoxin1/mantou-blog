@@ -26,7 +26,7 @@ buildFuture = true
   title = "mantou"
   subtitle = "变还是不变？这是个问题..."
   typeit = true
-  social = true
+  social = false  # 关闭主页头像下方的社交图标（邮箱 / 推特），更极简
 
 [params.author]
   enable = true
@@ -55,4 +55,17 @@ buildFuture = true
 
 [params.page]
   lightgallery = true
+
+# 顶部导航：内容二分类（随笔 = 每日；作品 = 精选长文/分析）
+[menu]
+  [[menu.main]]
+    identifier = "essays"
+    name = "随笔"
+    url = "/categories/随笔/"
+    weight = 1
+  [[menu.main]]
+    identifier = "works"
+    name = "作品"
+    url = "/categories/作品/"
+    weight = 2
 
