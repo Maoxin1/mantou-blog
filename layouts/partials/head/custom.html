@@ -1,0 +1,5 @@
+{{- /* 项目自定义 <head> 内容，由 _default/baseof.html 调用。 */ -}}
+{{- /* Cloudflare Web Analytics（隐私友好的访客统计，面板在 Cloudflare 控制台） */ -}}
+{{- partial "analytics.html" . -}}
+{{- /* PWA：注册 Service Worker，让博客可“安装”到桌面/主屏并支持离线 */ -}}
+{{- partial "pwa.html" . -}}

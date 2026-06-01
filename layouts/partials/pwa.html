@@ -1,0 +1,12 @@
+{{- /* 注册 Service Worker（仅生产环境，避免本地 hugo server 调试时被缓存干扰） */ -}}
+{{- if hugo.IsProduction -}}
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function (err) {
+        console.warn('Service Worker 注册失败：', err);
+      });
+    });
+  }
+</script>
+{{- end -}}
