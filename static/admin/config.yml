@@ -18,7 +18,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
       - { label: "摘要", name: "description", widget: "text", required: false }
-      - { label: "分类", name: "categories", widget: "select", multiple: true, options: ["随笔", "作品"], default: ["随笔"], required: false }
+      - { label: "分类", name: "categories", widget: "select", multiple: true, options: [{ label: "随笔", value: "essays" }, { label: "作品", value: "works" }], default: ["essays"], required: false }
       - { label: "标签", name: "tags", widget: "list", required: false }
       - label: "Body"
         name: "body"

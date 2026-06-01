@@ -57,15 +57,16 @@ buildFuture = true
   lightgallery = true
 
 # 顶部导航：内容二分类（随笔 = 每日；作品 = 精选长文/分析）
+# URL 用 ASCII slug（essays/works），避免中文路径在 Cloudflare Pages 上 404
 [menu]
   [[menu.main]]
     identifier = "essays"
     name = "随笔"
-    url = "/categories/随笔/"
+    url = "/categories/essays/"
     weight = 1
   [[menu.main]]
     identifier = "works"
     name = "作品"
-    url = "/categories/作品/"
+    url = "/categories/works/"
     weight = 2
 
