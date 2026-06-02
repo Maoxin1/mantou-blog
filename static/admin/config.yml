@@ -19,7 +19,8 @@ collections:
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
       - { label: "摘要", name: "description", widget: "text", required: false }
       - { label: "分类", name: "categories", widget: "select", multiple: true, options: [{ label: "随笔", value: "essays" }, { label: "作品", value: "works" }], default: ["essays"], required: false }
-      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "标签", name: "tags", widget: "select", multiple: true, required: false, options: ["成长反思", "生活随笔", "投资理财", "工作职场", "AI",
+  "写作博客", "健康"] }
       - label: "Body"
         name: "body"
         widget: "markdown"
