@@ -1,25 +1,26 @@
 backend:
-  name: github
-  repo: Maoxin1/mantou-blog
-  branch: main
-  base_url: https://decap-proxy.xmiao2343.workers.dev
-  auth_endpoint: /auth
+    name: github
+    repo: Maoxin1/mantou-blog
+    branch: main
+    base_url: https://decap-proxy.xmiao2343.workers.dev
+    auth_endpoint: /auth
 
-media_folder: "static/images/posts"
-public_folder: "/images/posts"
+  media_folder: "static/images/posts"
+  public_folder: "/images/posts"
 
-collections:
-  - name: "posts"
-    label: "Posts"
-    folder: "content/posts"
-    create: true
-    slug: "{{fields.date}}-{{slug}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
-      - { label: "摘要", name: "description", widget: "text", required: false }
-      - { label: "分类", name: "categories", widget: "select", multiple: true, options: [{ label: "随笔", value: "essays" }, { label: "作品", value: "works" }], default: ["essays"], required: false }
-      - label: "标签"
+  collections:
+    - name: "posts"
+      label: "Posts"
+      folder: "content/posts"
+      create: true
+      slug: "{{fields.date}}-{{slug}}"
+      fields:
+        - { label: "Title", name: "title", widget: "string" }
+        - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+        - { label: "摘要", name: "description", widget: "text", required: false }
+        - { label: "分类", name: "categories", widget: "select", multiple: true, options: [{ label: "随笔", value: "essays" }, { label: "作品", value:
+  "works" }], default: ["essays"], required: false }
+        - label: "标签"
           name: "tags"
           widget: "select"
           multiple: true
@@ -32,23 +33,23 @@ collections:
             - "AI"
             - "写作博客"
             - "健康"
-      - label: "Body"
-        name: "body"
-        widget: "markdown"
+        - label: "Body"
+          name: "body"
+          widget: "markdown"
 
-  - name: "weight"
-    label: "体重记录"
-    files:
-      - name: "weight_log"
-        label: "每周体重"
-        file: "data/weight.yaml"
-        fields:
-          - label: "每周记录"
-            name: "entries"
-            label_singular: "一周"
-            widget: "list"
-            summary: "{{fields.date}} · {{fields.weight}}kg · BMI {{fields.bmi}}"
-            fields:
-              - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
-              - { label: "体重(kg)", name: "weight", widget: "number", value_type: "float", step: 0.1 }
-              - { label: "BMI", name: "bmi", widget: "number", value_type: "float", step: 0.1 }
+    - name: "weight"
+      label: "体重记录"
+      files:
+        - name: "weight_log"
+          label: "每周体重"
+          file: "data/weight.yaml"
+          fields:
+            - label: "每周记录"
+              name: "entries"
+              label_singular: "一周"
+              widget: "list"
+              summary: "{{fields.date}} ·{{fields.weight}}kg ·BMI {{fields.bmi}}"
+              fields:
+                - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+                - { label: "体重(kg)", name: "weight", widget: "number", value_type: "float", step: 0.1 }
+                - { label: "BMI", name: "bmi", widget: "number", value_type: "float", step: 0.1 }
