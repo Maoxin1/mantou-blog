@@ -22,7 +22,7 @@ entries:
     bmi: 24.7
   - date: 2026-04-27
     weight: 76.9
-    bmi: 24.0
+    bmi: 24
   - date: 2026-05-03
     weight: 77.3
     bmi: 24.1
@@ -38,3 +38,6 @@ entries:
   - date: 2026-05-30
     weight: 71.9
     bmi: 22.4
+  - date: 2026-06-06
+    weight: 72.2
+    bmi: 22.5
