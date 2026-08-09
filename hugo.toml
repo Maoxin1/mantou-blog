@@ -24,7 +24,7 @@ buildFuture = true
   enable = true
   avatarURL = "/images/mantou.jpg"
   title = "mantou"
-  subtitle = "变还是不变？这是个问题..."
+  subtitle = "持续、不断地迭代中..."
   typeit = true
   social = false  # 关闭主页头像下方的社交图标（邮箱 / 推特），更极简
 
