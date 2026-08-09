@@ -2,7 +2,7 @@
 {{- with .Site.Data.weight -}}
 {{- if .entries -}}
 <div id="mantou-weight" aria-label="体重走势图">
-  <div id="wt-header">🔥 空腹行动进度图</div>
+  <div id="wt-header">🔥 雕刻行动</div>
   <div id="wt-chart" data-points='{{ .entries | jsonify }}'></div>
   <div id="wt-tip" hidden></div>
 </div>
