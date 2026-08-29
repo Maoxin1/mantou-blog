@@ -59,10 +59,6 @@ def main() -> int:
             # Skip flow-style inline maps in list items.
             continue
 
-        if line.lstrip().startswith("- {"):
-            # Skip flow-style inline maps in list items.
-            continue
-
         stripped = line.lstrip()
         line_indent = len(line) - len(stripped)
         is_list_item = bool(LIST_KEY_RE.match(line))

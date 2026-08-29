@@ -6,19 +6,43 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.12"
+
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@6e295a6a0c9087bf374299e9d67f9d2edab9f18f # v3.0.0
+        with:
+          hugo-version: "0.154.5"
+          extended: true
 
       - name: Validate Decap CMS admin config
         run: python scripts/validate_admin_config.py
 
       - name: Validate post filenames vs front-matter dates
         run: python scripts/validate_posts.py
+
+      - name: Build production site
+        run: hugo --minify --panicOnWarning --cleanDestinationDir
+
+      - name: Build Pagefind search index
+        run: npx --yes pagefind@1.5.2 --site public
+
+      - name: Validate generated internal links
+        run: python scripts/check_internal_links.py
