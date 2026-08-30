@@ -32,20 +32,24 @@
           if (error) error.style.display = 'block';
         }
 
-        function appendScript(src, onload, onerror) {
+        function appendScript(src, integrity, onload, onerror) {
           var script = document.createElement('script');
           script.src = src;
+          script.integrity = integrity;
+          script.crossOrigin = 'anonymous';
           script.onload = onload;
           script.onerror = onerror;
           document.body.appendChild(script);
         }
 
         appendScript(
-          'https://unpkg.com/decap-cms@^3/dist/decap-cms.js',
+          'https://unpkg.com/decap-cms@3.15.1/dist/decap-cms.js',
+          'sha384-in6eHztHveqQ7uMZ1fDaKlDmacQLFuLH2wWrFTiymyuS8zQ5bixwL8U3AeRi8h/L',
           done,
           function () {
             appendScript(
-              'https://cdn.jsdelivr.net/npm/decap-cms@^3/dist/decap-cms.js',
+              'https://cdn.jsdelivr.net/npm/decap-cms@3.15.1/dist/decap-cms.js',
+              'sha384-in6eHztHveqQ7uMZ1fDaKlDmacQLFuLH2wWrFTiymyuS8zQ5bixwL8U3AeRi8h/L',
               done,
               fail
             );
