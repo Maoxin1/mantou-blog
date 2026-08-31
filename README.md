@@ -16,7 +16,12 @@ hugo --minify --panicOnWarning --cleanDestinationDir
 npx --yes pagefind@1.5.2 --site public
 python scripts/check_internal_links.py
 python scripts/check_portfolio_output.py
+npm ci
+npx playwright install chromium
+npm run test:e2e
 ```
+
+其中 Python 脚本检查内容结构、生成结果与内部链接；Playwright 在真实 Chromium 中验证首页到案例的访客路径、桌面/平板/手机布局、主题与移动导航、基础语义以及页面运行时错误。失败时会生成 `playwright-report/` 和 `test-results/`，这两个目录不提交到 Git。测试范围、参考来源和未移植项见 [`tests/README.md`](tests/README.md)。
 
 Cloudflare Pages 应使用相同的 Hugo 与 Pagefind 构建顺序，并将 `public/` 作为输出目录。`public/` 和 Hugo 本地缓存不提交到 Git。
 

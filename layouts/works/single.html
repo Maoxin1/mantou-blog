@@ -59,9 +59,9 @@
     </section>
 
     {{- with .TableOfContents -}}
-    <aside class="case-toc" aria-label="案例目录">
+    <aside class="case-toc" id="toc-static" data-kept="true" aria-label="案例目录">
         <span>CASE MAP</span>
-        {{ . }}
+        <div id="toc-content-static">{{ . }}</div>
     </aside>
     {{- end -}}
 
