@@ -170,6 +170,28 @@ test('手机导航可以展开并进入作品集', async ({ page }) => {
   await expect(page.locator('[data-works-index]')).toBeVisible();
 });
 
+test('手机导航向键盘与辅助技术暴露真实状态', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await open(page, '/');
+
+  const toggle = page.locator('#menu-toggle-mobile');
+  await expect(page.getByRole('button', { name: '打开导航菜单' })).toBeVisible();
+  await expect(toggle).toHaveAttribute('aria-controls', 'menu-mobile');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+  await toggle.focus();
+  await page.keyboard.press('Enter');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('#menu-mobile')).toHaveClass(/active/);
+
+  const firstMenuLink = page.locator('#menu-mobile a').first();
+  await firstMenuLink.focus();
+  await firstMenuLink.press('Escape');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(toggle).toBeFocused();
+  await expect(page.locator('#menu-mobile')).not.toHaveClass(/active/);
+});
+
 test('中文搜索可以找到并打开公开作品', async ({ page }) => {
   await open(page, '/search/');
 

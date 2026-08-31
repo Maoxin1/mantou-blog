@@ -61,6 +61,19 @@ $accent-hover: #248239;
   margin: 1.4rem 0;
 }
 
+#menu-toggle-mobile {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+#menu-toggle-mobile:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: .35rem;
+}
+
 // ---- 5. 作品型首页与作品集 ----
 $portfolio-ink: #17211b;
 $portfolio-muted: #5f6c64;
