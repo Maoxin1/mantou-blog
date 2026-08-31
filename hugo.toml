@@ -14,17 +14,17 @@ buildFuture = true
       unsafe = true
 
 [params]
-  description = "mantou 的个人博客"
+  description = "用真实作品、证据和复盘，把时间转化为能力、资本与自主权。"
 
 # 网站左上角显示的站点名（覆盖主题默认的 "My cool site"）
 [params.header.title]
-  name = "mantou の blog"
+  name = "mantou"
 
 [params.home.profile]
   enable = true
   avatarURL = "/images/mantou.jpg"
   title = "mantou"
-  subtitle = "持续、不断地迭代中..."
+  subtitle = "把时间转化为能力、资本与自主权。"
   typeit = true
   social = false  # 关闭主页头像下方的社交图标（邮箱 / 推特），更极简
 
@@ -65,22 +65,26 @@ buildFuture = true
 [params.cdn]
   data = ""
 
-# 顶部导航：内容二分类（随笔 = 每日；作品 = 精选长文/分析）
-# URL 用 ASCII slug（essays/works），避免中文路径在 Cloudflare Pages 上 404
+# 顶部导航：结构化作品优先，历史长文和日记继续保留。
 [menu]
   [[menu.main]]
-    identifier = "essays"
-    name = "随笔"
-    url = "/categories/essays/"
+    identifier = "portfolio"
+    name = "作品集"
+    url = "/works/"
     weight = 1
   [[menu.main]]
-    identifier = "works"
-    name = "作品"
+    identifier = "thinking"
+    name = "方法与思考"
     url = "/categories/works/"
     weight = 2
+  [[menu.main]]
+    identifier = "journal"
+    name = "日记档案"
+    url = "/categories/essays/"
+    weight = 3
   [[menu.main]]
     identifier = "search"
     name = "搜索"
     url = "/search/"
-    weight = 3
+    weight = 4
 

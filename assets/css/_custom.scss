@@ -61,4 +61,458 @@ $accent-hover: #248239;
   margin: 1.4rem 0;
 }
 
+// ---- 5. 作品型首页与作品集 ----
+$portfolio-ink: #17211b;
+$portfolio-muted: #5f6c64;
+$portfolio-paper: #f5f7f3;
+$portfolio-line: #dce4dd;
+$portfolio-accent: #1f6b43;
+
+.portfolio-home,
+.works-index {
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.portfolio-hero {
+  padding: 6.5rem 0 5rem;
+  border-bottom: 1px solid $portfolio-line;
+
+  h1 {
+    max-width: 56rem;
+    margin: 0.7rem 0 1.4rem;
+    color: $portfolio-ink;
+    font-size: clamp(2.6rem, 6vw, 4.8rem);
+    font-weight: 760;
+    letter-spacing: -0.055em;
+    line-height: 1.04;
+  }
+
+  h1 span {
+    color: $portfolio-accent;
+  }
+}
+
+.portfolio-hero__kicker,
+.section-kicker {
+  margin: 0;
+  color: $portfolio-accent;
+  font-size: 0.74rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+}
+
+.portfolio-hero__lead {
+  max-width: 42rem;
+  color: $portfolio-muted;
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.portfolio-hero__actions,
+.work-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.portfolio-button {
+  display: inline-flex;
+  min-height: 2.9rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.72rem 1.15rem;
+  border: 1px solid $portfolio-accent;
+  border-radius: 999px;
+  font-weight: 650;
+  text-decoration: none !important;
+  transition: transform 0.18s ease, background-color 0.18s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.portfolio-button--primary {
+  background: $portfolio-accent;
+  color: #fff !important;
+}
+
+.portfolio-button--secondary {
+  background: transparent;
+  color: $portfolio-accent !important;
+}
+
+.portfolio-section {
+  padding: 4.5rem 0;
+  border-bottom: 1px solid $portfolio-line;
+}
+
+.portfolio-section__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(15rem, 0.8fr);
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: 2rem;
+
+  h2,
+  p {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    margin-top: 0.5rem;
+    color: $portfolio-ink;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+  }
+
+  > p {
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.portfolio-section__heading--inline {
+  grid-template-columns: 1fr auto;
+
+  > a {
+    color: $portfolio-accent;
+    font-weight: 650;
+  }
+}
+
+.direction-grid,
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.direction-grid article {
+  padding: 1.4rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 1rem;
+  background: $portfolio-paper;
+
+  > span {
+    color: $portfolio-accent;
+    font-size: 0.75rem;
+    font-weight: 750;
+  }
+
+  h3 {
+    margin: 1.35rem 0 0.55rem;
+    color: $portfolio-ink;
+  }
+
+  p {
+    margin: 0;
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.work-card {
+  min-height: 17rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 1rem;
+  background: #fff;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px rgba(31, 72, 48, 0.09);
+  }
+}
+
+.work-card__link {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 1.5rem;
+  color: inherit !important;
+  text-decoration: none !important;
+
+  h3 {
+    margin: 2.3rem 0 0.8rem;
+    color: $portfolio-ink;
+    font-size: 1.35rem;
+    line-height: 1.35;
+  }
+
+  > p {
+    margin: 0;
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.work-card__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: $portfolio-accent;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.work-card__action {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  color: $portfolio-accent;
+  font-weight: 650;
+}
+
+.archive-callout,
+.collaboration-callout {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4rem 0;
+  padding: 2rem;
+  border-radius: 1.1rem;
+  background: $portfolio-paper;
+
+  h2 {
+    margin: 0.45rem 0 0.7rem;
+    color: $portfolio-ink;
+    line-height: 1.25;
+  }
+
+  p:not(.section-kicker) {
+    max-width: 44rem;
+    margin-bottom: 0;
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.collaboration-callout {
+  display: block;
+  padding: 3rem;
+  background: $portfolio-ink;
+
+  h2 {
+    max-width: 46rem;
+    color: #fff;
+    font-size: clamp(1.7rem, 3vw, 2.45rem);
+    line-height: 1.25;
+  }
+
+  p:not(.section-kicker) {
+    color: #c8d2cb;
+  }
+
+  .portfolio-button--secondary {
+    border-color: #8eaa98;
+    color: #e7eee9 !important;
+  }
+}
+
+.section-intro {
+  padding: 5rem 0 2.5rem;
+
+  h1 {
+    margin: 0.5rem 0 0.8rem;
+    color: $portfolio-ink;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+  }
+
+  > p,
+  .section-intro__content {
+    max-width: 42rem;
+    color: $portfolio-muted;
+    line-height: 1.75;
+  }
+}
+
+.works-index .work-grid {
+  padding-bottom: 5rem;
+}
+
+.work-detail {
+  max-width: 52rem !important;
+}
+
+.work-detail__header {
+  padding: 4.5rem 0 2rem;
+
+  h1 {
+    margin: 0.8rem 0 1rem;
+    color: $portfolio-ink;
+    font-size: clamp(2.2rem, 5vw, 3.7rem);
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+  }
+}
+
+.work-detail__eyebrow {
+  display: flex;
+  gap: 0.8rem;
+  color: $portfolio-accent;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.work-detail__description {
+  max-width: 42rem;
+  color: $portfolio-muted;
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.evidence-panel {
+  display: grid;
+  gap: 1px;
+  margin: 1rem 0 3rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 1rem;
+  background: $portfolio-line;
+  overflow: hidden;
+
+  > div {
+    padding: 1.25rem 1.4rem;
+    background: $portfolio-paper;
+  }
+
+  span {
+    color: $portfolio-accent;
+    font-size: 0.76rem;
+    font-weight: 750;
+  }
+
+  p {
+    margin: 0.4rem 0 0;
+    color: $portfolio-ink;
+    line-height: 1.65;
+  }
+}
+
+.work-detail__footer {
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid $portfolio-line;
+  color: $portfolio-muted;
+
+  a {
+    color: $portfolio-accent;
+    font-weight: 650;
+  }
+}
+
+[theme=dark] {
+  .portfolio-hero__kicker,
+  .section-kicker,
+  .portfolio-hero h1 span,
+  .portfolio-section__heading--inline > a,
+  .direction-grid article > span,
+  .work-card__meta,
+  .work-card__action,
+  .work-detail__eyebrow,
+  .evidence-panel span,
+  .work-detail__footer a {
+    color: #50c985;
+  }
+
+  .portfolio-button--primary {
+    border-color: #2f9a64;
+    background: #2f9a64;
+  }
+
+  .portfolio-button--secondary {
+    border-color: #50c985;
+    color: #67d899 !important;
+  }
+
+  .portfolio-hero h1,
+  .portfolio-section__heading h2,
+  .direction-grid h3,
+  .work-card__link h3,
+  .archive-callout h2,
+  .section-intro h1,
+  .work-detail__header h1,
+  .evidence-panel p {
+    color: #edf3ef;
+  }
+
+  .portfolio-hero,
+  .portfolio-section,
+  .work-card,
+  .direction-grid article,
+  .evidence-panel,
+  .work-detail__footer {
+    border-color: #39463e;
+  }
+
+  .direction-grid article,
+  .archive-callout,
+  .evidence-panel > div {
+    background: #202b24;
+  }
+
+  .work-card {
+    background: #1b241e;
+  }
+
+  .portfolio-hero__lead,
+  .portfolio-section__heading > p,
+  .direction-grid p,
+  .work-card__link > p,
+  .archive-callout p:not(.section-kicker),
+  .section-intro > p,
+  .section-intro__content,
+  .work-detail__description,
+  .work-detail__footer {
+    color: #acb9b0;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .portfolio-hero {
+    padding: 3.8rem 0 3rem;
+
+    h1 {
+      font-size: clamp(2.25rem, 9.6vw, 2.8rem);
+    }
+  }
+
+  .portfolio-section {
+    padding: 3.2rem 0;
+  }
+
+  .portfolio-section__heading,
+  .portfolio-section__heading--inline,
+  .direction-grid,
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-section__heading {
+    gap: 0.7rem;
+  }
+
+  .archive-callout {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .archive-callout,
+  .collaboration-callout {
+    margin: 2.5rem 0;
+    padding: 1.5rem;
+  }
+
+  .work-card {
+    min-height: 15rem;
+  }
+
+  .section-intro,
+  .work-detail__header {
+    padding-top: 3rem;
+  }
+}
+
 

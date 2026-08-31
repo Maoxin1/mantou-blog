@@ -1,0 +1,47 @@
+{{- define "title" -}}{{ .Title }} - {{ .Site.Title }}{{- end -}}
+
+{{- define "content" -}}
+{{- $typeLabels := dict "investment" "投资研究" "tools" "工具产品" "methodology" "方法论" "body" "身体实践" -}}
+<article class="page single work-detail" data-work-detail data-pagefind-body>
+    <header class="work-detail__header">
+        <div class="work-detail__eyebrow">
+            <span>{{ index $typeLabels .Params.work_type | default .Params.work_type }}</span>
+            <span>{{ .Params.stage }}</span>
+        </div>
+        <h1>{{ .Title }}</h1>
+        <p class="work-detail__description">{{ .Description }}</p>
+        <div class="work-detail__actions">
+            {{ with .Params.artifact_url }}
+                <a class="portfolio-button portfolio-button--primary" href="{{ . }}" target="_blank" rel="noopener">查看成品</a>
+            {{ end }}
+            {{ with .Params.source_url }}
+                <a class="portfolio-button portfolio-button--secondary" href="{{ . }}" target="_blank" rel="noopener">查看源码</a>
+            {{ end }}
+        </div>
+    </header>
+
+    <section class="evidence-panel" aria-label="作品验收摘要">
+        <div>
+            <span>阶段结果</span>
+            <p>{{ .Params.outcome }}</p>
+        </div>
+        <div>
+            <span>验证证据</span>
+            <p>{{ .Params.evidence }}</p>
+        </div>
+        <div>
+            <span>当前限制</span>
+            <p>{{ .Params.limitations }}</p>
+        </div>
+    </section>
+
+    <div class="content" id="content">
+        {{ .Content }}
+    </div>
+
+    <footer class="work-detail__footer" data-pagefind-ignore>
+        <p>这件作品首先解决真实问题，再用测试、证据和复盘检验结果。</p>
+        <a href="/works/">返回作品集&nbsp;→</a>
+    </footer>
+</article>
+{{- end -}}

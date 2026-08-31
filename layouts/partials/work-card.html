@@ -1,0 +1,12 @@
+{{- $typeLabels := dict "investment" "投资研究" "tools" "工具产品" "methodology" "方法论" "body" "身体实践" -}}
+<article class="work-card"{{ if .Params.featured }} data-featured-work{{ end }}>
+    <a class="work-card__link" href="{{ .RelPermalink }}">
+        <div class="work-card__meta">
+            <span>{{ index $typeLabels .Params.work_type | default .Params.work_type }}</span>
+            <span>{{ .Params.stage }}</span>
+        </div>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Params.outcome | default .Description }}</p>
+        <span class="work-card__action">查看证据与复盘&nbsp;→</span>
+    </a>
+</article>

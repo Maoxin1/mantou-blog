@@ -1,41 +1,81 @@
- {{- define "content" -}}
-      {{- $params := .Scratch.Get "params" -}}
-      {{- $profile := .Site.Params.home.profile -}}
-      {{- $posts := .Site.Params.home.posts -}}
+{{- define "content" -}}
+<div class="page portfolio-home" data-portfolio-home>
+    <section class="portfolio-hero">
+        <p class="portfolio-hero__kicker">MANTOU · LONG-TERM PRACTICE</p>
+        <h1>把时间转化为<br><span>能力、资本与自主权。</span></h1>
+        <p class="portfolio-hero__lead">这里记录一个普通人如何通过投资研究、工具构建、持续表达和身体实践，产出能够被检验的阶段成果。</p>
+        <div class="portfolio-hero__actions">
+            <a class="portfolio-button portfolio-button--primary" href="/works/">查看作品</a>
+            <a class="portfolio-button portfolio-button--secondary" href="/categories/essays/">日记档案</a>
+        </div>
+    </section>
 
-      <div class="page home"{{ if ne $posts.enable false }} data-home="posts"{{ end }}>
-          {{- if ne $profile.enable false -}}
-              {{- partial "home/profile.html" . -}}
-          {{- end -}}
+    <section class="portfolio-section" id="directions">
+        <div class="portfolio-section__heading">
+            <div>
+                <p class="section-kicker">CURRENT DIRECTIONS</p>
+                <h2>长期投入的四个方向</h2>
+            </div>
+            <p>方向说明我正在建设什么，作品负责证明已经完成什么。</p>
+        </div>
+        <div class="direction-grid">
+            <article>
+                <span>01</span>
+                <h3>主动投资系统</h3>
+                <p>建立可复盘的研究、决策与归因流程，逐渐区分能力、市场和运气。</p>
+            </article>
+            <article>
+                <span>02</span>
+                <h3>工具与 AI 工作流</h3>
+                <p>把自己的真实需求做成能够运行、验证并持续迭代的工具。</p>
+            </article>
+            <article>
+                <span>03</span>
+                <h3>表达与方法论</h3>
+                <p>从实践中提取可以复用的框架，并用作品而不是口号表达能力。</p>
+            </article>
+            <article>
+                <span>04</span>
+                <h3>身体实践</h3>
+                <p>以阶段目标、统一测量和训练结果，建设精干、健康且有力量的身体。</p>
+            </article>
+        </div>
+    </section>
 
-          {{- /* 体重走势图 banner */ -}}
-          {{- partial "home/weight-chart.html" . -}}
+    <section class="portfolio-section portfolio-section--works">
+        <div class="portfolio-section__heading portfolio-section__heading--inline">
+            <div>
+                <p class="section-kicker">SELECTED WORK</p>
+                <h2>已完成作品</h2>
+            </div>
+            <a href="/works/">查看全部&nbsp;→</a>
+        </div>
+        <div class="work-grid">
+            {{- $works := where .Site.RegularPages "Section" "works" -}}
+            {{- $featured := where $works "Params.featured" true -}}
+            {{- range first 3 $featured.ByDate.Reverse -}}
+                {{- partial "work-card.html" . -}}
+            {{- end -}}
+        </div>
+    </section>
 
-          {{- if .Content -}}
-              <div class="single">
-                  <div class="content" id="content">
-                      {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome"
-  $params.fontawesome | partial "function/content.html" | safeHTML -}}
-                  </div>
-              </div>
-          {{- end -}}
+    <section class="archive-callout">
+        <div>
+            <p class="section-kicker">JOURNAL ARCHIVE</p>
+            <h2>日记仍然保留，但不再承担作品的职责。</h2>
+            <p>历史记录保留探索发生时的原貌；当前网站主要更新完成的阶段成果与可复用的方法。</p>
+        </div>
+        <a class="portfolio-button portfolio-button--secondary" href="/categories/essays/">进入日记档案</a>
+    </section>
 
-          {{- if ne $posts.enable false | and .Site.RegularPages -}}
-              {{- $pages := where .Site.RegularPages "Type" "posts" -}}
-              {{- if .Site.Params.page.hiddenFromHomePage -}}
-                  {{- $pages = where $pages "Params.hiddenfromhomepage" false -}}
-              {{- else -}}
-                  {{- $pages = where $pages "Params.hiddenfromhomepage" "!=" true -}}
-              {{- end -}}
-              {{- with $posts.paginate | default .Site.Params.paginate -}}
-                  {{- $pages = $.Paginate $pages . -}}
-              {{- else -}}
-                  {{- $pages = .Paginate $pages -}}
-              {{- end -}}
-              {{- range $pages.Pages -}}
-                  {{- .Render "summary" -}}
-              {{- end -}}
-              {{- partial "paginator.html" . -}}
-          {{- end -}}
-      </div>
-  {{- end -}}
+    <section class="collaboration-callout">
+        <p class="section-kicker">CONTACT</p>
+        <h2>一起把真实问题，变成可验证的成果。</h2>
+        <p>如果你想交流投资研究、AI 工具、结构化表达或长期实践，可以从作品开始了解我。</p>
+        <div class="portfolio-hero__actions">
+            <a class="portfolio-button portfolio-button--primary" href="https://github.com/Maoxin1" target="_blank" rel="noopener">GitHub</a>
+            <a class="portfolio-button portfolio-button--secondary" href="https://x.com/mantouaoao" target="_blank" rel="noopener">X / Twitter</a>
+        </div>
+    </section>
+</div>
+{{- end -}}

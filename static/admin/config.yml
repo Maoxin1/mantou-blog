@@ -52,3 +52,37 @@ collections:
               - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
               - { label: "体重(kg)", name: "weight", widget: "number", value_type: "float", step: 0.1 }
               - { label: "BMI", name: "bmi", widget: "number", value_type: "float", step: 0.1 }
+
+  - name: "works"
+    label: "作品集"
+    folder: "content/works"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "完成日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+      - { label: "摘要", name: "description", widget: "text" }
+      - label: "作品类型"
+        name: "work_type"
+        widget: "select"
+        options:
+          - { label: "投资研究", value: "investment" }
+          - { label: "工具产品", value: "tools" }
+          - { label: "方法论", value: "methodology" }
+          - { label: "身体实践", value: "body" }
+      - { label: "阶段", name: "stage", widget: "string", default: "V1 · 已完成" }
+      - { label: "阶段结果", name: "outcome", widget: "text" }
+      - { label: "成品链接", name: "artifact_url", widget: "string", required: false }
+      - { label: "源码或补充链接", name: "source_url", widget: "string", required: false }
+      - { label: "验证证据", name: "evidence", widget: "text" }
+      - { label: "限制与不足", name: "limitations", widget: "text" }
+      - label: "公开边界"
+        name: "disclosure"
+        widget: "select"
+        options:
+          - { label: "完整公开", value: "public" }
+          - { label: "匿名处理", value: "anonymized" }
+          - { label: "延迟公开", value: "delayed" }
+        default: "public"
+      - { label: "首页精选", name: "featured", widget: "boolean", default: false }
+      - { label: "正文", name: "body", widget: "markdown" }

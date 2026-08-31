@@ -11,9 +11,11 @@
 ```powershell
 python scripts/validate_admin_config.py
 python scripts/validate_posts.py
+python scripts/validate_portfolio.py
 hugo --minify --panicOnWarning --cleanDestinationDir
 npx --yes pagefind@1.5.2 --site public
 python scripts/check_internal_links.py
+python scripts/check_portfolio_output.py
 ```
 
 Cloudflare Pages 应使用相同的 Hugo 与 Pagefind 构建顺序，并将 `public/` 作为输出目录。`public/` 和 Hugo 本地缓存不提交到 Git。
