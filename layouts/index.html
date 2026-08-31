@@ -1,41 +1,98 @@
- {{- define "content" -}}
-      {{- $params := .Scratch.Get "params" -}}
-      {{- $profile := .Site.Params.home.profile -}}
-      {{- $posts := .Site.Params.home.posts -}}
+{{- define "content" -}}
+<div class="page portfolio-home" data-portfolio-home>
+    <section class="portfolio-hero">
+        <p class="portfolio-hero__kicker">MANTOU · PROOF OF WORK</p>
+        <h1>把时间转化为<br><span>能力、资本与自主权。</span></h1>
+        <p class="portfolio-hero__lead">这里不展示一个已经完成的人，而是公开一个普通人如何从真实问题出发，用作品、证据和复盘完成长期积累。</p>
+        <div class="portfolio-hero__actions">
+            <a class="portfolio-button portfolio-button--primary" href="/works/">查看代表作品</a>
+            <a class="portfolio-button portfolio-button--secondary" href="/about/">了解工作方式</a>
+        </div>
+    </section>
 
-      <div class="page home"{{ if ne $posts.enable false }} data-home="posts"{{ end }}>
-          {{- if ne $profile.enable false -}}
-              {{- partial "home/profile.html" . -}}
-          {{- end -}}
+    <section class="portfolio-status" data-portfolio-status aria-label="当前公开进度">
+        <span>CURRENT PUBLIC RECORD</span>
+        <p>首个完整案例已公开，包含真实验收、失败记录与修复复盘。</p>
+        <a href="/works/mantou-checklist-pwa/">查看案例&nbsp;→</a>
+    </section>
 
-          {{- /* 体重走势图 banner */ -}}
-          {{- partial "home/weight-chart.html" . -}}
+    <section class="portfolio-section portfolio-section--featured">
+        <div class="portfolio-section__heading portfolio-section__heading--inline">
+            <div>
+                <p class="section-kicker">SELECTED WORK</p>
+                <h2>先看结果，再判断我是谁</h2>
+            </div>
+            <a href="/works/">查看全部&nbsp;→</a>
+        </div>
+        <div class="work-grid">
+            {{- $works := where .Site.RegularPages "Section" "works" -}}
+            {{- $featured := where $works "Params.featured" true -}}
+            {{- range first 3 $featured.ByDate.Reverse -}}
+                {{- partial "work-card.html" . -}}
+            {{- end -}}
+        </div>
+    </section>
 
-          {{- if .Content -}}
-              <div class="single">
-                  <div class="content" id="content">
-                      {{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome"
-  $params.fontawesome | partial "function/content.html" | safeHTML -}}
-                  </div>
-              </div>
-          {{- end -}}
+    <section class="method-compact" data-work-method-compact aria-label="作品形成方法">
+        <span>WORK STANDARD</span>
+        <ol>
+            <li>定义问题</li>
+            <li>完成产出</li>
+            <li>真实验证</li>
+            <li>复盘调整</li>
+        </ol>
+        <a href="/about/">了解工作原则&nbsp;→</a>
+    </section>
 
-          {{- if ne $posts.enable false | and .Site.RegularPages -}}
-              {{- $pages := where .Site.RegularPages "Type" "posts" -}}
-              {{- if .Site.Params.page.hiddenFromHomePage -}}
-                  {{- $pages = where $pages "Params.hiddenfromhomepage" false -}}
-              {{- else -}}
-                  {{- $pages = where $pages "Params.hiddenfromhomepage" "!=" true -}}
-              {{- end -}}
-              {{- with $posts.paginate | default .Site.Params.paginate -}}
-                  {{- $pages = $.Paginate $pages . -}}
-              {{- else -}}
-                  {{- $pages = .Paginate $pages -}}
-              {{- end -}}
-              {{- range $pages.Pages -}}
-                  {{- .Render "summary" -}}
-              {{- end -}}
-              {{- partial "paginator.html" . -}}
-          {{- end -}}
-      </div>
-  {{- end -}}
+    <section class="portfolio-section" id="directions">
+        <div class="portfolio-section__heading">
+            <div>
+                <p class="section-kicker">CURRENT DIRECTIONS</p>
+                <h2>长期投入的四个方向</h2>
+            </div>
+            <p>方向说明我正在建设什么；只有完成验收的阶段成果，才会进入作品集。</p>
+        </div>
+        <div class="direction-grid">
+            <article>
+                <span>01</span>
+                <h3>主动投资系统</h3>
+                <p>建立可复盘的研究、决策与归因流程，逐渐区分能力、市场和运气。</p>
+            </article>
+            <article>
+                <span>02</span>
+                <h3>工具与 AI 工作流</h3>
+                <p>把自己的真实需求做成能够运行、验证并持续迭代的工具。</p>
+            </article>
+            <article>
+                <span>03</span>
+                <h3>表达与方法论</h3>
+                <p>从实践中提取可以复用的框架，并用作品而不是口号表达能力。</p>
+            </article>
+            <article>
+                <span>04</span>
+                <h3>身体实践</h3>
+                <p>以阶段目标、统一测量和训练结果，建设精干、健康且有力量的身体。</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="archive-callout">
+        <div>
+            <p class="section-kicker">JOURNAL ARCHIVE</p>
+            <h2>日记保留成长现场，但不冒充作品。</h2>
+            <p>历史记录保留探索发生时的原貌；当前网站主要更新完成的阶段成果与可复用的方法。</p>
+        </div>
+        <a class="portfolio-button portfolio-button--secondary" href="/categories/essays/">进入日记档案</a>
+    </section>
+
+    <section class="collaboration-callout">
+        <p class="section-kicker">ABOUT · COLLABORATION</p>
+        <h2>先从作品判断是否可信，再从真实问题判断是否适合合作。</h2>
+        <p>这里列出我的工作原则、当前适合交流的方向，以及不会为了展示而跨越的边界。</p>
+        <div class="portfolio-hero__actions">
+            <a class="portfolio-button portfolio-button--primary" href="/about/">关于与合作</a>
+            <a class="portfolio-button portfolio-button--secondary" href="https://github.com/Maoxin1" target="_blank" rel="noopener">GitHub</a>
+        </div>
+    </section>
+</div>
+{{- end -}}

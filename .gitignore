@@ -3,3 +3,9 @@
 .hugo_build.lock
 .DS_Store
 node_modules/
+.wrangler/
+playwright-report/
+playwright-report-smoke/
+test-results/
+__pycache__/
+*.py[cod]

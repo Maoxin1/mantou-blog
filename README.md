@@ -11,12 +11,20 @@
 ```powershell
 python scripts/validate_admin_config.py
 python scripts/validate_posts.py
+python scripts/validate_portfolio.py
+python -m unittest discover -s tests/python -p "test_*.py"
 hugo --minify --panicOnWarning --cleanDestinationDir
 npx --yes pagefind@1.5.2 --site public
 python scripts/check_internal_links.py
+python scripts/check_portfolio_output.py
+npm ci
+npx playwright install chromium
+npm run test:e2e
 ```
 
-Cloudflare Pages 应使用相同的 Hugo 与 Pagefind 构建顺序，并将 `public/` 作为输出目录。`public/` 和 Hugo 本地缓存不提交到 Git。
+其中 Python 脚本检查内容结构、CMS契约、投资隐私预检、生成结果与内部链接；Playwright 在真实 Chromium 中验证首页到案例的访客路径、全部公开作品、中文搜索、桌面/平板/手机布局、主题与移动导航、基础语义以及页面运行时错误。失败时会生成 `playwright-report/` 和 `test-results/`，这两个目录不提交到 Git。测试范围、参考来源和未移植项见 [`tests/README.md`](tests/README.md)，新功能先使用[`功能验收模板`](docs/feature-acceptance-template.md)定义主张与失败条件，并在[`边缘风险登记表`](docs/edge-case-register.md)记录仍未覆盖的风险。投资作品发布前还需完成[`人工检查单`](docs/investment-publication-checklist.md)。
+
+Cloudflare Pages 项目采用 Direct Upload。GitHub Actions 的 `Validate` 工作流完成全部校验后，使用 Wrangler 将同一份 `public/` 上传到 `mantou-blog`：`main` 更新正式站，同仓库 PR 分支生成预览。部署凭据只保存在仓库 Secret `CLOUDFLARE_API_TOKEN` 中；`public/` 和 Hugo 本地缓存不提交到 Git。
 
 ## 内容管理
 

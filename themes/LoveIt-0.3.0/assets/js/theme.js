@@ -79,15 +79,28 @@ class Theme {
   initMenuMobile() {
     const $menuToggleMobile = document.getElementById('menu-toggle-mobile');
     const $menuMobile = document.getElementById('menu-mobile');
+    const setMenuOpen = open => {
+      document.body.classList.toggle('blur', open);
+      $menuToggleMobile.classList.toggle('active', open);
+      $menuMobile.classList.toggle('active', open);
+      $menuToggleMobile.setAttribute('aria-expanded', String(open));
+      $menuToggleMobile.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
+    };
+    const closeMenuOnEscape = event => {
+      if (event.key !== 'Escape' || !$menuToggleMobile.classList.contains('active')) return;
+      event.preventDefault();
+      setMenuOpen(false);
+      $menuToggleMobile.focus();
+    };
     $menuToggleMobile.addEventListener('click', () => {
-      document.body.classList.toggle('blur');
-      $menuToggleMobile.classList.toggle('active');
-      $menuMobile.classList.toggle('active');
+      setMenuOpen(!$menuToggleMobile.classList.contains('active'));
     }, false);
 
+    $menuToggleMobile.addEventListener('keydown', closeMenuOnEscape, false);
+    $menuMobile.addEventListener('keydown', closeMenuOnEscape, false);
+
     this._menuMobileOnClickMask = this._menuMobileOnClickMask || (() => {
-      $menuToggleMobile.classList.remove('active');
-      $menuMobile.classList.remove('active');
+      setMenuOpen(false);
     });
 
     this.clickMaskEventSet.add(this._menuMobileOnClickMask);

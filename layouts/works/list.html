@@ -1,0 +1,22 @@
+{{- define "title" -}}{{ .Title }} - {{ .Site.Title }}{{- end -}}
+
+{{- define "content" -}}
+<div class="page works-index" data-works-index>
+    <header class="section-intro">
+        <p class="section-kicker">PORTFOLIO</p>
+        <h1>{{ .Title }}</h1>
+        <p>{{ .Description }}</p>
+        {{ with .Content }}<div class="section-intro__content">{{ . }}</div>{{ end }}
+        <div class="portfolio-standard">
+            <span>收录标准</span>
+            <p>真实问题 · 明确验收 · 可查证结果 · 公开限制 · 有下一步判断</p>
+        </div>
+    </header>
+
+    <div class="work-grid">
+        {{- range .Pages.ByDate.Reverse -}}
+            {{- partial "work-card.html" . -}}
+        {{- end -}}
+    </div>
+</div>
+{{- end -}}
