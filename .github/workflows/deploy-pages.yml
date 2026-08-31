@@ -115,10 +115,15 @@ jobs:
     timeout-minutes: 5
     environment: pages-deploy
     steps:
-      - name: Check out trusted deployment tooling from main
+      - name: Check out immutable trusted deployment tooling
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: main
+          ref: >-
+            ${{
+              github.event_name == 'workflow_run' &&
+              github.event.workflow_run.head_sha ||
+              github.sha
+            }}
 
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4

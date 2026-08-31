@@ -51,6 +51,14 @@ class DeploymentWorkflowSecurityTests(unittest.TestCase):
         self.assertIn("secrets.CLOUDFLARE_API_TOKEN", deploy_job)
         self.assertIn("wrangler pages deploy", deploy_job)
 
+    def test_deployment_tooling_uses_an_immutable_trusted_revision(self) -> None:
+        workflow = DEPLOY_WORKFLOW.read_text(encoding="utf-8")
+        _, deploy_job = self._job_sections(workflow)
+
+        self.assertNotRegex(deploy_job, r"(?m)^\s+ref:\s+main\s*$")
+        self.assertIn("github.event.workflow_run.head_sha", deploy_job)
+        self.assertIn("github.sha", deploy_job)
+
     @staticmethod
     def _job_sections(workflow: str) -> tuple[str, str]:
         build_match = re.search(
