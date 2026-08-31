@@ -28,6 +28,12 @@ def require_href(label: str, text: str, path: str, issues: list[str]) -> None:
         issues.append(f"{label}: missing link to {path!r}")
 
 
+def forbid_text(label: str, text: str, fragments: tuple[str, ...], issues: list[str]) -> None:
+    for fragment in fragments:
+        if fragment in text:
+            issues.append(f"{label}: unexpected {fragment!r}")
+
+
 def main() -> int:
     issues: list[str] = []
     pages: dict[str, str] = {}
@@ -43,10 +49,19 @@ def main() -> int:
             pages["homepage"],
             (
                 'data-portfolio-home',
-                'data-proof-strip',
+                'data-portfolio-status',
                 'data-featured-work',
-                'data-work-method',
+                'data-work-method-compact',
+                'data-analytics-loader',
+                'location.hostname',
+                'mantou-blog.pages.dev',
             ),
+            issues,
+        )
+        forbid_text(
+            "homepage",
+            pages["homepage"],
+            ('data-proof-strip', '5 / 5</strong>', '次失败被完整保留'),
             issues,
         )
         require_href("homepage", pages["homepage"], "/works/", issues)

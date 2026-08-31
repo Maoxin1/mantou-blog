@@ -1,1 +1,13 @@
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0d8c083becee43c0a1cb14ad2a2c2216"}'></script><!-- End Cloudflare Web Analytics -->
+<!-- Cloudflare Web Analytics: production host only, so preview traffic stays separate. -->
+<script data-analytics-loader>
+  (() => {
+    const allowedHosts = new Set(["mantou-blog.pages.dev"]);
+    if (!allowedHosts.has(window.location.hostname)) return;
+
+    const beacon = document.createElement("script");
+    beacon.type = "module";
+    beacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
+    beacon.dataset.cfBeacon = JSON.stringify({ token: "0d8c083becee43c0a1cb14ad2a2c2216" });
+    document.head.appendChild(beacon);
+  })();
+</script>
