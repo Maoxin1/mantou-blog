@@ -49,8 +49,9 @@
 | Token名称 | 类型与权限 | 创建日 | 到期日 | 提醒日 | 状态 |
 | --- | --- | --- | --- | --- | --- |
 | `mantou-blog-pages-deploy` | Account API Token；当前账户Pages写入 | 2026-08-31 | 2027-09-01（北京时间） | 2027-08-02 | 已验证并保存到`pages-deploy` Environment |
+| `mantou-blog build token` | 旧User API Token | 未记录 | — | — | 账户持有人于2026-08-31确认已撤销；仓库级同名Secret已复核不存在 |
 
-到期日以Cloudflare API返回的`2027-08-31T23:59:59Z`为准。旧User API Token只在新凭据完成手动预览、正式发布和线上烟雾测试后撤销。
+到期日以Cloudflare API返回的`2027-08-31T23:59:59Z`为准。新凭据已完成手动预览、正式发布和两组线上烟雾测试后，旧User API Token才被撤销。
 
 ## 故障处理
 
