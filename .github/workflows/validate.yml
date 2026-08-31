@@ -53,6 +53,9 @@ jobs:
       - name: Validate structured portfolio entries
         run: python scripts/validate_portfolio.py
 
+      - name: Test portfolio privacy preflight
+        run: python -m unittest discover -s tests/python -p "test_*.py"
+
       - name: Build production site
         run: hugo --minify --panicOnWarning --cleanDestinationDir
 

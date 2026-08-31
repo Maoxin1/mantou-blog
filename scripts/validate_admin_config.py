@@ -16,10 +16,23 @@ import re
 import sys
 from pathlib import Path
 
+from validate_portfolio import INVESTMENT_REQUIRED_FIELDS, REQUIRED_FIELDS
+
 CONFIG_PATH = Path(__file__).resolve().parents[1] / "static" / "admin" / "config.yml"
 KEY_LINE_RE = re.compile(r"^(?P<indent>\s*)(?P<key>[^\s:#][^:]*):")
 LIST_KEY_RE = re.compile(r"^(?P<indent>\s*)-\s+(?P<key>[^\s:#][^:]*):")
 SLUG_RE = re.compile(r"^\s*slug:\s*[\"']?(?P<slug>.+?)[\"']?\s*$")
+COLLECTION_RE_TEMPLATE = r'(?ms)^  - name:\s*["\']?{name}["\']?\s*$.*?(?=^  - name:|\Z)'
+FIELD_NAME_RE = re.compile(r'\bname:\s*["\']?(?P<name>[a-zA-Z_][\w-]*)')
+
+
+def collection_block(text: str, name: str) -> str | None:
+    match = re.search(COLLECTION_RE_TEMPLATE.format(name=re.escape(name)), text)
+    return match.group(0) if match else None
+
+
+def collection_field_names(block: str) -> set[str]:
+    return {match.group("name") for match in FIELD_NAME_RE.finditer(block)}
 
 
 def main() -> int:
@@ -29,6 +42,27 @@ def main() -> int:
     for marker in ("<<<<<<<", "=======", ">>>>>>>"):
         if marker in text:
             issues.append(f"found unresolved merge marker: {marker}")
+
+    works_block = collection_block(text, "works")
+    if works_block is None:
+        issues.append("missing Decap CMS 'works' collection")
+    else:
+        cms_fields = collection_field_names(works_block)
+        missing_fields = sorted(
+            (REQUIRED_FIELDS | INVESTMENT_REQUIRED_FIELDS | {"body"}) - cms_fields
+        )
+        if missing_fields:
+            issues.append(
+                "Decap CMS 'works' collection is missing fields required by "
+                f"portfolio validation: {', '.join(missing_fields)}"
+            )
+
+    posts_block = collection_block(text, "posts")
+    if posts_block and re.search(r'value:\s*["\']?works["\']?', posts_block):
+        issues.append(
+            "Decap CMS 'posts' collection still offers the legacy 'works' "
+            "category; new portfolio entries must use the 'works' collection"
+        )
 
     for idx, raw_line in enumerate(text.splitlines(), start=1):
         slug_match = SLUG_RE.match(raw_line)

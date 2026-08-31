@@ -10,7 +10,8 @@ public_folder: "/images/posts"
 
 collections:
   - name: "posts"
-    label: "Posts"
+    label: "历史日记与文章"
+    description: "仅写入随笔档案；新的阶段性作品请从“作品集”创建。"
     folder: "content/posts"
     create: true
     slug: "{{fields.date}}-{{slug}}"
@@ -18,7 +19,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
       - { label: "摘要", name: "description", widget: "text", required: false }
-      - { label: "分类", name: "categories", widget: "select", multiple: true, options: [{ label: "随笔", value: "essays" }, { label: "作品", value: "works" }], default: ["essays"], required: false }
+      - { label: "内容归档", name: "categories", widget: "hidden", default: ["essays"] }
       - label: "标签"
         name: "tags"
         widget: "select"
@@ -71,11 +72,16 @@ collections:
           - { label: "方法论", value: "methodology" }
           - { label: "身体实践", value: "body" }
       - { label: "阶段", name: "stage", widget: "string", default: "V1 · 已完成" }
+      - { label: "要解决的问题", name: "problem", widget: "text", hint: "说明真实问题，不写泛泛愿景。" }
+      - { label: "待验证的假设", name: "hypothesis", widget: "text", hint: "开始前认为哪项改变会解决问题？" }
+      - { label: "约束与边界", name: "constraints", widget: "text", hint: "记录时间、成本、隐私和功能边界。" }
+      - { label: "关键决策", name: "decision", widget: "text", hint: "说明做了什么取舍，以及为何这样选择。" }
       - { label: "阶段结果", name: "outcome", widget: "text" }
       - { label: "成品链接", name: "artifact_url", widget: "string", required: false }
       - { label: "源码或补充链接", name: "source_url", widget: "string", required: false }
       - { label: "验证证据", name: "evidence", widget: "text" }
       - { label: "限制与不足", name: "limitations", widget: "text" }
+      - { label: "下一步判断", name: "next_step", widget: "text", hint: "明确继续、调整或停止的依据。" }
       - label: "公开边界"
         name: "disclosure"
         widget: "select"
@@ -84,5 +90,11 @@ collections:
           - { label: "匿名处理", value: "anonymized" }
           - { label: "延迟公开", value: "delayed" }
         default: "public"
+      - label: "投资隐私复核完成"
+        name: "privacy_reviewed"
+        widget: "boolean"
+        default: false
+        required: false
+        hint: "投资作品发布前必须开启：确认未公开金额、仓位、账户总收益；具体标的已达到阶段复盘或完全退出的公开时点。"
       - { label: "首页精选", name: "featured", widget: "boolean", default: false }
       - { label: "正文", name: "body", widget: "markdown" }

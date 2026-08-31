@@ -5,12 +5,21 @@ const routes = [
   '/works/',
   '/works/mantou-checklist-pwa/',
   '/about/',
+  '/search/',
 ];
 
 async function open(page, path) {
   const response = await page.goto(path, { waitUntil: 'domcontentloaded' });
   expect(response, `${path} should return a response`).not.toBeNull();
   expect(response.status(), `${path} should load successfully`).toBeLessThan(400);
+}
+
+async function publishedWorkRoutes(page) {
+  await open(page, '/works/');
+  const links = await page.locator('[data-works-index] .work-card__link').evaluateAll((elements) => (
+    elements.map((element) => new URL(element.href).pathname)
+  ));
+  return [...new Set(links)];
 }
 
 test('访客能从首页进入作品证据与工作原则', async ({ page }) => {
@@ -40,6 +49,39 @@ test('核心页面没有浏览器运行时错误', async ({ page }) => {
 
   for (const route of routes) {
     await open(page, route);
+  }
+
+  expect(errors).toEqual([]);
+});
+
+test('作品集中的每个公开作品都能完成浏览器验收', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (error) => errors.push(`${page.url()}: ${error.message}`));
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(`${page.url()}: ${message.text()}`);
+  });
+
+  const workRoutes = await publishedWorkRoutes(page);
+  expect(workRoutes.length, '作品集至少应包含一个公开作品').toBeGreaterThan(0);
+
+  for (const route of workRoutes) {
+    for (const viewport of [
+      { width: 1366, height: 900 },
+      { width: 390, height: 844 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await open(page, route);
+      await expect(page.locator('[data-work-detail]')).toBeVisible();
+      await expect(page.locator('[data-case-map]')).toBeVisible();
+      await expect(page.locator('.evidence-panel')).toBeVisible();
+      await expect(page.locator('h1')).toHaveCount(1);
+
+      const overflow = await page.evaluate(() => (
+        Math.max(document.documentElement.scrollWidth, document.body.scrollWidth)
+        - document.documentElement.clientWidth
+      ));
+      expect(overflow, `${route} 不应产生横向溢出`).toBeLessThanOrEqual(1);
+    }
   }
 
   expect(errors).toEqual([]);
@@ -126,6 +168,22 @@ test('手机导航可以展开并进入作品集', async ({ page }) => {
   await page.locator('#menu-mobile a[href="/works/"]').click();
   await expect(page).toHaveURL(/\/works\/$/);
   await expect(page.locator('[data-works-index]')).toBeVisible();
+});
+
+test('中文搜索可以找到并打开公开作品', async ({ page }) => {
+  await open(page, '/search/');
+
+  const searchbox = page.getByRole('textbox', { name: '搜索文章…' });
+  await expect(searchbox).toBeVisible();
+  await searchbox.fill('定投清单');
+
+  const result = page.locator('.pagefind-ui__result-link', { hasText: '把个人定投清单做成可离线运行的手机 PWA' });
+  await expect(result).toBeVisible({ timeout: 10_000 });
+  await expect(result).toHaveAttribute('href', /\/works\/mantou-checklist-pwa\/?$/);
+  await result.click();
+
+  await expect(page).toHaveURL(/\/works\/mantou-checklist-pwa\/$/);
+  await expect(page.locator('[data-work-detail]')).toBeVisible();
 });
 
 test('非生产域名不会加载 Cloudflare 统计脚本', async ({ page }) => {

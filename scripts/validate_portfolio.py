@@ -30,6 +30,59 @@ REQUIRED_FIELDS = {
     "disclosure",
     "featured",
 }
+INVESTMENT_REQUIRED_FIELDS = {"privacy_reviewed"}
+INVESTMENT_PRIVACY_PATTERNS = (
+    (
+        "账户总收益",
+        re.compile(r"(?:账户|组合).{0,8}总收益(?:率)?.{0,6}[：:=为]?\s*[+\-]?\d"),
+    ),
+    (
+        "个人仓位",
+        re.compile(
+            r"(?:我的|本人|个人|当前)(?:总)?(?:持仓|仓位)(?:比例)?"
+            r"\s*(?:为|是|[：:=])?\s*\d"
+        ),
+    ),
+    (
+        "个人金额",
+        re.compile(
+            r"(?:投入本金|个人本金|账户金额|持仓金额|投资金额)"
+            r"\s*(?:为|是|[：:=])?\s*(?:[¥￥$]\s*)?\d"
+        ),
+    ),
+)
+
+
+def investment_privacy_risks(text: str) -> list[str]:
+    """Return high-confidence personal account disclosures that need review.
+
+    The patterns deliberately require both personal-account context and a
+    numeric value. Company financial figures remain valid research evidence
+    and should not be blocked by this mechanical preflight.
+    """
+
+    return [label for label, pattern in INVESTMENT_PRIVACY_PATTERNS if pattern.search(text)]
+
+
+def investment_privacy_issues(fields: dict[str, str], body: str) -> list[str]:
+    issues: list[str] = []
+    missing_fields = sorted(
+        field for field in INVESTMENT_REQUIRED_FIELDS if not fields.get(field)
+    )
+    if missing_fields:
+        issues.append(f"investment work is missing {', '.join(missing_fields)}")
+    elif fields.get("privacy_reviewed", "").lower() != "true":
+        issues.append("privacy_reviewed must be true before publishing investment work")
+
+    privacy_text = "\n".join((*fields.values(), body))
+    privacy_risks = investment_privacy_risks(privacy_text)
+    if privacy_risks:
+        issues.append(
+            "possible restricted investment disclosure "
+            f"({', '.join(privacy_risks)}); review "
+            "docs/investment-publication-checklist.md"
+        )
+    return issues
 
 
 def parse_front_matter(path: Path) -> tuple[dict[str, str], str]:
@@ -92,6 +145,11 @@ def main() -> int:
             issues.append(f"{label}: date must use YYYY-MM-DD")
         if fields.get("work_type") == "tools" and not fields.get("artifact_url"):
             issues.append(f"{label}: tools must provide an artifact_url")
+        if fields.get("work_type") == "investment":
+            issues.extend(
+                f"{label}: {issue}"
+                for issue in investment_privacy_issues(fields, body)
+            )
         if fields.get("artifact_url") and not URL_PATTERN.match(fields["artifact_url"]):
             issues.append(f"{label}: artifact_url must use HTTPS")
         if fields.get("source_url") and not URL_PATTERN.match(fields["source_url"]):
