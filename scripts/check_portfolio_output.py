@@ -12,6 +12,7 @@ EXPECTED_FILES = {
     "homepage": PUBLIC_DIR / "index.html",
     "works index": PUBLIC_DIR / "works" / "index.html",
     "PWA work": PUBLIC_DIR / "works" / "mantou-checklist-pwa" / "index.html",
+    "about and collaboration": PUBLIC_DIR / "about" / "index.html",
 }
 
 
@@ -19,6 +20,12 @@ def require_text(label: str, text: str, fragments: tuple[str, ...], issues: list
     for fragment in fragments:
         if fragment not in text:
             issues.append(f"{label}: missing {fragment!r}")
+
+
+def require_href(label: str, text: str, path: str, issues: list[str]) -> None:
+    candidates = (f'href="{path}"', f"href='{path}'", f"href={path}")
+    if not any(candidate in text for candidate in candidates):
+        issues.append(f"{label}: missing link to {path!r}")
 
 
 def main() -> int:
@@ -34,9 +41,17 @@ def main() -> int:
         require_text(
             "homepage",
             pages["homepage"],
-            ('data-portfolio-home', 'href=/works/', 'href=/categories/essays/', 'data-featured-work'),
+            (
+                'data-portfolio-home',
+                'data-proof-strip',
+                'data-featured-work',
+                'data-work-method',
+            ),
             issues,
         )
+        require_href("homepage", pages["homepage"], "/works/", issues)
+        require_href("homepage", pages["homepage"], "/about/", issues)
+        require_href("homepage", pages["homepage"], "/categories/essays/", issues)
     if "works index" in pages:
         require_text("works index", pages["works index"], ('data-works-index', 'mantou-checklist-pwa'), issues)
     if "PWA work" in pages:
@@ -45,9 +60,18 @@ def main() -> int:
             pages["PWA work"],
             (
                 'data-work-detail',
+                'data-case-map',
+                'data-verification-matrix',
                 'https://mantou-checklist.pages.dev/editor',
                 'https://github.com/Maoxin1/mantou-checklist',
             ),
+            issues,
+        )
+    if "about and collaboration" in pages:
+        require_text(
+            "about and collaboration",
+            pages["about and collaboration"],
+            ('data-about-collaboration', '工作原则', '目前适合交流与合作的方向'),
             issues,
         )
 
@@ -57,7 +81,7 @@ def main() -> int:
             print(f"- {issue}")
         return 1
 
-    print("Portfolio output validation passed: homepage, works index and PWA work are connected.")
+    print("Portfolio output validation passed: the complete visitor journey is connected.")
     return 0
 
 

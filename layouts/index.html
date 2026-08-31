@@ -1,12 +1,68 @@
 {{- define "content" -}}
 <div class="page portfolio-home" data-portfolio-home>
     <section class="portfolio-hero">
-        <p class="portfolio-hero__kicker">MANTOU · LONG-TERM PRACTICE</p>
+        <p class="portfolio-hero__kicker">MANTOU · PROOF OF WORK</p>
         <h1>把时间转化为<br><span>能力、资本与自主权。</span></h1>
-        <p class="portfolio-hero__lead">这里记录一个普通人如何通过投资研究、工具构建、持续表达和身体实践，产出能够被检验的阶段成果。</p>
+        <p class="portfolio-hero__lead">这里不展示一个已经完成的人，而是公开一个普通人如何从真实问题出发，用作品、证据和复盘完成长期积累。</p>
         <div class="portfolio-hero__actions">
-            <a class="portfolio-button portfolio-button--primary" href="/works/">查看作品</a>
-            <a class="portfolio-button portfolio-button--secondary" href="/categories/essays/">日记档案</a>
+            <a class="portfolio-button portfolio-button--primary" href="/works/">查看代表作品</a>
+            <a class="portfolio-button portfolio-button--secondary" href="/about/">了解工作方式</a>
+        </div>
+    </section>
+
+    <section class="proof-strip" data-proof-strip aria-label="当前公开进度">
+        <div><strong>01</strong><span>件可运行作品</span></div>
+        <div><strong>5 / 5</strong><span>项真实手机验收</span></div>
+        <div><strong>01</strong><span>次失败被完整保留</span></div>
+        <div><strong>04</strong><span>条长期建设方向</span></div>
+    </section>
+
+    <section class="portfolio-section portfolio-section--featured">
+        <div class="portfolio-section__heading portfolio-section__heading--inline">
+            <div>
+                <p class="section-kicker">SELECTED WORK</p>
+                <h2>先看结果，再判断我是谁</h2>
+            </div>
+            <a href="/works/">查看全部&nbsp;→</a>
+        </div>
+        <div class="work-grid">
+            {{- $works := where .Site.RegularPages "Section" "works" -}}
+            {{- $featured := where $works "Params.featured" true -}}
+            {{- range first 3 $featured.ByDate.Reverse -}}
+                {{- partial "work-card.html" . -}}
+            {{- end -}}
+        </div>
+    </section>
+
+    <section class="portfolio-section method-section" data-work-method>
+        <div class="portfolio-section__heading">
+            <div>
+                <p class="section-kicker">HOW THE WORK IS MADE</p>
+                <h2>作品不是结果截图，<br>而是一条完整的证据链。</h2>
+            </div>
+            <p>开始前先写清楚要证明什么；完成后同时公开结果、失败、限制和下一步。</p>
+        </div>
+        <div class="method-track">
+            <article>
+                <span>01 · DEFINE</span>
+                <h3>定义问题</h3>
+                <p>写清真实需求、假设、边界与验收标准。</p>
+            </article>
+            <article>
+                <span>02 · BUILD</span>
+                <h3>完成产出</h3>
+                <p>做出能够运行、阅读或独立判断的阶段成果。</p>
+            </article>
+            <article>
+                <span>03 · VERIFY</span>
+                <h3>寻找证据</h3>
+                <p>用测试、真实使用和反证检验，而不是自我宣布成功。</p>
+            </article>
+            <article>
+                <span>04 · REVIEW</span>
+                <h3>决定下一步</h3>
+                <p>明确继续、调整或停止，并保留判断依据。</p>
+            </article>
         </div>
     </section>
 
@@ -16,7 +72,7 @@
                 <p class="section-kicker">CURRENT DIRECTIONS</p>
                 <h2>长期投入的四个方向</h2>
             </div>
-            <p>方向说明我正在建设什么，作品负责证明已经完成什么。</p>
+            <p>方向说明我正在建设什么；只有完成验收的阶段成果，才会进入作品集。</p>
         </div>
         <div class="direction-grid">
             <article>
@@ -42,39 +98,22 @@
         </div>
     </section>
 
-    <section class="portfolio-section portfolio-section--works">
-        <div class="portfolio-section__heading portfolio-section__heading--inline">
-            <div>
-                <p class="section-kicker">SELECTED WORK</p>
-                <h2>已完成作品</h2>
-            </div>
-            <a href="/works/">查看全部&nbsp;→</a>
-        </div>
-        <div class="work-grid">
-            {{- $works := where .Site.RegularPages "Section" "works" -}}
-            {{- $featured := where $works "Params.featured" true -}}
-            {{- range first 3 $featured.ByDate.Reverse -}}
-                {{- partial "work-card.html" . -}}
-            {{- end -}}
-        </div>
-    </section>
-
     <section class="archive-callout">
         <div>
             <p class="section-kicker">JOURNAL ARCHIVE</p>
-            <h2>日记仍然保留，但不再承担作品的职责。</h2>
+            <h2>日记保留成长现场，但不冒充作品。</h2>
             <p>历史记录保留探索发生时的原貌；当前网站主要更新完成的阶段成果与可复用的方法。</p>
         </div>
         <a class="portfolio-button portfolio-button--secondary" href="/categories/essays/">进入日记档案</a>
     </section>
 
     <section class="collaboration-callout">
-        <p class="section-kicker">CONTACT</p>
-        <h2>一起把真实问题，变成可验证的成果。</h2>
-        <p>如果你想交流投资研究、AI 工具、结构化表达或长期实践，可以从作品开始了解我。</p>
+        <p class="section-kicker">ABOUT · COLLABORATION</p>
+        <h2>先从作品判断是否可信，再从真实问题判断是否适合合作。</h2>
+        <p>这里列出我的工作原则、当前适合交流的方向，以及不会为了展示而跨越的边界。</p>
         <div class="portfolio-hero__actions">
-            <a class="portfolio-button portfolio-button--primary" href="https://github.com/Maoxin1" target="_blank" rel="noopener">GitHub</a>
-            <a class="portfolio-button portfolio-button--secondary" href="https://x.com/mantouaoao" target="_blank" rel="noopener">X / Twitter</a>
+            <a class="portfolio-button portfolio-button--primary" href="/about/">关于与合作</a>
+            <a class="portfolio-button portfolio-button--secondary" href="https://github.com/Maoxin1" target="_blank" rel="noopener">GitHub</a>
         </div>
     </section>
 </div>

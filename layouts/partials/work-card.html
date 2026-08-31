@@ -6,7 +6,10 @@
             <span>{{ .Params.stage }}</span>
         </div>
         <h3>{{ .Title }}</h3>
-        <p>{{ .Params.outcome | default .Description }}</p>
+        <div class="work-card__summary">
+            <p><span>问题</span>{{ .Params.problem | default .Description }}</p>
+            <p><span>结果</span>{{ .Params.outcome | default .Description }}</p>
+        </div>
         <span class="work-card__action">查看证据与复盘&nbsp;→</span>
     </a>
 </article>

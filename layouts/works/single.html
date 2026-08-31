@@ -20,6 +20,25 @@
         </div>
     </header>
 
+    <section class="case-map" data-case-map aria-label="案例决策地图">
+        <div>
+            <span>问题</span>
+            <p>{{ .Params.problem }}</p>
+        </div>
+        <div>
+            <span>假设</span>
+            <p>{{ .Params.hypothesis }}</p>
+        </div>
+        <div>
+            <span>约束</span>
+            <p>{{ .Params.constraints }}</p>
+        </div>
+        <div>
+            <span>关键决策</span>
+            <p>{{ .Params.decision }}</p>
+        </div>
+    </section>
+
     <section class="evidence-panel" aria-label="作品验收摘要">
         <div>
             <span>阶段结果</span>
@@ -33,7 +52,18 @@
             <span>当前限制</span>
             <p>{{ .Params.limitations }}</p>
         </div>
+        <div>
+            <span>下一步判断</span>
+            <p>{{ .Params.next_step }}</p>
+        </div>
     </section>
+
+    {{- with .TableOfContents -}}
+    <aside class="case-toc" aria-label="案例目录">
+        <span>CASE MAP</span>
+        {{ . }}
+    </aside>
+    {{- end -}}
 
     <div class="content" id="content">
         {{ .Content }}

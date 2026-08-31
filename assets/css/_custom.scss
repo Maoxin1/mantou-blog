@@ -69,7 +69,8 @@ $portfolio-line: #dce4dd;
 $portfolio-accent: #1f6b43;
 
 .portfolio-home,
-.works-index {
+.works-index,
+.about-collaboration {
   max-width: 68rem;
   margin: 0 auto;
 }
@@ -107,6 +108,41 @@ $portfolio-accent: #1f6b43;
   color: $portfolio-muted;
   font-size: 1.08rem;
   line-height: 1.8;
+}
+
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid $portfolio-line;
+
+  > div {
+    display: flex;
+    min-height: 7.5rem;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.4rem;
+    border-right: 1px solid $portfolio-line;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+
+  strong {
+    color: $portfolio-ink;
+    font-size: 1.5rem;
+    letter-spacing: -0.03em;
+  }
+
+  span {
+    margin-top: 0.3rem;
+    color: $portfolio-muted;
+    font-size: 0.78rem;
+  }
 }
 
 .portfolio-hero__actions,
@@ -189,6 +225,10 @@ $portfolio-accent: #1f6b43;
   gap: 1rem;
 }
 
+.portfolio-section--featured .work-grid {
+  grid-template-columns: 1fr;
+}
+
 .direction-grid article {
   padding: 1.4rem;
   border: 1px solid $portfolio-line;
@@ -242,10 +282,26 @@ $portfolio-accent: #1f6b43;
     line-height: 1.35;
   }
 
-  > p {
+}
+
+.work-card__summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+
+  p {
     margin: 0;
     color: $portfolio-muted;
     line-height: 1.7;
+  }
+
+  span {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: $portfolio-accent;
+    font-size: 0.73rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
   }
 }
 
@@ -263,6 +319,46 @@ $portfolio-accent: #1f6b43;
   padding-top: 1.5rem;
   color: $portfolio-accent;
   font-weight: 650;
+}
+
+.method-track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid $portfolio-line;
+  border-bottom: 1px solid $portfolio-line;
+
+  article {
+    min-height: 14rem;
+    padding: 1.4rem;
+    border-right: 1px solid $portfolio-line;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+
+  span {
+    color: $portfolio-accent;
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+  }
+
+  h3 {
+    margin: 3rem 0 0.6rem;
+    color: $portfolio-ink;
+  }
+
+  p {
+    margin: 0;
+    color: $portfolio-muted;
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
 }
 
 .archive-callout,
@@ -329,6 +425,29 @@ $portfolio-accent: #1f6b43;
   }
 }
 
+.portfolio-standard {
+  display: flex;
+  max-width: 52rem;
+  gap: 1rem;
+  align-items: baseline;
+  margin-top: 2rem;
+  padding: 1rem 1.2rem;
+  border-left: 3px solid $portfolio-accent;
+  background: $portfolio-paper;
+
+  span {
+    flex: 0 0 auto;
+    color: $portfolio-accent;
+    font-size: 0.75rem;
+    font-weight: 750;
+  }
+
+  p {
+    margin: 0;
+    color: $portfolio-ink;
+  }
+}
+
 .works-index .work-grid {
   padding-bottom: 5rem;
 }
@@ -364,6 +483,41 @@ $portfolio-accent: #1f6b43;
   line-height: 1.75;
 }
 
+.case-map {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 1rem 0 1.2rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 1rem;
+  background: $portfolio-line;
+  overflow: hidden;
+
+  > div {
+    min-height: 10rem;
+    padding: 1.3rem 1.4rem;
+    background: #fff;
+  }
+
+  span,
+  p {
+    display: block;
+  }
+
+  span {
+    color: $portfolio-accent;
+    font-size: 0.73rem;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+  }
+
+  p {
+    margin: 1.3rem 0 0;
+    color: $portfolio-ink;
+    line-height: 1.65;
+  }
+}
+
 .evidence-panel {
   display: grid;
   gap: 1px;
@@ -391,6 +545,238 @@ $portfolio-accent: #1f6b43;
   }
 }
 
+.case-toc {
+  margin: 0 0 3rem;
+  padding: 1.2rem 1.4rem;
+  border-left: 3px solid $portfolio-accent;
+  background: $portfolio-paper;
+
+  > span {
+    color: $portfolio-accent;
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+  }
+
+  nav > ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 1.5rem;
+    margin: 0.7rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    color: $portfolio-muted;
+    font-size: 0.85rem;
+  }
+}
+
+.verification-matrix {
+  margin: 1.8rem 0;
+  border: 1px solid $portfolio-line;
+  border-radius: 0.9rem;
+  background: $portfolio-paper;
+  overflow: hidden;
+}
+
+.verification-matrix__heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem;
+  border-bottom: 1px solid $portfolio-line;
+
+  span {
+    color: $portfolio-accent;
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.08em;
+  }
+
+  strong {
+    color: $portfolio-ink;
+    font-size: 0.85rem;
+  }
+}
+
+.verification-matrix ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0;
+    padding: 0.85rem 1.2rem;
+    border-bottom: 1px solid $portfolio-line;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  span {
+    color: $portfolio-ink;
+  }
+
+  strong {
+    flex: 0 0 auto;
+    color: $portfolio-accent;
+    font-size: 0.82rem;
+  }
+}
+
+.about-hero {
+  padding: 5.8rem 0 4.2rem;
+  border-bottom: 1px solid $portfolio-line;
+
+  h1 {
+    margin: 0.8rem 0 1.3rem;
+    color: $portfolio-ink;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    letter-spacing: -0.05em;
+    line-height: 1.08;
+  }
+
+  h1 span {
+    color: $portfolio-accent;
+  }
+
+  > p:last-child {
+    max-width: 42rem;
+    color: $portfolio-muted;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+}
+
+.about-section {
+  padding: 4.2rem 0;
+  border-bottom: 1px solid $portfolio-line;
+}
+
+.about-section__heading {
+  max-width: 44rem;
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0.5rem 0 0.7rem;
+    color: $portfolio-ink;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+  }
+
+  > p:last-child:not(.section-kicker) {
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.principle-grid,
+.collaboration-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+
+  article {
+    padding: 1.4rem;
+    border: 1px solid $portfolio-line;
+    border-radius: 1rem;
+  }
+
+  h3 {
+    margin: 1.2rem 0 0.55rem;
+    color: $portfolio-ink;
+  }
+
+  p {
+    margin: 0;
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.principle-grid article {
+  background: $portfolio-paper;
+
+  > span {
+    color: $portfolio-accent;
+    font-size: 0.75rem;
+    font-weight: 750;
+  }
+}
+
+.collaboration-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  h3 {
+    margin-top: 0;
+  }
+}
+
+.boundary-callout,
+.contact-panel {
+  margin: 4rem 0;
+  padding: 2.2rem;
+  border-radius: 1rem;
+}
+
+.boundary-callout {
+  border: 1px solid $portfolio-line;
+  background: $portfolio-paper;
+
+  h2 {
+    margin: 0.5rem 0 0.8rem;
+    color: $portfolio-ink;
+  }
+
+  > p:last-child {
+    max-width: 48rem;
+    margin-bottom: 0;
+    color: $portfolio-muted;
+    line-height: 1.75;
+  }
+}
+
+.contact-panel {
+  display: flex;
+  gap: 2rem;
+  align-items: end;
+  justify-content: space-between;
+  background: $portfolio-ink;
+
+  h2 {
+    max-width: 46rem;
+    margin: 0.5rem 0 0.7rem;
+    color: #fff;
+    font-size: clamp(1.65rem, 3vw, 2.35rem);
+    line-height: 1.3;
+  }
+
+  p:not(.section-kicker) {
+    max-width: 42rem;
+    margin-bottom: 0;
+    color: #c8d2cb;
+    line-height: 1.7;
+  }
+
+  .portfolio-hero__actions {
+    flex: 0 0 auto;
+  }
+
+  .portfolio-button--secondary {
+    border-color: #8eaa98;
+    color: #e7eee9 !important;
+  }
+}
+
 .work-detail__footer {
   margin-top: 3rem;
   padding: 1.5rem 0;
@@ -413,6 +799,12 @@ $portfolio-accent: #1f6b43;
   .work-card__action,
   .work-detail__eyebrow,
   .evidence-panel span,
+  .case-map span,
+  .case-toc > span,
+  .verification-matrix__heading span,
+  .verification-matrix ol strong,
+  .principle-grid article > span,
+  .about-hero h1 span,
   .work-detail__footer a {
     color: #50c985;
   }
@@ -431,6 +823,17 @@ $portfolio-accent: #1f6b43;
   .portfolio-section__heading h2,
   .direction-grid h3,
   .work-card__link h3,
+  .proof-strip strong,
+  .method-track h3,
+  .portfolio-standard p,
+  .case-map p,
+  .verification-matrix__heading strong,
+  .verification-matrix ol span,
+  .about-hero h1,
+  .about-section__heading h2,
+  .principle-grid h3,
+  .collaboration-grid h3,
+  .boundary-callout h2,
   .archive-callout h2,
   .section-intro h1,
   .work-detail__header h1,
@@ -441,6 +844,18 @@ $portfolio-accent: #1f6b43;
   .portfolio-hero,
   .portfolio-section,
   .work-card,
+  .proof-strip,
+  .method-track,
+  .method-track article,
+  .case-map,
+  .verification-matrix,
+  .verification-matrix__heading,
+  .verification-matrix ol li,
+  .about-hero,
+  .about-section,
+  .principle-grid article,
+  .collaboration-grid article,
+  .boundary-callout,
   .direction-grid article,
   .evidence-panel,
   .work-detail__footer {
@@ -449,8 +864,18 @@ $portfolio-accent: #1f6b43;
 
   .direction-grid article,
   .archive-callout,
-  .evidence-panel > div {
+  .evidence-panel > div,
+  .portfolio-standard,
+  .case-toc,
+  .verification-matrix,
+  .principle-grid article,
+  .boundary-callout {
     background: #202b24;
+  }
+
+  .case-map > div,
+  .collaboration-grid article {
+    background: #1b241e;
   }
 
   .work-card {
@@ -461,6 +886,15 @@ $portfolio-accent: #1f6b43;
   .portfolio-section__heading > p,
   .direction-grid p,
   .work-card__link > p,
+  .work-card__summary p,
+  .proof-strip span,
+  .method-track p,
+  .case-toc a,
+  .about-hero > p:last-child,
+  .about-section__heading > p:last-child:not(.section-kicker),
+  .principle-grid p,
+  .collaboration-grid p,
+  .boundary-callout > p:last-child,
   .archive-callout p:not(.section-kicker),
   .section-intro > p,
   .section-intro__content,
@@ -486,8 +920,58 @@ $portfolio-accent: #1f6b43;
   .portfolio-section__heading,
   .portfolio-section__heading--inline,
   .direction-grid,
-  .work-grid {
+  .work-grid,
+  .work-card__summary,
+  .case-map,
+  .principle-grid,
+  .collaboration-grid {
     grid-template-columns: 1fr;
+  }
+
+  .proof-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    > div {
+      min-height: 6.5rem;
+      padding: 1rem;
+      border-bottom: 1px solid $portfolio-line;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:nth-child(2) {
+        border-right: 0;
+      }
+
+      &:nth-child(3) {
+        padding-left: 0;
+        border-bottom: 0;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .method-track {
+    grid-template-columns: 1fr;
+
+    article {
+      min-height: 0;
+      padding: 1.3rem 0;
+      border-right: 0;
+      border-bottom: 1px solid $portfolio-line;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    h3 {
+      margin-top: 1.2rem;
+    }
   }
 
   .portfolio-section__heading {
@@ -512,6 +996,36 @@ $portfolio-accent: #1f6b43;
   .section-intro,
   .work-detail__header {
     padding-top: 3rem;
+  }
+
+  .portfolio-standard,
+  .verification-matrix__heading,
+  .verification-matrix ol li,
+  .contact-panel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .case-map > div {
+    min-height: 0;
+  }
+
+  .case-toc nav > ul {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero {
+    padding: 3.8rem 0 3rem;
+  }
+
+  .about-section {
+    padding: 3rem 0;
+  }
+
+  .boundary-callout,
+  .contact-panel {
+    margin: 2.5rem 0;
+    padding: 1.5rem;
   }
 }
 
