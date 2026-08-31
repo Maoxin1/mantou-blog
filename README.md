@@ -24,7 +24,14 @@ npm run test:e2e
 
 其中 Python 脚本检查内容结构、CMS契约、投资隐私预检、生成结果与内部链接；Playwright 在真实 Chromium 中验证首页到案例的访客路径、全部公开作品、中文搜索、桌面/平板/手机布局、主题与移动导航、基础语义以及页面运行时错误。失败时会生成 `playwright-report/` 和 `test-results/`，这两个目录不提交到 Git。测试范围、参考来源和未移植项见 [`tests/README.md`](tests/README.md)，新功能先使用[`功能验收模板`](docs/feature-acceptance-template.md)定义主张与失败条件，并在[`边缘风险登记表`](docs/edge-case-register.md)记录仍未覆盖的风险。投资作品发布前还需完成[`人工检查单`](docs/investment-publication-checklist.md)。
 
-Cloudflare Pages 项目采用 Direct Upload。GitHub Actions 的 `Validate` 工作流完成全部校验后，使用 Wrangler 将同一份 `public/` 上传到 `mantou-blog`：`main` 更新正式站，同仓库 PR 分支生成预览。部署凭据只保存在仓库 Secret `CLOUDFLARE_API_TOKEN` 中；`public/` 和 Hugo 本地缓存不提交到 Git。
+Cloudflare Pages 项目采用 Direct Upload，验证和部署是两条相互隔离的流水线：
+
+- `Validate` 在 PR 与 `main` 上运行全部校验，不读取任何 Cloudflare 凭据，也不部署；
+- `Deploy Pages` 只在 `main` 验证成功后自动发布正式站；需要在线预览时，从 `main` 手动运行该工作流并填写待预览的分支、标签或提交；
+- 待发布源码先在无凭据的任务中构建并验证，只有受 `pages-deploy` Environment 和 `main` 分支限制的部署任务能够读取最小权限凭据；
+- Wrangler 固定在 `package-lock.json` 中，`public/` 和 Hugo 本地缓存不提交到 Git。
+
+具体操作、权限边界与凭据轮换步骤见[`部署运行手册`](docs/deployment-runbook.md)。
 
 ## 内容管理
 

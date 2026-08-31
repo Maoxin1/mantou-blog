@@ -1,0 +1,153 @@
+name: Deploy Pages
+
+on:
+  workflow_run:
+    workflows: ["Validate"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Branch, tag, or commit SHA to publish as the manual preview
+        required: true
+        default: main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: >-
+    deploy-pages-${{
+      github.event_name == 'workflow_run' && 'production' || 'manual-preview'
+    }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      commit_sha: ${{ steps.source.outputs.commit_sha }}
+      deploy_branch: ${{ steps.source.outputs.deploy_branch }}
+    steps:
+      - name: Check out the exact source without deployment credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: >-
+            ${{
+              github.event_name == 'workflow_run' &&
+              github.event.workflow_run.head_sha ||
+              inputs.source_ref
+            }}
+
+      - name: Record immutable source and deployment target
+        id: source
+        env:
+          DEPLOY_BRANCH: >-
+            ${{ github.event_name == 'workflow_run' && 'main' || 'manual-preview' }}
+        run: |
+          echo "commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "deploy_branch=$DEPLOY_BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@6e295a6a0c9087bf374299e9d67f9d2edab9f18f # v3.0.0
+        with:
+          hugo-version: "0.154.5"
+          extended: true
+
+      - name: Install pinned dependencies
+        run: npm ci
+
+      - name: Validate manual-preview source
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          python scripts/validate_admin_config.py
+          python scripts/validate_posts.py
+          python scripts/validate_portfolio.py
+          python -m unittest discover -s tests/python -p "test_*.py"
+
+      - name: Build production site
+        run: hugo --minify --panicOnWarning --cleanDestinationDir
+
+      - name: Build Pagefind search index
+        run: npx --yes pagefind@1.5.2 --site public
+
+      - name: Validate generated output
+        run: |
+          python scripts/check_internal_links.py
+          python scripts/check_portfolio_output.py
+
+      - name: Install Playwright Chromium for manual preview
+        if: github.event_name == 'workflow_dispatch'
+        run: npx playwright install --with-deps chromium
+
+      - name: Validate manual preview in a real browser
+        if: github.event_name == 'workflow_dispatch'
+        run: npm run test:e2e
+
+      - name: Package the credential-free site
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: pages-site-${{ github.run_id }}
+          path: public/
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: pages-deploy
+    steps:
+      - name: Check out immutable trusted deployment tooling
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: >-
+            ${{
+              github.event_name == 'workflow_run' &&
+              github.event.workflow_run.head_sha ||
+              github.sha
+            }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install pinned deployment tooling
+        run: npm ci
+
+      - name: Download the verified site
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: pages-site-${{ github.run_id }}
+          path: public/
+
+      - name: Deploy verified artifact to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 60fce3c87fe0af3ac0a66d4b03594598
+          DEPLOY_BRANCH: ${{ needs.build.outputs.deploy_branch }}
+          DEPLOY_COMMIT: ${{ needs.build.outputs.commit_sha }}
+        run: >-
+          npx wrangler pages deploy public
+          --project-name=mantou-blog
+          --branch="$DEPLOY_BRANCH"
+          --commit-hash="$DEPLOY_COMMIT"
