@@ -2,6 +2,10 @@ import re
 import unittest
 from pathlib import Path
 
+import yaml
+
+from scripts.validate_portfolio import UniqueKeyLoader
+
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_PATH = ROOT / "static" / "admin" / "config.yml"
@@ -20,6 +24,7 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.config = CONFIG_PATH.read_text(encoding="utf-8")
+        cls.parsed_config = yaml.load(cls.config, Loader=UniqueKeyLoader)
         cls.backend = cls.config.split("media_folder:", maxsplit=1)[0]
         cls.headers = HEADERS_PATH.read_text(encoding="utf-8")
 
@@ -86,8 +91,32 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
             r'<link\s+href="/admin/sveltia/config\.yml"\s+type="application/yaml"\s+rel="cms-config-url"',
         )
         self.assertRegex(overlay, r"(?m)^output:\s*$")
+        self.assertRegex(
+            overlay,
+            r"(?m)^\s+omit_empty_optional_fields:\s*true\s*$",
+        )
         self.assertRegex(overlay, r"(?m)^\s+yaml:\s*$")
         self.assertRegex(overlay, r"(?m)^\s+quote:\s*double\s*$")
+
+    def test_optional_investment_review_does_not_pollute_other_work_drafts(self) -> None:
+        works = next(
+            collection
+            for collection in self.parsed_config["collections"]
+            if collection["name"] == "works"
+        )
+        privacy_review = next(
+            field
+            for field in works["fields"]
+            if field["name"] == "privacy_reviewed"
+        )
+
+        self.assertEqual("select", privacy_review["widget"])
+        self.assertFalse(privacy_review["required"])
+        self.assertNotIn("default", privacy_review)
+        self.assertEqual(
+            [{"label": "已完成", "value": "true"}],
+            privacy_review["options"],
+        )
 
 
 if __name__ == "__main__":
