@@ -1,20 +1,20 @@
 ---
-title: "把个人定投清单做成可离线运行的手机 PWA"
+title: 把个人定投清单做成可离线运行的手机 PWA
 date: 2026-08-31
-description: "把已有网页生成器补齐为可从桌面启动、自动保存并离线生成图片的轻量应用。"
-work_type: "tools"
-stage: "V1 · 已完成"
-problem: "网页生成器虽然操作很快，但仍需先打开网址；断网冷启动也没有被真实验证。"
-hypothesis: "如果将编辑器安装为 PWA，并让启动地址与缓存路由保持一致，就能像轻量 App 一样独立完成核心任务。"
-constraints: "不增加账号、云同步和复杂配置；继续保持单页、低操作成本与本地数据边界。"
-decision: "统一安装入口与 Cloudflare 路由，并让自动化测试模拟正式部署环境，再用真实手机复验。"
-outcome: "从手机桌面直接进入编辑器，无地址栏运行；断网后仍可填写并下载 1080 × 1536 PNG。"
-artifact_url: "https://mantou-checklist.pages.dev/editor"
-source_url: "https://github.com/Maoxin1/mantou-checklist"
-evidence: "本地和正式域名自动化测试通过，并在真实 Android 手机上完成五项验收。"
-limitations: "数据只保存在当前浏览器，不自动跨设备同步；首次安装和获取更新仍需要联网。"
-next_step: "先作为自己的日常工具持续使用；只有出现真实阻力时才继续增加功能。"
-disclosure: "public"
+description: 把已有网页生成器补齐为可从桌面启动、自动保存并离线生成图片的轻量应用。
+work_type: tools
+stage: V1 · 已完成（后台验收草稿，勿发布）
+problem: 网页生成器虽然操作很快，但仍需先打开网址；断网冷启动也没有被真实验证。
+hypothesis: 如果将编辑器安装为 PWA，并让启动地址与缓存路由保持一致，就能像轻量 App 一样独立完成核心任务。
+constraints: 不增加账号、云同步和复杂配置；继续保持单页、低操作成本与本地数据边界。
+decision: 统一安装入口与 Cloudflare 路由，并让自动化测试模拟正式部署环境，再用真实手机复验。
+outcome: 从手机桌面直接进入编辑器，无地址栏运行；断网后仍可填写并下载 1080 × 1536 PNG。
+artifact_url: https://mantou-checklist.pages.dev/editor
+source_url: https://github.com/Maoxin1/mantou-checklist
+evidence: 本地和正式域名自动化测试通过，并在真实 Android 手机上完成五项验收。
+limitations: 数据只保存在当前浏览器，不自动跨设备同步；首次安装和获取更新仍需要联网。
+next_step: 先作为自己的日常工具持续使用；只有出现真实阻力时才继续增加功能。
+disclosure: public
 featured: true
 ---
 
