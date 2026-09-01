@@ -60,6 +60,7 @@ test('正式内容后台能够加载并读取PR发布配置', async ({ page, req
   const configResponse = await request.get('/admin/config.yml');
   expect(configResponse.ok()).toBeTruthy();
   const config = await configResponse.text();
+  const backend = config.split(/^media_folder:/m, 1)[0];
   expect(config).toMatch(/^publish_mode:\s*editorial_workflow\s*$/m);
-  expect(config).toMatch(/^\s+squash_merges:\s*true\s*$/m);
+  expect(backend).toMatch(/^\s+squash_merges:\s*true\s*$/m);
 });
