@@ -31,3 +31,29 @@ test('已访问作品断网可读，未访问路径显示离线说明', async ({
     await context.setOffline(false);
   }
 });
+
+test('后台配置不进入 PWA 缓存，避免旧配置误触直接发布', async ({ page, context }) => {
+  await page.goto('/', { waitUntil: 'load' });
+  await waitForServiceWorkerControl(page);
+
+  const onlineStatus = await page.evaluate(async () => {
+    const response = await fetch('/admin/config.yml', { cache: 'no-store' });
+    return response.status;
+  });
+  expect(onlineStatus).toBe(200);
+
+  await context.setOffline(true);
+  try {
+    const offlineResult = await page.evaluate(async () => {
+      try {
+        await fetch('/admin/config.yml', { cache: 'no-store' });
+        return 'unexpected-cache-hit';
+      } catch {
+        return 'network-failed';
+      }
+    });
+    expect(offlineResult).toBe('network-failed');
+  } finally {
+    await context.setOffline(false);
+  }
+});

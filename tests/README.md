@@ -18,7 +18,7 @@ npm run test:e2e
 - 页面无 JavaScript 运行时错误；
 - `lang`、单一 `h1`、描述和 canonical 等基础语义与 SEO 信息；
 - 主题选择刷新后保留、手机导航可用；
-- Service Worker接管后，已访问作品断网可读，未访问路径显示离线说明；
+- Service Worker接管后，已访问作品断网可读，未访问路径显示离线说明；后台配置不进入离线缓存，避免旧配置误触直接发布；
 - 非生产域名不加载 Cloudflare Web Analytics。
 - 内容后台脚本能够加载并出现GitHub登录入口，公开配置固定使用PR和压缩合并发布。
 
