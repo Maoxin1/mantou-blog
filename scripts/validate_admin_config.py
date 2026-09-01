@@ -10,6 +10,8 @@ Checks:
    degenerates to a fixed value and same-day posts overwrite each other).
 5) CMS publishing uses pull requests and squash merges so protected main and
    linear history cannot be bypassed.
+6) Sveltia omits unfilled optional fields and the investment privacy review is
+   opt-in, so editing an unrelated work cannot create noisy front-matter diffs.
 """
 
 from __future__ import annotations
@@ -49,6 +51,7 @@ def collection_field_names(block: str) -> set[str]:
 def main() -> int:
     issues: list[str] = []
     text = CONFIG_PATH.read_text(encoding="utf-8")
+    parsed_config: dict = {}
 
     try:
         parsed_config = yaml.load(text, Loader=UniqueKeyLoader)
@@ -70,6 +73,13 @@ def main() -> int:
             quote = overlay.get("output", {}).get("yaml", {}).get("quote")
             if quote != "double":
                 issues.append("Sveltia YAML output quote must remain 'double'")
+            omit_empty = overlay.get("output", {}).get(
+                "omit_empty_optional_fields"
+            )
+            if omit_empty is not True:
+                issues.append(
+                    "Sveltia must omit empty optional fields to preserve minimal diffs"
+                )
         except (AttributeError, ValueError, yaml.YAMLError) as error:
             issues.append(f"Sveltia config overlay is invalid: {error}")
 
@@ -100,6 +110,34 @@ def main() -> int:
             issues.append(
                 "Decap CMS 'works' collection is missing fields required by "
                 f"portfolio validation: {', '.join(missing_fields)}"
+            )
+
+        works_collection = next(
+            (
+                collection
+                for collection in parsed_config.get("collections", [])
+                if collection.get("name") == "works"
+            ),
+            None,
+        )
+        privacy_review = next(
+            (
+                field
+                for field in (works_collection or {}).get("fields", [])
+                if field.get("name") == "privacy_reviewed"
+            ),
+            None,
+        )
+        expected_privacy_options = [{"label": "已完成", "value": "true"}]
+        if not privacy_review or (
+            privacy_review.get("widget") != "select"
+            or privacy_review.get("required") is not False
+            or "default" in privacy_review
+            or privacy_review.get("options") != expected_privacy_options
+        ):
+            issues.append(
+                "works.privacy_reviewed must be an optional, default-free select "
+                "whose only value is the string 'true'"
             )
 
     posts_block = collection_block(text, "posts")

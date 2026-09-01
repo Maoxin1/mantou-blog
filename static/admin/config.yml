@@ -98,9 +98,10 @@ collections:
         default: "public"
       - label: "投资隐私复核完成"
         name: "privacy_reviewed"
-        widget: "boolean"
-        default: false
+        widget: "select"
         required: false
+        options:
+          - { label: "已完成", value: "true" }
         hint: "投资作品发布前必须开启：确认未公开金额、仓位、账户总收益；具体标的已达到阶段复盘或完全退出的公开时点。"
       - label: "具体标的公开依据"
         name: "security_disclosure_basis"
