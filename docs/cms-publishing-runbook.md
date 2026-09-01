@@ -76,3 +76,17 @@ python scripts/verify_cms_pr.py <PR编号> --expected-status pending_publish `
 
 当前仍未证明：Sveltia发布一项真实作品后能完成压缩合并、`main`二次验证、Cloudflare
 正式部署和线上页面检查。该步骤必须随下一项可公开的真实作品完成，不能用测试文案冒充。
+
+## 安装为桌面内容工作台
+
+Sveltia灰度后台可以安装为`mantou 内容工作台`，用于缩短“打开浏览器—输入网址—进入
+后台”的路径。它仍是在线网页应用，不是具备离线编辑能力的原生客户端。
+
+1. 使用最新版Edge或Chrome打开`https://mantou-blog.pages.dev/admin/sveltia/`；
+2. 使用地址栏中的安装图标，或浏览器菜单中的“应用/安装此站点为应用”完成安装；
+3. 确认名称为`mantou 内容工作台`、图标为mantou头像，并允许创建桌面或任务栏快捷方式；
+4. 关闭浏览器标签页后，从桌面图标启动，确认应用以独立窗口打开并进入Sveltia后台；
+5. 确认GitHub会话仍有效；若会话已过期，正常重新登录即可。
+
+若旧安装仍显示`Sveltia CMS`或旧图标，先卸载旧应用，再从灰度入口重新安装。断网时不应
+继续编辑或发布；恢复联网后重试。Sveltia不可用时仍从`/admin/`进入Decap稳定后台。

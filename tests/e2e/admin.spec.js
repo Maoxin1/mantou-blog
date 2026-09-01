@@ -38,6 +38,39 @@ test('Sveltia 灰度后台复用受保护配置并提供 GitHub 登录入口', a
   expect(runtimeErrors).toEqual([]);
 });
 
+test('Sveltia 可以安装为品牌化的 mantou 桌面应用', async ({ page }) => {
+  await page.goto('/admin/sveltia/', { waitUntil: 'domcontentloaded' });
+  await expect(page.getByRole('button', { name: /github/i })).toBeVisible({ timeout: 20_000 });
+  await expect(page).toHaveTitle('mantou 内容工作台');
+
+  const manifest = await page.evaluate(async () => {
+    const manifestLink = document.querySelector('link[rel="manifest"]');
+
+    if (!manifestLink) return null;
+
+    const response = await fetch(manifestLink.href);
+    return response.json();
+  });
+
+  expect(manifest).not.toBeNull();
+  expect(manifest.name).toBe('mantou 内容工作台');
+  expect(manifest.short_name).toBe('mantou 内容工作台');
+  expect(new URL(manifest.start_url).pathname).toBe('/admin/sveltia/');
+  expect(manifest.display).toBe('standalone');
+  expect(manifest.icons.map(({ sizes }) => sizes)).toEqual(['192x192', '512x512']);
+
+  for (const icon of manifest.icons) {
+    expect(icon.src).toMatch(/^data:image\/webp;base64,/);
+  }
+
+  const devtools = await page.context().newCDPSession(page);
+  const { installabilityErrors } = await devtools.send('Page.getInstallabilityErrors');
+  const appManifest = await devtools.send('Page.getAppManifest');
+
+  expect(installabilityErrors).toEqual([]);
+  expect(appManifest.errors).toEqual([]);
+});
+
 test('Sveltia 主 CDN 失败后会改用固定版本的备用 CDN', async ({ page }) => {
   await page.route(
     'https://unpkg.com/@sveltia/cms@0.203.2/dist/sveltia-cms.js',
