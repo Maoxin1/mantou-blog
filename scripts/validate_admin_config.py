@@ -12,6 +12,7 @@ Checks:
    linear history cannot be bypassed.
 6) Sveltia omits unfilled optional fields and the investment privacy review is
    opt-in, so editing an unrelated work cannot create noisy front-matter diffs.
+7) The installable Sveltia app keeps the mantou title and repository-owned logo.
 """
 
 from __future__ import annotations
@@ -32,6 +33,12 @@ CONFIG_PATH = Path(__file__).resolve().parents[1] / "static" / "admin" / "config
 SVELTIA_DIR = CONFIG_PATH.parent / "sveltia"
 SVELTIA_INDEX_PATH = SVELTIA_DIR / "index.html"
 SVELTIA_CONFIG_PATH = SVELTIA_DIR / "config.yml"
+STATIC_DIR = CONFIG_PATH.parents[1]
+EXPECTED_SVELTIA_APP_TITLE = "mantou 内容工作台"
+EXPECTED_SVELTIA_LOGO = {
+    "src": "/images/mantou.jpg",
+    "show_in_header": True,
+}
 KEY_LINE_RE = re.compile(r"^(?P<indent>\s*)(?P<key>[^\s:#][^:]*):")
 LIST_KEY_RE = re.compile(r"^(?P<indent>\s*)-\s+(?P<key>[^\s:#][^:]*):")
 SLUG_RE = re.compile(r"^\s*slug:\s*[\"']?(?P<slug>.+?)[\"']?\s*$")
@@ -80,6 +87,20 @@ def main() -> int:
                 issues.append(
                     "Sveltia must omit empty optional fields to preserve minimal diffs"
                 )
+            if overlay.get("app_title") != EXPECTED_SVELTIA_APP_TITLE:
+                issues.append(
+                    f"Sveltia app_title must remain '{EXPECTED_SVELTIA_APP_TITLE}'"
+                )
+            logo = overlay.get("logo")
+            if logo != EXPECTED_SVELTIA_LOGO:
+                issues.append(
+                    "Sveltia logo must use /images/mantou.jpg and remain visible "
+                    "in the app header"
+                )
+            else:
+                logo_path = STATIC_DIR / logo["src"].lstrip("/")
+                if not logo_path.is_file():
+                    issues.append(f"Sveltia logo file does not exist: {logo_path}")
         except (AttributeError, ValueError, yaml.YAMLError) as error:
             issues.append(f"Sveltia config overlay is invalid: {error}")
 

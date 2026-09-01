@@ -35,7 +35,7 @@ Cloudflare Pages 项目采用 Direct Upload，验证和部署是两条相互隔�
 
 ## 内容管理
 
-Decap CMS稳定入口位于`/admin/`，Sveltia灰度入口位于`/admin/sveltia/`，两者通过仓库指定的OAuth代理登录并复用同一组字段。后台采用Editorial Workflow：保存草稿会建立`cms/...`分支和PR，等待`validate`通过后再使用压缩合并发布，不能直接绕过受保护的`main`。Sveltia已通过真实Draft、最小差异、状态流转和撤销验收；首次真实发布完成前仍保留Decap为默认入口。字段定义见`static/admin/config.yml`，完整操作、验收证据和故障处理见[`后台发布手册`](docs/cms-publishing-runbook.md)。
+Decap CMS稳定入口位于`/admin/`，Sveltia灰度入口位于`/admin/sveltia/`，两者通过仓库指定的OAuth代理登录并复用同一组字段。后台采用Editorial Workflow：保存草稿会建立`cms/...`分支和PR，等待`validate`通过后再使用压缩合并发布，不能直接绕过受保护的`main`。Sveltia已通过真实Draft、最小差异、状态流转和撤销验收，并可安装为品牌化的`mantou 内容工作台`桌面PWA；该入口依赖联网，不承诺离线编辑。首次真实发布完成前仍保留Decap为默认入口。字段定义见`static/admin/config.yml`，完整操作、桌面安装、验收证据和故障处理见[`后台发布手册`](docs/cms-publishing-runbook.md)。
 
 图片推送到 `static/images/` 或文章包后，GitHub Actions 会用固定版本的 Pillow 压缩符合条件的 JPEG/PNG，并且只提交图片目录中的变化。
 

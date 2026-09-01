@@ -25,6 +25,10 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.config = CONFIG_PATH.read_text(encoding="utf-8")
         cls.parsed_config = yaml.load(cls.config, Loader=UniqueKeyLoader)
+        cls.sveltia_overlay = yaml.load(
+            SVELTIA_CONFIG_PATH.read_text(encoding="utf-8"),
+            Loader=UniqueKeyLoader,
+        )
         cls.backend = cls.config.split("media_folder:", maxsplit=1)[0]
         cls.headers = HEADERS_PATH.read_text(encoding="utf-8")
 
@@ -97,6 +101,17 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
         )
         self.assertRegex(overlay, r"(?m)^\s+yaml:\s*$")
         self.assertRegex(overlay, r"(?m)^\s+quote:\s*double\s*$")
+
+    def test_sveltia_installed_app_uses_mantou_branding(self) -> None:
+        self.assertEqual("mantou 内容工作台", self.sveltia_overlay["app_title"])
+        self.assertEqual(
+            {
+                "src": "/images/mantou.jpg",
+                "show_in_header": True,
+            },
+            self.sveltia_overlay["logo"],
+        )
+        self.assertTrue((ROOT / "static" / "images" / "mantou.jpg").is_file())
 
     def test_optional_investment_review_does_not_pollute_other_work_drafts(self) -> None:
         works = next(
