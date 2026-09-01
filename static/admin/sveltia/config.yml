@@ -1,0 +1,5 @@
+# Sveltia-only overlay. The shared backend and collection definitions live in
+# /admin/config.yml so the gray-release CMS cannot drift from the stable admin.
+output:
+  yaml:
+    quote: double

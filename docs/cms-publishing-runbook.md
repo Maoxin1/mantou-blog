@@ -1,6 +1,9 @@
 # 后台发布手册
 
-博客后台位于`https://mantou-blog.pages.dev/admin/`。它负责编辑仓库中的内容，不直接绕过测试发布到正式站。
+稳定后台位于`https://mantou-blog.pages.dev/admin/`；Sveltia灰度后台位于
+`https://mantou-blog.pages.dev/admin/sveltia/`。灰度期间默认继续使用稳定后台，只有在
+验证Sveltia兼容性时才使用灰度入口。两者负责编辑仓库中的内容，不直接绕过测试发布
+到正式站。
 
 ## 发布一项阶段作品
 
@@ -21,7 +24,21 @@
 ## 验收标准
 
 - 后台保存只产生内容分支和PR；
+- Sveltia灰度后台保存Draft时，GitHub PR本身必须是Draft，而不只是带有draft标签；
+- 修改一个字段不能重写无关的Front Matter；
 - 未通过`validate`的内容不能进入`main`；
 - 合并记录保持线性；
 - `main`成功后自动部署，正式页面能找到新增作品；
 - 删除测试草稿或关闭测试PR后，正式站不出现测试内容。
+
+首次使用Sveltia灰度后台保存测试草稿后，不要立即发布。记录PR编号，并在本地执行：
+
+```powershell
+python scripts/verify_cms_pr.py <PR编号> `
+  --expected-file content/works/<测试文件>.md `
+  --allowed-key stage
+```
+
+该命令只读GitHub数据，不改变PR；它会确认PR本身是Draft、只修改预期文件，并且没有
+借修改一个字段重写其他Front Matter。验证完成后从后台Discard测试草稿，再确认PR已关闭、
+测试分支已删除。

@@ -32,27 +32,38 @@ test('已访问作品断网可读，未访问路径显示离线说明', async ({
   }
 });
 
-test('后台配置不进入 PWA 缓存，避免旧配置误触直接发布', async ({ page, context }) => {
+test('所有后台入口和配置都不进入 PWA 缓存', async ({ page, context }) => {
   await page.goto('/', { waitUntil: 'load' });
   await waitForServiceWorkerControl(page);
 
-  const onlineStatus = await page.evaluate(async () => {
-    const response = await fetch('/admin/config.yml', { cache: 'no-store' });
-    return response.status;
-  });
-  expect(onlineStatus).toBe(200);
+  const adminPaths = [
+    '/admin/',
+    '/admin/config.yml?cache-boundary=1',
+    '/admin/sveltia/',
+    '/admin/sveltia/config.yml?cache-boundary=1',
+  ];
+
+  const onlineStatuses = await page.evaluate(async (paths) => Promise.all(
+    paths.map(async (path) => {
+      const response = await fetch(path, { cache: 'no-store' });
+      return response.status;
+    }),
+  ), adminPaths);
+  expect(onlineStatuses).toEqual(adminPaths.map(() => 200));
 
   await context.setOffline(true);
   try {
-    const offlineResult = await page.evaluate(async () => {
-      try {
-        await fetch('/admin/config.yml', { cache: 'no-store' });
-        return 'unexpected-cache-hit';
-      } catch {
-        return 'network-failed';
-      }
-    });
-    expect(offlineResult).toBe('network-failed');
+    const offlineResults = await page.evaluate(async (paths) => Promise.all(
+      paths.map(async (path) => {
+        try {
+          await fetch(path, { cache: 'no-store' });
+          return 'unexpected-cache-hit';
+        } catch {
+          return 'network-failed';
+        }
+      }),
+    ), adminPaths);
+    expect(offlineResults).toEqual(adminPaths.map(() => 'network-failed'));
   } finally {
     await context.setOffline(false);
   }
