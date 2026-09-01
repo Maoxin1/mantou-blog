@@ -47,3 +47,20 @@ test('公开案例链接指向的清单编辑器仍可完成核心入口加载',
   await expect(page.locator('#checklist-form')).toBeVisible();
   await expect(page.locator('#download-button')).toBeVisible();
 });
+
+test('正式内容后台能够加载并读取PR发布配置', async ({ page, request }) => {
+  const response = await page.goto('/admin/', { waitUntil: 'domcontentloaded' });
+  expect(response, '后台入口应返回响应').not.toBeNull();
+  expect(response.status(), '后台入口应成功加载').toBeLessThan(400);
+  await expect(page.locator('#cms-error')).toBeHidden();
+  await expect(page.getByRole('button', { name: /login with github/i })).toBeVisible({
+    timeout: 20_000,
+  });
+
+  const configResponse = await request.get('/admin/config.yml');
+  expect(configResponse.ok()).toBeTruthy();
+  const config = await configResponse.text();
+  const backend = config.split(/^media_folder:/m, 1)[0];
+  expect(config).toMatch(/^publish_mode:\s*editorial_workflow\s*$/m);
+  expect(backend).toMatch(/^\s+squash_merges:\s*true\s*$/m);
+});
