@@ -8,6 +8,8 @@ Checks:
 4) Slug templates relying on {{hour}}/{{minute}}/{{second}} must not be paired
    with a date field that has time_format: false (otherwise the time part
    degenerates to a fixed value and same-day posts overwrite each other).
+5) CMS publishing uses pull requests and squash merges so protected main and
+   linear history cannot be bypassed.
 """
 
 from __future__ import annotations
@@ -42,6 +44,17 @@ def main() -> int:
     for marker in ("<<<<<<<", "=======", ">>>>>>>"):
         if marker in text:
             issues.append(f"found unresolved merge marker: {marker}")
+
+    backend_block = text.split("media_folder:", maxsplit=1)[0]
+    if not re.search(r"(?m)^publish_mode:\s*editorial_workflow\s*$", text):
+        issues.append(
+            "publish_mode must be editorial_workflow so CMS changes use pull "
+            "requests instead of pushing directly to protected main"
+        )
+    if not re.search(r"(?m)^\s+squash_merges:\s*true\s*$", backend_block):
+        issues.append(
+            "backend.squash_merges must be true to preserve required linear history"
+        )
 
     works_block = collection_block(text, "works")
     if works_block is None:

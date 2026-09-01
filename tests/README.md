@@ -20,6 +20,7 @@ npm run test:e2e
 - 主题选择刷新后保留、手机导航可用；
 - Service Worker接管后，已访问作品断网可读，未访问路径显示离线说明；
 - 非生产域名不加载 Cloudflare Web Analytics。
+- 内容后台脚本能够加载并出现GitHub登录入口，公开配置固定使用PR和压缩合并发布。
 
 失败时 Playwright 会把截图、trace 和 HTML 报告写入被 Git 忽略的 `test-results/` 与 `playwright-report/`。
 

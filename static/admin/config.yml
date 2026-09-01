@@ -4,6 +4,11 @@ backend:
   branch: main
   base_url: https://decap-proxy.xmiao2343.workers.dev
   auth_endpoint: /auth
+  squash_merges: true
+
+publish_mode: editorial_workflow
+site_url: https://mantou-blog.pages.dev
+display_url: https://mantou-blog.pages.dev
 
 media_folder: "static/images/posts"
 public_folder: "/images/posts"
@@ -56,6 +61,7 @@ collections:
 
   - name: "works"
     label: "作品集"
+    description: "保存草稿会创建PR；等待validate通过并完成公开边界复核后再发布。"
     folder: "content/works"
     create: true
     slug: "{{slug}}"

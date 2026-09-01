@@ -35,7 +35,7 @@ Cloudflare Pages 项目采用 Direct Upload，验证和部署是两条相互隔�
 
 ## 内容管理
 
-Decap CMS 位于 `/admin/`，通过仓库指定的 OAuth 代理登录并向 `main` 写入内容。CMS 后端、媒体路径和字段定义见 `static/admin/config.yml`。
+Decap CMS 位于 `/admin/`，通过仓库指定的 OAuth 代理登录。后台采用Editorial Workflow：保存草稿会建立`cms/...`分支和PR，等待`validate`通过后再使用压缩合并发布，不能直接绕过受保护的`main`。字段定义见`static/admin/config.yml`，完整操作和故障处理见[`后台发布手册`](docs/cms-publishing-runbook.md)。
 
 图片推送到 `static/images/` 或文章包后，GitHub Actions 会用固定版本的 Pillow 压缩符合条件的 JPEG/PNG，并且只提交图片目录中的变化。
 
