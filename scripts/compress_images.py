@@ -1,69 +1,138 @@
 #!/usr/bin/env python3
-"""One-shot in-place image compressor.
+"""Validate and compress repository images without import-time side effects."""
 
-Resizes images whose longest side > MAX_EDGE and recompresses JPEG/PNG,
-keeping filename + extension so markdown references stay valid.
-Only overwrites when the result is actually smaller.
-"""
-import os
-from PIL import Image
+from __future__ import annotations
+
+import sys
+from dataclasses import dataclass, field
+from pathlib import Path
+
+from PIL import Image, ImageOps
+
 
 MAX_EDGE = 1600
 JPEG_Q = 80
 SKIP_NAMES = {"mantou.jpg"}
 SKIP_PREFIX = ("favicon", "android-chrome", "apple-touch")
-ROOTS = ["static/images", "content/posts"]
-MIN_BYTES = 120 * 1024  # skip files already under ~120KB
+ROOTS = (Path("static/images"), Path("content/posts"))
+MIN_BYTES = 120 * 1024
+SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 
-total_before = total_after = 0
-changed = 0
 
-for root in ROOTS:
-    for dirpath, _, files in os.walk(root):
-        for name in files:
-            ext = name.lower().rsplit(".", 1)[-1] if "." in name else ""
-            if ext not in ("jpg", "jpeg", "png"):
-                continue
-            if name in SKIP_NAMES or name.lower().startswith(SKIP_PREFIX):
-                continue
-            path = os.path.join(dirpath, name)
-            before = os.path.getsize(path)
-            if before < MIN_BYTES:
-                continue
-            try:
-                img = Image.open(path)
-                img.load()
-            except Exception as e:
-                print(f"SKIP open-fail {path}: {e}")
-                continue
-            w, h = img.size
-            longest = max(w, h)
-            if longest > MAX_EDGE:
-                s = MAX_EDGE / longest
-                img = img.resize((max(1, int(w * s)), max(1, int(h * s))), Image.LANCZOS)
+@dataclass
+class CompressionSummary:
+    changed: int = 0
+    total_before: int = 0
+    total_after: int = 0
+    errors: list[str] = field(default_factory=list)
 
-            tmp = path + ".tmp"
-            try:
-                if ext in ("jpg", "jpeg"):
-                    img.convert("RGB").save(tmp, "JPEG", quality=JPEG_Q, optimize=True, progressive=True)
-                else:
-                    img.save(tmp, "PNG", optimize=True)
-            except Exception as e:
-                print(f"SKIP save-fail {path}: {e}")
-                if os.path.exists(tmp):
-                    os.remove(tmp)
-                continue
 
-            after = os.path.getsize(tmp)
-            if after < before:
-                os.replace(tmp, path)
-                total_before += before
-                total_after += after
-                changed += 1
-                print(f"  {path}: {before//1024}KB -> {after//1024}KB")
+def _should_skip(path: Path) -> bool:
+    lowered = path.name.lower()
+    return path.name in SKIP_NAMES or lowered.startswith(SKIP_PREFIX)
+
+
+def _compress_image(
+    path: Path,
+    summary: CompressionSummary,
+    *,
+    min_bytes: int,
+    max_edge: int,
+) -> None:
+    before = path.stat().st_size
+    temporary = path.with_name(f"{path.name}.tmp")
+
+    try:
+        with Image.open(path) as source:
+            source.load()
+            image = ImageOps.exif_transpose(source)
+
+            if before < min_bytes:
+                return
+
+            width, height = image.size
+            longest = max(width, height)
+            resized = longest > max_edge
+
+            if resized:
+                scale = max_edge / longest
+                image = image.resize(
+                    (max(1, int(width * scale)), max(1, int(height * scale))),
+                    Image.Resampling.LANCZOS,
+                )
+
+            extension = path.suffix.lower()
+            if extension in {".jpg", ".jpeg"}:
+                image.convert("RGB").save(
+                    temporary,
+                    "JPEG",
+                    quality=JPEG_Q,
+                    optimize=True,
+                    progressive=True,
+                )
             else:
-                os.remove(tmp)
+                image.save(temporary, "PNG", optimize=True)
 
-print(f"\nChanged {changed} images.")
-print(f"Compressed bytes: {total_before//1024}KB -> {total_after//1024}KB "
-      f"(saved ~{(total_before-total_after)//1024//1024}MB)")
+        after = temporary.stat().st_size
+        if resized or after < before:
+            temporary.replace(path)
+            summary.changed += 1
+            summary.total_before += before
+            summary.total_after += after
+            print(f"  {path}: {before // 1024}KB -> {after // 1024}KB")
+        else:
+            temporary.unlink(missing_ok=True)
+    except Exception as error:  # Pillow raises several format-specific exception types.
+        temporary.unlink(missing_ok=True)
+        summary.errors.append(f"{path}: {error}")
+
+
+def optimize_roots(
+    roots: list[Path] | tuple[Path, ...],
+    *,
+    min_bytes: int = MIN_BYTES,
+    max_edge: int = MAX_EDGE,
+) -> CompressionSummary:
+    """Validate supported images and compress candidates under explicit roots."""
+
+    summary = CompressionSummary()
+
+    for root in roots:
+        if not root.exists():
+            summary.errors.append(f"missing image root: {root}")
+            continue
+
+        for path in sorted(item for item in root.rglob("*") if item.is_file()):
+            if path.suffix.lower() not in SUPPORTED_EXTENSIONS or _should_skip(path):
+                continue
+            _compress_image(
+                path,
+                summary,
+                min_bytes=min_bytes,
+                max_edge=max_edge,
+            )
+
+    return summary
+
+
+def main() -> int:
+    summary = optimize_roots(ROOTS)
+
+    print(f"\nChanged {summary.changed} images.")
+    print(
+        f"Compressed bytes: {summary.total_before // 1024}KB -> "
+        f"{summary.total_after // 1024}KB "
+        f"(saved ~{(summary.total_before - summary.total_after) // 1024 // 1024}MB)"
+    )
+
+    if summary.errors:
+        print("\nImage validation failed:")
+        for error in summary.errors:
+            print(f"- {error}")
+        return 1
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -64,3 +64,22 @@ test('正式内容后台能够加载并读取PR发布配置', async ({ page, req
   expect(config).toMatch(/^publish_mode:\s*editorial_workflow\s*$/m);
   expect(backend).toMatch(/^\s+squash_merges:\s*true\s*$/m);
 });
+
+test('正式 Sveltia 灰度后台可用且所有后台资源禁止缓存', async ({ page, request }) => {
+  const response = await page.goto('/admin/sveltia/', { waitUntil: 'domcontentloaded' });
+  expect(response, 'Sveltia 灰度后台应返回响应').not.toBeNull();
+  expect(response.status()).toBeLessThan(400);
+  await expect(page.locator('#cms-error')).toBeHidden();
+  await expect(page.getByRole('button', { name: /github/i })).toBeVisible({ timeout: 20_000 });
+
+  for (const path of [
+    '/admin/',
+    '/admin/config.yml?production-cache-check=1',
+    '/admin/sveltia/',
+    '/admin/sveltia/config.yml?production-cache-check=1',
+  ]) {
+    const resource = await request.get(path);
+    expect(resource.ok(), `${path} 应能从生产环境读取`).toBeTruthy();
+    expect(resource.headers()['cache-control'], `${path} 必须禁止缓存`).toContain('no-store');
+  }
+});

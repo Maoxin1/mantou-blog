@@ -102,5 +102,13 @@ collections:
         default: false
         required: false
         hint: "投资作品发布前必须开启：确认未公开金额、仓位、账户总收益；具体标的已达到阶段复盘或完全退出的公开时点。"
+      - label: "具体标的公开依据"
+        name: "security_disclosure_basis"
+        widget: "select"
+        required: false
+        options:
+          - { label: "未公开具体标的", value: "not_named" }
+          - { label: "已达到公开边界", value: "boundary_met" }
+        hint: "投资作品必填。达到公开边界指已经进入阶段复盘，或已经完全退出；无需公开具体属于哪一种。"
       - { label: "首页精选", name: "featured", widget: "boolean", default: false }
       - { label: "正文", name: "body", widget: "markdown" }

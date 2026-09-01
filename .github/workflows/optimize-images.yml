@@ -1,10 +1,9 @@
 name: Optimize images
 
-# 每当有图片推送到 main（含通过 Decap CMS 网页上传），自动压缩并提交回仓库。
-# 你无需在本地做任何事：上传大图后，CI 会自动把它压小再触发 Cloudflare 部署。
+# 在同仓库 PR 合并前压缩图片。外部 fork 只运行只读验证，不授予回写能力。
 on:
-  push:
-    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
     paths:
       - "static/images/**"
       - "content/posts/**/*.jpg"
@@ -14,18 +13,20 @@ on:
 permissions:
   contents: write
 
-# 避免与自身的回写提交叠加运行
 concurrency:
-  group: optimize-images
-  cancel-in-progress: false
+  group: optimize-images-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
   optimize:
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Check out repository
+      - name: Check out the exact pull request revision
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Set up Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -39,13 +40,15 @@ jobs:
         run: python scripts/compress_images.py
 
       - name: Commit if anything changed
+        env:
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
           git add -- static/images content/posts
           if ! git diff --cached --quiet; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "chore: 自动压缩图片 [skip ci]"
-            git push origin HEAD:main
+            git commit -m "chore: 自动压缩图片"
+            git push origin "HEAD:$HEAD_BRANCH"
           else
             echo "图片已是优化状态，无需改动。"
           fi

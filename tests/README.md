@@ -20,7 +20,10 @@ npm run test:e2e
 - 主题选择刷新后保留、手机导航可用；
 - Service Worker接管后，已访问作品断网可读，未访问路径显示离线说明；后台配置不进入离线缓存，避免旧配置误触直接发布；
 - 非生产域名不加载 Cloudflare Web Analytics。
-- 内容后台脚本能够加载并出现GitHub登录入口，公开配置固定使用PR和压缩合并发布。
+- Decap稳定后台与Sveltia灰度后台都能加载并出现GitHub登录入口；Sveltia固定版本、
+  SRI和备用CDN，公开配置固定使用PR和压缩合并发布；
+- 后台使用真实移动设备参数验证触控环境与窄屏无溢出；全部后台入口与配置均绕过
+  Service Worker缓存。
 
 失败时 Playwright 会把截图、trace 和 HTML 报告写入被 Git 忽略的 `test-results/` 与 `playwright-report/`。
 
@@ -32,7 +35,7 @@ npm run test:e2e
 npm run test:smoke
 ```
 
-它检查正式博客关键路径、正式中文搜索，以及公开案例链接指向的清单编辑器。失败会重试一次，并保留14天的截图与trace；外部短时故障不会阻塞普通内容提交。
+它检查正式博客关键路径、正式中文搜索、两套内容后台、后台`no-store`响应头，以及公开案例链接指向的清单编辑器。失败会重试一次，并保留14天的截图与trace；外部短时故障不会阻塞普通内容提交。
 
 ## 参考仓库审计
 

@@ -74,6 +74,13 @@ jobs:
       - name: Install pinned dependencies
         run: npm ci
 
+      - name: Install validation dependencies for manual preview
+        if: github.event_name == 'workflow_dispatch'
+        run: >-
+          python -m pip install --disable-pip-version-check
+          -r scripts/requirements-validation.txt
+          -r scripts/requirements-image.txt
+
       - name: Validate manual-preview source
         if: github.event_name == 'workflow_dispatch'
         run: |

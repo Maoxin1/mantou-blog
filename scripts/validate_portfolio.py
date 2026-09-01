@@ -5,7 +5,10 @@ from __future__ import annotations
 
 import re
 import sys
+from datetime import date, datetime
 from pathlib import Path
+
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKS_DIR = ROOT / "content" / "works"
@@ -30,26 +33,61 @@ REQUIRED_FIELDS = {
     "disclosure",
     "featured",
 }
-INVESTMENT_REQUIRED_FIELDS = {"privacy_reviewed"}
+INVESTMENT_REQUIRED_FIELDS = {"privacy_reviewed", "security_disclosure_basis"}
+ALLOWED_SECURITY_DISCLOSURE_BASES = {"not_named", "boundary_met"}
+ARABIC_NUMBER = r"[+\-]?\s*\d(?:[\d\s,，.]*\d)?\s*(?:%|％|元|万|万元|亿|亿元|成)?"
+CHINESE_NUMBER = r"[零〇一二两三四五六七八九十百千万亿点]+(?:元|万元|亿元|成)?"
+PRIVATE_NUMBER = rf"(?:{ARABIC_NUMBER}|{CHINESE_NUMBER})"
+VALUE_CONNECTOR = r"\s*(?:(?:约|大约|大概|接近|将近)?(?:为|是|达到)?|[：:=])\s*"
+
 INVESTMENT_PRIVACY_PATTERNS = (
     (
         "账户总收益",
-        re.compile(r"(?:账户|组合).{0,8}总收益(?:率)?.{0,6}[：:=为]?\s*[+\-]?\d"),
+        re.compile(
+            rf"(?:账户|组合)\s*(?:总?收益(?:率)?|盈利|盈亏)"
+            rf"{VALUE_CONNECTOR}{PRIVATE_NUMBER}"
+        ),
     ),
     (
         "个人仓位",
         re.compile(
-            r"(?:我的|本人|个人|当前)(?:总)?(?:持仓|仓位)(?:比例)?"
-            r"\s*(?:为|是|[：:=])?\s*\d"
+            rf"(?:我的|本人|个人|当前)\s*(?:总)?(?:持仓|仓位)(?:比例)?"
+            rf"{VALUE_CONNECTOR}{PRIVATE_NUMBER}"
         ),
     ),
     (
         "个人金额",
         re.compile(
-            r"(?:投入本金|个人本金|账户金额|持仓金额|投资金额)"
-            r"\s*(?:为|是|[：:=])?\s*(?:[¥￥$]\s*)?\d"
+            rf"(?:投入本金|个人本金|账户金额|持仓金额|投资金额)"
+            rf"{VALUE_CONNECTOR}(?:[¥￥$]\s*)?{PRIVATE_NUMBER}"
         ),
     ),
+)
+
+
+class UniqueKeyLoader(yaml.SafeLoader):
+    """Safe YAML loader that rejects ambiguous duplicate mapping keys."""
+
+
+def _construct_unique_mapping(
+    loader: UniqueKeyLoader,
+    node: yaml.nodes.MappingNode,
+    deep: bool = False,
+) -> dict[object, object]:
+    mapping: dict[object, object] = {}
+
+    for key_node, value_node in node.value:
+        key = loader.construct_object(key_node, deep=deep)
+        if key in mapping:
+            raise ValueError(f"duplicate YAML key: {key}")
+        mapping[key] = loader.construct_object(value_node, deep=deep)
+
+    return mapping
+
+
+UniqueKeyLoader.add_constructor(
+    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+    _construct_unique_mapping,
 )
 
 
@@ -74,6 +112,15 @@ def investment_privacy_issues(fields: dict[str, str], body: str) -> list[str]:
     elif fields.get("privacy_reviewed", "").lower() != "true":
         issues.append("privacy_reviewed must be true before publishing investment work")
 
+    disclosure_basis = fields.get("security_disclosure_basis")
+    if (
+        disclosure_basis
+        and disclosure_basis not in ALLOWED_SECURITY_DISCLOSURE_BASES
+    ):
+        issues.append(
+            "security_disclosure_basis must be 'not_named' or 'boundary_met'"
+        )
+
     privacy_text = "\n".join((*fields.values(), body))
     privacy_risks = investment_privacy_risks(privacy_text)
     if privacy_risks:
@@ -85,23 +132,56 @@ def investment_privacy_issues(fields: dict[str, str], body: str) -> list[str]:
     return issues
 
 
-def parse_front_matter(path: Path) -> tuple[dict[str, str], str]:
-    text = path.read_text(encoding="utf-8")
+def _field_text(value: object) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, bool):
+        return str(value).lower()
+    if isinstance(value, (date, datetime)):
+        return value.isoformat()
+    if isinstance(value, str):
+        return value
+    if isinstance(value, (list, dict)):
+        return yaml.safe_dump(
+            value,
+            allow_unicode=True,
+            default_flow_style=False,
+            sort_keys=False,
+        ).strip()
+    return str(value)
+
+
+def parse_front_matter_text(text: str) -> tuple[dict[str, str], str]:
+    text = text.removeprefix("\ufeff").replace("\r\n", "\n")
     if not text.startswith("---\n"):
         raise ValueError("front matter must use YAML delimiters")
-    try:
-        raw_front_matter, body = text[4:].split("\n---", 1)
-    except ValueError as error:
-        raise ValueError("front matter closing delimiter is missing") from error
 
-    fields: dict[str, str] = {}
-    for line in raw_front_matter.splitlines():
-        match = re.match(r"^(?P<key>[a-zA-Z_][\w-]*):\s*(?P<value>.*)$", line)
-        if not match:
-            continue
-        value = match.group("value").strip().strip('"').strip("'")
-        fields[match.group("key")] = value
+    closing = re.search(r"(?m)^---\s*$", text[4:])
+    if closing is None:
+        raise ValueError("front matter closing delimiter is missing")
+
+    raw_start = 4
+    raw_end = raw_start + closing.start()
+    body_start = raw_start + closing.end()
+    raw_front_matter = text[raw_start:raw_end]
+    body = text[body_start:].lstrip("\n")
+
+    try:
+        loaded = yaml.load(raw_front_matter, Loader=UniqueKeyLoader)
+    except ValueError:
+        raise
+    except yaml.YAMLError as error:
+        raise ValueError(f"invalid YAML front matter: {error}") from error
+
+    if not isinstance(loaded, dict):
+        raise ValueError("front matter must be a YAML mapping")
+
+    fields = {str(key): _field_text(value) for key, value in loaded.items()}
     return fields, body.strip()
+
+
+def parse_front_matter(path: Path) -> tuple[dict[str, str], str]:
+    return parse_front_matter_text(path.read_text(encoding="utf-8"))
 
 
 def portfolio_pages() -> list[Path]:

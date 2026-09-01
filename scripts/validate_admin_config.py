@@ -18,9 +18,18 @@ import re
 import sys
 from pathlib import Path
 
-from validate_portfolio import INVESTMENT_REQUIRED_FIELDS, REQUIRED_FIELDS
+import yaml
+
+from validate_portfolio import (
+    INVESTMENT_REQUIRED_FIELDS,
+    REQUIRED_FIELDS,
+    UniqueKeyLoader,
+)
 
 CONFIG_PATH = Path(__file__).resolve().parents[1] / "static" / "admin" / "config.yml"
+SVELTIA_DIR = CONFIG_PATH.parent / "sveltia"
+SVELTIA_INDEX_PATH = SVELTIA_DIR / "index.html"
+SVELTIA_CONFIG_PATH = SVELTIA_DIR / "config.yml"
 KEY_LINE_RE = re.compile(r"^(?P<indent>\s*)(?P<key>[^\s:#][^:]*):")
 LIST_KEY_RE = re.compile(r"^(?P<indent>\s*)-\s+(?P<key>[^\s:#][^:]*):")
 SLUG_RE = re.compile(r"^\s*slug:\s*[\"']?(?P<slug>.+?)[\"']?\s*$")
@@ -40,6 +49,29 @@ def collection_field_names(block: str) -> set[str]:
 def main() -> int:
     issues: list[str] = []
     text = CONFIG_PATH.read_text(encoding="utf-8")
+
+    try:
+        parsed_config = yaml.load(text, Loader=UniqueKeyLoader)
+        if not isinstance(parsed_config, dict):
+            issues.append("admin config must be a YAML mapping")
+    except (ValueError, yaml.YAMLError) as error:
+        issues.append(f"admin config is not valid unambiguous YAML: {error}")
+
+    if not SVELTIA_INDEX_PATH.is_file():
+        issues.append("missing Sveltia gray-release entry")
+    if not SVELTIA_CONFIG_PATH.is_file():
+        issues.append("missing Sveltia config overlay")
+    else:
+        try:
+            overlay = yaml.load(
+                SVELTIA_CONFIG_PATH.read_text(encoding="utf-8"),
+                Loader=UniqueKeyLoader,
+            )
+            quote = overlay.get("output", {}).get("yaml", {}).get("quote")
+            if quote != "double":
+                issues.append("Sveltia YAML output quote must remain 'double'")
+        except (AttributeError, ValueError, yaml.YAMLError) as error:
+            issues.append(f"Sveltia config overlay is invalid: {error}")
 
     for marker in ("<<<<<<<", "=======", ">>>>>>>"):
         if marker in text:
