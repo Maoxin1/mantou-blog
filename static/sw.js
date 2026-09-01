@@ -3,7 +3,7 @@
  * 策略：页面导航走“网络优先 + 离线回退”，静态资源走“缓存优先 + 后台更新”。
  * 改动缓存逻辑时，请把 VERSION 加一，旧缓存会被自动清理。
  */
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = 'mantou-blog-' + VERSION;
 const PRECACHE = [
   '/',
@@ -37,6 +37,10 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(req.url);
   // 只接管同源请求；外部 CDN / 统计脚本一律放行，避免缓存污染
   if (url.origin !== self.location.origin) return;
+
+  // 内容后台依赖最新配置决定“保存草稿”还是“直接发布”。后台必须始终
+  // 访问网络，不能被博客离线缓存中的旧 config.yml 改变发布行为。
+  if (url.pathname === '/admin' || url.pathname.startsWith('/admin/')) return;
 
   // 页面导航：优先拿最新内容，断网时回退到缓存页，再不行就显示离线页
   if (req.mode === 'navigate') {
