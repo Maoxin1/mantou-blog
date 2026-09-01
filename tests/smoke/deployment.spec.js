@@ -71,6 +71,27 @@ test('正式 Sveltia 灰度后台可用且所有后台资源禁止缓存', async
   expect(response.status()).toBeLessThan(400);
   await expect(page.locator('#cms-error')).toBeHidden();
   await expect(page.getByRole('button', { name: /github/i })).toBeVisible({ timeout: 20_000 });
+  await expect(page).toHaveTitle('mantou 内容工作台');
+
+  const manifest = await page.evaluate(async () => {
+    const manifestLink = document.querySelector('link[rel="manifest"]');
+
+    if (!manifestLink) return null;
+
+    const manifestResponse = await fetch(manifestLink.href);
+    return manifestResponse.json();
+  });
+
+  expect(manifest).not.toBeNull();
+  expect(manifest.name).toBe('mantou 内容工作台');
+  expect(manifest.short_name).toBe('mantou 内容工作台');
+  expect(new URL(manifest.start_url).pathname).toBe('/admin/sveltia/');
+  expect(manifest.display).toBe('standalone');
+  expect(manifest.icons.map(({ sizes }) => sizes)).toEqual(['192x192', '512x512']);
+
+  const devtools = await page.context().newCDPSession(page);
+  const { installabilityErrors } = await devtools.send('Page.getInstallabilityErrors');
+  expect(installabilityErrors).toEqual([]);
 
   for (const path of [
     '/admin/',
