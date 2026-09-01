@@ -14,6 +14,7 @@ FRONT_MATTER_CHANGE_RE = re.compile(
     r"^[+-](?![+-])(?P<key>[a-zA-Z_][\w-]*):",
     re.MULTILINE,
 )
+WORKFLOW_STATUSES = ("draft", "pending_review", "pending_publish")
 
 
 def validate_cms_pr(
@@ -22,8 +23,9 @@ def validate_cms_pr(
     *,
     expected_file: str,
     allowed_front_matter_keys: set[str],
+    expected_workflow_status: str = "draft",
 ) -> list[str]:
-    """Return acceptance failures for a Sveltia gray-release pull request."""
+    """Return acceptance failures for a Sveltia workflow pull request."""
 
     issues: list[str] = []
 
@@ -36,16 +38,28 @@ def validate_cms_pr(
     if not head.startswith("cms/"):
         issues.append("pull request branch must use the cms/ prefix")
 
-    if pull_request.get("isDraft") is not True:
-        issues.append("saved Sveltia draft must be a real GitHub Draft PR")
+    expected_is_draft = expected_workflow_status == "draft"
+    if expected_is_draft and pull_request.get("isDraft") is not True:
+        issues.append("draft status must be a real GitHub Draft PR")
+    if not expected_is_draft and pull_request.get("isDraft") is not False:
+        issues.append(
+            f"{expected_workflow_status} status must not be a GitHub Draft PR"
+        )
 
     labels = {
         str(label.get("name"))
         for label in pull_request.get("labels", [])
         if isinstance(label, dict)
     }
-    if "sveltia-cms/draft" not in labels:
-        issues.append("draft pull request must carry the sveltia-cms/draft label")
+    expected_label = f"sveltia-cms/{expected_workflow_status}"
+    workflow_labels = labels & {
+        f"sveltia-cms/{status}" for status in WORKFLOW_STATUSES
+    }
+    if workflow_labels != {expected_label}:
+        issues.append(
+            f"expected workflow status must carry only the {expected_label} label; "
+            f"found {sorted(workflow_labels)!r}"
+        )
 
     files = [
         str(file.get("path"))
@@ -90,11 +104,17 @@ def _run_gh(arguments: list[str]) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Verify a real Sveltia Draft PR and its minimal content diff.",
+        description="Verify a real Sveltia workflow PR and its minimal content diff.",
     )
     parser.add_argument("pr", type=int, help="GitHub pull request number")
     parser.add_argument("--repo", default="Maoxin1/mantou-blog")
     parser.add_argument("--expected-file", required=True)
+    parser.add_argument(
+        "--expected-status",
+        choices=WORKFLOW_STATUSES,
+        default="draft",
+        help="Expected Sveltia Editorial Workflow stage",
+    )
     parser.add_argument(
         "--allowed-key",
         action="append",
@@ -130,6 +150,7 @@ def main() -> int:
         diff,
         expected_file=args.expected_file,
         allowed_front_matter_keys=set(args.allowed_keys),
+        expected_workflow_status=args.expected_status,
     )
 
     if issues:
@@ -139,8 +160,8 @@ def main() -> int:
         return 1
 
     print(
-        "CMS PR verification passed: real Draft PR, expected file only, "
-        "minimal Front Matter diff."
+        f"CMS PR verification passed: {args.expected_status} status, expected "
+        "file only, minimal Front Matter diff."
     )
     return 0
 

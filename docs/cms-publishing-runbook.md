@@ -5,6 +5,10 @@
 验证Sveltia兼容性时才使用灰度入口。两者负责编辑仓库中的内容，不直接绕过测试发布
 到正式站。
 
+截至2026-09-01，Sveltia已经通过真实GitHub草稿、单字段最小差异、
+`草稿 → 审核中 → 就绪 → 草稿`状态流转和放弃草稿验收。它可以用于下一项真实作品的
+发布验收；在首次真实发布、合并与正式部署全部通过前，`/admin/`仍保留为默认稳定入口。
+
 ## 发布一项阶段作品
 
 1. 登录后台，进入“作品集”，选择“新建作品集”。
@@ -42,3 +46,33 @@ python scripts/verify_cms_pr.py <PR编号> `
 该命令只读GitHub数据，不改变PR；它会确认PR本身是Draft、只修改预期文件，并且没有
 借修改一个字段重写其他Front Matter。验证完成后从后台Discard测试草稿，再确认PR已关闭、
 测试分支已删除。
+
+状态变化后可使用同一脚本复核GitHub状态和Sveltia标签：
+
+```powershell
+# 草稿：GitHub Draft + sveltia-cms/draft
+python scripts/verify_cms_pr.py <PR编号> --expected-status draft `
+  --expected-file content/works/<测试文件>.md --allowed-key stage
+
+# 审核中：非GitHub Draft + sveltia-cms/pending_review
+python scripts/verify_cms_pr.py <PR编号> --expected-status pending_review `
+  --expected-file content/works/<测试文件>.md --allowed-key stage
+
+# 就绪：非GitHub Draft + sveltia-cms/pending_publish
+python scripts/verify_cms_pr.py <PR编号> --expected-status pending_publish `
+  --expected-file content/works/<测试文件>.md --allowed-key stage
+```
+
+“就绪”只代表可以发布，不应自动合并。测试内容必须先改回草稿再Discard；真实内容则在
+`validate`通过、公开边界复核完成后才能点击发布。
+
+## Sveltia真实验收记录
+
+- PR #47首次暴露日期引号和空投资字段污染最小差异，修复由PR #48合并；
+- PR #49确认真实GitHub Draft、单文件单字段差异和Discard均正常；
+- PR #50确认`draft`、`pending_review`、`pending_publish`再回到`draft`时，GitHub Draft
+  状态与`Sveltia CMS`标签同步，内容提交没有变化，且“就绪”不会自动合并；
+- 所有验收草稿均未合并，PR已关闭，临时分支已删除。
+
+当前仍未证明：Sveltia发布一项真实作品后能完成压缩合并、`main`二次验证、Cloudflare
+正式部署和线上页面检查。该步骤必须随下一项可公开的真实作品完成，不能用测试文案冒充。
