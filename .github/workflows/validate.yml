@@ -71,6 +71,9 @@ jobs:
       - name: Validate generated internal links
         run: python scripts/check_internal_links.py
 
+      - name: Validate short post URLs and legacy redirects
+        run: python scripts/check_short_post_urls.py
+
       - name: Validate portfolio visitor journey
         run: python scripts/check_portfolio_output.py
 

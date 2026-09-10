@@ -192,6 +192,19 @@ test('手机导航向键盘与辅助技术暴露真实状态', async ({ page }) 
   await expect(page.locator('#menu-mobile')).not.toHaveClass(/active/);
 });
 
+test('文章分享地址使用短英文路径且旧中文地址继续跳转', async ({ page }) => {
+  await open(page, '/p/20260406/');
+  await expect(page.getByRole('heading', { name: '对存储板块的更近一步的思考', level: 1 })).toBeVisible();
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://mantou-blog.pages.dev/p/20260406/',
+  );
+
+  const oldPath = '/posts/2026-04-06-%E5%AF%B9%E5%AD%98%E5%82%A8%E6%9D%BF%E5%9D%97%E7%9A%84%E6%9B%B4%E8%BF%91%E4%B8%80%E6%AD%A5%E7%9A%84%E6%80%9D%E8%80%83/';
+  await open(page, oldPath);
+  await expect(page).toHaveURL(/\/p\/20260406\/$/);
+});
+
 test('中文搜索可以找到并打开公开作品', async ({ page }) => {
   await open(page, '/search/');
 

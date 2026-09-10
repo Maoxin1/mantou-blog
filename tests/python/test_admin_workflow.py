@@ -133,6 +133,25 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
             privacy_review["options"],
         )
 
+    def test_new_posts_require_an_ascii_share_slug(self) -> None:
+        posts = next(
+            collection
+            for collection in self.parsed_config["collections"]
+            if collection["name"] == "posts"
+        )
+        share_slug = next(
+            field
+            for field in posts["fields"]
+            if field["name"] == "slug"
+        )
+
+        self.assertEqual("{{fields.date}}-{{fields.slug}}", posts["slug"])
+        self.assertEqual("string", share_slug["widget"])
+        self.assertEqual(
+            "^(?=.{1,32}$)[a-z0-9]+(?:-[a-z0-9]+)*$",
+            share_slug["pattern"][0],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

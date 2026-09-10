@@ -98,6 +98,7 @@ jobs:
       - name: Validate generated output
         run: |
           python scripts/check_internal_links.py
+          python scripts/check_short_post_urls.py
           python scripts/check_portfolio_output.py
 
       - name: Install Playwright Chromium for manual preview
