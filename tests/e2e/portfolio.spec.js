@@ -213,7 +213,12 @@ test('访客可以从首页一键打开关注入口并继续使用 RSS', async (
   const dialog = page.getByRole('dialog', { name: '关注馒头' });
   await expect(dialog).toBeVisible();
   await expect(page).toHaveURL(/\/$/);
-  await expect(dialog.locator('[data-follow-email-pending]')).toBeVisible();
+  const emailForm = dialog.locator('[data-follow-form]');
+  await expect(emailForm).toBeVisible();
+  await expect(emailForm).toHaveAttribute('method', 'post');
+  await expect(emailForm).toHaveAttribute('action', /^https:\/\/api\.follow\.it\/subscription-form\//);
+  await expect(emailForm.getByRole('textbox', { name: '邮箱地址' })).toHaveAttribute('name', 'email');
+  await expect(emailForm.getByRole('button', { name: '关注' })).toBeVisible();
   await expect(dialog.getByRole('link', { name: /用 Inoreader 关注/ })).toHaveAttribute(
     'href',
     /add_feed=.*mantou-blog\.pages\.dev.*index\.xml/,
@@ -231,6 +236,10 @@ test('关注页与文章结尾都提供可发现的关注路径', async ({ page 
   await open(page, '/follow/');
   await expect(page.locator('[data-follow-page]')).toBeVisible();
   await expect(page.getByRole('heading', { name: '邮箱提醒', level: 2 })).toBeVisible();
+  await expect(page.locator('[data-follow-page] [data-follow-form]')).toHaveAttribute(
+    'action',
+    /^https:\/\/api\.follow\.it\/subscription-form\//,
+  );
   await expect(page.getByRole('heading', { name: 'RSS 订阅', level: 2 })).toBeVisible();
 
   await open(page, '/p/20260825/');
