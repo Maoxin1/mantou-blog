@@ -5,6 +5,10 @@ languageCode = "zh-cn"
 hasCJKLanguage = true
 buildFuture = true
 
+# 文章永久地址与中文标题解耦，便于在聊天软件中分享。
+[permalinks]
+  posts = "/p/:slug/"
+
 [social]
   twitter = "mantouaoao"
 
@@ -92,4 +96,3 @@ buildFuture = true
     name = "搜索"
     url = "/search/"
     weight = 5
-

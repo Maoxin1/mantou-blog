@@ -19,10 +19,15 @@ collections:
     description: "仅写入随笔档案；新的阶段性作品请从“作品集”创建。"
     folder: "content/posts"
     create: true
-    slug: "{{fields.date}}-{{slug}}"
+    slug: "{{fields.date}}-{{fields.slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+      - label: "分享短链接"
+        name: "slug"
+        widget: "string"
+        pattern: ["^(?=.{1,32}$)[a-z0-9]+(?:-[a-z0-9]+)*$", "使用不超过 32 个小写英文字母、数字和连字符，例如 memory-sector-review"]
+        hint: "决定公开网址；简短、可读，发布后不要随意修改。"
       - { label: "摘要", name: "description", widget: "text", required: false }
       - { label: "内容归档", name: "categories", widget: "hidden", default: ["essays"] }
       - label: "标签"

@@ -20,25 +20,38 @@ DIR_PATTERN = re.compile(r"^(?P<date>\d{4}-\d{2}-\d{2})$")
 # YAML (date: ...) or TOML (date = '...') forms:
 DATE_PATTERN = re.compile(r"^date\s*[:=]\s*['\"]?(?P<date>\d{4}-\d{2}-\d{2})", re.MULTILINE)
 TITLE_PATTERN = re.compile(r"^title\s*[:=]\s*(?P<title>.+)$", re.MULTILINE)
+SLUG_PATTERN = re.compile(r"^slug\s*[:=]\s*['\"]?(?P<slug>[^'\"\r\n]+)", re.MULTILINE)
+VALID_SLUG_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
-def check(path: Path, expected_date: str, label: str, issues: list[str]) -> None:
+def check(path: Path, expected_date: str, label: str, issues: list[str]) -> str | None:
     text = path.read_text(encoding="utf-8")
     date_match = DATE_PATTERN.search(text)
     title_match = TITLE_PATTERN.search(text)
     if not date_match:
         issues.append(f"{label}: missing front-matter date")
-        return
+        return None
     if date_match.group("date") != expected_date:
         issues.append(
             f"{label}: filename date {expected_date} != front-matter date {date_match.group('date')}"
         )
     if not title_match:
         issues.append(f"{label}: missing front-matter title")
+    slug_match = SLUG_PATTERN.search(text)
+    if not slug_match:
+        issues.append(f"{label}: missing front-matter slug")
+        return None
+    slug = slug_match.group("slug").strip()
+    if len(slug) > 32 or not VALID_SLUG_PATTERN.fullmatch(slug):
+        issues.append(
+            f"{label}: slug must be 1-32 lowercase ASCII letters, numbers, or hyphen-separated words"
+        )
+    return slug
 
 
 def main() -> int:
     issues: list[str] = []
+    slugs: dict[str, str] = {}
     checked = 0
 
     # 1. single dated files
@@ -47,7 +60,12 @@ def main() -> int:
         if not m:
             continue
         checked += 1
-        check(path, m.group("date"), str(path), issues)
+        slug = check(path, m.group("date"), str(path), issues)
+        if slug:
+            if slug in slugs:
+                issues.append(f"{path}: duplicate slug {slug!r} also used by {slugs[slug]}")
+            else:
+                slugs[slug] = str(path)
 
     # 2. page bundles (YYYY-MM-DD/index.md)
     for sub in sorted(POSTS_DIR.iterdir()):
@@ -61,7 +79,12 @@ def main() -> int:
             issues.append(f"{sub}: bundle missing index.md")
             continue
         checked += 1
-        check(index, m.group("date"), str(index), issues)
+        slug = check(index, m.group("date"), str(index), issues)
+        if slug:
+            if slug in slugs:
+                issues.append(f"{index}: duplicate slug {slug!r} also used by {slugs[slug]}")
+            else:
+                slugs[slug] = str(index)
 
     if issues:
         print("Post validation failed:\n")
