@@ -5,6 +5,7 @@ const routes = [
   '/works/',
   '/works/mantou-checklist-pwa/',
   '/about/',
+  '/follow/',
   '/search/',
 ];
 
@@ -203,6 +204,39 @@ test('文章分享地址使用短英文路径且旧中文地址继续跳转', as
   const oldPath = '/posts/2026-04-06-%E5%AF%B9%E5%AD%98%E5%82%A8%E6%9D%BF%E5%9D%97%E7%9A%84%E6%9B%B4%E8%BF%91%E4%B8%80%E6%AD%A5%E7%9A%84%E6%80%9D%E8%80%83/';
   await open(page, oldPath);
   await expect(page).toHaveURL(/\/p\/20260406\/$/);
+});
+
+test('访客可以从首页一键打开关注入口并继续使用 RSS', async ({ page }) => {
+  await open(page, '/');
+
+  await page.getByRole('link', { name: '关注更新' }).click();
+  const dialog = page.getByRole('dialog', { name: '关注馒头' });
+  await expect(dialog).toBeVisible();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(dialog.locator('[data-follow-email-pending]')).toBeVisible();
+  await expect(dialog.getByRole('link', { name: /用 Inoreader 关注/ })).toHaveAttribute(
+    'href',
+    /add_feed=.*mantou-blog\.pages\.dev.*index\.xml/,
+  );
+  await expect(dialog.getByRole('button', { name: /复制 RSS 地址/ })).toHaveAttribute(
+    'data-feed-url',
+    'https://mantou-blog.pages.dev/index.xml',
+  );
+
+  await page.keyboard.press('Escape');
+  await expect(dialog).not.toBeVisible();
+});
+
+test('关注页与文章结尾都提供可发现的关注路径', async ({ page }) => {
+  await open(page, '/follow/');
+  await expect(page.locator('[data-follow-page]')).toBeVisible();
+  await expect(page.getByRole('heading', { name: '邮箱提醒', level: 2 })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'RSS 订阅', level: 2 })).toBeVisible();
+
+  await open(page, '/p/20260825/');
+  const followCard = page.locator('.follow-card');
+  await expect(followCard).toBeVisible();
+  await expect(followCard.getByRole('link', { name: /关注馒头/ })).toHaveAttribute('href', '/follow/');
 });
 
 test('中文搜索可以找到并打开公开作品', async ({ page }) => {

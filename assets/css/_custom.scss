@@ -1032,4 +1032,358 @@ $portfolio-accent: #1f6b43;
   }
 }
 
+// ---- 6. 统一关注入口（邮箱 + RSS）----
+.follow-card {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4rem 0 1rem;
+  padding: 1.6rem 1.8rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 1rem;
+  background: $portfolio-paper;
+
+  h2 {
+    margin: 0.35rem 0 0.35rem;
+    color: $portfolio-ink;
+    font-size: 1.35rem;
+  }
+
+  p:last-child {
+    margin: 0;
+    color: $portfolio-muted;
+  }
+
+  .portfolio-button {
+    flex: 0 0 auto;
+  }
+}
+
+.follow-dialog {
+  width: 42rem;
+  max-width: 92vw;
+  max-height: 88vh;
+  padding: 0;
+  border: 0;
+  border-radius: 1.1rem;
+  background: transparent;
+  color: $portfolio-ink;
+  box-shadow: 0 1.5rem 5rem rgba(16, 33, 23, 0.24);
+
+  &::backdrop {
+    background: rgba(10, 18, 13, 0.58);
+    backdrop-filter: blur(3px);
+  }
+}
+
+.follow-dialog__panel {
+  position: relative;
+  padding: 2.2rem;
+  border: 1px solid $portfolio-line;
+  border-radius: inherit;
+  background: #fff;
+
+  h2 {
+    margin: 0.45rem 2.5rem 0.55rem 0;
+    color: $portfolio-ink;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+  }
+}
+
+.follow-dialog__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border: 1px solid $portfolio-line;
+  border-radius: 50%;
+  background: transparent;
+  color: $portfolio-muted;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.follow-dialog__lead,
+.follow-dialog__footnote {
+  color: $portfolio-muted;
+  line-height: 1.65;
+}
+
+.follow-dialog__footnote {
+  margin: 1rem 0 0;
+  font-size: 0.82rem;
+}
+
+.follow-dialog__divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.5rem 0 1rem;
+  color: $portfolio-muted;
+  font-size: 0.78rem;
+
+  &::before,
+  &::after {
+    height: 1px;
+    flex: 1;
+    background: $portfolio-line;
+    content: "";
+  }
+}
+
+.follow-form {
+  margin-top: 1.25rem;
+
+  > label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: $portfolio-ink;
+    font-size: 0.84rem;
+    font-weight: 650;
+  }
+
+  > p {
+    margin: 0.55rem 0 0;
+    color: $portfolio-muted;
+    font-size: 0.78rem;
+  }
+}
+
+.follow-form__row {
+  display: flex;
+  gap: 0.6rem;
+
+  input {
+    min-width: 0;
+    min-height: 2.9rem;
+    flex: 1;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #aebbb1;
+    border-radius: 0.7rem;
+    background: #fff;
+    color: $portfolio-ink;
+    font: inherit;
+  }
+
+  button {
+    min-height: 2.9rem;
+    padding: 0.7rem 1.15rem;
+    border: 1px solid $portfolio-accent;
+    border-radius: 0.7rem;
+    background: $portfolio-accent;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 650;
+  }
+}
+
+.follow-email-pending {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px dashed #aebbb1;
+  border-radius: 0.75rem;
+  background: $portfolio-paper;
+
+  strong {
+    color: $portfolio-ink;
+  }
+
+  p {
+    margin: 0.35rem 0 0;
+    color: $portfolio-muted;
+    font-size: 0.86rem;
+    line-height: 1.6;
+  }
+}
+
+.follow-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.follow-option {
+  display: flex;
+  min-width: 0;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 0.75rem;
+  align-items: flex-start;
+  flex-direction: column;
+  background: #fff;
+  color: $portfolio-ink !important;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  text-decoration: none !important;
+
+  &:hover {
+    border-color: $portfolio-accent;
+  }
+
+  span {
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  small {
+    display: block;
+    width: 100%;
+    margin-top: 0.2rem;
+    color: $portfolio-muted;
+    font-size: 0.72rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.follow-option--primary {
+  border-color: $portfolio-accent;
+  background: #eff7f1;
+}
+
+.follow-page {
+  max-width: 58rem;
+  margin: 0 auto;
+}
+
+.follow-page__hero {
+  padding: 5.5rem 0 3.5rem;
+  border-bottom: 1px solid $portfolio-line;
+
+  h1 {
+    margin: 0.55rem 0 0.9rem;
+    color: $portfolio-ink;
+    font-size: clamp(2.5rem, 7vw, 4.2rem);
+    letter-spacing: -0.045em;
+  }
+
+  > p:last-child {
+    max-width: 42rem;
+    color: $portfolio-muted;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+}
+
+.follow-page__section {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 3rem 0;
+  border-bottom: 1px solid $portfolio-line;
+
+  h2 {
+    margin: 0 0 0.6rem;
+    color: $portfolio-ink;
+  }
+
+  p {
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.follow-page__number {
+  color: $portfolio-accent;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.follow-page__promise {
+  margin: 3rem 0 4rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: $portfolio-ink;
+
+  h2 {
+    margin: 0.45rem 0 0.55rem;
+    color: #fff;
+  }
+
+  > p:last-child {
+    margin-bottom: 0;
+    color: #c8d2cb;
+    line-height: 1.7;
+  }
+}
+
+[theme=dark] {
+  .follow-card,
+  .follow-email-pending,
+  .follow-dialog__panel,
+  .follow-option {
+    border-color: #39463e;
+    background: #202823;
+  }
+
+  .follow-dialog,
+  .follow-card h2,
+  .follow-dialog__panel h2,
+  .follow-form > label,
+  .follow-email-pending strong,
+  .follow-option,
+  .follow-page__hero h1,
+  .follow-page__section h2 {
+    color: #edf3ef !important;
+  }
+
+  .follow-option--primary {
+    border-color: #50c985;
+    background: #203328;
+  }
+
+  .follow-form__row input {
+    border-color: #536158;
+    background: #151a17;
+    color: #edf3ef;
+  }
+
+  .follow-dialog__close,
+  .follow-page__hero,
+  .follow-page__section {
+    border-color: #39463e;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .follow-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.4rem;
+  }
+
+  .follow-dialog__panel {
+    padding: 1.5rem;
+  }
+
+  .follow-form__row,
+  .follow-options {
+    grid-template-columns: 1fr;
+  }
+
+  .follow-form__row {
+    flex-direction: column;
+  }
+
+  .follow-page__hero {
+    padding: 3.8rem 0 2.8rem;
+  }
+
+  .follow-page__section {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 0;
+  }
+}
+
 

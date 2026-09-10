@@ -60,6 +60,11 @@ buildFuture = true
 [params.page]
   lightgallery = true
 
+# 关注入口：注册 Buttondown 后只需填入用户名，邮箱表单会在全站自动启用。
+# 在启用前，关注页仍提供可直接使用的 RSS 与阅读器入口。
+[params.follow]
+  buttondownUsername = ""
+
 # 站内搜索改用 Pagefind（页面见 /search/，需配套 Cloudflare 构建命令）；停用主题自带 Lunr
 [params.search]
   enable = false
@@ -96,3 +101,8 @@ buildFuture = true
     name = "搜索"
     url = "/search/"
     weight = 5
+  [[menu.main]]
+    identifier = "follow"
+    name = "关注"
+    url = "/follow/"
+    weight = 6

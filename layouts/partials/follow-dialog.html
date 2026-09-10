@@ -1,0 +1,12 @@
+<dialog class="follow-dialog" data-follow-dialog aria-labelledby="follow-dialog-title">
+    <div class="follow-dialog__panel">
+        <button class="follow-dialog__close" type="button" data-follow-close aria-label="关闭关注窗口">×</button>
+        <p class="section-kicker">FOLLOW MANTOU</p>
+        <h2 id="follow-dialog-title">关注馒头</h2>
+        <p class="follow-dialog__lead">选择一种习惯的方式。以后发布新文章，你就能主动收到更新。</p>
+        {{- partial "follow-form.html" (dict "Site" .Site "FieldID" "follow-email-dialog") -}}
+        <div class="follow-dialog__divider"><span>RSS 关注</span></div>
+        {{- partial "follow-options.html" . -}}
+        <p class="follow-dialog__footnote">RSS 是开放订阅：无需账号，也不会被平台算法隐藏。</p>
+    </div>
+</dialog>
