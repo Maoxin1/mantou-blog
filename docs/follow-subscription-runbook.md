@@ -11,7 +11,7 @@
 
 1. 在 follow.it 的 publisher 后台维护本站 Feed：`https://mantou-blog.pages.dev/index.xml`。
 2. `hugo.toml` 的 `[params.follow].followitAction` 保存 follow.it 生成的公开表单地址。
-3. `[params.follow].followitVerificationCode` 会渲染为公开 `<meta>` 标签，用于证明网站所有权。
+3. Feed 已认领到发布者账号；一次性网站所有权验证码已在认领成功后移除。
 4. 在 follow.it 中保持邮箱确认流程，避免他人代填邮箱。
 5. 在预览部署中确认表单地址、字段名和提交方式没有被模板改坏。
 6. 上线后用测试邮箱完成“提交 → 确认 → 收到新文章 → 退订”全链路验收。
