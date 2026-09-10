@@ -64,7 +64,6 @@ buildFuture = true
 # 此处仅保存公开的订阅表单地址，不包含账户凭据或 API 密钥。
 [params.follow]
   followitAction = "https://api.follow.it/subscription-form/eVdkdTJYM2plUTN1UzFvVkdnUlFsVHRkclJVWTBhQXJZSHllNW5kb3RJbUtSbEI1UWN4bkp0SE1MUDBFbWFFY0RFU2g2WUh0cmtUV2l6VzlOdC9KRThIWDFlUFh3K2JLcVhRdWNRL3RiMVR2MG44YWF6RE5qb0hFbkwvVWcveHl8WVFZQzNaaXhxRm95bzArY3VVVzVlTDB0MUtkTy9keWpFN1k4N3R3RWhmRT0=/8"
-  followitVerificationCode = "xlsKFygvnHLCUtaHe0rJ"
 
 # 站内搜索改用 Pagefind（页面见 /search/，需配套 Cloudflare 构建命令）；停用主题自带 Lunr
 [params.search]
