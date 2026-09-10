@@ -1,0 +1,17 @@
+{{- $username := .Site.Params.follow.buttondownUsername | default "" -}}
+{{- if $username -}}
+    <form class="follow-form" action="https://buttondown.com/api/emails/embed-subscribe/{{ $username }}" method="post" data-follow-form>
+        <label for="{{ .FieldID }}">邮箱地址</label>
+        <div class="follow-form__row">
+            <input id="{{ .FieldID }}" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+            <input type="hidden" name="embed" value="1">
+            <button type="submit">关注</button>
+        </div>
+        <p>提交后请到邮箱确认。不会发送广告，可随时退订。</p>
+    </form>
+{{- else -}}
+    <div class="follow-email-pending" data-follow-email-pending>
+        <strong>邮箱提醒正在开放中</strong>
+        <p>现在可以先用下面的 RSS 关注；邮箱入口启用后，无需注册博客账号。</p>
+    </div>
+{{- end -}}

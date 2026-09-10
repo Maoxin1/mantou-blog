@@ -1,0 +1,19 @@
+{{- $feed := "index.xml" | absURL -}}
+<div class="follow-options" aria-label="RSS 关注方式">
+    <a class="follow-option follow-option--primary" href="https://www.inoreader.com/?add_feed={{ $feed | urlquery }}" target="_blank" rel="noopener">
+        <span>用 Inoreader 关注</span>
+        <small>打开阅读器并添加本站</small>
+    </a>
+    <a class="follow-option" href="https://feedly.com/i/subscription/feed/{{ $feed | urlquery }}" target="_blank" rel="noopener">
+        <span>用 Feedly 关注</span>
+        <small>打开阅读器并添加本站</small>
+    </a>
+    <button class="follow-option" type="button" data-copy-feed data-feed-url="{{ $feed }}">
+        <span data-copy-feed-label>复制 RSS 地址</span>
+        <small>粘贴到任意 RSS 阅读器</small>
+    </button>
+    <a class="follow-option" href="{{ $feed }}" target="_blank" rel="noopener">
+        <span>查看原始 RSS</span>
+        <small>{{ $feed }}</small>
+    </a>
+</div>

@@ -32,6 +32,8 @@
             {{- partial "footer.html" . -}}
         </div>
 
+        {{- partial "follow-dialog.html" . -}}
+
         <div id="fixed-buttons">
             {{- /* top button */ -}}
             <a href="#" id="back-to-top" class="fixed-button" title="{{ T `backToTop` }}">
@@ -46,5 +48,6 @@
 
         {{- /* Load JavaScript scripts and CSS */ -}}
         {{- partial "assets.html" . -}}
+        <script defer src="{{ "js/follow.js" | relURL }}"></script>
     </body>
 </html>
