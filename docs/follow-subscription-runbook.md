@@ -5,24 +5,24 @@
 - 首页、顶部导航与文章结尾都提供统一的“关注”入口。
 - 支持原地弹窗；不支持 `<dialog>` 或禁用 JavaScript 时，会回退到 `/follow/`。
 - RSS 地址为 `https://mantou-blog.pages.dev/index.xml`，并提供 Inoreader、Feedly、复制地址和原始 Feed 四种入口。
-- 邮箱服务未配置时，不渲染不可用的提交表单，只显示诚实的准备状态。
+- 邮箱表单由 follow.it 接收，follow.it 从本站 RSS 自动发现新文章并发送提醒。
 
-## 开通邮箱提醒
+## 邮箱提醒配置
 
-1. 创建 Buttondown newsletter，确定公开用户名。
-2. 在 `hugo.toml` 的 `[params.follow]` 中填写 `buttondownUsername`。
-3. 在 Buttondown 中保持 double opt-in，避免他人代填邮箱。
-4. 将本站 RSS `https://mantou-blog.pages.dev/index.xml` 添加为 external feed automation，并选择新条目发布后发送邮件。
-5. 在预览部署中用一个测试邮箱完成“提交 → 确认 → 收到新文章 → 退订”全链路验收。
+1. 在 follow.it 的 publisher 后台维护本站 Feed：`https://mantou-blog.pages.dev/index.xml`。
+2. `hugo.toml` 的 `[params.follow].followitAction` 保存 follow.it 生成的公开表单地址。
+3. 在 follow.it 中保持邮箱确认流程，避免他人代填邮箱。
+4. 在预览部署中确认表单地址、字段名和提交方式没有被模板改坏。
+5. 上线后用测试邮箱完成“提交 → 确认 → 收到新文章 → 退订”全链路验收。
 
-表单使用 Buttondown 官方的标准 HTML endpoint，不通过 JavaScript `fetch` 提交；这样 CAPTCHA、输入错误和确认流程仍由服务方完整处理。用户名是公开配置，API 密钥不应加入仓库。
+表单使用 follow.it 生成的标准公开 endpoint，不通过 JavaScript `fetch` 提交；这样输入错误、确认和退订流程仍由服务方处理。表单地址可以公开，账户密码和其他凭据不应加入仓库。
 
 ## 发布前验收
 
 - 桌面与手机上，首页按钮均能打开关注窗口。
 - `Escape`、关闭按钮和点击遮罩都能关闭窗口。
 - 禁用 JavaScript 后，首页关注链接能进入 `/follow/`。
-- 表单只有在 newsletter 已真实创建后才启用。
+- 表单 action 必须指向 `https://api.follow.it/subscription-form/`。
 - 确认邮件、更新邮件和退订链接均能正常工作。
 - `/index.xml` 返回成功，并包含最新公开文章。
 
