@@ -8,7 +8,7 @@ async function open(page, path) {
 
 async function firstArticlePath(page) {
   await open(page, '/posts/');
-  const link = page.locator('main.page.archive article.archive-item a.archive-item-link').first();
+  const link = page.locator('[data-posts-archive] article.archive-item a.archive-item-link').first();
   await expect(link).toBeVisible();
   return link.evaluate((element) => new URL(element.href).pathname);
 }
@@ -29,7 +29,7 @@ test('文章页保留可读的上下文、正文索引和阅读路径', async ({
 test('文章归档能按年份扫描并进入文章', async ({ page }) => {
   await open(page, '/posts/');
 
-  const archive = page.locator('main.page.archive');
+  const archive = page.locator('[data-posts-archive]');
   await expect(archive.getByRole('heading', { level: 1, name: '文章归档' })).toBeVisible();
   await expect(archive.getByRole('region', { name: '按年份浏览文章' })).toBeVisible();
   const firstArticle = archive.locator('article.archive-item').first();
