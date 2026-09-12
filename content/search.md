@@ -9,7 +9,23 @@ comment: false
 <script src="/pagefind/pagefind-ui.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', function () {
-    new PagefindUI({
+    const searchRoot = document.querySelector('#search');
+    const readQuery = function () {
+      return new URLSearchParams(window.location.search).get('q') || '';
+    };
+    const writeQuery = function (value) {
+      const url = new URL(window.location.href);
+      const query = value.trim();
+      if (query) {
+        url.searchParams.set('q', query);
+      } else {
+        url.searchParams.delete('q');
+      }
+      const nextURL = url.pathname + url.search + url.hash;
+      const currentURL = window.location.pathname + window.location.search + window.location.hash;
+      if (nextURL !== currentURL) window.history.replaceState(null, '', nextURL);
+    };
+    const pagefind = new PagefindUI({
       element: "#search",
       showSubResults: true,
       showImages: false,
@@ -25,5 +41,22 @@ comment: false
         searching: "正在搜索「[SEARCH_TERM]」…"
       }
     });
+    const searchbox = searchRoot.querySelector('.pagefind-ui__search-input');
+    const restoreQuery = function () {
+      const query = readQuery();
+      pagefind.triggerSearch(query);
+    };
+    searchbox.addEventListener('input', function () {
+      writeQuery(searchbox.value);
+    });
+    searchRoot.addEventListener('click', function (event) {
+      if (event.target.closest('.pagefind-ui__search-clear')) {
+        window.requestAnimationFrame(function () {
+          writeQuery(searchbox.value);
+        });
+      }
+    });
+    window.addEventListener('popstate', restoreQuery);
+    if (readQuery()) restoreQuery();
   });
 </script>

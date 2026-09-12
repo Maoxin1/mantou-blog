@@ -3,16 +3,16 @@
 {{- define "content" -}}
 <div class="page follow-page" data-follow-page>
     <header class="follow-page__hero">
-        <p class="section-kicker">FOLLOW MANTOU</p>
-        <h1>关注馒头</h1>
-        <p>像关注一个账号一样保留联系。没有信息流算法，更新由你选择的方式送达。</p>
+        <p class="section-kicker">EMAIL · RSS</p>
+        <h1>订阅博客更新</h1>
+        <p>选择邮箱或 RSS。本站发布新文章后，你可以通过所选方式收到更新。</p>
     </header>
 
     <section class="follow-page__section" aria-labelledby="follow-email-title">
         <span class="follow-page__number">01</span>
         <div>
             <h2 id="follow-email-title">邮箱提醒</h2>
-            <p>最省心的方式。新文章发布后收到一封邮件，不需要注册博客账号。</p>
+            <p>填写邮箱并完成确认后，新文章会由 follow.it 发送提醒；无需注册本站账号。</p>
             {{- partial "follow-form.html" (dict "Site" .Site "FieldID" "follow-email-page") -}}
         </div>
     </section>
@@ -21,15 +21,15 @@
         <span class="follow-page__number">02</span>
         <div>
             <h2 id="follow-rss-title">RSS 订阅</h2>
-            <p>适合已经使用 RSS 阅读器的人。关注关系保存在你自己的阅读器里。</p>
+            <p>把本站 RSS 地址添加到你的阅读器；订阅由阅读器保存和更新。</p>
             {{- partial "follow-options.html" . -}}
         </div>
     </section>
 
     <section class="follow-page__promise" aria-labelledby="follow-promise-title">
-        <p class="section-kicker">PROMISE</p>
-        <h2 id="follow-promise-title">你可以随时取消</h2>
-        <p>邮箱由 follow.it 管理，用于订阅确认和更新通知；免费方案可能附带 follow.it 品牌或推荐内容。邮件可随时退订，RSS 可随时从阅读器移除。</p>
+        <p class="section-kicker">DELIVERY · PRIVACY</p>
+        <h2 id="follow-promise-title">发送方与取消方式</h2>
+        <p>邮箱地址会提交给 follow.it，用于确认订阅和发送更新；其免费方案可能附带品牌或推荐内容。邮件可通过邮件内入口退订，RSS 可从阅读器中移除。</p>
     </section>
 </div>
 {{- end -}}

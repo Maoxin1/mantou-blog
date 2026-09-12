@@ -12,6 +12,7 @@ EXPECTED_FILES = {
     "homepage": PUBLIC_DIR / "index.html",
     "works index": PUBLIC_DIR / "works" / "index.html",
     "PWA work": PUBLIC_DIR / "works" / "mantou-checklist-pwa" / "index.html",
+    "RSS feed": PUBLIC_DIR / "index.xml",
     "about and collaboration": PUBLIC_DIR / "about" / "index.html",
 }
 
@@ -82,11 +83,27 @@ def main() -> int:
             ),
             issues,
         )
+        require_text(
+            "PWA work",
+            pages["PWA work"],
+            ('class=follow-card', 'href=/follow/'),
+            issues,
+        )
+    if "RSS feed" in pages:
+        require_text(
+            "RSS feed",
+            pages["RSS feed"],
+            (
+                "把个人定投清单做成可离线运行的手机 PWA",
+                "https://mantou-blog.pages.dev/works/mantou-checklist-pwa/",
+            ),
+            issues,
+        )
     if "about and collaboration" in pages:
         require_text(
             "about and collaboration",
             pages["about and collaboration"],
-            ('data-about-collaboration', '工作原则', '目前适合交流与合作的方向'),
+            ('data-about-collaboration', '工作原则', '目前可以交流的具体范围', '邮件说明你的问题'),
             issues,
         )
 

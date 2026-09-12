@@ -6,11 +6,34 @@
 // ===========================================================================
 
 // 统一强调色：沿用首页体重图的绿色，全站只保留这一种强调色
-$accent: #2ea043;
-$accent-hover: #248239;
+$accent: #1f6b43;
+$accent-hover: #185a36;
+
+// 键盘焦点不能只依赖颜色或浏览器默认样式。浅、深主题各使用与底色
+// 有充分反差的焦点环，覆盖主题中个别会清除 outline 的旧规则。
+:focus-visible {
+  outline: 3px solid #0f6b37 !important;
+  outline-offset: 0.24rem;
+}
+
+[theme=dark] :focus-visible {
+  outline-color: #8be9ae !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 // ---- 1. 正文链接与标题装饰统一为绿色 ----
-.content {
+.content,
+.single .content {
   a {
     color: $accent;
 
@@ -26,7 +49,8 @@ $accent-hover: #248239;
 }
 
 // 暗色模式下用更亮一档的绿，保证对比度
-[theme=dark] .content a {
+[theme=dark] .content a,
+[theme=dark] .single .content a {
   color: lighten($accent, 12%);
 
   &:hover {
@@ -62,10 +86,16 @@ $accent-hover: #248239;
 }
 
 #menu-toggle-mobile {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: center;
   border: 0;
   padding: 0;
   background: transparent;
   color: inherit;
+  cursor: pointer;
   font: inherit;
 }
 
@@ -84,12 +114,14 @@ $portfolio-accent: #1f6b43;
 .portfolio-home,
 .works-index,
 .about-collaboration {
+  // 覆盖主题在 960px / 1280px 的窄化比例，避免视口增加 1px 时内容反而骤然变窄。
+  width: 100%;
   max-width: 68rem;
   margin: 0 auto;
 }
 
 .portfolio-hero {
-  padding: 6.5rem 0 5rem;
+  padding: 5.5rem 0 3.75rem;
   border-bottom: 1px solid $portfolio-line;
 
   h1 {
@@ -124,10 +156,12 @@ $portfolio-accent: #1f6b43;
 }
 
 .portfolio-status {
-  display: flex;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.7fr) auto minmax(0, 2fr) auto;
+  gap: 1.25rem;
   align-items: center;
-  min-height: 4.4rem;
+  min-height: 5.5rem;
+  padding: 0.75rem 0;
   border-bottom: 1px solid $portfolio-line;
 
   > span {
@@ -136,6 +170,14 @@ $portfolio-accent: #1f6b43;
     font-size: 0.7rem;
     font-weight: 750;
     letter-spacing: 0.1em;
+  }
+
+  &__count {
+    color: $portfolio-ink;
+    font-size: clamp(2.2rem, 4vw, 3.35rem);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
   }
 
   p {
@@ -147,11 +189,15 @@ $portfolio-accent: #1f6b43;
   }
 
   a {
-    flex: 0 0 auto;
-    margin-left: auto;
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    margin-right: -0.25rem;
+    padding: 0 0.25rem;
     color: $portfolio-accent;
     font-size: 0.82rem;
     font-weight: 650;
+    text-decoration: none;
   }
 }
 
@@ -224,6 +270,11 @@ $portfolio-accent: #1f6b43;
   grid-template-columns: 1fr auto;
 
   > a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    margin-right: -0.25rem;
+    padding: 0 0.25rem;
     color: $portfolio-accent;
     font-weight: 650;
   }
@@ -238,6 +289,24 @@ $portfolio-accent: #1f6b43;
 
 .portfolio-section--featured .work-grid {
   grid-template-columns: 1fr;
+}
+
+.portfolio-section--featured .work-card {
+  min-height: 18.5rem;
+}
+
+.portfolio-section--featured .work-card__link {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+
+  h3 {
+    max-width: 42rem;
+    margin-top: 2.7rem;
+    font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+  }
+
+  .work-card__summary {
+    max-width: 52rem;
+  }
 }
 
 .direction-grid article {
@@ -281,6 +350,7 @@ $portfolio-accent: #1f6b43;
 .work-card__link {
   display: flex;
   height: 100%;
+  box-sizing: border-box;
   flex-direction: column;
   padding: 1.5rem;
   color: inherit !important;
@@ -472,6 +542,7 @@ $portfolio-accent: #1f6b43;
 }
 
 .work-detail {
+  width: 100%;
   max-width: 52rem !important;
 }
 
@@ -844,6 +915,7 @@ $portfolio-accent: #1f6b43;
   }
 
   .portfolio-hero h1,
+  .portfolio-status__count,
   .portfolio-section__heading h2,
   .direction-grid h3,
   .work-card__link h3,
@@ -944,7 +1016,7 @@ $portfolio-accent: #1f6b43;
 
 @media only screen and (max-width: 680px) {
   .portfolio-hero {
-    padding: 3.8rem 0 3rem;
+    padding: 3.8rem 0 2.6rem;
 
     h1 {
       font-size: clamp(2.25rem, 9.6vw, 2.8rem);
@@ -967,13 +1039,22 @@ $portfolio-accent: #1f6b43;
   }
 
   .portfolio-status {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.45rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.45rem 1rem;
     padding: 1rem 0;
 
+    > span {
+      align-self: center;
+    }
+
+    &__count {
+      font-size: 2.55rem;
+    }
+
+    p,
     a {
-      margin-left: 0;
+      grid-column: 1 / -1;
+      margin-right: 0;
     }
   }
 
@@ -992,8 +1073,14 @@ $portfolio-accent: #1f6b43;
     padding: 1.5rem;
   }
 
-  .work-card {
+  .work-card,
+  .portfolio-section--featured .work-card {
     min-height: 15rem;
+  }
+
+  .portfolio-section--featured .work-card__link h3 {
+    margin-top: 2.1rem;
+    font-size: 1.35rem;
   }
 
   .section-intro,
