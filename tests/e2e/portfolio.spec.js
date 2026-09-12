@@ -27,7 +27,9 @@ test('访客能从首页进入作品证据与工作原则', async ({ page }) => 
   await open(page, '/');
 
   await expect(page.locator('[data-portfolio-home]')).toBeVisible();
-  await expect(page.locator('[data-portfolio-status]')).toContainText('首个完整案例已公开');
+  await expect(page.locator('[data-portfolio-status]')).toContainText(
+    /目前公开 \d+ 个可独立验收的作品/,
+  );
   await expect(page.locator('[data-proof-strip]')).toHaveCount(0);
 
   await page.locator('[data-featured-work] .work-card__link').first().click();
@@ -193,6 +195,39 @@ test('手机导航向键盘与辅助技术暴露真实状态', async ({ page }) 
   await expect(page.locator('#menu-mobile')).not.toHaveClass(/active/);
 });
 
+test('作品卡入口完整可见，作品型页面跨主题断点保持连续宽度', async ({ page }) => {
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 1440, height: 900 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await open(page, '/works/');
+
+    const dimensions = await page.locator('.work-card').evaluate((card) => {
+      const action = card.querySelector('.work-card__action');
+      const cardBox = card.getBoundingClientRect();
+      const actionBox = action.getBoundingClientRect();
+      return {
+        cardBottom: cardBox.bottom,
+        actionBottom: actionBox.bottom,
+      };
+    });
+    expect(dimensions.actionBottom).toBeLessThanOrEqual(dimensions.cardBottom + 1);
+  }
+
+  const pageWidths = [];
+  for (const width of [960, 961, 1280, 1281]) {
+    await page.setViewportSize({ width, height: 900 });
+    await open(page, '/');
+    pageWidths.push(await page.locator('[data-portfolio-home]').evaluate((element) => (
+      element.getBoundingClientRect().width
+    )));
+  }
+
+  expect(pageWidths[1]).toBeGreaterThanOrEqual(pageWidths[0] - 1);
+  expect(pageWidths[3]).toBeGreaterThanOrEqual(pageWidths[2] - 1);
+});
+
 test('文章分享地址使用短英文路径且旧中文地址继续跳转', async ({ page }) => {
   await open(page, '/p/20260406/');
   await expect(page.getByRole('heading', { name: '对存储板块的更近一步的思考', level: 1 })).toBeVisible();
@@ -209,7 +244,7 @@ test('文章分享地址使用短英文路径且旧中文地址继续跳转', as
 test('访客可以从首页一键打开关注入口并继续使用 RSS', async ({ page }) => {
   await open(page, '/');
 
-  await page.getByRole('link', { name: '关注更新' }).click();
+  await page.getByRole('link', { name: '订阅后续更新' }).click();
   const dialog = page.getByRole('dialog', { name: '关注馒头' });
   await expect(dialog).toBeVisible();
   await expect(page).toHaveURL(/\/$/);
@@ -232,7 +267,7 @@ test('访客可以从首页一键打开关注入口并继续使用 RSS', async (
   await expect(dialog).not.toBeVisible();
 });
 
-test('关注页与文章结尾都提供可发现的关注路径', async ({ page }) => {
+test('关注页、文章和作品结尾都提供可发现的关注路径', async ({ page }) => {
   await open(page, '/follow/');
   await expect(page.locator('[data-follow-page]')).toBeVisible();
   await expect(page.getByRole('heading', { name: '邮箱提醒', level: 2 })).toBeVisible();
@@ -246,6 +281,11 @@ test('关注页与文章结尾都提供可发现的关注路径', async ({ page 
   const followCard = page.locator('.follow-card');
   await expect(followCard).toBeVisible();
   await expect(followCard.getByRole('link', { name: /关注馒头/ })).toHaveAttribute('href', '/follow/');
+
+  await open(page, '/works/mantou-checklist-pwa/');
+  const workFollowCard = page.locator('.work-detail .follow-card');
+  await expect(workFollowCard).toBeVisible();
+  await expect(workFollowCard.getByRole('link', { name: /关注馒头/ })).toHaveAttribute('href', '/follow/');
 });
 
 test('中文搜索可以找到并打开公开作品', async ({ page }) => {
@@ -262,6 +302,32 @@ test('中文搜索可以找到并打开公开作品', async ({ page }) => {
 
   await expect(page).toHaveURL(/\/works\/mantou-checklist-pwa\/$/);
   await expect(page.locator('[data-work-detail]')).toBeVisible();
+});
+
+test('搜索关键词能通过网址分享，并在返回搜索页时恢复', async ({ page }) => {
+  await open(page, '/search/');
+
+  const searchbox = page.getByRole('textbox', { name: '搜索文章…' });
+  await searchbox.fill('定投清单');
+  await expect(page).toHaveURL(/\/search\/\?q=%E5%AE%9A%E6%8A%95%E6%B8%85%E5%8D%95$/);
+
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await expect(searchbox).toHaveValue('定投清单');
+  const result = page.locator('.pagefind-ui__result-link', {
+    hasText: '把个人定投清单做成可离线运行的手机 PWA',
+  });
+  await expect(result).toBeVisible({ timeout: 10_000 });
+
+  await result.click();
+  await expect(page).toHaveURL(/\/works\/mantou-checklist-pwa\/$/);
+  await page.goBack({ waitUntil: 'domcontentloaded' });
+
+  await expect(page).toHaveURL(/\/search\/\?q=%E5%AE%9A%E6%8A%95%E6%B8%85%E5%8D%95$/);
+  await expect(searchbox).toHaveValue('定投清单');
+  await expect(result).toBeVisible({ timeout: 10_000 });
+
+  await searchbox.fill('');
+  await expect(page).toHaveURL(/\/search\/$/);
 });
 
 test('非生产域名不会加载 Cloudflare 统计脚本', async ({ page }) => {

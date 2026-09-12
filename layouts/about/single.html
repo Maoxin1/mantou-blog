@@ -3,8 +3,8 @@
 {{- define "content" -}}
 <div class="page about-collaboration" data-about-collaboration>
     <header class="about-hero">
-        <p class="section-kicker">ABOUT · WORKING PRINCIPLES</p>
-        <h1>先用作品证明自己，<br><span>再讨论能够一起做什么。</span></h1>
+        <p class="section-kicker">ABOUT · SCOPE · CONTACT</p>
+        <h1>我是 mantou。<br><span>这里说明我怎样做事，以及目前能讨论什么。</span></h1>
         <p>{{ .Description }}</p>
     </header>
 
@@ -27,8 +27,8 @@
     <section class="about-section">
         <div class="about-section__heading">
             <p class="section-kicker">CURRENT FIT</p>
-            <h2>目前适合交流与合作的方向</h2>
-            <p>以下方向来自已经在做的实践，不代表我声称自己能够解决所有同类问题。</p>
+            <h2>目前可以交流的具体范围</h2>
+            <p>以下范围来自我正在做的实践。它们是沟通起点，不是对所有同类问题的能力承诺。</p>
         </div>
         <div class="collaboration-grid">
             {{- range .Params.directions -}}
@@ -42,19 +42,19 @@
 
     <section class="boundary-callout">
         <p class="section-kicker">BOUNDARY</p>
-        <h2>目前仍处于以个人作品建立可信度的阶段。</h2>
-        <p>我会明确区分已经验证的能力、正在验证的假设和未来愿景。涉及投资时，不公开账户总收益、金额和仓位，具体标的延迟至阶段复盘或完全退出后公开。</p>
+        <h2>当前证据以公开个人作品为主。</h2>
+        <p>我会区分已经验证的结果、正在验证的假设和未来计划。涉及投资时，不公开账户总收益、金额和仓位；具体标的只在阶段复盘或完全退出后讨论。</p>
     </section>
 
     <section class="contact-panel">
         <div>
-            <p class="section-kicker">START WITH THE WORK</p>
-            <h2>如果你面对相似的真实问题，可以从一件作品开始交流。</h2>
-            <p>请尽量带上问题、已有约束和希望得到的结果。这样双方都能更快判断是否适合继续。</p>
+            <p class="section-kicker">CONTACT</p>
+            <h2>如果问题落在上述范围，可以发邮件说明。</h2>
+            <p>请写明具体问题、已有约束和希望得到的结果。我会据此判断是否适合继续交流。</p>
         </div>
         <div class="portfolio-hero__actions">
-            <a class="portfolio-button portfolio-button--primary" href="mailto:2114206091@qq.com">发送邮件</a>
-            <a class="portfolio-button portfolio-button--secondary" href="https://github.com/Maoxin1" target="_blank" rel="noopener">查看 GitHub</a>
+            <a class="portfolio-button portfolio-button--primary" href="mailto:2114206091@qq.com">邮件说明你的问题</a>
+            <a class="portfolio-button portfolio-button--secondary" href="https://github.com/Maoxin1" target="_blank" rel="noopener">核对 GitHub 源码</a>
         </div>
     </section>
 </div>

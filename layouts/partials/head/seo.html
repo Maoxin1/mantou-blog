@@ -1,0 +1,78 @@
+{{- /*
+  This replaces LoveIt's built-in SEO partial. It deliberately emits one of each
+  metadata family and one JSON-LD entity per page. The fallback image is a site
+  asset configured in hugo.toml; a page's own featured image always wins.
+*/ -}}
+{{- $description := .Description | default .Site.Params.description | plainify | htmlUnescape | strings.TrimSpace -}}
+{{- $title := .Site.Title -}}
+{{- if not .IsHome -}}
+  {{- $title = printf "%s - %s" .Title .Site.Title -}}
+{{- end -}}
+
+{{- $pageImage := .Params.featuredimage | default .Params.featured_image | default .Params.image -}}
+{{- $imageResource := .Resources.GetMatch "featured-image-preview*" -}}
+{{- if not $imageResource -}}
+  {{- $imageResource = .Resources.GetMatch "featured-image*" -}}
+{{- end -}}
+{{- $usesFallback := false -}}
+{{- $imageURL := "" -}}
+{{- with $imageResource -}}
+  {{- $imageURL = .Permalink -}}
+{{- else with $pageImage -}}
+  {{- $imageURL = . | absURL -}}
+{{- else with .Site.Params.seo.image -}}
+  {{- $imageURL = . | absURL -}}
+  {{- $usesFallback = true -}}
+{{- end -}}
+
+{{- $openGraphType := "website" -}}
+{{- if and .IsPage (eq .Section "posts") -}}
+  {{- $openGraphType = "article" -}}
+{{- end -}}
+<meta property="og:type" content="{{ $openGraphType }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:title" content="{{ $title }}">
+{{- with $description }}
+<meta property="og:description" content="{{ . }}">
+{{- end }}
+<meta property="og:url" content="{{ .Permalink }}">
+{{- with $imageURL }}
+<meta property="og:image" content="{{ . }}">
+{{- end }}
+
+{{- $twitterCard := "summary_large_image" -}}
+{{- if $usesFallback -}}
+  {{- $twitterCard = "summary" -}}
+{{- end -}}
+<meta name="twitter:card" content="{{ $twitterCard }}">
+<meta name="twitter:title" content="{{ $title }}">
+{{- with $description }}
+<meta name="twitter:description" content="{{ . }}">
+{{- end }}
+{{- with $imageURL }}
+<meta name="twitter:image" content="{{ . }}">
+{{- end }}
+
+{{- $schemaType := "WebPage" -}}
+{{- if .IsHome -}}
+  {{- $schemaType = "WebSite" -}}
+{{- else if .IsSection -}}
+  {{- $schemaType = "CollectionPage" -}}
+{{- else if and .IsPage (eq .Section "posts") -}}
+  {{- $schemaType = "BlogPosting" -}}
+{{- else if and .IsPage (eq .Section "works") -}}
+  {{- $schemaType = "CreativeWork" -}}
+{{- else if eq .Type "about" -}}
+  {{- $schemaType = "AboutPage" -}}
+{{- end -}}
+{{- $schema := dict "@context" "https://schema.org" "@type" $schemaType "name" $title "url" .Permalink -}}
+{{- with $description -}}
+  {{- $schema = merge $schema (dict "description" .) -}}
+{{- end -}}
+{{- with $imageURL -}}
+  {{- $schema = merge $schema (dict "image" .) -}}
+{{- end -}}
+{{- if eq $schemaType "BlogPosting" -}}
+  {{- $schema = merge $schema (dict "headline" .Title "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)) -}}
+{{- end -}}
+<script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>

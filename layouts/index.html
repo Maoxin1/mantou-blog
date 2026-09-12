@@ -1,78 +1,83 @@
 {{- define "content" -}}
+{{- $works := where .Site.RegularPages "Section" "works" -}}
+{{- $featured := where $works "Params.featured" true -}}
+{{- $displayWorks := $featured -}}
+{{- if eq (len $displayWorks) 0 -}}
+    {{- $displayWorks = $works -}}
+{{- end -}}
 <div class="page portfolio-home" data-portfolio-home>
     <section class="portfolio-hero">
-        <p class="portfolio-hero__kicker">MANTOU · PROOF OF WORK</p>
-        <h1>把时间转化为<br><span>能力、资本与自主权。</span></h1>
-        <p class="portfolio-hero__lead">这里不展示一个已经完成的人，而是公开一个普通人如何从真实问题出发，用作品、证据和复盘完成长期积累。</p>
+        <p class="portfolio-hero__kicker">MANTOU · PERSONAL PORTFOLIO</p>
+        <h1>我是 mantou，<br><span>这里公开作品、验证过程与复盘。</span></h1>
+        <p class="portfolio-hero__lead">我目前围绕轻量工具、AI 辅助工作流与个人研究开展实践。每件作品都说明问题、约束、结果和限制，方便你直接判断。</p>
         <div class="portfolio-hero__actions">
-            <a class="portfolio-button portfolio-button--primary" href="/works/">查看代表作品</a>
-            <a class="portfolio-button portfolio-button--secondary" href="/about/">了解工作方式</a>
-            <a class="portfolio-button portfolio-button--secondary" href="/follow/" data-follow-open>关注更新</a>
+            <a class="portfolio-button portfolio-button--primary" href="/works/">查看已公开作品</a>
+            <a class="portfolio-button portfolio-button--secondary" href="/about/">查看工作原则与合作范围</a>
+            <a class="portfolio-button portfolio-button--secondary" href="/follow/" data-follow-open>订阅后续更新</a>
         </div>
     </section>
 
     <section class="portfolio-status" data-portfolio-status aria-label="当前公开进度">
         <span>CURRENT PUBLIC RECORD</span>
-        <p>首个完整案例已公开，包含真实验收、失败记录与修复复盘。</p>
-        <a href="/works/mantou-checklist-pwa/">查看案例&nbsp;→</a>
+        <strong class="portfolio-status__count">{{ len $works }}</strong>
+        <p>目前公开 {{ len $works }} 个可独立验收的作品；案例保留测试结果、失败记录与已知限制。</p>
+        <a href="/works/">核对作品与证据&nbsp;→</a>
     </section>
 
     <section class="portfolio-section portfolio-section--featured">
         <div class="portfolio-section__heading portfolio-section__heading--inline">
             <div>
                 <p class="section-kicker">SELECTED WORK</p>
-                <h2>先看结果，再判断我是谁</h2>
+                <h2>先看已完成的结果</h2>
             </div>
             <a href="/works/">查看全部&nbsp;→</a>
         </div>
-        <div class="work-grid">
-            {{- $works := where .Site.RegularPages "Section" "works" -}}
-            {{- $featured := where $works "Params.featured" true -}}
-            {{- range first 3 $featured.ByDate.Reverse -}}
+        <div class="work-grid" data-home-featured-work>
+            {{- range first 3 $displayWorks.ByDate.Reverse -}}
                 {{- partial "work-card.html" . -}}
             {{- end -}}
         </div>
     </section>
 
     <section class="method-compact" data-work-method-compact aria-label="作品形成方法">
-        <span>WORK STANDARD</span>
+        <span>WORK PROCESS</span>
         <ol>
             <li>定义问题</li>
             <li>完成产出</li>
             <li>真实验证</li>
             <li>复盘调整</li>
         </ol>
-        <a href="/about/">了解工作原则&nbsp;→</a>
+        <a href="/about/">查看完整工作原则&nbsp;→</a>
     </section>
 
     <section class="portfolio-section" id="directions">
         <div class="portfolio-section__heading">
             <div>
                 <p class="section-kicker">CURRENT DIRECTIONS</p>
-                <h2>长期投入的四个方向</h2>
+                <h2>目前在做的四个方向</h2>
             </div>
-            <p>方向说明我正在建设什么；只有完成验收的阶段成果，才会进入作品集。</p>
+            <p>这些是正在投入的实践范围，不等于已经验证的能力；完成阶段验收后才会进入作品集。</p>
         </div>
         <div class="direction-grid">
             <article>
                 <span>01</span>
                 <h3>主动投资系统</h3>
-                <p>建立可复盘的研究、决策与归因流程，逐渐区分能力、市场和运气。</p>
+                <p>记录研究、决策与归因过程，复盘结果来自判断、市场还是运气。</p>
             </article>
             <article>
                 <span>02</span>
                 <h3>工具与 AI 工作流</h3>
-                <p>把自己的真实需求做成能够运行、验证并持续迭代的工具。</p>
+                <p>把自己的具体需求做成能运行、能测试并按使用结果迭代的工具。</p>
             </article>
             <article>
                 <span>03</span>
                 <h3>表达与方法论</h3>
-                <p>从实践中提取可以复用的框架，并用作品而不是口号表达能力。</p>
+                <p>把实践过程整理成别人能理解、检查和复用的文章或案例。</p>
             </article>
             <article>
                 <span>04</span>
                 <h3>身体实践</h3>
-                <p>以阶段目标、统一测量和训练结果，建设精干、健康且有力量的身体。</p>
+                <p>用阶段目标、固定记录和训练结果检查身体实践是否有效。</p>
             </article>
         </div>
     </section>
@@ -80,16 +85,16 @@
     <section class="archive-callout">
         <div>
             <p class="section-kicker">JOURNAL ARCHIVE</p>
-            <h2>日记保留成长现场，但不冒充作品。</h2>
-            <p>历史记录保留探索发生时的原貌；当前网站主要更新完成的阶段成果与可复用的方法。</p>
+            <h2>日记记录过程，不等于作品。</h2>
+            <p>日记保留当时的想法和状态；作品集只收录完成阶段验收、能够说明证据与限制的结果。</p>
         </div>
         <a class="portfolio-button portfolio-button--secondary" href="/categories/essays/">进入日记档案</a>
     </section>
 
     <section class="collaboration-callout">
         <p class="section-kicker">ABOUT · COLLABORATION</p>
-        <h2>先从作品判断是否可信，再从真实问题判断是否适合合作。</h2>
-        <p>这里列出我的工作原则、当前适合交流的方向，以及不会为了展示而跨越的边界。</p>
+        <h2>带着具体问题来，再判断是否适合继续。</h2>
+        <p>关于页列出我的工作原则、目前适合交流的范围与能力边界；作品和源码可用于核对实际产出。</p>
         <div class="portfolio-hero__actions">
             <a class="portfolio-button portfolio-button--primary" href="/about/">关于与合作</a>
             <a class="portfolio-button portfolio-button--secondary" href="https://github.com/Maoxin1" target="_blank" rel="noopener">GitHub</a>

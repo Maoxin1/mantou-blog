@@ -36,7 +36,10 @@
         {{ with .OutputFormats.Get "RSS" }}
             {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
         {{ end }}
-        {{- range where .Site.RegularPages "Type" "posts" -}}
+        {{- /* 订阅代表站点的全部公开更新：日常文章和结构化作品都应进入 Feed，
+               否则 follow.it 邮件提醒会遗漏新案例。 */ -}}
+        {{- $subscribablePages := where .Site.RegularPages "Type" "in" (slice "posts" "works") -}}
+        {{- range $subscribablePages.ByDate.Reverse -}}
             {{- dict "Page" . "Site" .Site | partial "rss/item.html" -}}
         {{- end -}}
     </channel>

@@ -1,0 +1,34 @@
+{{- define "title" -}}
+  {{- .Params.Title | default "文章归档" }} - {{ .Site.Title -}}
+{{- end -}}
+
+{{- define "content" -}}
+  <main class="page archive" data-pagefind-ignore>
+    <header>
+      <h1 class="single-title">{{ .Params.Title | default "文章归档" }}</h1>
+    </header>
+
+    {{- if .Pages -}}
+      {{- $pages := .Pages.GroupByDate "2006" -}}
+      {{- with .Site.Params.section.paginate | default .Site.Params.paginate -}}
+        {{- $pages = $.Paginate $pages . -}}
+      {{- else -}}
+        {{- $pages = .Paginate $pages -}}
+      {{- end -}}
+      <section aria-label="按年份浏览文章">
+        {{- range $pages.PageGroups -}}
+          <h2 class="group-title">{{ .Key }}</h2>
+          {{- range .Pages -}}
+            <article class="archive-item">
+              <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .Title | emojify }}</a>
+              <time class="archive-item-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ $.Site.Params.section.dateFormat | default "01-02" | .Date.Format }}</time>
+            </article>
+          {{- end -}}
+        {{- end -}}
+      </section>
+      {{- partial "paginator.html" . -}}
+    {{- else -}}
+      <p>暂无文章。</p>
+    {{- end -}}
+  </main>
+{{- end -}}

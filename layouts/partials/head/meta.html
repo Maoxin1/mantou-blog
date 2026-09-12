@@ -1,0 +1,15 @@
+{{- /* Keep one, normalized description. Social metadata lives in head/seo.html. */ -}}
+{{- $description := .Description | default .Site.Params.description | plainify | htmlUnescape | strings.TrimSpace -}}
+{{- with $description -}}
+<meta name="description" content="{{ . }}">
+{{- end -}}
+
+<meta name="application-name" content="{{ .Site.Params.app.title | default .Site.Title }}">
+<meta name="apple-mobile-web-app-title" content="{{ .Site.Params.app.title | default .Site.Title }}">
+
+{{- with .Site.Params.app.themeColor -}}
+<meta name="theme-color" content="{{ . }}">
+{{- end -}}
+{{- with .Site.Params.app.tileColor -}}
+<meta name="msapplication-TileColor" content="{{ . }}">
+{{- end -}}
