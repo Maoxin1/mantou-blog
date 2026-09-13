@@ -16,6 +16,28 @@ test('首页按身份、实践范围、证据和下一步组织核心信息', as
   await expect(home.getByRole('link', { name: '查看已公开作品' })).toHaveAttribute('href', '/works/');
   await expect(home.getByRole('link', { name: '查看工作原则与合作范围' })).toHaveAttribute('href', '/about/');
   await expect(home.getByRole('link', { name: '订阅后续更新' })).toHaveAttribute('href', '/follow/');
+  await expect(home.getByRole('heading', { name: '长期实践的四个方向', level: 2 })).toBeVisible();
+  await expect(home.getByRole('link', { name: /当前在做什么/ })).toHaveAttribute('href', '/now/');
+});
+
+test('当前下注清单说明验证问题、检查点与人工复核时间', async ({ page }) => {
+  await open(page, '/now/');
+
+  const now = page.locator('[data-now-page]');
+  await expect(now.getByRole('heading', { name: '当前在做什么', level: 1 })).toBeVisible();
+  const items = now.locator('.now-item');
+  const count = await items.count();
+  expect(count).toBeGreaterThanOrEqual(1);
+  expect(count).toBeLessThanOrEqual(4);
+
+  for (let index = 0; index < count; index += 1) {
+    const item = items.nth(index);
+    await expect(item.locator('h2')).not.toBeEmpty();
+    await expect(item.getByRole('heading', { name: '正在验证', level: 3 })).toBeVisible();
+    await expect(item.getByRole('heading', { name: '下一检查点', level: 3 })).toBeVisible();
+    await expect(item.locator('.now-item__detail p')).toHaveCount(2);
+    await expect(item.locator('time')).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/);
+  }
 });
 
 test('作品集说明收录标准并把证据承诺落到公开案例', async ({ page }) => {

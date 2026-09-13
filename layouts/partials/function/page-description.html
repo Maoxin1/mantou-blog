@@ -1,0 +1,16 @@
+{{- /*
+  Prefer editorial front matter. For pages without it, use a short, plain-text
+  summary of the page itself before falling back to the site-wide description.
+  This keeps older diary entries distinct without inventing new copy in bulk.
+*/ -}}
+{{- $description := .Description | plainify | htmlUnescape | strings.TrimSpace -}}
+{{- if not $description -}}
+  {{- $summary := .Summary | plainify | htmlUnescape | strings.TrimSpace -}}
+  {{- with $summary -}}
+    {{- $description = strings.Truncate 160 . -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $description -}}
+  {{- $description = .Site.Params.description | plainify | htmlUnescape | strings.TrimSpace -}}
+{{- end -}}
+{{- return $description -}}

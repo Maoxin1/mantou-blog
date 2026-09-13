@@ -152,6 +152,27 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
             share_slug["pattern"][0],
         )
 
+    def test_now_is_a_small_cms_managed_current_bets_list(self) -> None:
+        now = next(
+            collection
+            for collection in self.parsed_config["collections"]
+            if collection["name"] == "now"
+        )
+        now_file = next(file for file in now["files"] if file["name"] == "now")
+        directions = next(
+            field for field in now_file["fields"] if field["name"] == "directions"
+        )
+
+        self.assertEqual("content/now.md", now_file["file"])
+        self.assertEqual("list", directions["widget"])
+        self.assertEqual(1, directions["min"])
+        self.assertEqual(4, directions["max"])
+        self.assertEqual(
+            {"title", "question", "status", "checkpoint", "updated"},
+            {field["name"] for field in directions["fields"]},
+        )
+        self.assertNotIn("decision", {field["name"] for field in directions["fields"]})
+
 
 if __name__ == "__main__":
     unittest.main()

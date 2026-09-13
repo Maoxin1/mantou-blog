@@ -105,3 +105,32 @@ test('减少动态效果偏好会降低交互动效', async ({ page }) => {
   ));
   expect(Number.parseFloat(transition)).toBeLessThanOrEqual(0.01);
 });
+
+test('深色作品页的按钮与标签保持 AA 对比度', async ({ page }) => {
+  const verifyContrast = async (path, selector) => {
+    await open(page, path);
+    await page.evaluate(() => document.body.setAttribute('theme', 'dark'));
+    const locator = page.locator(selector).first();
+    await expect(locator).toBeVisible();
+    const colors = await locator.evaluate((element) => {
+      const parse = (value) => value.match(/\d+/g).slice(0, 3).map(Number);
+      const backgroundElement = element.matches('.portfolio-button')
+        ? element
+        : element.closest('.work-card');
+      return {
+        foreground: parse(getComputedStyle(element).color),
+        background: parse(getComputedStyle(backgroundElement).backgroundColor),
+      };
+    });
+    expect(contrastRatio(colors.foreground, colors.background)).toBeGreaterThanOrEqual(4.5);
+  };
+
+  await verifyContrast('/', '.portfolio-button--primary');
+  await verifyContrast('/works/', '.work-card__summary span');
+});
+
+test('首页主题切换使用语义化按钮，不输出 javascript 链接', async ({ page }) => {
+  await open(page, '/');
+  await expect(page.getByRole('button', { name: '切换主题' }).first()).toBeVisible();
+  await expect(page.locator('a[href^="javascript:"]')).toHaveCount(0);
+});

@@ -5,6 +5,7 @@ const routes = [
   '/works/',
   '/works/mantou-checklist-pwa/',
   '/about/',
+  '/now/',
   '/follow/',
   '/search/',
 ];
@@ -119,8 +120,8 @@ test('平板宽度下的长标题与说明保持分行且可读', async ({ page 
   await open(page, '/');
 
   const heading = page.locator('.portfolio-section__heading:not(.portfolio-section__heading--inline)').first();
-  const titleBlock = heading.locator(':scope > div');
-  const description = heading.locator(':scope > p');
+  const titleBlock = heading.locator(':scope > div').first();
+  const description = heading.locator(':scope > .portfolio-section__context');
   const [titleBox, descriptionBox] = await Promise.all([
     titleBlock.boundingBox(),
     description.boundingBox(),

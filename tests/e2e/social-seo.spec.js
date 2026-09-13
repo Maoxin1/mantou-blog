@@ -51,7 +51,28 @@ test('核心公开页输出唯一、绝对且可索引的社交与搜索元数�
     });
     expect(schemas[0].description).toMatch(/\S+/);
     expect(schemas[0].image).toMatch(/^https:\/\//);
+    if (entry.schema === 'BlogPosting') {
+      expect(schemas[0]).toMatchObject({
+        headline: '对存储板块的更近一步的思考',
+        author: { '@type': 'Person', name: 'mantou', url: 'https://github.com/Maoxin1' },
+      });
+      expect(schemas[0].datePublished).toMatch(/^2026-04-06T\d{2}:\d{2}:\d{2}\+08:00$/);
+      expect(schemas[0].dateModified).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$/);
+    }
   }
+});
+
+test('未手写摘要的文章输出自身内容摘要，而非站点通用文案', async ({ page }) => {
+  await page.goto('/p/20260601/', { waitUntil: 'domcontentloaded' });
+  const description = page.locator('meta[name="description" i]');
+  await expect(description).not.toHaveAttribute('content', '用真实作品、证据和复盘，把时间转化为能力、资本与自主权。');
+  await expect(description).toHaveAttribute('content', /\S{20,}/);
+});
+
+test('纯图片文章保留编辑摘要与有意义的替代文本', async ({ page }) => {
+  await page.goto('/p/20260825/', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('meta[name="description" i]')).toHaveAttribute('content', /以赛亚书 41:10/);
+  await expect(page.locator('.single .content img')).toHaveAttribute('alt', /耶稣在人群中/);
 });
 
 test('尚无页面特色图时，所有核心页回退到同一稳定站点预览图', async ({ page }) => {

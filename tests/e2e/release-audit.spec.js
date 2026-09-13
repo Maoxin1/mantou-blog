@@ -27,3 +27,10 @@ test('内容后台不会被搜索引擎索引', async ({ page }) => {
   await expect(page.locator('body')).not.toContainText('Disallow: /admin/');
   await expect(page.locator('body')).toContainText('Allow: /');
 });
+
+test('未启用的 lightGallery 不会进入生产页面', async ({ page }) => {
+  for (const path of ['/', '/p/20260825/']) {
+    await page.goto(path, { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('script[src*="lightgallery"], link[href*="lightgallery"]')).toHaveCount(0);
+  }
+});

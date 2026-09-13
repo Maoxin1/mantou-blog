@@ -1,5 +1,7 @@
 const { defineConfig, devices } = require('@playwright/test');
 
+const pythonCommand = process.platform === 'win32' ? 'py -3.12' : 'python';
+
 module.exports = defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
@@ -22,7 +24,7 @@ module.exports = defineConfig({
     },
   ],
   webServer: {
-    command: 'python -m http.server 4174 --directory public',
+    command: `${pythonCommand} -m http.server 4174 --directory public`,
     url: 'http://127.0.0.1:4174/',
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,
