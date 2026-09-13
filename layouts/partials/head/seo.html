@@ -3,7 +3,7 @@
   metadata family and one JSON-LD entity per page. The fallback image is a site
   asset configured in hugo.toml; a page's own featured image always wins.
 */ -}}
-{{- $description := .Description | default .Site.Params.description | plainify | htmlUnescape | strings.TrimSpace -}}
+{{- $description := partial "function/page-description.html" . -}}
 {{- $title := .Site.Title -}}
 {{- if not .IsHome -}}
   {{- $title = printf "%s - %s" .Title .Site.Title -}}
@@ -78,6 +78,17 @@
   {{- $schema = merge $schema (dict "image" .) -}}
 {{- end -}}
 {{- if eq $schemaType "BlogPosting" -}}
-  {{- $schema = merge $schema (dict "headline" .Title "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)) -}}
+  {{- $authorName := .Params.author | default .Site.Params.author.name | default (T "author") -}}
+  {{- $author := dict "@type" "Person" "name" $authorName -}}
+  {{- with .Site.Params.author.link -}}
+    {{- $author = merge $author (dict "url" .) -}}
+  {{- end -}}
+  {{- $schema = merge $schema (dict
+    "headline" .Title
+    "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+    "author" $author
+    "datePublished" (.PublishDate.Format "2006-01-02T15:04:05Z07:00")
+    "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+  ) -}}
 {{- end -}}
 <script type="application/ld+json">{{ $schema | jsonify | safeJS }}</script>

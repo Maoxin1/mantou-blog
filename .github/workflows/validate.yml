@@ -48,6 +48,9 @@ jobs:
       - name: Install browser test dependencies
         run: npm ci
 
+      - name: Audit Node.js dependencies
+        run: npm audit --audit-level=high
+
       - name: Install vendored theme dependencies
         run: npm ci --ignore-scripts --prefix themes/LoveIt-0.3.0
 
@@ -89,6 +92,9 @@ jobs:
 
       - name: Validate portfolio visitor journey
         run: python scripts/check_portfolio_output.py
+
+      - name: Validate generated SEO metadata
+        run: python scripts/check_seo_output.py
 
       - name: Validate portfolio in a real browser
         run: npm run test:e2e

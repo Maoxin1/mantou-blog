@@ -37,13 +37,16 @@ test('正式搜索可以找到并打开代表作品', async ({ page }) => {
   await expect(page.locator('[data-work-detail]')).toBeVisible();
 });
 
-test('公开案例链接指向的清单编辑器仍可完成核心入口加载', async ({ page }) => {
+test('公开案例链接指向的清单工作区仍可进入填写与下载流程', async ({ page }) => {
   const artifactURL = process.env.SMOKE_ARTIFACT_URL || 'https://mantou-checklist.pages.dev/editor';
   const response = await page.goto(artifactURL, { waitUntil: 'domcontentloaded' });
 
   expect(response, '清单编辑器应返回响应').not.toBeNull();
   expect(response.status(), '清单编辑器应成功加载').toBeLessThan(400);
   await expect(page).toHaveTitle(/个人定投清单/);
+  await expect(page.getByRole('button', { name: '预览' })).toHaveAttribute('aria-selected', 'true');
+  await page.getByRole('button', { name: '填写' }).click();
+  await expect(page.getByRole('button', { name: '填写' })).toHaveAttribute('aria-selected', 'true');
   await expect(page.locator('#checklist-form')).toBeVisible();
   await expect(page.locator('#download-button')).toBeVisible();
 });

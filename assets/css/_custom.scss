@@ -109,6 +109,18 @@ $accent-hover: #185a36;
   outline-offset: .35rem;
 }
 
+// 主题切换是状态操作，不是跳转；保持与菜单链接一致的视觉，同时移除旧主题的 javascript: 链接。
+#header-desktop .theme-switch,
+#header-mobile .theme-switch {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+
 // ---- 5. 作品型首页与作品集 ----
 $portfolio-ink: #17211b;
 $portfolio-muted: #5f6c64;
@@ -918,8 +930,8 @@ $portfolio-accent: #1f6b43;
   }
 
   .portfolio-button--primary {
-    border-color: #2f9a64;
-    background: #2f9a64;
+    border-color: $portfolio-accent;
+    background: $portfolio-accent;
   }
 
   .portfolio-button--secondary {
@@ -947,6 +959,10 @@ $portfolio-accent: #1f6b43;
   .work-detail__header h1,
   .evidence-panel p {
     color: #edf3ef;
+  }
+
+  .work-card__summary span {
+    color: #50c985;
   }
 
   .portfolio-hero,
