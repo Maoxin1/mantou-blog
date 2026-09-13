@@ -16,7 +16,17 @@
 <link rel="manifest" href="/site.webmanifest">
 {{- end -}}
 
-<link rel="canonical" href="{{ .Permalink }}">
+{{- $canonicalURL := .Permalink -}}
+{{- if and .IsSection (eq .Section "posts") -}}
+  {{- $groups := .Pages.GroupByDate "2006" -}}
+  {{- $pageSize := .Site.Params.section.paginate | default .Site.Params.paginate -}}
+  {{- with .Paginate $groups $pageSize -}}
+    {{- if gt .PageNumber 1 -}}
+      {{- $canonicalURL = .URL | absURL -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+<link rel="canonical" href="{{ $canonicalURL }}">
 {{- if .PrevInSection -}}
 <link rel="prev" href="{{ .PrevInSection.Permalink }}">
 {{- end -}}

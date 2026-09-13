@@ -8,13 +8,22 @@
 {{- if not .IsHome -}}
   {{- $title = printf "%s - %s" .Title .Site.Title -}}
 {{- end -}}
+{{- $canonicalURL := .Permalink -}}
+{{- if and .IsSection (eq .Section "posts") -}}
+  {{- $groups := .Pages.GroupByDate "2006" -}}
+  {{- $pageSize := .Site.Params.section.paginate | default .Site.Params.paginate -}}
+  {{- with .Paginate $groups $pageSize -}}
+    {{- if gt .PageNumber 1 -}}
+      {{- $canonicalURL = .URL | absURL -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 
 {{- $pageImage := .Params.featuredimage | default .Params.featured_image | default .Params.image -}}
 {{- $imageResource := .Resources.GetMatch "featured-image-preview*" -}}
 {{- if not $imageResource -}}
   {{- $imageResource = .Resources.GetMatch "featured-image*" -}}
 {{- end -}}
-{{- $usesFallback := false -}}
 {{- $imageURL := "" -}}
 {{- with $imageResource -}}
   {{- $imageURL = .Permalink -}}
@@ -22,7 +31,6 @@
   {{- $imageURL = . | absURL -}}
 {{- else with .Site.Params.seo.image -}}
   {{- $imageURL = . | absURL -}}
-  {{- $usesFallback = true -}}
 {{- end -}}
 
 {{- $openGraphType := "website" -}}
@@ -35,15 +43,12 @@
 {{- with $description }}
 <meta property="og:description" content="{{ . }}">
 {{- end }}
-<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:url" content="{{ $canonicalURL }}">
 {{- with $imageURL }}
 <meta property="og:image" content="{{ . }}">
 {{- end }}
 
 {{- $twitterCard := "summary_large_image" -}}
-{{- if $usesFallback -}}
-  {{- $twitterCard = "summary" -}}
-{{- end -}}
 <meta name="twitter:card" content="{{ $twitterCard }}">
 <meta name="twitter:title" content="{{ $title }}">
 {{- with $description }}
@@ -65,7 +70,7 @@
 {{- else if eq .Type "about" -}}
   {{- $schemaType = "AboutPage" -}}
 {{- end -}}
-{{- $schema := dict "@context" "https://schema.org" "@type" $schemaType "name" $title "url" .Permalink -}}
+{{- $schema := dict "@context" "https://schema.org" "@type" $schemaType "name" $title "url" $canonicalURL -}}
 {{- with $description -}}
   {{- $schema = merge $schema (dict "description" .) -}}
 {{- end -}}
