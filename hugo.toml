@@ -22,7 +22,7 @@ buildFuture = true
 
 # 页面没有 featured image 时使用的稳定站点级分享图（约 1.91:1，适配常见社交卡片）。
 [params.seo]
-  image = "/images/mantou-social.png"
+  image = "/images/mantou-social.jpg"
 
 # 网站左上角显示的站点名（覆盖主题默认的 "My cool site"）
 [params.header.title]

@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const siteURL = 'https://mantou-blog.pages.dev';
-const fallbackImage = `${siteURL}/images/mantou-social.png`;
+const fallbackImage = `${siteURL}/images/mantou-social.jpg`;
 
 const pages = [
   { path: '/', schema: 'WebSite', title: 'mantou の blog' },
@@ -60,6 +60,10 @@ test('尚无页面特色图时，所有核心页回退到同一稳定站点预�
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', fallbackImage);
     await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', fallbackImage);
   }
+
+  const image = await page.request.get('/images/mantou-social.jpg');
+  expect(image.status()).toBe(200);
+  expect(image.headers()['content-type']).toContain('image/jpeg');
 });
 
 test('归档分页使用自己的 canonical 和 Open Graph 地址', async ({ page }) => {
