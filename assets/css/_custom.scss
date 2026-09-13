@@ -51,7 +51,7 @@ $accent-hover: #185a36;
 // 暗色模式下用更亮一档的绿，保证对比度
 [theme=dark] .content a,
 [theme=dark] .single .content a {
-  color: lighten($accent, 12%);
+  color: lighten($accent, 18%);
 
   &:hover {
     color: lighten($accent, 20%);
@@ -90,6 +90,7 @@ $accent-hover: #185a36;
   width: 2.75rem;
   height: 2.75rem;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   border: 0;
   padding: 0;
@@ -97,6 +98,10 @@ $accent-hover: #185a36;
   color: inherit;
   cursor: pointer;
   font: inherit;
+}
+
+#menu-toggle-mobile span {
+  flex: 0 0 auto;
 }
 
 #menu-toggle-mobile:focus-visible {
@@ -199,6 +204,14 @@ $portfolio-accent: #1f6b43;
     font-weight: 650;
     text-decoration: none;
   }
+}
+
+.single .post-meta {
+  color: #666;
+}
+
+[theme=dark] .single .post-meta {
+  color: #b8b8bc;
 }
 
 .portfolio-hero__actions,

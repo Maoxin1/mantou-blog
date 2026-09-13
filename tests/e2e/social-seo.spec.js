@@ -30,7 +30,7 @@ test('核心公开页输出唯一、绝对且可索引的社交与搜索元数�
       ['meta[property="og:description"]', /\S+/],
       ['meta[property="og:url"]', canonical],
       ['meta[property="og:image"]', /^https:\/\//],
-      ['meta[name="twitter:card"]', /summary/],
+      ['meta[name="twitter:card"]', 'summary_large_image'],
       ['meta[name="twitter:title"]', entry.title],
       ['meta[name="twitter:description"]', /\S+/],
       ['meta[name="twitter:image"]', /^https:\/\//],
@@ -60,4 +60,13 @@ test('尚无页面特色图时，所有核心页回退到同一稳定站点预�
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', fallbackImage);
     await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', fallbackImage);
   }
+});
+
+test('归档分页使用自己的 canonical 和 Open Graph 地址', async ({ page }) => {
+  await page.goto('/posts/page/2/', { waitUntil: 'domcontentloaded' });
+  const canonical = `${siteURL}/posts/page/2/`;
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', canonical);
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', canonical);
+  const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  expect(schema.url).toBe(canonical);
 });

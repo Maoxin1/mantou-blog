@@ -29,7 +29,7 @@ test('正文链接在浅色和深色主题中都达到常规文字对比度', as
 
   for (const theme of ['light', 'dark']) {
     await page.evaluate((nextTheme) => {
-      document.body.toggleAttribute('theme', nextTheme === 'dark');
+      document.body.setAttribute('theme', nextTheme);
     }, theme);
 
     const colors = await link.evaluate((element) => {
@@ -44,6 +44,23 @@ test('正文链接在浅色和深色主题中都达到常规文字对比度', as
       contrastRatio(colors.foreground, colors.background),
       `${theme} theme body-link contrast should meet WCAG AA`,
     ).toBeGreaterThanOrEqual(4.5);
+  }
+});
+
+test('文章辅助信息在浅色和深色主题中都保持可读', async ({ page }) => {
+  await open(page, '/p/20260118/');
+  const metadata = page.locator('.single .post-meta-line').first();
+
+  for (const theme of ['light', 'dark']) {
+    await page.evaluate((nextTheme) => document.body.setAttribute('theme', nextTheme), theme);
+    const colors = await metadata.evaluate((element) => {
+      const parse = (value) => value.match(/\d+/g).slice(0, 3).map(Number);
+      return {
+        foreground: parse(getComputedStyle(element).color),
+        background: parse(getComputedStyle(document.body).backgroundColor),
+      };
+    });
+    expect(contrastRatio(colors.foreground, colors.background)).toBeGreaterThanOrEqual(4.5);
   }
 });
 

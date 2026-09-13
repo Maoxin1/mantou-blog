@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /admin/
 Allow: /
 
 Sitemap: https://mantou-blog.pages.dev/sitemap.xml
