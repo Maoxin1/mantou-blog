@@ -305,6 +305,23 @@ $portfolio-accent: #1f6b43;
   }
 }
 
+.portfolio-section__context {
+  p {
+    margin: 0;
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+
+  a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    margin-top: 0.65rem;
+    color: $portfolio-accent;
+    font-weight: 650;
+  }
+}
+
 .direction-grid,
 .work-grid {
   display: grid;
@@ -564,6 +581,70 @@ $portfolio-accent: #1f6b43;
 
 .works-index .work-grid {
   padding-bottom: 5rem;
+}
+
+.now-page {
+  width: 100%;
+  max-width: 52rem !important;
+}
+
+.now-list {
+  margin: 0;
+  padding: 0 0 5rem;
+  border-top: 1px solid $portfolio-line;
+  list-style: none;
+}
+
+.now-item {
+  padding: clamp(2rem, 5vw, 3.25rem) 0;
+  border-bottom: 1px solid $portfolio-line;
+}
+
+.now-item__heading {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.8rem;
+
+  h2 {
+    margin: 0;
+    color: $portfolio-ink;
+    font-size: clamp(1.55rem, 3vw, 2.1rem);
+    line-height: 1.25;
+  }
+}
+
+.now-item__status {
+  flex: 0 0 auto;
+  color: $portfolio-accent;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.now-item__detail {
+  margin-top: 1.35rem;
+
+  h3 {
+    margin: 0 0 0.35rem;
+    color: $portfolio-muted;
+    font-size: 0.78rem;
+    font-weight: 750;
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    margin: 0;
+    color: $portfolio-ink;
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+}
+
+.now-item__updated {
+  margin: 1.6rem 0 0;
+  color: $portfolio-muted;
+  font-size: 0.82rem;
 }
 
 .work-detail {
@@ -914,6 +995,7 @@ $portfolio-accent: #1f6b43;
   .method-compact > span,
   .method-compact a,
   .portfolio-section__heading--inline > a,
+  .portfolio-section__context a,
   .direction-grid article > span,
   .work-card__meta,
   .work-card__action,
@@ -956,6 +1038,8 @@ $portfolio-accent: #1f6b43;
   .boundary-callout h2,
   .archive-callout h2,
   .section-intro h1,
+  .now-item__heading h2,
+  .now-item__detail p,
   .work-detail__header h1,
   .evidence-panel p {
     color: #edf3ef;
@@ -980,6 +1064,8 @@ $portfolio-accent: #1f6b43;
   .collaboration-grid article,
   .boundary-callout,
   .direction-grid article,
+  .now-list,
+  .now-item,
   .evidence-panel,
   .work-detail__footer {
     border-color: #39463e;
@@ -1007,6 +1093,7 @@ $portfolio-accent: #1f6b43;
 
   .portfolio-hero__lead,
   .portfolio-section__heading > p,
+  .portfolio-section__context p,
   .direction-grid p,
   .work-card__link > p,
   .work-card__summary p,
@@ -1020,6 +1107,8 @@ $portfolio-accent: #1f6b43;
   .archive-callout p:not(.section-kicker),
   .section-intro > p,
   .section-intro__content,
+  .now-item__detail h3,
+  .now-item__updated,
   .work-detail__description,
   .work-detail__footer {
     color: #acb9b0;
@@ -1089,6 +1178,12 @@ $portfolio-accent: #1f6b43;
 
   .portfolio-section__heading {
     gap: 0.7rem;
+  }
+
+  .now-item__heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.45rem;
   }
 
   .archive-callout {

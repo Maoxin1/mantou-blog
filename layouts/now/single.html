@@ -1,0 +1,32 @@
+{{- define "title" -}}{{ .Title }} - {{ .Site.Title }}{{- end -}}
+
+{{- define "content" -}}
+<article class="page now-page" data-now-page data-pagefind-body>
+    <header class="section-intro">
+        <p class="section-kicker">NOW · CURRENT BETS</p>
+        <h1>{{ .Title }}</h1>
+        <p>{{ .Description }}</p>
+        {{ with .Content }}<div class="section-intro__content">{{ . }}</div>{{ end }}
+    </header>
+
+    <ol class="now-list" aria-label="当前投入注意力的方向">
+        {{- range .Params.directions -}}
+            <li class="now-item">
+                <div class="now-item__heading">
+                    <h2>{{ .title }}</h2>
+                    <span class="now-item__status">{{ .status }}</span>
+                </div>
+                <div class="now-item__detail">
+                    <h3>正在验证</h3>
+                    <p>{{ .question }}</p>
+                </div>
+                <div class="now-item__detail">
+                    <h3>下一检查点</h3>
+                    <p>{{ .checkpoint }}</p>
+                </div>
+                <p class="now-item__updated">最近复核：<time datetime="{{ .updated | time.Format "2006-01-02" }}">{{ .updated | time.Format "2006-01-02" }}</time></p>
+            </li>
+        {{- end -}}
+    </ol>
+</article>
+{{- end -}}
