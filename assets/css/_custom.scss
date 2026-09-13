@@ -6,11 +6,34 @@
 // ===========================================================================
 
 // 统一强调色：沿用首页体重图的绿色，全站只保留这一种强调色
-$accent: #2ea043;
-$accent-hover: #248239;
+$accent: #1f6b43;
+$accent-hover: #185a36;
+
+// 键盘焦点不能只依赖颜色或浏览器默认样式。浅、深主题各使用与底色
+// 有充分反差的焦点环，覆盖主题中个别会清除 outline 的旧规则。
+:focus-visible {
+  outline: 3px solid #0f6b37 !important;
+  outline-offset: 0.24rem;
+}
+
+[theme=dark] :focus-visible {
+  outline-color: #8be9ae !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 // ---- 1. 正文链接与标题装饰统一为绿色 ----
-.content {
+.content,
+.single .content {
   a {
     color: $accent;
 
@@ -26,8 +49,9 @@ $accent-hover: #248239;
 }
 
 // 暗色模式下用更亮一档的绿，保证对比度
-[theme=dark] .content a {
-  color: lighten($accent, 12%);
+[theme=dark] .content a,
+[theme=dark] .single .content a {
+  color: lighten($accent, 18%);
 
   &:hover {
     color: lighten($accent, 20%);
@@ -62,16 +86,39 @@ $accent-hover: #248239;
 }
 
 #menu-toggle-mobile {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   border: 0;
   padding: 0;
   background: transparent;
   color: inherit;
+  cursor: pointer;
   font: inherit;
+}
+
+#menu-toggle-mobile span {
+  flex: 0 0 auto;
 }
 
 #menu-toggle-mobile:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: .35rem;
+}
+
+// 主题切换是状态操作，不是跳转；保持与菜单链接一致的视觉，同时移除旧主题的 javascript: 链接。
+#header-desktop .theme-switch,
+#header-mobile .theme-switch {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
 }
 
 // ---- 5. 作品型首页与作品集 ----
@@ -84,12 +131,14 @@ $portfolio-accent: #1f6b43;
 .portfolio-home,
 .works-index,
 .about-collaboration {
+  // 覆盖主题在 960px / 1280px 的窄化比例，避免视口增加 1px 时内容反而骤然变窄。
+  width: 100%;
   max-width: 68rem;
   margin: 0 auto;
 }
 
 .portfolio-hero {
-  padding: 6.5rem 0 5rem;
+  padding: 5.5rem 0 3.75rem;
   border-bottom: 1px solid $portfolio-line;
 
   h1 {
@@ -124,10 +173,12 @@ $portfolio-accent: #1f6b43;
 }
 
 .portfolio-status {
-  display: flex;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.7fr) auto minmax(0, 2fr) auto;
+  gap: 1.25rem;
   align-items: center;
-  min-height: 4.4rem;
+  min-height: 5.5rem;
+  padding: 0.75rem 0;
   border-bottom: 1px solid $portfolio-line;
 
   > span {
@@ -136,6 +187,14 @@ $portfolio-accent: #1f6b43;
     font-size: 0.7rem;
     font-weight: 750;
     letter-spacing: 0.1em;
+  }
+
+  &__count {
+    color: $portfolio-ink;
+    font-size: clamp(2.2rem, 4vw, 3.35rem);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
   }
 
   p {
@@ -147,12 +206,24 @@ $portfolio-accent: #1f6b43;
   }
 
   a {
-    flex: 0 0 auto;
-    margin-left: auto;
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    margin-right: -0.25rem;
+    padding: 0 0.25rem;
     color: $portfolio-accent;
     font-size: 0.82rem;
     font-weight: 650;
+    text-decoration: none;
   }
+}
+
+.single .post-meta {
+  color: #666;
+}
+
+[theme=dark] .single .post-meta {
+  color: #b8b8bc;
 }
 
 .portfolio-hero__actions,
@@ -224,6 +295,28 @@ $portfolio-accent: #1f6b43;
   grid-template-columns: 1fr auto;
 
   > a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    margin-right: -0.25rem;
+    padding: 0 0.25rem;
+    color: $portfolio-accent;
+    font-weight: 650;
+  }
+}
+
+.portfolio-section__context {
+  p {
+    margin: 0;
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+
+  a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    margin-top: 0.65rem;
     color: $portfolio-accent;
     font-weight: 650;
   }
@@ -238,6 +331,24 @@ $portfolio-accent: #1f6b43;
 
 .portfolio-section--featured .work-grid {
   grid-template-columns: 1fr;
+}
+
+.portfolio-section--featured .work-card {
+  min-height: 18.5rem;
+}
+
+.portfolio-section--featured .work-card__link {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+
+  h3 {
+    max-width: 42rem;
+    margin-top: 2.7rem;
+    font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+  }
+
+  .work-card__summary {
+    max-width: 52rem;
+  }
 }
 
 .direction-grid article {
@@ -281,6 +392,7 @@ $portfolio-accent: #1f6b43;
 .work-card__link {
   display: flex;
   height: 100%;
+  box-sizing: border-box;
   flex-direction: column;
   padding: 1.5rem;
   color: inherit !important;
@@ -471,7 +583,72 @@ $portfolio-accent: #1f6b43;
   padding-bottom: 5rem;
 }
 
+.now-page {
+  width: 100%;
+  max-width: 52rem !important;
+}
+
+.now-list {
+  margin: 0;
+  padding: 0 0 5rem;
+  border-top: 1px solid $portfolio-line;
+  list-style: none;
+}
+
+.now-item {
+  padding: clamp(2rem, 5vw, 3.25rem) 0;
+  border-bottom: 1px solid $portfolio-line;
+}
+
+.now-item__heading {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.8rem;
+
+  h2 {
+    margin: 0;
+    color: $portfolio-ink;
+    font-size: clamp(1.55rem, 3vw, 2.1rem);
+    line-height: 1.25;
+  }
+}
+
+.now-item__status {
+  flex: 0 0 auto;
+  color: $portfolio-accent;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.now-item__detail {
+  margin-top: 1.35rem;
+
+  h3 {
+    margin: 0 0 0.35rem;
+    color: $portfolio-muted;
+    font-size: 0.78rem;
+    font-weight: 750;
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    margin: 0;
+    color: $portfolio-ink;
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+}
+
+.now-item__updated {
+  margin: 1.6rem 0 0;
+  color: $portfolio-muted;
+  font-size: 0.82rem;
+}
+
 .work-detail {
+  width: 100%;
   max-width: 52rem !important;
 }
 
@@ -561,6 +738,78 @@ $portfolio-accent: #1f6b43;
     margin: 0.4rem 0 0;
     color: $portfolio-ink;
     line-height: 1.65;
+  }
+}
+
+.work-afterlife {
+  margin: 4rem 0 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid $portfolio-line;
+}
+
+.work-afterlife__header {
+  max-width: 42rem;
+
+  h2 {
+    margin: 0.5rem 0 0.75rem;
+    color: $portfolio-ink;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    line-height: 1.25;
+  }
+
+  > p:last-child {
+    margin: 0;
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.work-afterlife__group {
+  margin-top: 2.5rem;
+
+  h3 {
+    margin: 0 0 0.8rem;
+    color: $portfolio-accent;
+    font-size: 0.8rem;
+  }
+
+  ol,
+  ul {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid $portfolio-line;
+    list-style: none;
+  }
+
+  li {
+    margin: 0;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid $portfolio-line;
+  }
+
+  time {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: $portfolio-muted;
+    font-size: 0.8rem;
+  }
+
+  strong,
+  a {
+    color: $portfolio-ink;
+    font-weight: 700;
+  }
+
+  a {
+    text-decoration: underline;
+    text-decoration-color: rgba($portfolio-accent, 0.45);
+    text-underline-offset: 0.2em;
+  }
+
+  p {
+    margin: 0.45rem 0 0;
+    color: $portfolio-ink;
+    line-height: 1.75;
   }
 }
 
@@ -818,6 +1067,7 @@ $portfolio-accent: #1f6b43;
   .method-compact > span,
   .method-compact a,
   .portfolio-section__heading--inline > a,
+  .portfolio-section__context a,
   .direction-grid article > span,
   .work-card__meta,
   .work-card__action,
@@ -834,8 +1084,8 @@ $portfolio-accent: #1f6b43;
   }
 
   .portfolio-button--primary {
-    border-color: #2f9a64;
-    background: #2f9a64;
+    border-color: $portfolio-accent;
+    background: $portfolio-accent;
   }
 
   .portfolio-button--secondary {
@@ -844,6 +1094,7 @@ $portfolio-accent: #1f6b43;
   }
 
   .portfolio-hero h1,
+  .portfolio-status__count,
   .portfolio-section__heading h2,
   .direction-grid h3,
   .work-card__link h3,
@@ -859,9 +1110,19 @@ $portfolio-accent: #1f6b43;
   .boundary-callout h2,
   .archive-callout h2,
   .section-intro h1,
+  .now-item__heading h2,
+  .now-item__detail p,
+  .work-afterlife__header h2,
+  .work-afterlife__group strong,
+  .work-afterlife__group a,
+  .work-afterlife__group p,
   .work-detail__header h1,
   .evidence-panel p {
     color: #edf3ef;
+  }
+
+  .work-card__summary span {
+    color: #50c985;
   }
 
   .portfolio-hero,
@@ -879,6 +1140,12 @@ $portfolio-accent: #1f6b43;
   .collaboration-grid article,
   .boundary-callout,
   .direction-grid article,
+  .now-list,
+  .now-item,
+  .work-afterlife,
+  .work-afterlife__group ol,
+  .work-afterlife__group ul,
+  .work-afterlife__group li,
   .evidence-panel,
   .work-detail__footer {
     border-color: #39463e;
@@ -906,6 +1173,7 @@ $portfolio-accent: #1f6b43;
 
   .portfolio-hero__lead,
   .portfolio-section__heading > p,
+  .portfolio-section__context p,
   .direction-grid p,
   .work-card__link > p,
   .work-card__summary p,
@@ -919,6 +1187,10 @@ $portfolio-accent: #1f6b43;
   .archive-callout p:not(.section-kicker),
   .section-intro > p,
   .section-intro__content,
+  .now-item__detail h3,
+  .now-item__updated,
+  .work-afterlife__header > p:last-child,
+  .work-afterlife__group time,
   .work-detail__description,
   .work-detail__footer {
     color: #acb9b0;
@@ -944,7 +1216,7 @@ $portfolio-accent: #1f6b43;
 
 @media only screen and (max-width: 680px) {
   .portfolio-hero {
-    padding: 3.8rem 0 3rem;
+    padding: 3.8rem 0 2.6rem;
 
     h1 {
       font-size: clamp(2.25rem, 9.6vw, 2.8rem);
@@ -967,18 +1239,33 @@ $portfolio-accent: #1f6b43;
   }
 
   .portfolio-status {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.45rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.45rem 1rem;
     padding: 1rem 0;
 
+    > span {
+      align-self: center;
+    }
+
+    &__count {
+      font-size: 2.55rem;
+    }
+
+    p,
     a {
-      margin-left: 0;
+      grid-column: 1 / -1;
+      margin-right: 0;
     }
   }
 
   .portfolio-section__heading {
     gap: 0.7rem;
+  }
+
+  .now-item__heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.45rem;
   }
 
   .archive-callout {
@@ -992,8 +1279,14 @@ $portfolio-accent: #1f6b43;
     padding: 1.5rem;
   }
 
-  .work-card {
+  .work-card,
+  .portfolio-section--featured .work-card {
     min-height: 15rem;
+  }
+
+  .portfolio-section--featured .work-card__link h3 {
+    margin-top: 2.1rem;
+    font-size: 1.35rem;
   }
 
   .section-intro,
@@ -1029,6 +1322,360 @@ $portfolio-accent: #1f6b43;
   .contact-panel {
     margin: 2.5rem 0;
     padding: 1.5rem;
+  }
+}
+
+// ---- 6. 统一关注入口（邮箱 + RSS）----
+.follow-card {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4rem 0 1rem;
+  padding: 1.6rem 1.8rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 1rem;
+  background: $portfolio-paper;
+
+  h2 {
+    margin: 0.35rem 0 0.35rem;
+    color: $portfolio-ink;
+    font-size: 1.35rem;
+  }
+
+  p:last-child {
+    margin: 0;
+    color: $portfolio-muted;
+  }
+
+  .portfolio-button {
+    flex: 0 0 auto;
+  }
+}
+
+.follow-dialog {
+  width: 42rem;
+  max-width: 92vw;
+  max-height: 88vh;
+  padding: 0;
+  border: 0;
+  border-radius: 1.1rem;
+  background: transparent;
+  color: $portfolio-ink;
+  box-shadow: 0 1.5rem 5rem rgba(16, 33, 23, 0.24);
+
+  &::backdrop {
+    background: rgba(10, 18, 13, 0.58);
+    backdrop-filter: blur(3px);
+  }
+}
+
+.follow-dialog__panel {
+  position: relative;
+  padding: 2.2rem;
+  border: 1px solid $portfolio-line;
+  border-radius: inherit;
+  background: #fff;
+
+  h2 {
+    margin: 0.45rem 2.5rem 0.55rem 0;
+    color: $portfolio-ink;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+  }
+}
+
+.follow-dialog__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border: 1px solid $portfolio-line;
+  border-radius: 50%;
+  background: transparent;
+  color: $portfolio-muted;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.follow-dialog__lead,
+.follow-dialog__footnote {
+  color: $portfolio-muted;
+  line-height: 1.65;
+}
+
+.follow-dialog__footnote {
+  margin: 1rem 0 0;
+  font-size: 0.82rem;
+}
+
+.follow-dialog__divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.5rem 0 1rem;
+  color: $portfolio-muted;
+  font-size: 0.78rem;
+
+  &::before,
+  &::after {
+    height: 1px;
+    flex: 1;
+    background: $portfolio-line;
+    content: "";
+  }
+}
+
+.follow-form {
+  margin-top: 1.25rem;
+
+  > label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: $portfolio-ink;
+    font-size: 0.84rem;
+    font-weight: 650;
+  }
+
+  > p {
+    margin: 0.55rem 0 0;
+    color: $portfolio-muted;
+    font-size: 0.78rem;
+  }
+}
+
+.follow-form__row {
+  display: flex;
+  gap: 0.6rem;
+
+  input {
+    min-width: 0;
+    min-height: 2.9rem;
+    flex: 1;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #aebbb1;
+    border-radius: 0.7rem;
+    background: #fff;
+    color: $portfolio-ink;
+    font: inherit;
+  }
+
+  button {
+    min-height: 2.9rem;
+    padding: 0.7rem 1.15rem;
+    border: 1px solid $portfolio-accent;
+    border-radius: 0.7rem;
+    background: $portfolio-accent;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 650;
+  }
+}
+
+.follow-email-pending {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px dashed #aebbb1;
+  border-radius: 0.75rem;
+  background: $portfolio-paper;
+
+  strong {
+    color: $portfolio-ink;
+  }
+
+  p {
+    margin: 0.35rem 0 0;
+    color: $portfolio-muted;
+    font-size: 0.86rem;
+    line-height: 1.6;
+  }
+}
+
+.follow-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.follow-option {
+  display: flex;
+  min-width: 0;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 0.75rem;
+  align-items: flex-start;
+  flex-direction: column;
+  background: #fff;
+  color: $portfolio-ink !important;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  text-decoration: none !important;
+
+  &:hover {
+    border-color: $portfolio-accent;
+  }
+
+  span {
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  small {
+    display: block;
+    width: 100%;
+    margin-top: 0.2rem;
+    color: $portfolio-muted;
+    font-size: 0.72rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.follow-option--primary {
+  border-color: $portfolio-accent;
+  background: #eff7f1;
+}
+
+.follow-page {
+  max-width: 58rem;
+  margin: 0 auto;
+}
+
+.follow-page__hero {
+  padding: 5.5rem 0 3.5rem;
+  border-bottom: 1px solid $portfolio-line;
+
+  h1 {
+    margin: 0.55rem 0 0.9rem;
+    color: $portfolio-ink;
+    font-size: clamp(2.5rem, 7vw, 4.2rem);
+    letter-spacing: -0.045em;
+  }
+
+  > p:last-child {
+    max-width: 42rem;
+    color: $portfolio-muted;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+}
+
+.follow-page__section {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 3rem 0;
+  border-bottom: 1px solid $portfolio-line;
+
+  h2 {
+    margin: 0 0 0.6rem;
+    color: $portfolio-ink;
+  }
+
+  p {
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.follow-page__number {
+  color: $portfolio-accent;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+}
+
+.follow-page__promise {
+  margin: 3rem 0 4rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  background: $portfolio-ink;
+
+  h2 {
+    margin: 0.45rem 0 0.55rem;
+    color: #fff;
+  }
+
+  > p:last-child {
+    margin-bottom: 0;
+    color: #c8d2cb;
+    line-height: 1.7;
+  }
+}
+
+[theme=dark] {
+  .follow-card,
+  .follow-email-pending,
+  .follow-dialog__panel,
+  .follow-option {
+    border-color: #39463e;
+    background: #202823;
+  }
+
+  .follow-dialog,
+  .follow-card h2,
+  .follow-dialog__panel h2,
+  .follow-form > label,
+  .follow-email-pending strong,
+  .follow-option,
+  .follow-page__hero h1,
+  .follow-page__section h2 {
+    color: #edf3ef !important;
+  }
+
+  .follow-option--primary {
+    border-color: #50c985;
+    background: #203328;
+  }
+
+  .follow-form__row input {
+    border-color: #536158;
+    background: #151a17;
+    color: #edf3ef;
+  }
+
+  .follow-dialog__close,
+  .follow-page__hero,
+  .follow-page__section {
+    border-color: #39463e;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .follow-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.4rem;
+  }
+
+  .follow-dialog__panel {
+    padding: 1.5rem;
+  }
+
+  .follow-form__row,
+  .follow-options {
+    grid-template-columns: 1fr;
+  }
+
+  .follow-form__row {
+    flex-direction: column;
+  }
+
+  .follow-page__hero {
+    padding: 3.8rem 0 2.8rem;
+  }
+
+  .follow-page__section {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 0;
   }
 }
 

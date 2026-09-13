@@ -16,6 +16,7 @@ python -m unittest discover -s tests/python -p "test_*.py"
 hugo --minify --panicOnWarning --cleanDestinationDir
 npx --yes pagefind@1.5.2 --site public
 python scripts/check_internal_links.py
+python scripts/check_short_post_urls.py
 python scripts/check_portfolio_output.py
 npm ci
 npx playwright install chromium
