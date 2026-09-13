@@ -18,7 +18,8 @@ concurrency:
   group: >-
     deploy-pages-${{
       github.event_name == 'workflow_dispatch' && 'manual-preview' ||
-      (github.event.workflow_run.event == 'push' &&
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
        github.event.workflow_run.head_branch == 'main' &&
        'production') ||
       format('ignored-{0}', github.run_id)
