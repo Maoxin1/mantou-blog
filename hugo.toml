@@ -3,7 +3,9 @@ theme = "LoveIt-0.3.0"
 baseURL = "https://mantou-blog.pages.dev/"
 languageCode = "zh-cn"
 hasCJKLanguage = true
-buildFuture = true
+timeZone = "Asia/Shanghai"
+# 未来日期只作为草稿保护；需要定时发布时使用 publishDate。
+buildFuture = false
 
 # 文章永久地址与中文标题解耦，便于在聊天软件中分享。
 [permalinks]
@@ -19,6 +21,10 @@ buildFuture = true
 
 [params]
   description = "用真实作品、证据和复盘，把时间转化为能力、资本与自主权。"
+
+# 页面没有 featured image 时使用的稳定站点级分享图（约 1.91:1，适配常见社交卡片）。
+[params.seo]
+  image = "/images/mantou-social.jpg"
 
 # 网站左上角显示的站点名（覆盖主题默认的 "My cool site"）
 [params.header.title]
@@ -58,7 +64,8 @@ buildFuture = true
   iconColor = ""  # 置空以禁用主题默认的 mask-icon（safari-pinned-tab.svg 不存在，避免 404）
 
 [params.page]
-  lightgallery = true
+  # 暂不加载 lightGallery：当前博客不依赖图库交互，避免无效生产许可证提示和冗余前端资源。
+  lightgallery = false
 
 # 关注入口：follow.it 从本站 RSS 自动读取新文章并发送邮箱提醒。
 # 此处仅保存公开的订阅表单地址，不包含账户凭据或 API 密钥。

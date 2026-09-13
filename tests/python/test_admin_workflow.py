@@ -133,6 +133,34 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
             privacy_review["options"],
         )
 
+    def test_work_afterlife_fields_are_optional_and_minimal(self) -> None:
+        works = next(
+            collection
+            for collection in self.parsed_config["collections"]
+            if collection["name"] == "works"
+        )
+        fields = {field["name"]: field for field in works["fields"]}
+
+        follow_ups = fields["follow_ups"]
+        self.assertEqual("list", follow_ups["widget"])
+        self.assertFalse(follow_ups["required"])
+        self.assertNotIn("default", follow_ups)
+        self.assertEqual(
+            {"date", "note"},
+            {field["name"] for field in follow_ups["fields"]},
+        )
+
+        reused_in = fields["reused_in"]
+        self.assertEqual("list", reused_in["widget"])
+        self.assertFalse(reused_in["required"])
+        self.assertNotIn("default", reused_in)
+        self.assertEqual(
+            {"title", "note", "url"},
+            {field["name"] for field in reused_in["fields"]},
+        )
+        url = next(field for field in reused_in["fields"] if field["name"] == "url")
+        self.assertFalse(url["required"])
+
     def test_new_posts_require_an_ascii_share_slug(self) -> None:
         posts = next(
             collection
@@ -151,6 +179,27 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
             "^(?=.{1,32}$)[a-z0-9]+(?:-[a-z0-9]+)*$",
             share_slug["pattern"][0],
         )
+
+    def test_now_is_a_small_cms_managed_current_bets_list(self) -> None:
+        now = next(
+            collection
+            for collection in self.parsed_config["collections"]
+            if collection["name"] == "now"
+        )
+        now_file = next(file for file in now["files"] if file["name"] == "now")
+        directions = next(
+            field for field in now_file["fields"] if field["name"] == "directions"
+        )
+
+        self.assertEqual("content/now.md", now_file["file"])
+        self.assertEqual("list", directions["widget"])
+        self.assertEqual(1, directions["min"])
+        self.assertEqual(4, directions["max"])
+        self.assertEqual(
+            {"title", "question", "status", "checkpoint", "updated"},
+            {field["name"] for field in directions["fields"]},
+        )
+        self.assertNotIn("decision", {field["name"] for field in directions["fields"]})
 
 
 if __name__ == "__main__":

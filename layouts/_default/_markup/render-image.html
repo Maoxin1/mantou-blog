@@ -1,0 +1,11 @@
+{{- /* Preserve Markdown alt text when delegating image rendering to LoveIt. */ -}}
+{{- if .Title -}}
+  <figure>
+    {{- dict "Src" .Destination "Alt" .Text "Title" .Text "Caption" .Title "Linked" true "Resources" .Page.Resources | partial "plugin/img.html" -}}
+    <figcaption class="image-caption">
+      {{- .Title | safeHTML -}}
+    </figcaption>
+  </figure>
+{{- else -}}
+  {{- dict "Src" .Destination "Alt" .Text "Title" .Text "Resources" .Page.Resources | partial "plugin/img.html" -}}
+{{- end -}}

@@ -47,6 +47,38 @@ collections:
         name: "body"
         widget: "markdown"
 
+  - name: "now"
+    label: "当前下注"
+    description: "只保留当前真正投入注意力的 1–3 个方向；增加一项前，先判断它是否值得挤掉已有的一项。"
+    files:
+      - name: "now"
+        label: "当前在做什么"
+        file: "content/now.md"
+        fields:
+          - { label: "页面标题", name: "title", widget: "hidden", default: "当前在做什么" }
+          - { label: "页面摘要", name: "description", widget: "hidden", default: "我当前真正投入注意力的少数方向，以及下一次重新判断的检查点。" }
+          - { label: "内容类型", name: "type", widget: "hidden", default: "now" }
+          - label: "当前方向"
+            name: "directions"
+            label_singular: "方向"
+            widget: "list"
+            min: 1
+            max: 4
+            summary: "{{fields.title}} · {{fields.status}} · 复核 {{fields.updated}}"
+            fields:
+              - { label: "方向", name: "title", widget: "string" }
+              - { label: "正在验证", name: "question", widget: "text", hint: "写清楚当前希望验证的判断，而不是泛泛描述任务。" }
+              - label: "状态"
+                name: "status"
+                widget: "select"
+                options:
+                  - "进行中"
+                  - "调整中"
+                  - "暂停"
+              - { label: "下一检查点", name: "checkpoint", widget: "text", hint: "写明触发复核的事件，以及到时需要继续、修改还是暂停什么。" }
+              - { label: "最近复核", name: "updated", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false, hint: "人工复核后更新；不会随构建自动变化。" }
+          - { label: "页面说明", name: "body", widget: "markdown", required: false }
+
   - name: "weight"
     label: "体重记录"
     files:
@@ -93,6 +125,27 @@ collections:
       - { label: "验证证据", name: "evidence", widget: "text" }
       - { label: "限制与不足", name: "limitations", widget: "text" }
       - { label: "下一步判断", name: "next_step", widget: "text", hint: "明确继续、调整或停止的依据。" }
+      - label: "发布后带回的反馈与认知"
+        name: "follow_ups"
+        widget: "list"
+        required: false
+        collapsed: true
+        summary: "{{fields.date}} · {{fields.note}}"
+        hint: "只记录发布以后真实发生的反馈、判断修正或新认知；没有就留空。"
+        fields:
+          - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+          - { label: "带回了什么", name: "note", widget: "text" }
+      - label: "后来复用到"
+        name: "reused_in"
+        widget: "list"
+        required: false
+        collapsed: true
+        summary: "{{fields.title}}"
+        hint: "记录这项成果后来在哪里被再次调用，以及它具体降低了什么成本；没有就留空。"
+        fields:
+          - { label: "项目或场景", name: "title", widget: "string" }
+          - { label: "复用了什么", name: "note", widget: "text" }
+          - { label: "相关链接", name: "url", widget: "string", required: false }
       - label: "公开边界"
         name: "disclosure"
         widget: "select"
