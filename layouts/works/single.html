@@ -69,6 +69,51 @@
         {{ .Content }}
     </div>
 
+    {{- $followUps := .Params.follow_ups -}}
+    {{- $reusedIn := .Params.reused_in -}}
+    {{- if or $followUps $reusedIn -}}
+    <section class="work-afterlife" data-work-afterlife aria-labelledby="work-afterlife-title">
+        <header class="work-afterlife__header">
+            <p class="section-kicker">AFTER RELEASE</p>
+            <h2 id="work-afterlife-title">这件作品后来发生了什么</h2>
+            <p>这里只记录发布以后真实带回的反馈、认知与复用，不补写预期。</p>
+        </header>
+
+        {{- with $followUps -}}
+        <div class="work-afterlife__group" data-work-follow-ups>
+            <h3>后来带回了什么</h3>
+            <ol>
+                {{- range . -}}
+                <li>
+                    <time datetime="{{ .date | time.Format "2006-01-02" }}">{{ .date | time.Format "2006-01-02" }}</time>
+                    <p>{{ .note }}</p>
+                </li>
+                {{- end -}}
+            </ol>
+        </div>
+        {{- end -}}
+
+        {{- with $reusedIn -}}
+        <div class="work-afterlife__group" data-work-reused-in>
+            <h3>后来用在了哪里</h3>
+            <ul>
+                {{- range . -}}
+                {{- $reuse := . -}}
+                <li>
+                    {{- with $reuse.url -}}
+                    <a href="{{ . }}">{{ $reuse.title }}</a>
+                    {{- else -}}
+                    <strong>{{ $reuse.title }}</strong>
+                    {{- end -}}
+                    <p>{{ $reuse.note }}</p>
+                </li>
+                {{- end -}}
+            </ul>
+        </div>
+        {{- end -}}
+    </section>
+    {{- end -}}
+
     {{- partial "follow-card.html" . -}}
 
     <footer class="work-detail__footer" data-pagefind-ignore>

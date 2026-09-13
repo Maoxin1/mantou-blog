@@ -133,6 +133,34 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
             privacy_review["options"],
         )
 
+    def test_work_afterlife_fields_are_optional_and_minimal(self) -> None:
+        works = next(
+            collection
+            for collection in self.parsed_config["collections"]
+            if collection["name"] == "works"
+        )
+        fields = {field["name"]: field for field in works["fields"]}
+
+        follow_ups = fields["follow_ups"]
+        self.assertEqual("list", follow_ups["widget"])
+        self.assertFalse(follow_ups["required"])
+        self.assertNotIn("default", follow_ups)
+        self.assertEqual(
+            {"date", "note"},
+            {field["name"] for field in follow_ups["fields"]},
+        )
+
+        reused_in = fields["reused_in"]
+        self.assertEqual("list", reused_in["widget"])
+        self.assertFalse(reused_in["required"])
+        self.assertNotIn("default", reused_in)
+        self.assertEqual(
+            {"title", "note", "url"},
+            {field["name"] for field in reused_in["fields"]},
+        )
+        url = next(field for field in reused_in["fields"] if field["name"] == "url")
+        self.assertFalse(url["required"])
+
     def test_new_posts_require_an_ascii_share_slug(self) -> None:
         posts = next(
             collection

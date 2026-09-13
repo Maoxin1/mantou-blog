@@ -741,6 +741,78 @@ $portfolio-accent: #1f6b43;
   }
 }
 
+.work-afterlife {
+  margin: 4rem 0 3rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid $portfolio-line;
+}
+
+.work-afterlife__header {
+  max-width: 42rem;
+
+  h2 {
+    margin: 0.5rem 0 0.75rem;
+    color: $portfolio-ink;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    line-height: 1.25;
+  }
+
+  > p:last-child {
+    margin: 0;
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.work-afterlife__group {
+  margin-top: 2.5rem;
+
+  h3 {
+    margin: 0 0 0.8rem;
+    color: $portfolio-accent;
+    font-size: 0.8rem;
+  }
+
+  ol,
+  ul {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid $portfolio-line;
+    list-style: none;
+  }
+
+  li {
+    margin: 0;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid $portfolio-line;
+  }
+
+  time {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: $portfolio-muted;
+    font-size: 0.8rem;
+  }
+
+  strong,
+  a {
+    color: $portfolio-ink;
+    font-weight: 700;
+  }
+
+  a {
+    text-decoration: underline;
+    text-decoration-color: rgba($portfolio-accent, 0.45);
+    text-underline-offset: 0.2em;
+  }
+
+  p {
+    margin: 0.45rem 0 0;
+    color: $portfolio-ink;
+    line-height: 1.75;
+  }
+}
+
 .case-toc {
   margin: 0 0 3rem;
   padding: 1.2rem 1.4rem;
@@ -1040,6 +1112,10 @@ $portfolio-accent: #1f6b43;
   .section-intro h1,
   .now-item__heading h2,
   .now-item__detail p,
+  .work-afterlife__header h2,
+  .work-afterlife__group strong,
+  .work-afterlife__group a,
+  .work-afterlife__group p,
   .work-detail__header h1,
   .evidence-panel p {
     color: #edf3ef;
@@ -1066,6 +1142,10 @@ $portfolio-accent: #1f6b43;
   .direction-grid article,
   .now-list,
   .now-item,
+  .work-afterlife,
+  .work-afterlife__group ol,
+  .work-afterlife__group ul,
+  .work-afterlife__group li,
   .evidence-panel,
   .work-detail__footer {
     border-color: #39463e;
@@ -1109,6 +1189,8 @@ $portfolio-accent: #1f6b43;
   .section-intro__content,
   .now-item__detail h3,
   .now-item__updated,
+  .work-afterlife__header > p:last-child,
+  .work-afterlife__group time,
   .work-detail__description,
   .work-detail__footer {
     color: #acb9b0;

@@ -125,6 +125,27 @@ collections:
       - { label: "验证证据", name: "evidence", widget: "text" }
       - { label: "限制与不足", name: "limitations", widget: "text" }
       - { label: "下一步判断", name: "next_step", widget: "text", hint: "明确继续、调整或停止的依据。" }
+      - label: "发布后带回的反馈与认知"
+        name: "follow_ups"
+        widget: "list"
+        required: false
+        collapsed: true
+        summary: "{{fields.date}} · {{fields.note}}"
+        hint: "只记录发布以后真实发生的反馈、判断修正或新认知；没有就留空。"
+        fields:
+          - { label: "日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false }
+          - { label: "带回了什么", name: "note", widget: "text" }
+      - label: "后来复用到"
+        name: "reused_in"
+        widget: "list"
+        required: false
+        collapsed: true
+        summary: "{{fields.title}}"
+        hint: "记录这项成果后来在哪里被再次调用，以及它具体降低了什么成本；没有就留空。"
+        fields:
+          - { label: "项目或场景", name: "title", widget: "string" }
+          - { label: "复用了什么", name: "note", widget: "text" }
+          - { label: "相关链接", name: "url", widget: "string", required: false }
       - label: "公开边界"
         name: "disclosure"
         widget: "select"
