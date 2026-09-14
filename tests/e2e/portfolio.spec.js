@@ -204,7 +204,7 @@ test('作品卡入口完整可见，作品型页面跨主题断点保持连续�
     await page.setViewportSize(viewport);
     await open(page, '/works/');
 
-    const dimensions = await page.locator('.work-card').evaluate((card) => {
+    const dimensions = await page.locator('.work-card').evaluateAll((cards) => cards.map((card) => {
       const action = card.querySelector('.work-card__action');
       const cardBox = card.getBoundingClientRect();
       const actionBox = action.getBoundingClientRect();
@@ -212,8 +212,10 @@ test('作品卡入口完整可见，作品型页面跨主题断点保持连续�
         cardBottom: cardBox.bottom,
         actionBottom: actionBox.bottom,
       };
-    });
-    expect(dimensions.actionBottom).toBeLessThanOrEqual(dimensions.cardBottom + 1);
+    }));
+    for (const dimension of dimensions) {
+      expect(dimension.actionBottom).toBeLessThanOrEqual(dimension.cardBottom + 1);
+    }
   }
 
   const pageWidths = [];
