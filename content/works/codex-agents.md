@@ -16,7 +16,6 @@ limitations: "当前验证覆盖配置、文件完整性和安装行为，不证
 next_step: "先记录四个 Agent 在真实任务中的成功、失败和人工修正，再决定是否扩展角色或增加行为评测。"
 disclosure: "public"
 privacy_reviewed: true
-security_disclosure_basis: "只引用公开仓库、公开 Release 和官方 Codex 文档；未包含本地知识库路径、私人笔记、持仓、密钥或账户信息。"
 featured: false
 ---
 
