@@ -58,6 +58,10 @@
         </div>
     </section>
 
+    {{- if and (eq .Params.work_type "body") .Params.weight_evidence -}}
+        {{- partial "work-body-evidence.html" . -}}
+    {{- end -}}
+
     {{- with .TableOfContents -}}
     <aside class="case-toc" id="toc-static" data-kept="true" aria-label="案例目录">
         <span>CASE MAP</span>
