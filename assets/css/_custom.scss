@@ -334,7 +334,7 @@ $portfolio-accent: #1f6b43;
 }
 
 .portfolio-section--featured .work-card {
-  min-height: 18.5rem;
+  min-height: 16.5rem;
 }
 
 .portfolio-section--featured .work-card__link {
@@ -342,7 +342,7 @@ $portfolio-accent: #1f6b43;
 
   h3 {
     max-width: 42rem;
-    margin-top: 2.7rem;
+    margin-top: 2.15rem;
     font-size: clamp(1.45rem, 2.3vw, 1.85rem);
   }
 
@@ -539,12 +539,12 @@ $portfolio-accent: #1f6b43;
 }
 
 .section-intro {
-  padding: 5rem 0 2.5rem;
+  padding: 4.2rem 0 2.25rem;
 
   h1 {
     margin: 0.5rem 0 0.8rem;
     color: $portfolio-ink;
-    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-size: clamp(2.4rem, 6vw, 4.1rem);
     line-height: 1.1;
   }
 
@@ -716,15 +716,17 @@ $portfolio-accent: #1f6b43;
 
 .evidence-panel {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
-  margin: 1rem 0 3rem;
+  margin: 1rem 0 2.4rem;
   border: 1px solid $portfolio-line;
   border-radius: 1rem;
   background: $portfolio-line;
   overflow: hidden;
 
   > div {
-    padding: 1.25rem 1.4rem;
+    min-height: 7.5rem;
+    padding: 1.05rem 1.2rem;
     background: $portfolio-paper;
   }
 
@@ -1233,6 +1235,7 @@ $portfolio-accent: #1f6b43;
   .work-grid,
   .work-card__summary,
   .case-map,
+  .evidence-panel,
   .principle-grid,
   .collaboration-grid {
     grid-template-columns: 1fr;
@@ -1304,6 +1307,31 @@ $portfolio-accent: #1f6b43;
 
   .case-map > div {
     min-height: 0;
+  }
+
+
+  .evidence-panel > div {
+    min-height: 0;
+  }
+
+  .work-detail .content {
+    font-size: 0.98rem;
+    line-height: 1.7;
+
+    p {
+      margin: 0.72rem 0;
+    }
+
+    > h2 {
+      margin: 2.15rem 0 0.7rem;
+      font-size: 1.52rem;
+      line-height: 1.34;
+    }
+
+    blockquote {
+      margin: 1rem 0;
+      padding: 0.82rem 0.95rem;
+    }
   }
 
   .case-toc nav > ul {
@@ -1676,6 +1704,51 @@ $portfolio-accent: #1f6b43;
   .follow-page__section {
     grid-template-columns: 1fr;
     padding: 2.5rem 0;
+  }
+}
+
+
+
+// ---- Works 长文阅读节奏 ----
+.work-detail .content {
+  font-size: 1rem;
+  line-height: 1.72;
+
+  p {
+    margin: 0.82rem 0;
+  }
+
+  > h2 {
+    margin: 2.5rem 0 0.85rem;
+    color: $portfolio-ink;
+    font-size: clamp(1.55rem, 3vw, 1.9rem);
+    letter-spacing: -0.02em;
+    line-height: 1.32;
+  }
+
+  blockquote {
+    margin: 1.25rem 0;
+    padding: 0.95rem 1.1rem;
+    border-left: 3px solid $portfolio-accent;
+    background: $portfolio-paper;
+    color: $portfolio-ink;
+
+    p {
+      margin: 0;
+      line-height: 1.65;
+    }
+  }
+}
+
+[theme=dark] .work-detail .content {
+  > h2 {
+    color: #edf3ef;
+  }
+
+  blockquote {
+    border-left-color: #50c985;
+    background: #202b24;
+    color: #edf3ef;
   }
 }
 
