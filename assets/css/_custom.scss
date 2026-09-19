@@ -2184,3 +2184,10 @@ $portfolio-accent: #1f6b43;
   }
 }
 
+/* Mobile: hide the static case TOC after the evidence section. */
+@media only screen and (max-width: 680px) {
+  .single.work-detail #toc-static.case-toc[data-kept="true"] {
+    display: none !important;
+  }
+}
+
