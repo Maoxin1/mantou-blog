@@ -33,7 +33,7 @@ test('访客能从首页进入作品证据与工作原则', async ({ page }) => 
   );
   await expect(page.locator('[data-proof-strip]')).toHaveCount(0);
 
-  await page.locator('[data-featured-work] .work-card__link').first().click();
+  await page.locator('[data-featured-work] .work-card__link[href="/works/mantou-checklist-pwa/"]').click();
   await expect(page).toHaveURL(/\/works\/mantou-checklist-pwa\/$/);
   await expect(page.locator('[data-work-detail]')).toBeVisible();
   await expect(page.locator('[data-case-map]')).toBeVisible();
@@ -42,6 +42,27 @@ test('访客能从首页进入作品证据与工作原则', async ({ page }) => 
   await open(page, '/about/');
   await expect(page.locator('[data-about-collaboration]')).toBeVisible();
   await expect(page.getByRole('heading', { name: '工作原则', level: 2 })).toBeVisible();
+});
+
+
+test('身体作品展示真实阶段证据与缺失周', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await open(page, '/works/body-sculpting/');
+
+  await expect(page.locator('[data-work-detail]')).toBeVisible();
+  await expect(page.locator('[data-body-evidence]')).toBeVisible();
+  await expect(page.locator('[data-body-evidence]')).toContainText('29 周体重变化');
+  await expect(page.locator('[data-body-evidence]')).toContainText('W26（8/29）没有记录');
+
+  const chart = page.locator('.body-weight-chart__canvas svg');
+  await expect(chart).toBeVisible();
+  await expect(chart.locator('.body-weight-chart__missing')).toHaveCount(1);
+
+  const overflow = await page.evaluate(() => (
+    Math.max(document.documentElement.scrollWidth, document.body.scrollWidth)
+    - document.documentElement.clientWidth
+  ));
+  expect(overflow, '身体作品手机端不应产生横向溢出').toBeLessThanOrEqual(1);
 });
 
 test('核心页面没有浏览器运行时错误', async ({ page }) => {

@@ -334,7 +334,7 @@ $portfolio-accent: #1f6b43;
 }
 
 .portfolio-section--featured .work-card {
-  min-height: 18.5rem;
+  min-height: 16.5rem;
 }
 
 .portfolio-section--featured .work-card__link {
@@ -342,7 +342,7 @@ $portfolio-accent: #1f6b43;
 
   h3 {
     max-width: 42rem;
-    margin-top: 2.7rem;
+    margin-top: 2.15rem;
     font-size: clamp(1.45rem, 2.3vw, 1.85rem);
   }
 
@@ -539,12 +539,12 @@ $portfolio-accent: #1f6b43;
 }
 
 .section-intro {
-  padding: 5rem 0 2.5rem;
+  padding: 4.2rem 0 2.25rem;
 
   h1 {
     margin: 0.5rem 0 0.8rem;
     color: $portfolio-ink;
-    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-size: clamp(2.4rem, 6vw, 4.1rem);
     line-height: 1.1;
   }
 
@@ -716,15 +716,17 @@ $portfolio-accent: #1f6b43;
 
 .evidence-panel {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
-  margin: 1rem 0 3rem;
+  margin: 1rem 0 2.4rem;
   border: 1px solid $portfolio-line;
   border-radius: 1rem;
   background: $portfolio-line;
   overflow: hidden;
 
   > div {
-    padding: 1.25rem 1.4rem;
+    min-height: 7.5rem;
+    padding: 1.05rem 1.2rem;
     background: $portfolio-paper;
   }
 
@@ -1233,6 +1235,7 @@ $portfolio-accent: #1f6b43;
   .work-grid,
   .work-card__summary,
   .case-map,
+  .evidence-panel,
   .principle-grid,
   .collaboration-grid {
     grid-template-columns: 1fr;
@@ -1304,6 +1307,31 @@ $portfolio-accent: #1f6b43;
 
   .case-map > div {
     min-height: 0;
+  }
+
+
+  .evidence-panel > div {
+    min-height: 0;
+  }
+
+  .work-detail .content {
+    font-size: 0.98rem;
+    line-height: 1.7;
+
+    p {
+      margin: 0.72rem 0;
+    }
+
+    > h2 {
+      margin: 2.15rem 0 0.7rem;
+      font-size: 1.52rem;
+      line-height: 1.34;
+    }
+
+    blockquote {
+      margin: 1rem 0;
+      padding: 0.82rem 0.95rem;
+    }
   }
 
   .case-toc nav > ul {
@@ -1679,4 +1707,487 @@ $portfolio-accent: #1f6b43;
   }
 }
 
+
+
+// ---- Works 长文阅读节奏 ----
+.work-detail .content {
+  font-size: 1rem;
+  line-height: 1.72;
+
+  p {
+    margin: 0.82rem 0;
+  }
+
+  > h2 {
+    margin: 2.5rem 0 0.85rem;
+    color: $portfolio-ink;
+    font-size: clamp(1.55rem, 3vw, 1.9rem);
+    letter-spacing: -0.02em;
+    line-height: 1.32;
+  }
+
+  blockquote {
+    margin: 1.25rem 0;
+    padding: 0.95rem 1.1rem;
+    border-left: 3px solid $portfolio-accent;
+    background: $portfolio-paper;
+    color: $portfolio-ink;
+
+    p {
+      margin: 0;
+      line-height: 1.65;
+    }
+  }
+}
+
+[theme=dark] .work-detail .content {
+  > h2 {
+    color: #edf3ef;
+  }
+
+  blockquote {
+    border-left-color: #50c985;
+    background: #202b24;
+    color: #edf3ef;
+  }
+}
+
+// ---- 身体作品：29 周 Evidence 图 ----
+.body-evidence {
+  margin: 0 0 3.25rem;
+  padding: 2rem 0 0;
+  border-top: 1px solid $portfolio-line;
+}
+
+.body-evidence__header {
+  max-width: 42rem;
+
+  h2 {
+    margin: 0.45rem 0 0.65rem;
+    color: $portfolio-ink;
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    line-height: 1.25;
+  }
+
+  > p:last-child {
+    margin: 0;
+    color: $portfolio-muted;
+    line-height: 1.7;
+  }
+}
+
+.body-evidence__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 1.6rem 0 1rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 1rem;
+  background: $portfolio-line;
+  overflow: hidden;
+
+  > div {
+    min-height: 6.2rem;
+    padding: 1.05rem 1.15rem;
+    background: #fff;
+  }
+
+  span,
+  strong {
+    display: block;
+  }
+
+  span {
+    color: $portfolio-muted;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  strong {
+    margin-top: 0.45rem;
+    color: $portfolio-ink;
+    font-size: 1.05rem;
+    line-height: 1.45;
+  }
+}
+
+.body-weight-chart {
+  position: relative;
+  padding: 0.8rem 0.8rem 0.2rem;
+  border: 1px solid $portfolio-line;
+  border-radius: 1rem;
+  background: $portfolio-paper;
+}
+
+.body-weight-chart__canvas svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.body-weight-chart__grid {
+  stroke: rgba(95, 108, 100, 0.16);
+  stroke-width: 1;
+}
+
+.body-weight-chart__line {
+  fill: none;
+  stroke: $portfolio-accent;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.body-weight-chart__gap {
+  stroke: $portfolio-muted;
+  stroke-width: 2;
+  stroke-dasharray: 6 7;
+  opacity: 0.5;
+}
+
+.body-weight-chart__dot {
+  fill: #fff;
+  stroke: $portfolio-accent;
+  stroke-width: 2;
+  cursor: pointer;
+}
+
+.body-weight-chart__dot.is-major {
+  stroke-width: 3;
+}
+
+.body-weight-chart__missing {
+  fill: $portfolio-paper;
+  stroke: $portfolio-muted;
+  stroke-width: 1.5;
+  cursor: pointer;
+}
+
+.body-weight-chart__ylabel,
+.body-weight-chart__xlabel,
+.body-weight-chart__missing-label {
+  fill: $portfolio-muted;
+  font-size: 11px;
+}
+
+.body-weight-chart__missing-label {
+  font-size: 10px;
+}
+
+.body-weight-chart__endpoint {
+  fill: $portfolio-ink;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.body-weight-chart__tip {
+  position: absolute;
+  z-index: 20;
+  min-width: 8.8rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.7rem;
+  background: $portfolio-ink;
+  color: #fff;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  box-shadow: 0 0.55rem 1.5rem rgba(23, 33, 27, 0.18);
+}
+
+.body-evidence__milestones {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 1rem 0 0;
+  padding: 0;
+  border: 1px solid $portfolio-line;
+  border-radius: 0.85rem;
+  background: $portfolio-line;
+  list-style: none;
+  overflow: hidden;
+
+  li {
+    margin: 0;
+    padding: 0.9rem 1rem;
+    background: #fff;
+  }
+
+  span,
+  strong {
+    display: block;
+  }
+
+  span {
+    color: $portfolio-accent;
+    font-size: 0.7rem;
+    font-weight: 750;
+  }
+
+  strong {
+    margin-top: 0.28rem;
+    color: $portfolio-ink;
+    font-size: 0.9rem;
+  }
+}
+
+.body-evidence__caption {
+  margin: 1rem 0 0;
+  color: $portfolio-muted;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+[theme=dark] {
+  .body-evidence {
+    border-color: #39463e;
+  }
+
+  .body-evidence__header h2,
+  .body-evidence__metrics strong,
+  .body-evidence__milestones strong {
+    color: #edf3ef;
+  }
+
+  .body-evidence__header > p:last-child,
+  .body-evidence__metrics span,
+  .body-evidence__caption {
+    color: #acb9b0;
+  }
+
+  .body-evidence__metrics,
+  .body-weight-chart,
+  .body-evidence__milestones {
+    border-color: #39463e;
+  }
+
+  .body-evidence__metrics,
+  .body-evidence__milestones {
+    background: #39463e;
+  }
+
+  .body-evidence__metrics > div,
+  .body-evidence__milestones li {
+    background: #1b241e;
+  }
+
+  .body-weight-chart {
+    background: #202b24;
+  }
+
+  .body-weight-chart__dot {
+    fill: #202b24;
+    stroke: #50c985;
+  }
+
+  .body-weight-chart__line {
+    stroke: #50c985;
+  }
+
+  .body-weight-chart__missing {
+    fill: #202b24;
+    stroke: #acb9b0;
+  }
+
+  .body-weight-chart__ylabel,
+  .body-weight-chart__xlabel,
+  .body-weight-chart__missing-label {
+    fill: #acb9b0;
+  }
+
+  .body-weight-chart__endpoint {
+    fill: #edf3ef;
+  }
+
+  .body-evidence__milestones span {
+    color: #50c985;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .body-evidence {
+    margin-bottom: 2.5rem;
+    padding-top: 1.6rem;
+  }
+
+  .body-evidence__metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .body-evidence__metrics > div {
+    min-height: auto;
+  }
+
+  .body-weight-chart {
+    padding: 0.45rem 0.3rem 0;
+  }
+
+  .body-evidence__milestones {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- 身体作品最终移动端收敛 ---- */
+.single.work-detail .content blockquote {
+  border-left: 3px solid $portfolio-accent !important;
+  background: $portfolio-paper !important;
+  background-color: $portfolio-paper !important;
+  color: $portfolio-ink !important;
+}
+
+[theme=dark] .single.work-detail .content blockquote {
+  border-left-color: #50c985 !important;
+  background: #202b24 !important;
+  background-color: #202b24 !important;
+  color: #edf3ef !important;
+}
+
+.single.work-detail .content > h2 > .header-mark::before {
+  content: none !important;
+}
+
+@media only screen and (max-width: 680px) {
+  .body-evidence__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .body-evidence__metrics > div {
+    min-height: 5.35rem;
+    padding: 0.85rem 0.9rem;
+  }
+
+  .body-evidence__metrics span {
+    font-size: 0.66rem;
+  }
+
+  .body-evidence__metrics strong {
+    margin-top: 0.3rem;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+
+  .body-evidence__milestones li {
+    padding: 0.68rem 0.85rem;
+  }
+
+  .body-evidence__milestones span {
+    font-size: 0.66rem;
+  }
+
+  .body-evidence__milestones strong {
+    margin-top: 0.18rem;
+    font-size: 0.84rem;
+  }
+
+  .single.work-detail .content {
+    font-size: 0.93rem;
+    line-height: 1.68;
+  }
+
+  .single.work-detail .content p {
+    margin: 0.64rem 0;
+  }
+
+  .single.work-detail .content > h2 {
+    margin: 1.95rem 0 0.62rem;
+    font-size: 1.34rem;
+    line-height: 1.32;
+  }
+
+  .single.work-detail .content blockquote {
+    margin: 0.9rem 0;
+    padding: 0.72rem 0.88rem;
+  }
+}
+
+/* ---- Body work mobile acceptance pass ---- */
+.single.work-detail .content > h2 > .header-mark {
+  display: none !important;
+}
+
+@media only screen and (max-width: 680px) {
+  .work-detail__header {
+    padding-top: 2.25rem;
+    padding-bottom: 1.4rem;
+  }
+
+  .work-detail__header h1 {
+    margin-top: 0.55rem;
+    font-size: clamp(2rem, 9vw, 2.45rem);
+  }
+
+  .work-detail__description {
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .case-map {
+    margin-bottom: 0.85rem;
+  }
+
+  .case-map > div,
+  .evidence-panel > div {
+    min-height: 0;
+    padding: 0.82rem 0.92rem;
+  }
+
+  .case-map p,
+  .evidence-panel p {
+    margin-top: 0.38rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .case-map span,
+  .evidence-panel span {
+    font-size: 0.68rem;
+  }
+
+  .evidence-panel {
+    margin-bottom: 1.65rem;
+  }
+
+  .body-evidence {
+    padding-top: 1.25rem;
+  }
+
+  .body-evidence__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .body-evidence__metrics > div {
+    min-height: 4.9rem !important;
+    padding: 0.72rem 0.78rem !important;
+  }
+
+  .body-evidence__milestones {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .body-evidence__milestones li {
+    min-width: 0;
+    padding: 0.62rem 0.58rem !important;
+  }
+
+  .body-evidence__milestones span {
+    font-size: 0.61rem;
+  }
+
+  .body-evidence__milestones strong {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .work-detail .case-toc {
+    display: none;
+  }
+}
+
+/* Mobile: hide the static case TOC after the evidence section. */
+@media only screen and (max-width: 680px) {
+  .single.work-detail #toc-static.case-toc[data-kept="true"] {
+    display: none !important;
+  }
+}
 
