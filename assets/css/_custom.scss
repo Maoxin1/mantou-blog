@@ -2100,3 +2100,87 @@ $portfolio-accent: #1f6b43;
   }
 }
 
+/* ---- Body work mobile acceptance pass ---- */
+.single.work-detail .content > h2 > .header-mark {
+  display: none !important;
+}
+
+@media only screen and (max-width: 680px) {
+  .work-detail__header {
+    padding-top: 2.25rem;
+    padding-bottom: 1.4rem;
+  }
+
+  .work-detail__header h1 {
+    margin-top: 0.55rem;
+    font-size: clamp(2rem, 9vw, 2.45rem);
+  }
+
+  .work-detail__description {
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .case-map {
+    margin-bottom: 0.85rem;
+  }
+
+  .case-map > div,
+  .evidence-panel > div {
+    min-height: 0;
+    padding: 0.82rem 0.92rem;
+  }
+
+  .case-map p,
+  .evidence-panel p {
+    margin-top: 0.38rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .case-map span,
+  .evidence-panel span {
+    font-size: 0.68rem;
+  }
+
+  .evidence-panel {
+    margin-bottom: 1.65rem;
+  }
+
+  .body-evidence {
+    padding-top: 1.25rem;
+  }
+
+  .body-evidence__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .body-evidence__metrics > div {
+    min-height: 4.9rem !important;
+    padding: 0.72rem 0.78rem !important;
+  }
+
+  .body-evidence__milestones {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .body-evidence__milestones li {
+    min-width: 0;
+    padding: 0.62rem 0.58rem !important;
+  }
+
+  .body-evidence__milestones span {
+    font-size: 0.61rem;
+  }
+
+  .body-evidence__milestones strong {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .work-detail .case-toc {
+    display: none;
+  }
+}
+
