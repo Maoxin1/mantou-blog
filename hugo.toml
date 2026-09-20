@@ -30,14 +30,6 @@ buildFuture = false
 [params.header.title]
   name = "mantou"
 
-[params.home.profile]
-  enable = true
-  avatarURL = "/images/mantou.jpg"
-  title = "mantou"
-  subtitle = "把时间转化为能力、资本与自主权。"
-  typeit = true
-  social = false  # 关闭主页头像下方的社交图标（邮箱 / 推特），更极简
-
 [params.author]
   enable = true
   name = "mantou"
@@ -48,14 +40,10 @@ buildFuture = false
   Email = "2114206091@qq.com"
   twitter = "mantouaoao"
 
-# 统计二选一：已停用 Google Analytics，统一用 Cloudflare Web Analytics
-# （脚本见 layouts/partials/analytics.html）。如需恢复 GA，把 enable 改回 true。
+# 已停用主题内置统计，统一用 layouts/partials/analytics.html 中的
+# Cloudflare Web Analytics。
 [params.analytics]
   enable = false
-
-[params.analytics.google]
-  id = "G-0DGXTWGC32"
-  anonymizeIP = true
 
 [params.app]
   # 使用 static/ 下生成的标准图标集（favicon.ico / 32 / 16 / apple-touch-icon / site.webmanifest）

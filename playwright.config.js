@@ -4,10 +4,12 @@ const pythonCommand = process.platform === 'win32' ? 'py -3.12' : 'python';
 
 module.exports = defineConfig({
   testDir: './tests/e2e',
-  fullyParallel: true,
+  // PWA and deferred enhancement checks share one local origin. Keep the local
+  // run aligned with CI so service-worker and script-readiness tests cannot race.
+  fullyParallel: false,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: 1,
   reporter: [
     ['list'],
     ['html', { open: 'never' }],

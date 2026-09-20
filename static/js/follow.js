@@ -9,6 +9,7 @@
         const email = dialog.querySelector('input[type="email"]');
         if (email) email.focus();
       });
+      trigger.dataset.followReady = 'true';
     });
 
     dialog.querySelector('[data-follow-close]')?.addEventListener('click', () => dialog.close());

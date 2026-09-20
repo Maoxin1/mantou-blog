@@ -4,11 +4,13 @@ from pathlib import Path
 
 import yaml
 
+from scripts.validate_admin_config import parse_front_matter_text
 from scripts.validate_portfolio import UniqueKeyLoader
 
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_PATH = ROOT / "static" / "admin" / "config.yml"
+NOW_CONTENT_PATH = ROOT / "content" / "now.md"
 HEADERS_PATH = ROOT / "static" / "_headers"
 SERVICE_WORKER_PATH = ROOT / "static" / "sw.js"
 SVELTIA_INDEX_PATH = ROOT / "static" / "admin" / "sveltia" / "index.html"
@@ -200,6 +202,30 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
             {field["name"] for field in directions["fields"]},
         )
         self.assertNotIn("decision", {field["name"] for field in directions["fields"]})
+
+        status = next(
+            field for field in directions["fields"] if field["name"] == "status"
+        )
+        allowed_statuses = set(status["options"])
+        now_content = parse_front_matter_text(
+            NOW_CONTENT_PATH.read_text(encoding="utf-8"), str(NOW_CONTENT_PATH)
+        )
+        self.assertGreaterEqual(len(now_content["directions"]), directions["min"])
+        self.assertLessEqual(len(now_content["directions"]), directions["max"])
+        self.assertTrue(
+            all(
+                direction["status"] in allowed_statuses
+                for direction in now_content["directions"]
+            )
+        )
+
+    def test_front_matter_parser_ignores_inline_delimiter_text(self) -> None:
+        parsed = parse_front_matter_text(
+            '---\ncheckpoint: "phase 1 --- phase 2"\nstatus: "进行中"\n---\nBody\n'
+        )
+
+        self.assertEqual("phase 1 --- phase 2", parsed["checkpoint"])
+        self.assertEqual("进行中", parsed["status"])
 
 
 if __name__ == "__main__":
