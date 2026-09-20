@@ -42,6 +42,8 @@ Decap CMS稳定入口位于`/admin/`，Sveltia灰度入口位于`/admin/sveltia/
 
 图片推送到 `static/images/` 或文章包后，GitHub Actions 会用固定版本的 Pillow 压缩符合条件的 JPEG/PNG，并且只提交图片目录中的变化。
 
+文章中的 Markdown 图片必须提供有意义的替代文本；空图片地址和不存在的本地图片会在内容校验阶段阻止发布。
+
 ## 仓库结构
 
 - `content/`：文章和特殊页面；

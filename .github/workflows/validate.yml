@@ -69,7 +69,7 @@ jobs:
       - name: Validate Decap CMS admin config
         run: python scripts/validate_admin_config.py
 
-      - name: Validate post filenames vs front-matter dates
+      - name: Validate post metadata and local images
         run: python scripts/validate_posts.py
 
       - name: Validate structured portfolio entries
