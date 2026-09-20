@@ -9,6 +9,11 @@ DEPLOY_WORKFLOW = ROOT / ".github" / "workflows" / "deploy-pages.yml"
 
 
 class DeploymentWorkflowSecurityTests(unittest.TestCase):
+    def test_validation_and_deployment_reject_disabled_runtime_assets(self) -> None:
+        for workflow_path in (VALIDATE_WORKFLOW, DEPLOY_WORKFLOW):
+            workflow = workflow_path.read_text(encoding="utf-8")
+            self.assertIn("python scripts/check_runtime_assets.py", workflow)
+
     def test_validation_never_reads_cloudflare_credentials_or_deploys(self) -> None:
         workflow = VALIDATE_WORKFLOW.read_text(encoding="utf-8")
 

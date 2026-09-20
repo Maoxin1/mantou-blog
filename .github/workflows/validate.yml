@@ -84,6 +84,9 @@ jobs:
       - name: Build Pagefind search index
         run: npx --yes pagefind@1.5.2 --site public
 
+      - name: Validate production runtime assets
+        run: python scripts/check_runtime_assets.py
+
       - name: Validate generated internal links
         run: python scripts/check_internal_links.py
 
