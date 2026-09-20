@@ -31,6 +31,18 @@ $accent-hover: #185a36;
   }
 }
 
+.responsive-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  video {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 // ---- 1. 正文链接与标题装饰统一为绿色 ----
 .content,
 .single .content {

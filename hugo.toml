@@ -25,7 +25,7 @@ buildFuture = false
     [[module.imports.mounts]]
       source = "static"
       target = "static"
-      files = ["! lib/katex/**", "! lib/lightgallery/**", "**"]
+      files = ["! lib/katex/**", "! lib/lightgallery/**", "! lib/lazysizes/**", "**"]
 
 # 文章永久地址与中文标题解耦，便于在聊天软件中分享。
 [permalinks]

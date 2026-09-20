@@ -9,7 +9,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_DIR = ROOT / "public"
-FORBIDDEN_PREFIXES = (Path("lib/katex"), Path("lib/lightgallery"))
+FORBIDDEN_PREFIXES = (
+    Path("lib/katex"),
+    Path("lib/lightgallery"),
+    Path("lib/lazysizes"),
+)
 TEXT_SUFFIXES = {".css", ".html", ".js", ".json", ".xml"}
 
 
