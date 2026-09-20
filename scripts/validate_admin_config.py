@@ -24,11 +24,18 @@ from pathlib import Path
 
 import yaml
 
-from validate_portfolio import (
-    INVESTMENT_REQUIRED_FIELDS,
-    REQUIRED_FIELDS,
-    UniqueKeyLoader,
-)
+try:
+    from scripts.validate_portfolio import (
+        INVESTMENT_REQUIRED_FIELDS,
+        REQUIRED_FIELDS,
+        UniqueKeyLoader,
+    )
+except ModuleNotFoundError:  # Direct execution: python scripts/validate_admin_config.py
+    from validate_portfolio import (
+        INVESTMENT_REQUIRED_FIELDS,
+        REQUIRED_FIELDS,
+        UniqueKeyLoader,
+    )
 
 CONFIG_PATH = Path(__file__).resolve().parents[1] / "static" / "admin" / "config.yml"
 ROOT_DIR = CONFIG_PATH.parents[2]
@@ -59,15 +66,25 @@ def collection_field_names(block: str) -> set[str]:
     return {match.group("name") for match in FIELD_NAME_RE.finditer(block)}
 
 
-def parse_front_matter(path: Path) -> dict:
-    text = path.read_text(encoding="utf-8")
-    parts = text.split("---", maxsplit=2)
-    if len(parts) < 3 or parts[0].strip():
-        raise ValueError(f"{path} must start with YAML front matter")
-    parsed = yaml.load(parts[1], Loader=UniqueKeyLoader)
+def parse_front_matter_text(text: str, source: str = "content") -> dict:
+    text = text.removeprefix("\ufeff").replace("\r\n", "\n")
+    if not re.match(r"\A---[ \t]*\n", text):
+        raise ValueError(f"{source} must start with YAML front matter")
+
+    opening_end = text.index("\n") + 1
+    closing = re.search(r"(?m)^---[ \t]*$", text[opening_end:])
+    if closing is None:
+        raise ValueError(f"{source} front matter closing delimiter is missing")
+
+    raw_front_matter = text[opening_end : opening_end + closing.start()]
+    parsed = yaml.load(raw_front_matter, Loader=UniqueKeyLoader)
     if not isinstance(parsed, dict):
-        raise ValueError(f"{path} front matter must be a YAML mapping")
+        raise ValueError(f"{source} front matter must be a YAML mapping")
     return parsed
+
+
+def parse_front_matter(path: Path) -> dict:
+    return parse_front_matter_text(path.read_text(encoding="utf-8"), str(path))
 
 
 def validate_now_contract(parsed_config: dict, issues: list[str]) -> None:

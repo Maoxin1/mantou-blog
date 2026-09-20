@@ -4,6 +4,7 @@ from pathlib import Path
 
 import yaml
 
+from scripts.validate_admin_config import parse_front_matter_text
 from scripts.validate_portfolio import UniqueKeyLoader
 
 
@@ -206,9 +207,8 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
             field for field in directions["fields"] if field["name"] == "status"
         )
         allowed_statuses = set(status["options"])
-        now_content = yaml.load(
-            NOW_CONTENT_PATH.read_text(encoding="utf-8").split("---", maxsplit=2)[1],
-            Loader=UniqueKeyLoader,
+        now_content = parse_front_matter_text(
+            NOW_CONTENT_PATH.read_text(encoding="utf-8"), str(NOW_CONTENT_PATH)
         )
         self.assertGreaterEqual(len(now_content["directions"]), directions["min"])
         self.assertLessEqual(len(now_content["directions"]), directions["max"])
@@ -218,6 +218,14 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
                 for direction in now_content["directions"]
             )
         )
+
+    def test_front_matter_parser_ignores_inline_delimiter_text(self) -> None:
+        parsed = parse_front_matter_text(
+            '---\ncheckpoint: "phase 1 --- phase 2"\nstatus: "进行中"\n---\nBody\n'
+        )
+
+        self.assertEqual("phase 1 --- phase 2", parsed["checkpoint"])
+        self.assertEqual("进行中", parsed["status"])
 
 
 if __name__ == "__main__":
