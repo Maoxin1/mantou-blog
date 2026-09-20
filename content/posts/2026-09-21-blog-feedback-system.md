@@ -4,6 +4,8 @@ date: 2026-09-21
 slug: blog-feedback-system
 draft: false
 description: "我开始尝试让个人博客不只保存过去，而是通过当前下注、真实验证、发布后反馈与复用，反过来影响下一次行动。"
+aliases:
+  - "/posts/2026-09-21-blog-feedback-system/"
 categories:
   - essays
 tags:
