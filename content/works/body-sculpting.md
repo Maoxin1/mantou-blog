@@ -27,6 +27,9 @@ reused_in:
   - title: "X｜雕刻行动发布帖"
     url: "https://x.com/mantouaoao/status/2101461974253264916?s=20"
     note: "将29周身体实践压缩成适合X阅读的公开判断，用更短的表达验证“系统而不是自律”是否能够独立传播。"
+  - title: "微信公众号｜半年减掉16.5kg后，我最想说的不是减肥"
+    url: "https://mp.weixin.qq.com/s/UR3RDgBgNu9A8VRC2dVKig"
+    note: "将同一项目重新编辑为面向普通读者的完整叙事，重点从减脂结果转向系统、反馈、AI与“用系统善待自己”。"
 weight_milestones:
   - week: 15
     period: "06月"
