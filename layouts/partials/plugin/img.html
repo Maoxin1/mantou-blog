@@ -1,0 +1,39 @@
+{{- /* Native image loading with intrinsic dimensions and distinct responsive candidates. */ -}}
+{{- $src := .Src -}}
+{{- $width := .Width -}}
+{{- $height := .Height -}}
+{{- with dict "Path" $src "Resources" .Resources | partial "function/resource.html" -}}
+  {{- $src = .RelPermalink -}}
+  {{- $width = $width | default .Width -}}
+  {{- $height = $height | default .Height -}}
+{{- end -}}
+{{- if and (not $width) (not $height) (hasPrefix $src "/") -}}
+  {{- $staticPath := printf "static%s" $src -}}
+  {{- if os.FileExists $staticPath -}}
+    {{- with images.Config $staticPath }}
+      {{- $width = .Width -}}
+      {{- $height = .Height -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $small := "" -}}
+{{- with .SrcSmall -}}
+  {{- $small = . -}}
+  {{- with dict "Path" . "Resources" $.Resources | partial "function/resource.html" }}{{- $small = .RelPermalink -}}{{ end -}}
+{{- end -}}
+{{- $large := "" -}}
+{{- with .SrcLarge -}}
+  {{- $large = . -}}
+  {{- with dict "Path" . "Resources" $.Resources | partial "function/resource.html" }}{{- $large = .RelPermalink -}}{{ end -}}
+{{- end -}}
+
+{{- $srcset := slice -}}
+{{- if and $small (ne $small $src) }}{{- $srcset = $srcset | append (printf "%s 1x" $small) -}}{{ end -}}
+{{- if and $large (ne $large $src) }}{{- $srcset = $srcset | append (printf "%s 2x" $large) -}}{{ end -}}
+{{- $alt := .Alt | default "" -}}
+{{- $loading := .Loading | default "lazy" -}}
+
+{{- if .Linked }}<a class="lightgallery" href="{{ $large | default $src | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }} data-thumbnail="{{ $small | default $src | safeURL }}"{{ with .Caption }} data-sub-html="<h2>{{ . }}</h2>{{ with $.Title }}<p>{{ . }}</p>{{ end }}"{{ end }}{{ with .Rel }} rel="{{ . }}"{{ end }}>{{ end -}}
+<img{{ with .Class }} class="{{ . }}"{{ end }} src="{{ $src | safeURL }}"{{ with $srcset }} srcset="{{ delimit . ", " }}"{{ end }} alt="{{ $alt }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="{{ $loading }}" decoding="async"{{ with .FetchPriority }} fetchpriority="{{ . }}"{{ end }}{{ with $width }} width="{{ . }}"{{ end }}{{ with $height }} height="{{ . }}"{{ end }}>
+{{- if .Linked }}</a>{{ end -}}

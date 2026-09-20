@@ -20,7 +20,8 @@ class RuntimeAssetTests(unittest.TestCase):
             font.parent.mkdir(parents=True)
             font.write_bytes(b"font")
             (public / "index.html").write_text(
-                '<script src="/lib/lightgallery/lightgallery.min.js"></script>',
+                '<script src="/lib/lightgallery/lightgallery.min.js"></script>'
+                '<script src="/lib/lazysizes/lazysizes.min.js"></script>',
                 encoding="utf-8",
             )
 
@@ -28,6 +29,7 @@ class RuntimeAssetTests(unittest.TestCase):
 
             self.assertTrue(any("lib/katex" in issue for issue in issues))
             self.assertTrue(any("lib/lightgallery" in issue for issue in issues))
+            self.assertTrue(any("lib/lazysizes" in issue for issue in issues))
 
 
 if __name__ == "__main__":
