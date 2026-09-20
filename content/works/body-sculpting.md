@@ -23,6 +23,10 @@ start_bmi: 27.1
 end_bmi: 21.8
 body_fat: 16.1
 skeletal_muscle: 32.1
+reused_in:
+  - title: "X｜雕刻行动发布帖"
+    url: "https://x.com/mantouaoao/status/2101461974253264916?s=20"
+    note: "将29周身体实践压缩成适合X阅读的公开判断，用更短的表达验证“系统而不是自律”是否能够独立传播。"
 weight_milestones:
   - week: 15
     period: "06月"
