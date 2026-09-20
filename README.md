@@ -9,15 +9,16 @@
 需要 Hugo Extended 0.154.5、Python 3.12 或更高版本，以及 Node.js/npm。
 
 ```powershell
-python scripts/validate_admin_config.py
-python scripts/validate_posts.py
-python scripts/validate_portfolio.py
-python -m unittest discover -s tests/python -p "test_*.py"
+py -3 scripts/validate_admin_config.py
+py -3 scripts/validate_posts.py
+py -3 scripts/validate_portfolio.py
+py -3 -m unittest discover -s tests/python -p "test_*.py"
 hugo --minify --panicOnWarning --cleanDestinationDir
 npx --yes pagefind@1.5.2 --site public
-python scripts/check_internal_links.py
-python scripts/check_short_post_urls.py
-python scripts/check_portfolio_output.py
+py -3 scripts/check_internal_links.py
+py -3 scripts/check_short_post_urls.py
+py -3 scripts/check_portfolio_output.py
+py -3 scripts/check_seo_output.py
 npm ci
 npx playwright install chromium
 npm run test:e2e

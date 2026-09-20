@@ -13,6 +13,7 @@ Checks:
 6) Sveltia omits unfilled optional fields and the investment privacy review is
    opt-in, so editing an unrelated work cannot create noisy front-matter diffs.
 7) The installable Sveltia app keeps the mantou title and repository-owned logo.
+8) The CMS-managed /now/ content stays inside the configured field contract.
 """
 
 from __future__ import annotations
@@ -30,6 +31,8 @@ from validate_portfolio import (
 )
 
 CONFIG_PATH = Path(__file__).resolve().parents[1] / "static" / "admin" / "config.yml"
+ROOT_DIR = CONFIG_PATH.parents[2]
+NOW_CONTENT_PATH = ROOT_DIR / "content" / "now.md"
 SVELTIA_DIR = CONFIG_PATH.parent / "sveltia"
 SVELTIA_INDEX_PATH = SVELTIA_DIR / "index.html"
 SVELTIA_CONFIG_PATH = SVELTIA_DIR / "config.yml"
@@ -44,6 +47,7 @@ LIST_KEY_RE = re.compile(r"^(?P<indent>\s*)-\s+(?P<key>[^\s:#][^:]*):")
 SLUG_RE = re.compile(r"^\s*slug:\s*[\"']?(?P<slug>.+?)[\"']?\s*$")
 COLLECTION_RE_TEMPLATE = r'(?ms)^  - name:\s*["\']?{name}["\']?\s*$.*?(?=^  - name:|\Z)'
 FIELD_NAME_RE = re.compile(r'\bname:\s*["\']?(?P<name>[a-zA-Z_][\w-]*)')
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def collection_block(text: str, name: str) -> str | None:
@@ -53,6 +57,112 @@ def collection_block(text: str, name: str) -> str | None:
 
 def collection_field_names(block: str) -> set[str]:
     return {match.group("name") for match in FIELD_NAME_RE.finditer(block)}
+
+
+def parse_front_matter(path: Path) -> dict:
+    text = path.read_text(encoding="utf-8")
+    parts = text.split("---", maxsplit=2)
+    if len(parts) < 3 or parts[0].strip():
+        raise ValueError(f"{path} must start with YAML front matter")
+    parsed = yaml.load(parts[1], Loader=UniqueKeyLoader)
+    if not isinstance(parsed, dict):
+        raise ValueError(f"{path} front matter must be a YAML mapping")
+    return parsed
+
+
+def validate_now_contract(parsed_config: dict, issues: list[str]) -> None:
+    collections = parsed_config.get("collections", [])
+    now_collection = next(
+        (item for item in collections if item.get("name") == "now"),
+        None,
+    )
+    if not now_collection:
+        issues.append("missing CMS 'now' collection")
+        return
+
+    now_file = next(
+        (item for item in now_collection.get("files", []) if item.get("name") == "now"),
+        None,
+    )
+    if not now_file or now_file.get("file") != "content/now.md":
+        issues.append("CMS 'now' collection must manage content/now.md")
+        return
+
+    directions_field = next(
+        (field for field in now_file.get("fields", []) if field.get("name") == "directions"),
+        None,
+    )
+    if not directions_field or directions_field.get("widget") != "list":
+        issues.append("CMS now.directions must be a list")
+        return
+
+    fields = {
+        field.get("name"): field
+        for field in directions_field.get("fields", [])
+        if field.get("name")
+    }
+    required_fields = {"title", "question", "status", "checkpoint", "updated"}
+    if set(fields) != required_fields:
+        issues.append(
+            "CMS now.directions fields must be exactly: "
+            + ", ".join(sorted(required_fields))
+        )
+        return
+
+    status_options = fields["status"].get("options", [])
+    allowed_statuses = {
+        option.get("value") if isinstance(option, dict) else option
+        for option in status_options
+    }
+    allowed_statuses.discard(None)
+    if not allowed_statuses:
+        issues.append("CMS now.status must define at least one allowed value")
+        return
+
+    try:
+        front_matter = parse_front_matter(NOW_CONTENT_PATH)
+    except (OSError, ValueError, yaml.YAMLError) as error:
+        issues.append(f"cannot validate content/now.md: {error}")
+        return
+
+    directions = front_matter.get("directions")
+    minimum = directions_field.get("min", 0)
+    maximum = directions_field.get("max")
+    if not isinstance(directions, list):
+        issues.append("content/now.md directions must be a list")
+        return
+    if len(directions) < minimum or (maximum is not None and len(directions) > maximum):
+        issues.append(
+            f"content/now.md must contain between {minimum} and {maximum} directions"
+        )
+
+    for index, direction in enumerate(directions, start=1):
+        if not isinstance(direction, dict):
+            issues.append(f"content/now.md direction {index} must be a mapping")
+            continue
+        missing = sorted(required_fields - set(direction))
+        if missing:
+            issues.append(
+                f"content/now.md direction {index} is missing: {', '.join(missing)}"
+            )
+        for field_name in required_fields - {"status", "updated"}:
+            value = direction.get(field_name)
+            if not isinstance(value, str) or not value.strip():
+                issues.append(
+                    f"content/now.md direction {index} field '{field_name}' "
+                    "must be a non-empty string"
+                )
+        status = direction.get("status")
+        if status not in allowed_statuses:
+            issues.append(
+                f"content/now.md direction {index} status '{status}' is not one of: "
+                + ", ".join(sorted(allowed_statuses))
+            )
+        updated = direction.get("updated")
+        if not isinstance(updated, str) or not DATE_RE.fullmatch(updated):
+            issues.append(
+                f"content/now.md direction {index} updated must use YYYY-MM-DD"
+            )
 
 
 def main() -> int:
@@ -66,6 +176,9 @@ def main() -> int:
             issues.append("admin config must be a YAML mapping")
     except (ValueError, yaml.YAMLError) as error:
         issues.append(f"admin config is not valid unambiguous YAML: {error}")
+
+    if isinstance(parsed_config, dict) and parsed_config:
+        validate_now_contract(parsed_config, issues)
 
     if not SVELTIA_INDEX_PATH.is_file():
         issues.append("missing Sveltia gray-release entry")

@@ -67,6 +67,7 @@ test('文章辅助信息在浅色和深色主题中都保持可读', async ({ pa
 test('键盘焦点有清晰指示，关注对话框带有完整说明', async ({ page }) => {
   await open(page, '/');
   const trigger = page.locator('[data-follow-open]').first();
+  await expect(trigger).toHaveAttribute('data-follow-ready', 'true');
   await trigger.focus();
   await expect(trigger).toBeFocused();
 

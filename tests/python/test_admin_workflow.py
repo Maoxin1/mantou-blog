@@ -9,6 +9,7 @@ from scripts.validate_portfolio import UniqueKeyLoader
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG_PATH = ROOT / "static" / "admin" / "config.yml"
+NOW_CONTENT_PATH = ROOT / "content" / "now.md"
 HEADERS_PATH = ROOT / "static" / "_headers"
 SERVICE_WORKER_PATH = ROOT / "static" / "sw.js"
 SVELTIA_INDEX_PATH = ROOT / "static" / "admin" / "sveltia" / "index.html"
@@ -200,6 +201,23 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
             {field["name"] for field in directions["fields"]},
         )
         self.assertNotIn("decision", {field["name"] for field in directions["fields"]})
+
+        status = next(
+            field for field in directions["fields"] if field["name"] == "status"
+        )
+        allowed_statuses = set(status["options"])
+        now_content = yaml.load(
+            NOW_CONTENT_PATH.read_text(encoding="utf-8").split("---", maxsplit=2)[1],
+            Loader=UniqueKeyLoader,
+        )
+        self.assertGreaterEqual(len(now_content["directions"]), directions["min"])
+        self.assertLessEqual(len(now_content["directions"]), directions["max"])
+        self.assertTrue(
+            all(
+                direction["status"] in allowed_statuses
+                for direction in now_content["directions"]
+            )
+        )
 
 
 if __name__ == "__main__":

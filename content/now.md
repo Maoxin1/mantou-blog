@@ -10,7 +10,7 @@ directions:
     updated: "2026-09-14"
   - title: "作息重构实验 V1"
     question: "能否通过重构睡眠、起床、晨间运动与学习结构，稳定建立每天 5:00–8:00 的完整注意力窗口？"
-    status: "V1 · 14天实验中"
+    status: "进行中"
     checkpoint: "完成14天 V1，检查进入 5–8 学习窗口的天数、Deep Reading 时长、阅读状态、Recall、晚睡触发因素和最大系统瓶颈；验收后只修改一个主要变量，并决定继续 V2、调整或停止。"
     updated: "2026-09-20"
   - title: "mantou-blog"
