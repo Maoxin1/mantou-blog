@@ -1,11 +1,31 @@
 title = "mantou の blog"
-theme = "LoveIt-0.3.0"
 baseURL = "https://mantou-blog.pages.dev/"
 languageCode = "zh-cn"
 hasCJKLanguage = true
 timeZone = "Asia/Shanghai"
 # 未来日期只作为草稿保护；需要定时发布时使用 publishDate。
 buildFuture = false
+
+# 显式挂载 vendored 主题，以免把当前未启用的数学和图库字体复制到生产包。
+[module]
+  [[module.imports]]
+    path = "LoveIt-0.3.0"
+    [[module.imports.mounts]]
+      source = "archetypes"
+      target = "archetypes"
+    [[module.imports.mounts]]
+      source = "assets"
+      target = "assets"
+    [[module.imports.mounts]]
+      source = "i18n"
+      target = "i18n"
+    [[module.imports.mounts]]
+      source = "layouts"
+      target = "layouts"
+    [[module.imports.mounts]]
+      source = "static"
+      target = "static"
+      files = ["! lib/katex/**", "! lib/lightgallery/**", "**"]
 
 # 文章永久地址与中文标题解耦，便于在聊天软件中分享。
 [permalinks]

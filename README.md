@@ -15,6 +15,7 @@ py -3 scripts/validate_portfolio.py
 py -3 -m unittest discover -s tests/python -p "test_*.py"
 hugo --minify --panicOnWarning --cleanDestinationDir
 npx --yes pagefind@1.5.2 --site public
+py -3 scripts/check_runtime_assets.py
 py -3 scripts/check_internal_links.py
 py -3 scripts/check_short_post_urls.py
 py -3 scripts/check_portfolio_output.py
