@@ -26,6 +26,26 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Run the stdlib-only post checks before installing Node, Hugo, or Chromium.
+      # Content mistakes should fail in seconds instead of near the end of the job.
+      - name: Validate post metadata, aliases, and local images
+        run: python scripts/validate_posts.py
+
+      - name: Install validation dependencies
+        run: >-
+          python -m pip install --disable-pip-version-check
+          -r scripts/requirements-validation.txt
+          -r scripts/requirements-image.txt
+
+      - name: Validate Decap CMS admin config
+        run: python scripts/validate_admin_config.py
+
+      - name: Validate structured portfolio entries
+        run: python scripts/validate_portfolio.py
+
+      - name: Test portfolio privacy preflight
+        run: python -m unittest discover -s tests/python -p "test_*.py"
+
       - name: Set up Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -57,26 +77,8 @@ jobs:
       - name: Audit vendored theme dependencies
         run: npm audit --prefix themes/LoveIt-0.3.0 --audit-level=high
 
-      - name: Install validation dependencies
-        run: >-
-          python -m pip install --disable-pip-version-check
-          -r scripts/requirements-validation.txt
-          -r scripts/requirements-image.txt
-
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
-
-      - name: Validate Decap CMS admin config
-        run: python scripts/validate_admin_config.py
-
-      - name: Validate post metadata and local images
-        run: python scripts/validate_posts.py
-
-      - name: Validate structured portfolio entries
-        run: python scripts/validate_portfolio.py
-
-      - name: Test portfolio privacy preflight
-        run: python -m unittest discover -s tests/python -p "test_*.py"
 
       - name: Build production site
         run: hugo --minify --panicOnWarning --cleanDestinationDir
