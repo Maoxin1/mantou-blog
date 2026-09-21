@@ -23,6 +23,9 @@ start_bmi: 27.1
 end_bmi: 21.8
 body_fat: 16.1
 skeletal_muscle: 32.1
+follow_ups:
+  - date: "2026-09-22"
+    note: "文章发布后在社群引发持续多人讨论，并出现饮食照片与个人经历的主动分享；反馈形态从单向阅读变成围绕减脂、饮食与各自实践的多轮交流。对我来说，这说明作品已经开始触发读者把自己的经验带回讨论；但目前只能证明讨论与认知层面的反哺，尚不能证明长期行为改变。"
 reused_in:
   - title: "X｜雕刻行动发布帖"
     url: "https://x.com/mantouaoao/status/2101461974253264916?s=20"
@@ -30,6 +33,8 @@ reused_in:
   - title: "微信公众号｜半年减掉16.5kg后，我最想说的不是减肥"
     url: "https://mp.weixin.qq.com/s/UR3RDgBgNu9A8VRC2dVKig"
     note: "将同一项目重新编辑为面向普通读者的完整叙事，重点从减脂结果转向系统、反馈、AI与“用系统善待自己”。"
+  - title: "社群｜雕刻行动讨论"
+    note: "将公众号文章带入社群后，作品不再只是单向发布，而成为多人交换个人经验的讨论入口；本轮主要用来收集真实反馈，而不是追求阅读量。"
 weight_milestones:
   - week: 15
     period: "06月"
