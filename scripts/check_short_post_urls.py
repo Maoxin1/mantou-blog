@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from html.parser import HTMLParser
@@ -117,6 +118,8 @@ def main() -> int:
     if issues:
         print("Short post URL validation failed:\n")
         for issue in issues:
+            if os.environ.get("GITHUB_ACTIONS") == "true":
+                print(f"::error title=Post URL validation::{issue}")
             print(f"- {issue}")
         return 1
 
