@@ -9,6 +9,7 @@ Front matter may be YAML (---) or TOML (+++).
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
@@ -162,6 +163,8 @@ def main() -> int:
     if issues:
         print("Post validation failed:\n")
         for issue in issues:
+            if os.environ.get("GITHUB_ACTIONS") == "true":
+                print(f"::error title=Post source validation::{issue}")
             print(f"- {issue}")
         return 1
 
