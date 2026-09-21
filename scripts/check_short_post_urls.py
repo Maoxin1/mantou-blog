@@ -14,6 +14,25 @@ POSTS_DIR = ROOT / "content" / "posts"
 PUBLIC_DIR = ROOT / "public"
 SLUG_PATTERN = re.compile(r"(?m)^slug:\s*['\"]?(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)*)")
 ALIASES_BLOCK = re.compile(r"(?ms)^aliases:\s*\n(?P<items>(?:[ \t]+-.*\n?)+)")
+ALIAS_ITEM = re.compile(r"^\s*-\s*[\'\"]?(?P<alias>[^\'\"\r\n]+)[\'\"]?\s*$")
+LEGACY_ALIAS = re.compile(r"^/posts/[^?#\s]+/$")
+
+
+def legacy_aliases(text: str) -> list[str]:
+    """Extract valid legacy /posts/.../ aliases from YAML front matter."""
+    match = ALIASES_BLOCK.search(text)
+    if not match:
+        return []
+
+    aliases: list[str] = []
+    for line in match.group("items").splitlines():
+        item = ALIAS_ITEM.match(line)
+        if not item:
+            continue
+        alias = item.group("alias").strip()
+        if LEGACY_ALIAS.fullmatch(alias):
+            aliases.append(alias)
+    return aliases
 
 
 class CanonicalParser(HTMLParser):
@@ -50,9 +69,11 @@ def main() -> int:
         slugs.add(slug)
         checked += 1
 
-        alias_match = ALIASES_BLOCK.search(text)
-        if not alias_match or "/posts/" not in alias_match.group("items"):
-            issues.append(f"{source.relative_to(ROOT)}: missing legacy /posts/ alias")
+        aliases = legacy_aliases(text)
+        if not aliases:
+            issues.append(
+                f"{source.relative_to(ROOT)}: missing valid legacy /posts/.../ alias"
+            )
 
         output = PUBLIC_DIR / "p" / slug / "index.html"
         if not output.is_file():
@@ -65,6 +86,23 @@ def main() -> int:
         parser.feed(html)
         if parser.canonical != canonical:
             issues.append(f"{output.relative_to(ROOT)}: incorrect canonical URL")
+
+        for alias in aliases:
+            redirect = PUBLIC_DIR / alias.strip("/") / "index.html"
+            if not redirect.is_file():
+                issues.append(
+                    f"{source.relative_to(ROOT)}: legacy alias {alias!r} "
+                    "did not generate a redirect page"
+                )
+                continue
+
+            redirect_parser = CanonicalParser()
+            redirect_parser.feed(redirect.read_text(encoding="utf-8"))
+            if redirect_parser.canonical != canonical:
+                issues.append(
+                    f"{redirect.relative_to(ROOT)}: legacy redirect canonical "
+                    f"must point to {canonical}"
+                )
 
     feed_path = PUBLIC_DIR / "index.xml"
     if not feed_path.is_file():
