@@ -26,6 +26,35 @@ VALID_SLUG_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 IMAGE_PATTERN = re.compile(r"!\[(?P<alt>[^\]]*)\]\((?P<target>[^)]*)\)")
 
 
+
+def legacy_aliases(text: str) -> list[str]:
+    """Return well-formed legacy /posts/.../ aliases from YAML front matter."""
+    match = ALIASES_BLOCK.search(text)
+    if not match:
+        return []
+
+    aliases: list[str] = []
+    for line in match.group("items").splitlines():
+        item = ALIAS_ITEM.match(line)
+        if not item:
+            continue
+        alias = item.group("alias").strip()
+        if LEGACY_ALIAS.fullmatch(alias):
+            aliases.append(alias)
+    return aliases
+
+
+def validate_legacy_alias(path: Path, text: str, label: str, issues: list[str]) -> None:
+    """Require at least one explicit legacy redirect for single-file posts."""
+    if legacy_aliases(text):
+        return
+
+    suggested = f"/posts/{path.stem}/"
+    issues.append(
+        f"{label}: missing valid legacy /posts/.../ alias; "
+        f"new posts should include {suggested!r}"
+    )
+
 def validate_images(path: Path, text: str, label: str, issues: list[str]) -> None:
     """Reject Markdown images that are inaccessible or point to missing local files."""
     for match in IMAGE_PATTERN.finditer(text):
@@ -97,7 +126,10 @@ def main() -> int:
         if not m:
             continue
         checked += 1
-        slug = check(path, m.group("date"), str(path), issues)
+        label = str(path)
+        text = path.read_text(encoding="utf-8")
+        validate_legacy_alias(path, text, label, issues)
+        slug = check(path, m.group("date"), label, issues)
         if slug:
             if slug in slugs:
                 issues.append(f"{path}: duplicate slug {slug!r} also used by {slugs[slug]}")
