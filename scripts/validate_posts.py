@@ -24,6 +24,9 @@ TITLE_PATTERN = re.compile(r"^title\s*[:=]\s*(?P<title>.+)$", re.MULTILINE)
 SLUG_PATTERN = re.compile(r"^slug\s*[:=]\s*['\"]?(?P<slug>[^'\"\r\n]+)", re.MULTILINE)
 VALID_SLUG_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 IMAGE_PATTERN = re.compile(r"!\[(?P<alt>[^\]]*)\]\((?P<target>[^)]*)\)")
+ALIASES_BLOCK = re.compile(r"(?ms)^aliases:\s*\n(?P<items>(?:[ \t]+-.*\n?)+)")
+ALIAS_ITEM = re.compile(r"^\s*-\s*[\'\"]?(?P<alias>[^\'\"\r\n]+)[\'\"]?\s*$")
+LEGACY_ALIAS = re.compile(r"^/posts/[^?#\s]+/$")
 
 
 
@@ -54,6 +57,7 @@ def validate_legacy_alias(path: Path, text: str, label: str, issues: list[str]) 
         f"{label}: missing valid legacy /posts/.../ alias; "
         f"new posts should include {suggested!r}"
     )
+
 
 def validate_images(path: Path, text: str, label: str, issues: list[str]) -> None:
     """Reject Markdown images that are inaccessible or point to missing local files."""
