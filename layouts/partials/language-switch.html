@@ -1,0 +1,17 @@
+<span class="language-switch" aria-label="{{ T "chooseLanguage" }}">
+{{- $page := . -}}
+{{- $pageNumber := partial "function/pagination-number.html" . -}}
+{{- range .Sites -}}
+  {{- $site := . -}}
+  {{- $target := .Home.RelPermalink -}}
+  {{- $available := false -}}
+  {{- range $page.AllTranslations -}}{{- if eq .Language.Lang $site.Language.Lang -}}{{- $target = .RelPermalink -}}{{- $available = true -}}{{- end -}}{{- end -}}
+  {{- if gt $pageNumber 1 -}}{{- $target = printf "%spage/%d/" $target $pageNumber -}}{{- end -}}
+  {{- if eq $page.Kind "404" -}}{{- $target = printf "%s404.html" .Home.RelPermalink -}}{{- end -}}
+  {{- if and $page.IsPage (not $available) -}}
+    <span aria-disabled="true" title="{{ T "translationUnavailable" }}">{{ .Language.LanguageName }} ({{ T "pendingTranslation" }})</span>
+  {{- else -}}
+    <a href="{{ $target }}" lang="{{ .Language.Lang }}" hreflang="{{ .Language.Lang }}"{{ if eq $page.Language.Lang .Language.Lang }} aria-current="true"{{ end }}>{{ .Language.LanguageName }}</a>
+  {{- end -}}
+{{- end -}}
+</span>

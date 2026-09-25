@@ -1,0 +1,443 @@
+{
+  "homeHello": {
+    "other": "你好，我是 mantou。"
+  },
+  "homeLead": {
+    "other": "我写日记、读书和生活里的想法，也做一些自己用得上的工具。文章和作品，都在这里。"
+  },
+  "writing": {
+    "other": "文章"
+  },
+  "projects": {
+    "other": "作品集"
+  },
+  "allWriting": {
+    "other": "全部文章"
+  },
+  "allProjects": {
+    "other": "全部作品"
+  },
+  "readArticle": {
+    "other": "读这篇文章"
+  },
+  "openTool": {
+    "other": "打开工具"
+  },
+  "makingNotes": {
+    "other": "制作记录"
+  },
+  "recentWriting": {
+    "other": "最近发表"
+  },
+  "byPublished": {
+    "other": "按发表时间排列。"
+  },
+  "projectNotes": {
+    "other": "作品记录"
+  },
+  "projectNotesLead": {
+    "other": "已公开的实践与工具。"
+  },
+  "seeNow": {
+    "other": "看当前进展"
+  },
+  "startHere": {
+    "other": "第一次来，可以从这里读起"
+  },
+  "lifeNotes": {
+    "other": "生活记录"
+  },
+  "bodyPractice": {
+    "other": "身体实践"
+  },
+  "aiJudgment": {
+    "other": "AI 与判断"
+  },
+  "exploreMore": {
+    "other": "继续阅读"
+  },
+  "aboutMe": {
+    "other": "认识我"
+  },
+  "aboutShort": {
+    "other": "写作、做过的事，以及交流方式。"
+  },
+  "readAbout": {
+    "other": "读关于页"
+  },
+  "browseTopics": {
+    "other": "按主题浏览"
+  },
+  "topicsShort": {
+    "other": "从过去的记录里，找一个你关心的话题。"
+  },
+  "getUpdates": {
+    "other": "收到更新"
+  },
+  "updatesShort": {
+    "other": "选择适合自己的订阅方式。"
+  },
+  "subscribe": {
+    "other": "关注"
+  },
+  "chooseLanguage": {
+    "other": "选择语言"
+  },
+  "mainNavigation": {
+    "other": "主要导航"
+  },
+  "openMenu": {
+    "other": "打开导航菜单"
+  },
+  "closeMenu": {
+    "other": "关闭导航菜单"
+  },
+  "machineTranslation": {
+    "other": "机器译文，尚未逐篇审校。"
+  },
+  "translatedFromChinese": {
+    "other": "译自中文。"
+  },
+  "readOriginal": {
+    "other": "阅读中文原文"
+  },
+  "browseWriting": {
+    "other": "浏览文章"
+  },
+  "byDate": {
+    "other": "按时间浏览"
+  },
+  "categories": {
+    "other": "内容分类"
+  },
+  "searchLanguage": {
+    "other": "搜索中文文章和作品；切换 English 可搜索英文内容。"
+  },
+  "pageNotFound": {
+    "other": "没有找到这个页面"
+  },
+  "pageNotFoundLead": {
+    "other": "链接可能已经变更，可以回到首页或搜索。"
+  },
+  "home": {
+    "other": "首页"
+  },
+  "postArchive": {
+    "other": "文章归档"
+  },
+  "byYear": {
+    "other": "按年份浏览文章"
+  },
+  "emptyPosts": {
+    "other": "暂无文章。"
+  },
+  "articlePath": {
+    "other": "文章路径"
+  },
+  "madeThings": {
+    "other": "做过的事"
+  },
+  "projectsIntro": {
+    "other": "这里有身体实践、手机工具和 AI 工作流。每件作品都留下了成品或过程记录，也留下了当时没解决的问题。"
+  },
+  "typeInvestment": {
+    "other": "投资研究"
+  },
+  "typeTools": {
+    "other": "工具产品"
+  },
+  "typeMethodology": {
+    "other": "方法论"
+  },
+  "readWork": {
+    "other": "读这件作品"
+  },
+  "viewArtifact": {
+    "other": "查看成品"
+  },
+  "viewSource": {
+    "other": "查看源码"
+  },
+  "checkResults": {
+    "other": "核对结果与限制"
+  },
+  "thisArticle": {
+    "other": "这篇记录"
+  },
+  "articleContents": {
+    "other": "本篇目录"
+  },
+  "resultsEvidence": {
+    "other": "结果、证据与限制"
+  },
+  "previewDate": {
+    "other": "2026 年 9 月的公开界面"
+  },
+  "evidenceLead": {
+    "other": "正文记录了过程；这里集中放可以核对的结果和仍未解决的部分。"
+  },
+  "verificationSummary": {
+    "other": "作品验收摘要"
+  },
+  "outcome": {
+    "other": "阶段结果"
+  },
+  "evidence": {
+    "other": "验证证据"
+  },
+  "limitations": {
+    "other": "当前限制"
+  },
+  "nextStep": {
+    "other": "下一步判断"
+  },
+  "pastDecisions": {
+    "other": "当时怎么判断"
+  },
+  "decisionRecord": {
+    "other": "案例决策记录"
+  },
+  "problem": {
+    "other": "问题"
+  },
+  "hypothesis": {
+    "other": "假设"
+  },
+  "constraints": {
+    "other": "约束"
+  },
+  "decision": {
+    "other": "关键决策"
+  },
+  "afterRelease": {
+    "other": "这件作品后来发生了什么"
+  },
+  "afterReleaseLead": {
+    "other": "这里只记录发布以后真实带回的反馈、认知与复用，不补写预期。"
+  },
+  "feedback": {
+    "other": "后来带回了什么"
+  },
+  "reuse": {
+    "other": "后来用在了哪里"
+  },
+  "backProjects": {
+    "other": "返回作品集"
+  },
+  "aboutTitle": {
+    "other": "关于 mantou"
+  },
+  "aboutIntro": {
+    "other": "我在这里写日记，记录读书、生活和自己做过的事。最近公开的是身体实践、一款手机工具，以及我对 AI 工作方式的尝试。"
+  },
+  "writingAndProjects": {
+    "other": "写作和作品"
+  },
+  "writingAndProjectsLead": {
+    "other": "日记保留当时的想法；作品页记录后来做了什么、看到了什么。两类内容都可以从首页找到。"
+  },
+  "fourPrinciples": {
+    "other": "查看我现在用的四条工作原则"
+  },
+  "discussScope": {
+    "other": "目前可以交流的具体范围"
+  },
+  "discussScopeLead": {
+    "other": "以下范围来自我正在做的实践。它们是沟通起点，不是对所有同类问题的能力承诺。"
+  },
+  "personalEvidence": {
+    "other": "当前证据以公开个人作品为主。"
+  },
+  "publicBoundary": {
+    "other": "我会区分已经验证的结果、正在验证的假设和未来计划。涉及投资时，不公开账户总收益、金额和仓位；具体标的只在阶段复盘或完全退出后讨论。"
+  },
+  "contactTitle": {
+    "other": "如果问题落在上述范围，可以发邮件说明。"
+  },
+  "contactLead": {
+    "other": "请写明具体问题、已有约束和希望得到的结果。我会据此判断是否适合继续交流。"
+  },
+  "emailMe": {
+    "other": "邮件说明你的问题"
+  },
+  "githubSource": {
+    "other": "查看 GitHub 源码"
+  },
+  "nowDirections": {
+    "other": "当前投入注意力的方向"
+  },
+  "testing": {
+    "other": "正在验证"
+  },
+  "checkpoint": {
+    "other": "下一检查点"
+  },
+  "reviewedOn": {
+    "other": "最近复核："
+  },
+  "rssWays": {
+    "other": "RSS 关注方式"
+  },
+  "inoreader": {
+    "other": "用 Inoreader 关注"
+  },
+  "feedly": {
+    "other": "用 Feedly 关注"
+  },
+  "addReader": {
+    "other": "打开阅读器并添加本站"
+  },
+  "copyFeed": {
+    "other": "复制 RSS 地址"
+  },
+  "pasteReader": {
+    "other": "粘贴到任意 RSS 阅读器"
+  },
+  "rawFeed": {
+    "other": "查看原始 RSS"
+  },
+  "copiedFeed": {
+    "other": "已复制 RSS 地址"
+  },
+  "copyPrompt": {
+    "other": "复制下面的 RSS 地址"
+  },
+  "closeFollow": {
+    "other": "关闭关注窗口"
+  },
+  "followMantou": {
+    "other": "关注馒头"
+  },
+  "followLead": {
+    "other": "选择一种习惯的方式。以后发布新文章，你就能主动收到更新。"
+  },
+  "rssFollow": {
+    "other": "RSS 关注"
+  },
+  "rssOpen": {
+    "other": "RSS 是开放订阅：无需账号，也不会被平台算法隐藏。"
+  },
+  "emailAddress": {
+    "other": "邮箱地址"
+  },
+  "emailConfirmation": {
+    "other": "提交后请到邮箱确认。新文章由 follow.it 自动提醒，可随时退订。"
+  },
+  "emailPending": {
+    "other": "邮箱提醒正在开放中"
+  },
+  "emailPendingLead": {
+    "other": "现在可以先用下面的 RSS 关注；邮箱入口启用后，无需注册博客账号。"
+  },
+  "wantUpdates": {
+    "other": "想继续看到更新？"
+  },
+  "followNewPosts": {
+    "other": "关注后，新文章发布时就不会错过。"
+  },
+  "subscribeUpdates": {
+    "other": "订阅博客更新"
+  },
+  "subscribeLead": {
+    "other": "选择邮箱或 RSS。本站发布新文章后，你可以通过所选方式收到更新。"
+  },
+  "emailUpdates": {
+    "other": "邮箱提醒"
+  },
+  "emailLead": {
+    "other": "填写邮箱并完成确认后，新文章会由 follow.it 发送提醒；无需注册本站账号。"
+  },
+  "rssSubscription": {
+    "other": "RSS 订阅"
+  },
+  "rssLead": {
+    "other": "把本站 RSS 地址添加到你的阅读器；订阅由阅读器保存和更新。"
+  },
+  "deliveryPrivacy": {
+    "other": "发送方与取消方式"
+  },
+  "deliveryPrivacyLead": {
+    "other": "邮箱地址会提交给 follow.it，用于确认订阅和发送更新；其免费方案可能附带品牌或推荐内容。邮件可通过邮件内入口退订，RSS 可从阅读器中移除。"
+  },
+  "weightTitle": {
+    "other": "29 周体重变化"
+  },
+  "weightIntro": {
+    "other": "从 86.5kg 到 70.0kg，一次真实执行与持续修正的记录。"
+  },
+  "resultsSummary": {
+    "other": "阶段结果摘要"
+  },
+  "duration": {
+    "other": "周期"
+  },
+  "weeks": {
+    "other": "周"
+  },
+  "weight": {
+    "other": "体重"
+  },
+  "bodyComposition": {
+    "other": "阶段身体成分"
+  },
+  "bodyFat": {
+    "other": "体脂"
+  },
+  "skeletalMuscle": {
+    "other": "骨骼肌"
+  },
+  "milestones": {
+    "other": "关键调整节点"
+  },
+  "weightCaption": {
+    "other": "体重并没有一路下降。更重要的是，在平台、波动和生活干扰出现后，系统仍然继续运行，并逐步修正。W26（8/29）没有记录，图中明确保留缺口。"
+  },
+  "weightChartAlt": {
+    "other": "29周体重变化，从86.5公斤到70公斤，W26未记录"
+  },
+  "notRecorded": {
+    "other": "未记录"
+  },
+  "march": {
+    "other": "3月"
+  },
+  "may": {
+    "other": "5月"
+  },
+  "july": {
+    "other": "7月"
+  },
+  "august": {
+    "other": "8月"
+  },
+  "september": {
+    "other": "9月"
+  },
+  "searchPlaceholder": {
+    "other": "搜索文章…"
+  },
+  "searchLabel": {
+    "other": "搜索本站"
+  },
+  "videoTitle": {
+    "other": "文章视频"
+  },
+  "videoUnsupported": {
+    "other": "您的浏览器不支持 HTML5 视频。"
+  },
+  "downloadVideo": {
+    "other": "直接下载观看"
+  },
+  "readingPractice": {
+    "other": "阅读与实践"
+  },
+  "translationUnavailable": {
+    "other": "这篇内容暂时没有英文译文。"
+  },
+  "pendingTranslation": {
+    "other": "待译"
+  },
+  "translationStale": {
+    "other": "中文原文已更新，译文尚未同步。"
+  }
+}

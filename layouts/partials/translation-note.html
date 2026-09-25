@@ -1,0 +1,12 @@
+{{- if eq .Language.Lang "en" -}}
+{{- with .Params.translation_status -}}
+<p class="translation-note" data-pagefind-ignore>
+  {{ range $.Translations }}{{ if eq .Language.Lang "zh-cn" }}
+    {{ $source := readFile (printf "content/%s" .File.Path) | replaceRE "\r\n" "\n" }}
+    {{ if ne (sha256 $source) $.Params.translation_source_hash }}<strong>{{ T "translationStale" }}</strong><br>{{ end }}
+  {{ end }}{{ end }}
+  {{ if eq . "machine" }}{{ T "machineTranslation" }}{{ else }}{{ T "translatedFromChinese" }}{{ end }}
+  {{ range $.Translations }}{{ if eq .Language.Lang "zh-cn" }}<a href="{{ .Permalink }}" lang="zh-cn">{{ T "readOriginal" }}</a>{{ end }}{{ end }}
+</p>
+{{- end -}}
+{{- end -}}

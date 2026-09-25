@@ -72,6 +72,9 @@ jobs:
       - name: Validate post metadata and local images
         run: python scripts/validate_posts.py
 
+      - name: Validate translations and report pending updates
+        run: python scripts/validate_translations.py --allow-pending
+
       - name: Validate structured portfolio entries
         run: python scripts/validate_portfolio.py
 

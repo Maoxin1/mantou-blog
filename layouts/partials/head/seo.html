@@ -9,15 +9,8 @@
   {{- $title = printf "%s - %s" .Title .Site.Title -}}
 {{- end -}}
 {{- $canonicalURL := .Permalink -}}
-{{- if and .IsSection (eq .Section "posts") -}}
-  {{- $groups := .Pages.GroupByDate "2006" -}}
-  {{- $pageSize := .Site.Params.section.paginate | default .Site.Params.paginate -}}
-  {{- with .Paginate $groups $pageSize -}}
-    {{- if gt .PageNumber 1 -}}
-      {{- $canonicalURL = .URL | absURL -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
+{{- $pageNumber := partial "function/pagination-number.html" . -}}
+{{- if gt $pageNumber 1 -}}{{- $canonicalURL = printf "%spage/%d/" .Permalink $pageNumber -}}{{- end -}}
 
 {{- $pageImage := .Params.featuredimage | default .Params.featured_image | default .Params.image -}}
 {{- $imageResource := .Resources.GetMatch "featured-image-preview*" -}}
@@ -38,6 +31,7 @@
   {{- $openGraphType = "article" -}}
 {{- end -}}
 <meta property="og:type" content="{{ $openGraphType }}">
+<meta property="og:locale" content="{{ replace .Site.LanguageCode "-" "_" }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:title" content="{{ $title }}">
 {{- with $description }}
@@ -70,7 +64,7 @@
 {{- else if eq .Type "about" -}}
   {{- $schemaType = "AboutPage" -}}
 {{- end -}}
-{{- $schema := dict "@context" "https://schema.org" "@type" $schemaType "name" $title "url" $canonicalURL -}}
+{{- $schema := dict "@context" "https://schema.org" "@type" $schemaType "name" $title "url" $canonicalURL "inLanguage" .Site.LanguageCode -}}
 {{- with $description -}}
   {{- $schema = merge $schema (dict "description" .) -}}
 {{- end -}}

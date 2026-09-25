@@ -27,6 +27,9 @@ test('已访问作品断网可读，未访问路径显示离线说明', async ({
     await page.goto('/edge-case-never-cached/', { waitUntil: 'domcontentloaded' });
     await expect(page.getByRole('heading', { name: '🥯 当前处于离线状态' })).toBeVisible();
     await expect(page.getByText('已经浏览过的文章仍可从缓存中打开')).toBeVisible();
+    await page.goto('/en/edge-case-never-cached/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('h1')).toContainText('offline');
   } finally {
     await context.setOffline(false);
   }
@@ -38,6 +41,7 @@ test('所有后台入口和配置都不进入 PWA 缓存', async ({ page, contex
 
   const adminPaths = [
     '/admin/',
+    '/admin/analytics/',
     '/admin/config.yml?cache-boundary=1',
     '/admin/sveltia/',
     '/admin/sveltia/config.yml?cache-boundary=1',

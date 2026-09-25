@@ -21,11 +21,11 @@
     <h1 class="single-title" data-pagefind-meta="title">{{ .Title | emojify }}</h1>
     {{- with $params.subtitle }}<p class="single-subtitle">{{ . }}</p>{{ end -}}
 
-    <nav class="post-meta" aria-label="文章路径" data-pagefind-ignore>
+    <nav class="post-meta" aria-label="{{ T "articlePath" }}" data-pagefind-ignore>
       <div class="post-meta-line">
-        <a href="{{ .Site.Home.RelPermalink }}">首页</a>
+        <a href="{{ .Site.Home.RelPermalink }}">{{ T "home" }}</a>
         <span aria-hidden="true"> / </span>
-        <a href="{{ with .Site.GetPage "section" .Section }}{{ .RelPermalink }}{{ else }}/posts/{{ end }}">文章</a>
+        <a href="{{ with .Site.GetPage "section" .Section }}{{ .RelPermalink }}{{ else }}/posts/{{ end }}">{{ T "writing" }}</a>
         {{- with index .Params.categories 0 -}}
           {{- $category := partialCached "function/path.html" . . | printf "/categories/%v" | $.Site.GetPage -}}
           {{- with $category -}}
@@ -68,6 +68,7 @@
       </details>
     {{- end -}}
 
+    {{ partial "translation-note.html" . }}
     <div class="content" id="content">{{- dict "Content" .Content "Ruby" $params.ruby "Fraction" $params.fraction "Fontawesome" $params.fontawesome | partial "function/content.html" | safeHTML -}}</div>
     <div data-pagefind-ignore>
       {{- partial "follow-card.html" . -}}

@@ -1,0 +1,4 @@
+{{ define "title" }}{{ T "pageNotFound" }} - {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+<div class="page single"><h1>{{ T "pageNotFound" }}</h1><p>{{ T "pageNotFoundLead" }}</p><p><a href="{{ .Site.Home.RelPermalink }}">{{ T "home" }}</a> · <a href="{{ "/search/" | relLangURL }}">{{ T "search" }}</a></p></div>
+{{ end }}

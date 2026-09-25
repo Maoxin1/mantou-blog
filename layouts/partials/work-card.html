@@ -1,4 +1,4 @@
-{{- $typeLabels := dict "investment" "投资研究" "tools" "工具产品" "methodology" "方法论" "body" "身体实践" -}}
+{{- $typeLabels := dict "investment" (T "typeInvestment") "tools" (T "typeTools") "methodology" (T "typeMethodology") "body" (T "bodyPractice") -}}
 <article class="work-card work-card--editorial"{{ if .Params.featured }} data-featured-work{{ end }}>
     <a class="work-card__link" href="{{ .RelPermalink }}">
         <div class="work-card__meta">
@@ -7,6 +7,7 @@
         </div>
         <h3>{{ .Title }}</h3>
         <p class="work-card__story">{{ .Params.list_summary | default .Description }}</p>
-        <span class="work-card__action">读这件作品&nbsp;→</span>
+        <span class="work-card__action">{{ T "readWork" }}&nbsp;→</span>
     </a>
+    {{ with .Params.artifact_url }}<a class="work-direct-link" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }} ↗</a>{{ end }}
 </article>

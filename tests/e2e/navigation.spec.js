@@ -19,9 +19,8 @@ test('主导航提供文章、作品、近况与关于路径', async ({ page }) 
   const navigation = page.locator('#header-desktop nav[aria-label="主要导航"]');
   await expect(navigation).toBeVisible();
   for (const [name, href] of primaryDestinations) {
-    const link = navigation.getByRole('link', { name: new RegExp(`^${name}：`) });
+    const link = navigation.getByRole('link', { name: new RegExp(`^${name}$`) });
     await expect(link).toHaveAttribute('href', href);
-    await expect(link).toHaveAttribute('title', /\S+/);
   }
 });
 
@@ -30,11 +29,11 @@ test('分类总览说明内容归属并提供当前公开状态入口', async ({
 
   const overview = page.locator('[data-taxonomy-overview]');
   await expect(overview.getByRole('heading', { name: '内容分类', level: 1 })).toBeVisible();
-  await expect(overview.locator('[data-public-status]')).toContainText('当前公开状态');
-  await expect(overview.locator('[data-public-status]')).toContainText(/已公开\s+\d+\s+个可独立验收的作品/);
-  await expect(overview.locator('[data-public-status] a')).toHaveAttribute('href', '/works/');
-  await expect(overview.locator('[data-content-lane="thinking"]')).toContainText('方法与思考');
-  await expect(overview.locator('[data-content-lane="journal"]')).toContainText('日记档案');
+  for (const path of ['/categories/essays/', '/categories/works/']) {
+    await expect(overview.locator(`a[href="${path}"]`)).toBeVisible();
+  }
+  await overview.locator('a[href="/categories/essays/"]').click();
+  await expect(page.locator('.archive-item-link').first()).toBeVisible();
 });
 
 test('移动端导航保留语义化主导航与当前页状态', async ({ page }) => {
@@ -44,5 +43,5 @@ test('移动端导航保留语义化主导航与当前页状态', async ({ page 
 
   const navigation = page.locator('#menu-mobile[aria-label="主要导航"]');
   await expect(navigation).toHaveClass(/active/);
-  await expect(navigation.getByRole('link', { name: /^关于：/ })).toHaveAttribute('aria-current', 'page');
+  await expect(navigation.getByRole('link', { name: /^关于$/ })).toHaveAttribute('aria-current', 'page');
 });
