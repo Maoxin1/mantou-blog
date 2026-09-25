@@ -2,6 +2,7 @@
 title: "把四类重复判断整理成可安装的 Codex Agents"
 date: "2026-09-14"
 description: "把提示词优化、批判性思考、事实核验和投资研究整理成可安装、可验证、可维护的自定义 Agent 包。"
+list_summary: "四个 Agent 已发布并完成安装验证。真实任务里的效果仍需继续记录。"
 work_type: "methodology"
 stage: "v0.1.1 · 已发布"
 problem: "高频复杂任务长期依赖临时提示词，行为边界、证据标准和更新方式难以保持一致。"

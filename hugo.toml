@@ -40,7 +40,7 @@ buildFuture = false
       unsafe = true
 
 [params]
-  description = "用真实作品、证据和复盘，把时间转化为能力、资本与自主权。"
+  description = "mantou 的个人博客：日记、阅读、身体实践和自己做的小工具。"
 
 # 页面没有 featured image 时使用的稳定站点级分享图（约 1.91:1，适配常见社交卡片）。
 [params.seo]
@@ -89,28 +89,28 @@ buildFuture = false
 [params.cdn]
   data = ""
 
-# 顶部导航：结构化作品优先，历史长文和日记继续保留。
+# 顶部导航按主要访客任务组织。
 [menu]
   [[menu.main]]
-    identifier = "portfolio"
-    name = "作品集"
-    url = "/works/"
+    identifier = "articles"
+    name = "文章"
+    url = "/posts/"
     weight = 1
   [[menu.main]]
-    identifier = "thinking"
-    name = "方法与思考"
-    url = "/categories/works/"
+    identifier = "portfolio"
+    name = "作品"
+    url = "/works/"
     weight = 2
   [[menu.main]]
-    identifier = "journal"
-    name = "日记档案"
-    url = "/categories/essays/"
-    weight = 4
+    identifier = "now"
+    name = "近况"
+    url = "/now/"
+    weight = 3
   [[menu.main]]
     identifier = "about"
-    name = "关于与合作"
+    name = "关于"
     url = "/about/"
-    weight = 3
+    weight = 4
   [[menu.main]]
     identifier = "search"
     name = "搜索"

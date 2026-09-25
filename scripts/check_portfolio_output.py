@@ -51,8 +51,10 @@ def main() -> int:
             (
                 'data-portfolio-home',
                 'editorial-home__intro',
+                'data-home-latest',
+                'data-home-selected',
                 'data-home-featured-work',
-                'data-featured-work',
+                '/images/mantou-checklist-preview.png',
                 'data-analytics-loader',
                 'location.hostname',
                 'mantou-blog.pages.dev',
@@ -68,15 +70,14 @@ def main() -> int:
         require_href("homepage", pages["homepage"], "/works/", issues)
         require_href("homepage", pages["homepage"], "/works/body-sculpting/", issues)
         require_href("homepage", pages["homepage"], "/works/mantou-checklist-pwa/", issues)
-        require_href("homepage", pages["homepage"], "/works/codex-agents/", issues)
+        require_href("homepage", pages["homepage"], "/posts/", issues)
         require_href("homepage", pages["homepage"], "/about/", issues)
         require_href("homepage", pages["homepage"], "/now/", issues)
-        require_href("homepage", pages["homepage"], "/categories/essays/", issues)
     if "works index" in pages:
         require_text(
             "works index",
             pages["works index"],
-            ('data-works-index', 'body-sculpting', 'mantou-checklist-pwa', 'codex-agents'),
+            ('data-works-index', 'body-sculpting', 'mantou-checklist-pwa', 'codex-agents', '真实任务里的效果仍需继续记录'),
             issues,
         )
     if "PWA work" in pages:
@@ -87,6 +88,8 @@ def main() -> int:
                 'data-work-detail',
                 'data-case-map',
                 'data-verification-matrix',
+                'work-detail__toc',
+                'mantou-checklist-preview.png',
                 'https://mantou-checklist.pages.dev/editor',
                 'https://github.com/Maoxin1/mantou-checklist',
             ),

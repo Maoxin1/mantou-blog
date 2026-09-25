@@ -234,13 +234,23 @@ def main() -> int:
             issues.append(f"{label}: artifact_url must use HTTPS")
         if fields.get("source_url") and not URL_PATTERN.match(fields["source_url"]):
             issues.append(f"{label}: source_url must use HTTPS")
+        preview_image = fields.get("preview_image", "")
+        if preview_image:
+            static_root = (ROOT / "static").resolve()
+            preview_path = (static_root / preview_image.lstrip("/")).resolve()
+            if not preview_image.startswith("/") or not preview_path.is_relative_to(static_root):
+                issues.append(f"{label}: preview_image must be a root-relative local path")
+            elif not preview_path.is_file():
+                issues.append(f"{label}: preview_image does not exist: {preview_image}")
+            if not fields.get("preview_alt"):
+                issues.append(f"{label}: preview_image requires preview_alt")
         if not body:
             issues.append(f"{label}: published work body is empty")
         if fields.get("featured", "").lower() == "true":
             featured_count += 1
 
     if featured_count == 0:
-        issues.append("at least one portfolio entry must be featured on the homepage")
+        issues.append("at least one portfolio entry must be marked featured")
 
     if issues:
         print("Portfolio validation failed:\n")

@@ -1,66 +1,88 @@
 {{- define "content" -}}
+{{- $posts := where site.RegularPages "Section" "posts" -}}
 <div class="page portfolio-home editorial-home" data-portfolio-home>
     <header class="editorial-home__intro">
         <p class="editorial-home__overline">mantou 的博客</p>
-        <h1>我曾以为，<br>减脂就是继续少吃。<br><span>直到身体开始报错。</span></h1>
-        <p class="editorial-home__lead">半年里，我从 86.5kg 减到 70.0kg，也发现了更难回答的问题：体重下降时，怎样知道自己没有把身体弄得更糟？</p>
+        <h1>你好，我是 mantou。</h1>
+        <p class="editorial-home__lead">我在这里写日记，记读书时的想法，也记录身体实践和自己做的小工具。下面是最近发表的文章；第一次来，可以再看看我选出的三篇。</p>
         <div class="editorial-home__links">
-            <a class="editorial-home__primary-link" href="/works/body-sculpting/">读这段经历 <span aria-hidden="true">↗</span></a>
-            <a href="/works/">浏览全部作品 <span aria-hidden="true">→</span></a>
+            <a class="editorial-home__primary-link" href="#latest">读最近的文章 <span aria-hidden="true">↓</span></a>
+            <a href="/works/">看做出来的东西 <span aria-hidden="true">→</span></a>
         </div>
     </header>
 
-    <section class="editorial-home__feature" aria-labelledby="feature-title">
-        <div class="editorial-home__feature-note">
-            <span>01 / 身体实践</span>
-            <p>29 周记录<br>86.5 → 70.0 kg</p>
+    <section class="editorial-home__latest" id="latest" aria-labelledby="latest-title" data-home-latest>
+        <div class="editorial-home__section-heading">
+            <h2 id="latest-title">最近更新</h2>
+            <p>按发表时间排列。</p>
         </div>
-        <div>
-            <h2 id="feature-title">后来我把食物加了回来。</h2>
-            <p>六月，我发现力量在下降；七月的一次眩晕，让我停下来检查自己正在执行的规则。这个作品记录了我如何从一味追求更轻，改为关注训练表现、恢复和长期状态。</p>
-            <a href="/works/body-sculpting/">看完整记录、体重曲线与限制 <span aria-hidden="true">→</span></a>
+        <ol class="editorial-home__latest-list">
+            {{- range first 5 $posts.ByDate.Reverse -}}
+            <li>
+                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+                <div>
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+                </div>
+            </li>
+            {{- end -}}
+        </ol>
+        <a class="editorial-home__all-work" href="/posts/">进入全部文章 →</a>
+    </section>
+
+    <section class="editorial-home__selected" aria-labelledby="selected-title" data-home-selected>
+        <div class="editorial-home__section-heading">
+            <h2 id="selected-title">第一次来，可以从这里读起</h2>
+            <p>生活记录、身体实践和思考文章，各有不同的写法。</p>
+        </div>
+        <div class="editorial-home__selected-list">
+            {{- range site.Data.home.selected -}}
+                {{- $item := . -}}
+                {{- with site.GetPage $item.page -}}
+                <article>
+                    <span>{{ $item.label }}</span>
+                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+                    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+                </article>
+                {{- else -}}
+                    {{ errorf "Homepage selection missing: %s" $item.page }}
+                {{- end -}}
+            {{- end -}}
         </div>
     </section>
 
-    <section class="editorial-home__work" data-home-featured-work aria-labelledby="more-work-title">
-        <div class="editorial-home__section-heading">
-            <h2 id="more-work-title">另外两件做出来的事</h2>
-            <p>一件可以直接使用，一件可以安装和检查。</p>
+    {{- with site.GetPage "/works/mantou-checklist-pwa" -}}
+    {{- $work := . -}}
+    <section class="editorial-home__tool" aria-labelledby="tool-title" data-home-featured-work>
+        <div>
+            <p class="editorial-home__overline">做出来的工具</p>
+            <h2 id="tool-title">{{ .Title }}</h2>
+            <p>{{ .Description }}</p>
+            <div class="editorial-home__work-links">
+                {{ with .Params.artifact_url }}<a href="{{ . }}" target="_blank" rel="noopener">打开工具 ↗</a>{{ end }}
+                <a href="{{ .RelPermalink }}">读制作记录 →</a>
+                <a href="/works/">看全部作品 →</a>
+            </div>
         </div>
-        <article class="editorial-home__work-item" data-featured-work>
-            <div class="editorial-home__work-index">02 / 手机工具</div>
-            <div>
-                <h3>把每天的记录，收进一个手机工具</h3>
-                <p>它能安装、离线填写并导出图片。第一次在真实手机上断网启动却失败了；修复启动路径后，我又发现输入太多字段会抢走注意力，于是把每天要填的内容减到三项。</p>
-                <div class="editorial-home__work-links">
-                    <a href="https://mantou-checklist.pages.dev/editor" target="_blank" rel="noopener">打开工具 ↗</a>
-                    <a href="/works/mantou-checklist-pwa/">看失败与迭代记录 →</a>
-                </div>
-            </div>
-        </article>
-        <article class="editorial-home__work-item">
-            <div class="editorial-home__work-index">03 / AI 工作流</div>
-            <div>
-                <h3>把四类反复发生的判断，做成可安装的 Agents</h3>
-                <p>提示词优化、批判性思考、事实核验和投资研究各有边界。v0.1.1 已发布并完成安装验证；真实任务里的表现还需要继续记录。</p>
-                <div class="editorial-home__work-links">
-                    <a href="/works/codex-agents/">看作品与验证范围 →</a>
-                </div>
-            </div>
-        </article>
-        <a class="editorial-home__all-work" href="/works/">查看全部作品 →</a>
+        {{ with .Params.preview_image }}
+        <figure>
+            <img src="{{ . }}" alt="{{ $work.Params.preview_alt }}" width="388" height="624" loading="lazy" decoding="async">
+            <figcaption>2026 年 9 月的公开界面</figcaption>
+        </figure>
+        {{ end }}
     </section>
+    {{- end -}}
 
     <nav class="editorial-home__closing" aria-label="继续阅读">
         <div>
             <span>最近在做</span>
-            <p>投资筛选、作息重构，以及让这个博客带回真实反馈。</p>
+            <p>正在推进的事情和当前判断，放在近况页。</p>
             <a href="/now/">看当前进展 →</a>
         </div>
         <div>
-            <span>继续读</span>
-            <p>日记留下过程中的想法；作品记录已经做完并能核对的部分。</p>
-            <a href="/categories/essays/">进入日记档案 →</a>
+            <span>认识我</span>
+            <p>关于写作、作品和交流方式。</p>
+            <a href="/about/">读关于页 →</a>
         </div>
         <div>
             <span>收到更新</span>
