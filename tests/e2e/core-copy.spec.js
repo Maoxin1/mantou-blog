@@ -6,15 +6,15 @@ async function open(page, path) {
   expect(response.status(), `${path} should load successfully`).toBeLessThan(400);
 }
 
-test('首页用三件具体作品引导阅读', async ({ page }) => {
+test('首页同时呈现最近更新、精选文章和实际工具', async ({ page }) => {
   await open(page, '/');
 
   const home = page.locator('[data-portfolio-home]');
-  await expect(home.getByRole('heading', { level: 1 })).toContainText('直到身体开始报错');
-  await expect(home).toContainText('后来我把食物加了回来');
-  await expect(home).toContainText('第一次在真实手机上断网启动却失败了');
-  await expect(home).toContainText('真实任务里的表现还需要继续记录');
-  await expect(home.getByRole('link', { name: /读这段经历/ })).toHaveAttribute('href', '/works/body-sculpting/');
+  await expect(home.getByRole('heading', { level: 1 })).toContainText('你好，我是 mantou');
+  await expect(home.locator('[data-home-latest] li')).toHaveCount(5);
+  await expect(home.locator('[data-home-selected]')).toContainText('友谊万岁：我的感动日记！');
+  await expect(home.locator('[data-home-selected] a[href="/works/body-sculpting/"]')).toBeVisible();
+  await expect(home.locator('[data-home-featured-work] img')).toBeVisible();
   await expect(home.getByRole('link', { name: /打开工具/ })).toHaveAttribute('href', 'https://mantou-checklist.pages.dev/editor');
   await expect(home.getByRole('link', { name: /看当前进展/ })).toHaveAttribute('href', '/now/');
 });
@@ -39,13 +39,13 @@ test('当前下注清单说明验证问题、检查点与人工复核时间', as
   }
 });
 
-test('作品集用各自的转折引导读者进入公开案例', async ({ page }) => {
+test('作品集使用作品自身摘要引导读者进入公开案例', async ({ page }) => {
   await open(page, '/works/');
 
   const index = page.locator('[data-works-index]');
-  await expect(index).toContainText('一次眩晕之后');
-  await expect(index).toContainText('第一次在真实手机上断网启动');
-  await expect(index).toContainText('真实任务中的效果仍需继续观察');
+  await expect(index).toContainText('七月的一次眩晕');
+  await expect(index).toContainText('真实手机断网启动失败后');
+  await expect(index).toContainText('真实任务里的效果仍需继续记录');
 
   const firstCase = index.locator('.work-card__link').first();
   await expect(firstCase).toHaveAttribute('href', /\/works\/[^/]+\/$/);
@@ -58,7 +58,7 @@ test('关于页区分实践范围、公开证据和联系前提', async ({ page 
   await open(page, '/about/');
 
   const about = page.locator('[data-about-collaboration]');
-  await expect(about.getByRole('heading', { level: 1 })).toContainText('我是 mantou');
+  await expect(about.getByRole('heading', { level: 1 })).toContainText('关于 mantou');
   await expect(about).toContainText('已有公开 PWA 案例可供核对');
   await expect(about).toContainText('当前证据以公开个人作品为主');
   await about.locator('.about-principles-detail summary').click();

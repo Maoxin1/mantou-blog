@@ -6,18 +6,7 @@
             <span>{{ .Params.stage }}</span>
         </div>
         <h3>{{ .Title }}</h3>
-        {{- if eq .Params.work_type "body" -}}
-            <p class="work-card__story">体重下降得很快，力量却没有跟上。一次眩晕之后，我开始问自己：是不是已经太苛刻了？</p>
-            <p class="work-card__detail">29 周的体重记录，以及怎样把饮食、训练和恢复重新排进生活。</p>
-        {{- else if eq .Params.work_type "tools" -}}
-            <p class="work-card__story">第一次在真实手机上断网启动，应用失败了。</p>
-            <p class="work-card__detail">修复离线路径后，持续使用又暴露出另一个问题：要填的东西太多。V2 把每日输入减到三项。</p>
-        {{- else if eq .Params.work_type "methodology" -}}
-            <p class="work-card__story">四类反复出现的判断，各自需要清楚的职责和边界。</p>
-            <p class="work-card__detail">四个 Agent 已发布并通过安装验证；真实任务中的效果仍需继续观察。</p>
-        {{- else -}}
-            <p class="work-card__story">{{ .Description }}</p>
-        {{- end -}}
+        <p class="work-card__story">{{ .Params.list_summary | default .Description }}</p>
         <span class="work-card__action">读这件作品&nbsp;→</span>
     </a>
 </article>

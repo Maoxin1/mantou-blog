@@ -1,10 +1,10 @@
 const { test, expect } = require('@playwright/test');
 
 const primaryDestinations = [
-  ['作品集', '/works/'],
-  ['方法与思考', '/categories/works/'],
-  ['关于与合作', '/about/'],
-  ['日记档案', '/categories/essays/'],
+  ['文章', '/posts/'],
+  ['作品', '/works/'],
+  ['近况', '/now/'],
+  ['关于', '/about/'],
 ];
 
 async function open(page, path) {
@@ -13,7 +13,7 @@ async function open(page, path) {
   expect(response.status(), `${path} should load successfully`).toBeLessThan(400);
 }
 
-test('主导航清楚区分作品、方法、日记与合作路径', async ({ page }) => {
+test('主导航提供文章、作品、近况与关于路径', async ({ page }) => {
   await open(page, '/');
 
   const navigation = page.locator('#header-desktop nav[aria-label="主要导航"]');
@@ -44,5 +44,5 @@ test('移动端导航保留语义化主导航与当前页状态', async ({ page 
 
   const navigation = page.locator('#menu-mobile[aria-label="主要导航"]');
   await expect(navigation).toHaveClass(/active/);
-  await expect(navigation.getByRole('link', { name: /^关于与合作：/ })).toHaveAttribute('aria-current', 'page');
+  await expect(navigation.getByRole('link', { name: /^关于：/ })).toHaveAttribute('aria-current', 'page');
 });

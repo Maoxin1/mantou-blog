@@ -24,17 +24,19 @@ async function publishedWorkRoutes(page) {
   return [...new Set(links)];
 }
 
-test('访客能从首页进入作品证据与工作原则', async ({ page }) => {
+test('访客能从首页进入工具、目录与证据', async ({ page }) => {
   await open(page, '/');
 
   await expect(page.locator('[data-portfolio-home]')).toBeVisible();
-  await expect(page.getByRole('heading', { name: /直到身体开始报错/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: '你好，我是 mantou。' })).toBeVisible();
   await expect(page.locator('[data-proof-strip]')).toHaveCount(0);
 
-  await page.getByRole('link', { name: /看失败与迭代记录/ }).click();
+  await page.getByRole('link', { name: /读制作记录/ }).click();
   await expect(page).toHaveURL(/\/works\/mantou-checklist-pwa\/$/);
   await expect(page.locator('[data-work-detail]')).toBeVisible();
   await expect(page.locator('[data-case-map]')).toBeVisible();
+  await expect(page.locator('.work-detail__toc')).toBeVisible();
+  await expect(page.locator('.work-detail__preview img')).toBeVisible();
   await expect(page.locator('[data-verification-matrix]')).toContainText('先失败，修复后通过');
   await page.getByRole('link', { name: /核对结果与限制/ }).click();
   await expect(page).toHaveURL(/#evidence$/);
@@ -42,7 +44,7 @@ test('访客能从首页进入作品证据与工作原则', async ({ page }) => 
 
   await open(page, '/about/');
   await expect(page.locator('[data-about-collaboration]')).toBeVisible();
-  await expect(page.getByRole('heading', { name: '工作原则', level: 2 })).toBeVisible();
+  await expect(page.getByRole('heading', { name: '写作和作品', level: 2 })).toBeVisible();
 });
 
 
@@ -54,6 +56,11 @@ test('身体作品展示真实阶段证据与缺失周', async ({ page }) => {
   await expect(page.locator('[data-body-evidence]')).toBeVisible();
   await expect(page.locator('[data-body-evidence]')).toContainText('29 周体重变化');
   await expect(page.locator('[data-body-evidence]')).toContainText('W26（8/29）没有记录');
+  await expect(page.locator('.work-detail__toc')).toBeVisible();
+  const chartBeforeStory = await page.locator('[data-work-detail]').evaluate((article) => (
+    Boolean(article.querySelector('[data-body-evidence]').compareDocumentPosition(article.querySelector('#content')) & Node.DOCUMENT_POSITION_FOLLOWING)
+  ));
+  expect(chartBeforeStory).toBe(true);
 
   const chart = page.locator('.body-weight-chart__canvas svg');
   await expect(chart).toBeVisible();

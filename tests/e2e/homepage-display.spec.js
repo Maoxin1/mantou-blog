@@ -6,19 +6,21 @@ async function openHome(page) {
   expect(response.status()).toBeLessThan(400);
 }
 
-test('首页首屏从具体经历进入作品', async ({ page }) => {
+test('首页首屏能进入最近文章，并保留跨类型精选', async ({ page }) => {
   await page.setViewportSize({ width: 1366, height: 900 });
   await openHome(page);
 
-  await expect(page.getByRole('heading', { name: /直到身体开始报错/ })).toBeVisible();
-  const storyLink = page.getByRole('link', { name: /读这段经历/ });
-  await expect(storyLink).toHaveAttribute('href', '/works/body-sculpting/');
-  const storyBox = await storyLink.boundingBox();
-  expect(storyBox).not.toBeNull();
-  expect(storyBox.y).toBeLessThan(900);
-  await expect(page.locator('[data-home-featured-work] .editorial-home__work-item')).toHaveCount(2);
+  await expect(page.getByRole('heading', { name: '你好，我是 mantou。' })).toBeVisible();
+  const recentLink = page.getByRole('link', { name: /读最近的文章/ });
+  await expect(recentLink).toHaveAttribute('href', '#latest');
+  const recentBox = await recentLink.boundingBox();
+  expect(recentBox).not.toBeNull();
+  expect(recentBox.y).toBeLessThan(900);
+  await expect(page.locator('[data-home-latest] li')).toHaveCount(5);
+  await expect(page.locator('[data-home-selected] article')).toHaveCount(3);
+  await expect(page.locator('[data-home-featured-work] img')).toHaveAttribute('src', '/images/mantou-checklist-preview.png');
 
-  await page.getByRole('link', { name: /浏览全部作品/ }).click();
+  await page.getByRole('link', { name: /看做出来的东西/ }).click();
   await expect(page).toHaveURL(/\/works\/$/);
   await expect(page.locator('[data-works-index]')).toBeVisible();
 });
@@ -34,17 +36,16 @@ test('移动首页没有横向溢出，主要阅读入口满足基本触控尺�
   expect(overflow).toBeLessThanOrEqual(1);
 
   for (const locator of [
-    page.getByRole('link', { name: /读这段经历/ }),
-    page.getByRole('link', { name: /浏览全部作品/ }),
-    page.getByRole('link', { name: /看完整记录、体重曲线与限制/ }),
+    page.getByRole('link', { name: /读最近的文章/ }),
+    page.getByRole('link', { name: /看做出来的东西/ }),
+    page.getByRole('link', { name: /进入全部文章/ }),
   ]) {
     const box = await locator.boundingBox();
     expect(box).not.toBeNull();
     expect(box.height).toBeGreaterThanOrEqual(44);
   }
 
-  const workLink = page.getByRole('link', { name: /读这段经历/ });
-  const destination = await workLink.getAttribute('href');
-  await workLink.click();
-  await expect(page).toHaveURL(new RegExp(`${destination.replace(/\//g, '\\/')}$`));
+  await page.getByRole('link', { name: /读最近的文章/ }).click();
+  await expect(page).toHaveURL(/#latest$/);
+  await expect(page.getByRole('heading', { name: '最近更新' })).toBeInViewport();
 });

@@ -21,6 +21,25 @@
         </div>
     </header>
 
+    {{- with .TableOfContents -}}
+    <div class="work-detail__toc">
+        <p>这篇记录</p>
+        {{ replace . "id=\"TableOfContents\"" "id=\"work-contents\" aria-label=\"本篇目录\"" | safeHTML }}
+        <a href="#evidence">结果、证据与限制</a>
+    </div>
+    {{- end -}}
+
+    {{- if and (eq .Params.work_type "body") .Params.weight_evidence -}}
+        {{- partial "work-body-evidence.html" . -}}
+    {{- end -}}
+
+    {{- with .Params.preview_image -}}
+    <figure class="work-detail__preview">
+        <img src="{{ . }}" alt="{{ $.Params.preview_alt }}" width="388" height="624" loading="lazy" decoding="async">
+        <figcaption>2026 年 9 月的公开界面</figcaption>
+    </figure>
+    {{- end -}}
+
     <div class="content" id="content">
         {{ .Content }}
     </div>
@@ -30,10 +49,6 @@
             <h2 id="work-audit-title">结果、证据与限制</h2>
             <p>正文记录了过程；这里集中放可以核对的结果和仍未解决的部分。</p>
         </header>
-
-        {{- if and (eq .Params.work_type "body") .Params.weight_evidence -}}
-            {{- partial "work-body-evidence.html" . -}}
-        {{- end -}}
 
         <div class="evidence-panel" aria-label="作品验收摘要">
             <div>
