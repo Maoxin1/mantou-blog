@@ -1,108 +1,72 @@
 {{- define "content" -}}
-{{- $works := where .Site.RegularPages "Section" "works" -}}
-{{- $featured := where $works "Params.featured" true -}}
-{{- $displayWorks := $featured -}}
-{{- if eq (len $displayWorks) 0 -}}
-    {{- $displayWorks = $works -}}
-{{- end -}}
-<div class="page portfolio-home" data-portfolio-home>
-    <section class="portfolio-hero">
-        <p class="portfolio-hero__kicker">MANTOU · PERSONAL PORTFOLIO</p>
-        <h1>我是 mantou，<br><span>这里公开作品、验证过程与复盘。</span></h1>
-        <p class="portfolio-hero__lead">我围绕个人系统、主动投资、轻量工具与 AI 协作开展真实实验，并公开问题、验证过程、结果和限制。</p>
-        <div class="portfolio-hero__actions">
-            <a class="portfolio-button portfolio-button--primary" href="/works/">查看已公开作品</a>
-            <a class="portfolio-button portfolio-button--secondary" href="/now/">当前在做什么</a>
-            <a class="portfolio-button portfolio-button--secondary" href="/about/">查看工作原则与合作范围</a>
-            <a class="portfolio-button portfolio-button--secondary" href="/follow/" data-follow-open>订阅后续更新</a>
+<div class="page portfolio-home editorial-home" data-portfolio-home>
+    <header class="editorial-home__intro">
+        <p class="editorial-home__overline">mantou 的博客</p>
+        <h1>我曾以为，<br>减脂就是继续少吃。<br><span>直到身体开始报错。</span></h1>
+        <p class="editorial-home__lead">半年里，我从 86.5kg 减到 70.0kg，也发现了更难回答的问题：体重下降时，怎样知道自己没有把身体弄得更糟？</p>
+        <div class="editorial-home__links">
+            <a class="editorial-home__primary-link" href="/works/body-sculpting/">读这段经历 <span aria-hidden="true">↗</span></a>
+            <a href="/works/">浏览全部作品 <span aria-hidden="true">→</span></a>
         </div>
-    </section>
+    </header>
 
-    <section class="portfolio-status" data-portfolio-status aria-label="当前公开进度">
-        <span>CURRENT PUBLIC RECORD</span>
-        <strong class="portfolio-status__count">{{ len $works }}</strong>
-        <p>目前公开 {{ len $works }} 个可独立验收的作品；案例保留测试结果、失败记录与已知限制。</p>
-        <a href="/works/">核对作品与证据&nbsp;→</a>
-    </section>
-
-    <section class="portfolio-section portfolio-section--featured">
-        <div class="portfolio-section__heading portfolio-section__heading--inline">
-            <div>
-                <p class="section-kicker">SELECTED WORK</p>
-                <h2>先看已完成的结果</h2>
-            </div>
-            <a href="/works/">查看全部&nbsp;→</a>
+    <section class="editorial-home__feature" aria-labelledby="feature-title">
+        <div class="editorial-home__feature-note">
+            <span>01 / 身体实践</span>
+            <p>29 周记录<br>86.5 → 70.0 kg</p>
         </div>
-        <div class="work-grid" data-home-featured-work>
-            {{- range first 3 $displayWorks.ByDate.Reverse -}}
-                {{- partial "work-card.html" . -}}
-            {{- end -}}
-        </div>
-    </section>
-
-    <section class="method-compact" data-work-method-compact aria-label="作品形成方法">
-        <span>WORK PROCESS</span>
-        <ol>
-            <li>定义问题</li>
-            <li>完成产出</li>
-            <li>真实验证</li>
-            <li>复盘调整</li>
-        </ol>
-        <a href="/about/">查看完整工作原则&nbsp;→</a>
-    </section>
-
-    <section class="portfolio-section" id="directions">
-        <div class="portfolio-section__heading">
-            <div>
-                <p class="section-kicker">PRACTICE DIRECTIONS</p>
-                <h2>长期实践的四个方向</h2>
-            </div>
-            <div class="portfolio-section__context">
-                <p>这些是长期持续实践的范围，不等于当前下注，也不等于已经验证的能力；完成阶段验收后才会进入作品集。</p>
-                <a href="/now/">当前在做什么&nbsp;→</a>
-            </div>
-        </div>
-        <div class="direction-grid">
-            <article>
-                <span>01</span>
-                <h3>主动投资系统</h3>
-                <p>记录研究、决策与归因过程，复盘结果来自判断、市场还是运气。</p>
-            </article>
-            <article>
-                <span>02</span>
-                <h3>工具与 AI 工作流</h3>
-                <p>把自己的具体需求做成能运行、能测试并按使用结果迭代的工具。</p>
-            </article>
-            <article>
-                <span>03</span>
-                <h3>表达与方法论</h3>
-                <p>把实践过程整理成别人能理解、检查和复用的文章或案例。</p>
-            </article>
-            <article>
-                <span>04</span>
-                <h3>身体与注意力</h3>
-                <p>通过睡眠、训练、饮食和认知实践，验证怎样长期维持稳定精力与高质量注意力。</p>
-            </article>
-        </div>
-    </section>
-
-    <section class="archive-callout">
         <div>
-            <p class="section-kicker">JOURNAL ARCHIVE</p>
-            <h2>日记记录过程，不等于作品。</h2>
-            <p>日记保留当时的想法和状态；作品集只收录完成阶段验收、能够说明证据与限制的结果。</p>
+            <h2 id="feature-title">后来我把食物加了回来。</h2>
+            <p>六月，我发现力量在下降；七月的一次眩晕，让我停下来检查自己正在执行的规则。这个作品记录了我如何从一味追求更轻，改为关注训练表现、恢复和长期状态。</p>
+            <a href="/works/body-sculpting/">看完整记录、体重曲线与限制 <span aria-hidden="true">→</span></a>
         </div>
-        <a class="portfolio-button portfolio-button--secondary" href="/categories/essays/">进入日记档案</a>
     </section>
 
-    <section class="collaboration-callout">
-        <p class="section-kicker">ABOUT · COLLABORATION</p>
-        <h2>带着具体问题来，再判断是否适合继续。</h2>
-        <p>关于页列出我的工作原则、目前适合交流的范围与能力边界；作品和源码可用于核对实际产出。</p>
-        <div class="portfolio-hero__actions">
-            <a class="portfolio-button portfolio-button--primary" href="/about/">关于与合作</a>
-            <a class="portfolio-button portfolio-button--secondary" href="https://github.com/Maoxin1" target="_blank" rel="noopener">GitHub</a>
+    <section class="editorial-home__work" data-home-featured-work aria-labelledby="more-work-title">
+        <div class="editorial-home__section-heading">
+            <h2 id="more-work-title">另外两件做出来的事</h2>
+            <p>一件可以直接使用，一件可以安装和检查。</p>
         </div>
+        <article class="editorial-home__work-item" data-featured-work>
+            <div class="editorial-home__work-index">02 / 手机工具</div>
+            <div>
+                <h3>把每天的记录，收进一个手机工具</h3>
+                <p>它能安装、离线填写并导出图片。第一次在真实手机上断网启动却失败了；修复启动路径后，我又发现输入太多字段会抢走注意力，于是把每天要填的内容减到三项。</p>
+                <div class="editorial-home__work-links">
+                    <a href="https://mantou-checklist.pages.dev/editor" target="_blank" rel="noopener">打开工具 ↗</a>
+                    <a href="/works/mantou-checklist-pwa/">看失败与迭代记录 →</a>
+                </div>
+            </div>
+        </article>
+        <article class="editorial-home__work-item">
+            <div class="editorial-home__work-index">03 / AI 工作流</div>
+            <div>
+                <h3>把四类反复发生的判断，做成可安装的 Agents</h3>
+                <p>提示词优化、批判性思考、事实核验和投资研究各有边界。v0.1.1 已发布并完成安装验证；真实任务里的表现还需要继续记录。</p>
+                <div class="editorial-home__work-links">
+                    <a href="/works/codex-agents/">看作品与验证范围 →</a>
+                </div>
+            </div>
+        </article>
+        <a class="editorial-home__all-work" href="/works/">查看全部作品 →</a>
     </section>
+
+    <nav class="editorial-home__closing" aria-label="继续阅读">
+        <div>
+            <span>最近在做</span>
+            <p>投资筛选、作息重构，以及让这个博客带回真实反馈。</p>
+            <a href="/now/">看当前进展 →</a>
+        </div>
+        <div>
+            <span>继续读</span>
+            <p>日记留下过程中的想法；作品记录已经做完并能核对的部分。</p>
+            <a href="/categories/essays/">进入日记档案 →</a>
+        </div>
+        <div>
+            <span>收到更新</span>
+            <p>有新文章时，可以通过邮件或 RSS 收到提醒。</p>
+            <a href="/follow/" data-follow-open>订阅后续更新 →</a>
+        </div>
+    </nav>
 </div>
 {{- end -}}

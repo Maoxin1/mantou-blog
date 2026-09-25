@@ -2203,3 +2203,229 @@ $portfolio-accent: #1f6b43;
   }
 }
 
+// 首页由具体作品决定阅读顺序；作品索引仍保留完整的验收结构。
+.editorial-home {
+  --editorial-ink: #17211b;
+  --editorial-muted: #5f6c64;
+  --editorial-line: #dce4dd;
+  --editorial-accent: #1f6b43;
+
+  color: var(--editorial-ink);
+
+  a {
+    color: var(--editorial-accent);
+    font-weight: 650;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+  }
+}
+
+.editorial-home__intro {
+  max-width: 61rem;
+  padding: clamp(4rem, 9vw, 8rem) 0 clamp(3.5rem, 7vw, 6rem);
+
+  h1 {
+    margin: 1rem 0 1.7rem;
+    font-size: clamp(2.8rem, 6.6vw, 5.25rem);
+    font-weight: 740;
+    letter-spacing: -0.055em;
+    line-height: 1.12;
+
+    span {
+      color: var(--editorial-accent);
+    }
+  }
+}
+
+.editorial-home__overline,
+.editorial-home__feature-note span,
+.editorial-home__work-index,
+.editorial-home__closing span {
+  margin: 0;
+  color: var(--editorial-accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+}
+
+.editorial-home__lead {
+  max-width: 41rem;
+  margin: 0;
+  color: var(--editorial-muted);
+  font-size: clamp(1.05rem, 1.7vw, 1.23rem);
+  line-height: 1.8;
+}
+
+.editorial-home__links,
+.editorial-home__work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  align-items: center;
+}
+
+.editorial-home__links {
+  margin-top: 2.4rem;
+
+  a {
+    display: inline-flex;
+    min-height: 2.9rem;
+    align-items: center;
+  }
+
+  .editorial-home__primary-link {
+    gap: 0.75rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 0.3rem;
+    background: var(--editorial-accent);
+    color: #fff;
+  }
+}
+
+.editorial-home__feature {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.75fr) minmax(0, 2.25fr);
+  gap: clamp(2rem, 7vw, 6rem);
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  border-top: 1px solid var(--editorial-line);
+  border-bottom: 1px solid var(--editorial-line);
+
+  h2 {
+    margin: -0.25rem 0 1rem;
+    font-size: clamp(1.85rem, 3.5vw, 2.8rem);
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+  }
+
+  > div > p {
+    max-width: 42rem;
+    color: var(--editorial-muted);
+    line-height: 1.8;
+  }
+}
+
+.editorial-home__feature-note p {
+  margin: 1.3rem 0 0;
+  color: var(--editorial-ink);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 680;
+  line-height: 1.5;
+}
+
+.editorial-home__work {
+  padding: clamp(4rem, 8vw, 7rem) 0 3.5rem;
+}
+
+.editorial-home__section-heading {
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+    letter-spacing: -0.035em;
+  }
+
+  p {
+    margin: 0.5rem 0 0;
+    color: var(--editorial-muted);
+  }
+}
+
+.editorial-home__work-item {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.75fr) minmax(0, 2.25fr);
+  gap: clamp(2rem, 7vw, 6rem);
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--editorial-line);
+
+  h3 {
+    margin: -0.2rem 0 0.8rem;
+    font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+    letter-spacing: -0.025em;
+    line-height: 1.35;
+  }
+
+  p {
+    max-width: 42rem;
+    margin: 0 0 1.1rem;
+    color: var(--editorial-muted);
+    line-height: 1.8;
+  }
+}
+
+.editorial-home__work-links a,
+.editorial-home__all-work,
+.editorial-home__closing a,
+.editorial-home__feature a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+}
+
+.editorial-home__all-work {
+  border-top: 1px solid var(--editorial-line);
+  width: 100%;
+}
+
+.editorial-home__closing {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  padding: 3rem 0 6rem;
+  border-top: 1px solid var(--editorial-line);
+
+  p {
+    max-width: 25rem;
+    margin: 0.7rem 0 0.6rem;
+    color: var(--editorial-muted);
+    line-height: 1.75;
+  }
+}
+
+[theme=dark] .editorial-home {
+  --editorial-ink: #edf3ef;
+  --editorial-muted: #acb9b0;
+  --editorial-line: #39463e;
+  --editorial-accent: #67d899;
+
+  .editorial-home__links .editorial-home__primary-link {
+    background: #1f6b43;
+    color: #fff;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .editorial-home__intro {
+    padding-top: 3.7rem;
+
+    h1 {
+      font-size: clamp(2.1rem, 8.5vw, 2.8rem);
+    }
+  }
+
+  .editorial-home__feature,
+  .editorial-home__work-item,
+  .editorial-home__closing {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .editorial-home__feature-note p {
+    margin-top: 0.35rem;
+    font-size: 0.95rem;
+  }
+
+  .editorial-home__work-item {
+    padding: 2rem 0;
+  }
+
+  .editorial-home__closing {
+    gap: 2.5rem;
+    padding-bottom: 4rem;
+  }
+}
+

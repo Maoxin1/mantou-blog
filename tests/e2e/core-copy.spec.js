@@ -6,18 +6,17 @@ async function open(page, path) {
   expect(response.status(), `${path} should load successfully`).toBeLessThan(400);
 }
 
-test('首页按身份、实践范围、证据和下一步组织核心信息', async ({ page }) => {
+test('首页用三件具体作品引导阅读', async ({ page }) => {
   await open(page, '/');
 
   const home = page.locator('[data-portfolio-home]');
-  await expect(home.getByRole('heading', { level: 1 })).toContainText('我是 mantou');
-  await expect(home).toContainText('个人系统、主动投资、轻量工具与 AI 协作');
-  await expect(page.locator('[data-portfolio-status]')).toContainText(/目前公开 \d+ 个可独立验收的作品/);
-  await expect(home.getByRole('link', { name: '查看已公开作品' })).toHaveAttribute('href', '/works/');
-  await expect(home.getByRole('link', { name: '查看工作原则与合作范围' })).toHaveAttribute('href', '/about/');
-  await expect(home.getByRole('link', { name: '订阅后续更新' })).toHaveAttribute('href', '/follow/');
-  await expect(home.getByRole('heading', { name: '长期实践的四个方向', level: 2 })).toBeVisible();
-  await expect(home.getByRole('link', { name: '当前在做什么', exact: true })).toHaveAttribute('href', '/now/');
+  await expect(home.getByRole('heading', { level: 1 })).toContainText('直到身体开始报错');
+  await expect(home).toContainText('后来我把食物加了回来');
+  await expect(home).toContainText('第一次在真实手机上断网启动却失败了');
+  await expect(home).toContainText('真实任务里的表现还需要继续记录');
+  await expect(home.getByRole('link', { name: /读这段经历/ })).toHaveAttribute('href', '/works/body-sculpting/');
+  await expect(home.getByRole('link', { name: /打开工具/ })).toHaveAttribute('href', 'https://mantou-checklist.pages.dev/editor');
+  await expect(home.getByRole('link', { name: /看当前进展/ })).toHaveAttribute('href', '/now/');
 });
 
 test('当前下注清单说明验证问题、检查点与人工复核时间', async ({ page }) => {

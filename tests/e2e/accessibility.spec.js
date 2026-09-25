@@ -101,7 +101,7 @@ test('减少动态效果偏好会降低交互动效', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await open(page, '/');
 
-  const transition = await page.locator('.portfolio-button').first().evaluate((element) => (
+  const transition = await page.locator('.editorial-home__primary-link').evaluate((element) => (
     getComputedStyle(element).transitionDuration
   ));
   expect(Number.parseFloat(transition)).toBeLessThanOrEqual(0.01);
@@ -115,7 +115,7 @@ test('深色作品页的按钮与标签保持 AA 对比度', async ({ page }) =>
     await expect(locator).toBeVisible();
     const colors = await locator.evaluate((element) => {
       const parse = (value) => value.match(/\d+/g).slice(0, 3).map(Number);
-      const backgroundElement = element.matches('.portfolio-button')
+      const backgroundElement = element.matches('.editorial-home__primary-link')
         ? element
         : element.closest('.work-card');
       return {
@@ -126,7 +126,7 @@ test('深色作品页的按钮与标签保持 AA 对比度', async ({ page }) =>
     expect(contrastRatio(colors.foreground, colors.background)).toBeGreaterThanOrEqual(4.5);
   };
 
-  await verifyContrast('/', '.portfolio-button--primary');
+  await verifyContrast('/', '.editorial-home__primary-link');
   await verifyContrast('/works/', '.work-card__summary span');
 });
 
