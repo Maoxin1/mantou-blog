@@ -24,7 +24,82 @@
         var loading = document.getElementById('cms-loading');
         var error = document.getElementById('cms-error');
 
+        var hooksRegistered = false;
+
+        function normalizeDate(value) {
+          if (!value) return '';
+
+          var raw = String(value);
+          var direct = raw.match(/^(\d{4}-\d{2}-\d{2})/);
+          if (direct) return direct[1];
+
+          var parsed = value instanceof Date ? value : new Date(value);
+          if (Number.isNaN(parsed.getTime())) return '';
+
+          var year = parsed.getFullYear();
+          var month = String(parsed.getMonth() + 1).padStart(2, '0');
+          var day = String(parsed.getDate()).padStart(2, '0');
+          return year + '-' + month + '-' + day;
+        }
+
+        function registerCMSHooks() {
+          if (
+            hooksRegistered ||
+            !window.CMS ||
+            typeof window.CMS.registerEventListener !== 'function'
+          ) {
+            return;
+          }
+
+          hooksRegistered = true;
+          window.CMS.registerEventListener({
+            name: 'preSave',
+            handler: function ({ entry }) {
+              var data = entry && entry.get('data');
+              if (!data) return data;
+
+              // Existing entries keep their historical aliases untouched.
+              // New posts get the predictable pre-shortlink URL automatically.
+              if (
+                entry.get('collection') !== 'posts' ||
+                entry.get('isModification')
+              ) {
+                return data;
+              }
+
+              var date = normalizeDate(data.get('date'));
+              var slug = String(data.get('slug') || '').trim();
+              if (
+                !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
+                !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)
+              ) {
+                return data;
+              }
+
+              var legacyAlias = '/posts/' + date + '-' + slug + '/';
+              var existing = data.get('aliases');
+              var aliases = [];
+
+              if (existing && typeof existing.toJS === 'function') {
+                aliases = existing.toJS();
+              } else if (Array.isArray(existing)) {
+                aliases = existing.slice();
+              } else if (typeof existing === 'string' && existing.trim()) {
+                aliases = [existing.trim()];
+              }
+
+              if (!Array.isArray(aliases)) aliases = [];
+              if (aliases.indexOf(legacyAlias) === -1) {
+                aliases.push(legacyAlias);
+              }
+
+              return data.set('aliases', aliases);
+            },
+          });
+        }
+
         function done() {
+          registerCMSHooks();
           if (loading) loading.style.display = 'none';
         }
 

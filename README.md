@@ -25,7 +25,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-其中 Python 脚本检查内容结构、CMS契约、投资隐私预检、生成结果与内部链接；Playwright 在真实 Chromium 中验证首页到案例的访客路径、全部公开作品、中文搜索、桌面/平板/手机布局、主题与移动导航、基础语义以及页面运行时错误。失败时会生成 `playwright-report/` 和 `test-results/`，这两个目录不提交到 Git。测试范围、参考来源和未移植项见 [`tests/README.md`](tests/README.md)，新功能先使用[`功能验收模板`](docs/feature-acceptance-template.md)定义主张与失败条件，并在[`边缘风险登记表`](docs/edge-case-register.md)记录仍未覆盖的风险。投资作品发布前还需完成[`人工检查单`](docs/investment-publication-checklist.md)。
+其中 Python 脚本检查内容结构、CMS契约、投资隐私预检、生成结果与内部链接；`validate_posts.py` 只依赖 Python 标准库，因此 CI 会优先运行它，让文章元数据、图片和旧链接 alias 错误在安装 Node、Hugo、Chromium 之前快速失败。Playwright 在真实 Chromium 中验证首页到案例的访客路径、全部公开作品、中文搜索、桌面/平板/手机布局、主题与移动导航、基础语义以及页面运行时错误。失败时会生成 `playwright-report/` 和 `test-results/`，这两个目录不提交到 Git。测试范围、参考来源和未移植项见 [`tests/README.md`](tests/README.md)，新功能先使用[`功能验收模板`](docs/feature-acceptance-template.md)定义主张与失败条件，并在[`边缘风险登记表`](docs/edge-case-register.md)记录仍未覆盖的风险。投资作品发布前还需完成[`人工检查单`](docs/investment-publication-checklist.md)。
 
 Cloudflare Pages 项目采用 Direct Upload，验证和部署是两条相互隔离的流水线：
 
@@ -42,7 +42,7 @@ Decap CMS稳定入口位于`/admin/`，Sveltia灰度入口位于`/admin/sveltia/
 
 图片推送到 `static/images/` 或文章包后，GitHub Actions 会用固定版本的 Pillow 压缩符合条件的 JPEG/PNG，并且只提交图片目录中的变化。
 
-文章中的 Markdown 图片必须提供有意义的替代文本；空图片地址和不存在的本地图片会在内容校验阶段阻止发布。
+文章中的 Markdown 图片必须提供有意义的替代文本；空图片地址和不存在的本地图片会在内容校验阶段阻止发布。通过默认 Decap `/admin/` 新建文章时，保存前会自动补上 `/posts/YYYY-MM-DD-slug/` 兼容地址；CI 仍会独立校验该 alias 以及构建后生成的重定向页面，避免把 CMS 自动化当成唯一防线。
 
 ## 仓库结构
 
