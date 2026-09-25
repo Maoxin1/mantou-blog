@@ -17,61 +17,63 @@
             {{ with .Params.source_url }}
                 <a class="portfolio-button portfolio-button--secondary" href="{{ . }}" target="_blank" rel="noopener">查看源码</a>
             {{ end }}
+            <a class="work-detail__evidence-link" href="#evidence">核对结果与限制&nbsp;↓</a>
         </div>
     </header>
-
-    <section class="case-map" data-case-map aria-label="案例决策地图">
-        <div>
-            <span>问题</span>
-            <p>{{ .Params.problem }}</p>
-        </div>
-        <div>
-            <span>假设</span>
-            <p>{{ .Params.hypothesis }}</p>
-        </div>
-        <div>
-            <span>约束</span>
-            <p>{{ .Params.constraints }}</p>
-        </div>
-        <div>
-            <span>关键决策</span>
-            <p>{{ .Params.decision }}</p>
-        </div>
-    </section>
-
-    <section class="evidence-panel" aria-label="作品验收摘要">
-        <div>
-            <span>阶段结果</span>
-            <p>{{ .Params.outcome }}</p>
-        </div>
-        <div>
-            <span>验证证据</span>
-            <p>{{ .Params.evidence }}</p>
-        </div>
-        <div>
-            <span>当前限制</span>
-            <p>{{ .Params.limitations }}</p>
-        </div>
-        <div>
-            <span>下一步判断</span>
-            <p>{{ .Params.next_step }}</p>
-        </div>
-    </section>
-
-    {{- if and (eq .Params.work_type "body") .Params.weight_evidence -}}
-        {{- partial "work-body-evidence.html" . -}}
-    {{- end -}}
-
-    {{- with .TableOfContents -}}
-    <aside class="case-toc" id="toc-static" data-kept="true" aria-label="案例目录">
-        <span>CASE MAP</span>
-        <div id="toc-content-static">{{ . }}</div>
-    </aside>
-    {{- end -}}
 
     <div class="content" id="content">
         {{ .Content }}
     </div>
+
+    <section class="work-detail__audit" id="evidence" aria-labelledby="work-audit-title">
+        <header class="work-detail__audit-heading">
+            <h2 id="work-audit-title">结果、证据与限制</h2>
+            <p>正文记录了过程；这里集中放可以核对的结果和仍未解决的部分。</p>
+        </header>
+
+        {{- if and (eq .Params.work_type "body") .Params.weight_evidence -}}
+            {{- partial "work-body-evidence.html" . -}}
+        {{- end -}}
+
+        <div class="evidence-panel" aria-label="作品验收摘要">
+            <div>
+                <span>阶段结果</span>
+                <p>{{ .Params.outcome }}</p>
+            </div>
+            <div>
+                <span>验证证据</span>
+                <p>{{ .Params.evidence }}</p>
+            </div>
+            <div>
+                <span>当前限制</span>
+                <p>{{ .Params.limitations }}</p>
+            </div>
+            <div>
+                <span>下一步判断</span>
+                <p>{{ .Params.next_step }}</p>
+            </div>
+        </div>
+
+        <h3 class="work-detail__audit-subhead">当时怎么判断</h3>
+        <div class="case-map" data-case-map aria-label="案例决策记录">
+            <div>
+                <span>问题</span>
+                <p>{{ .Params.problem }}</p>
+            </div>
+            <div>
+                <span>假设</span>
+                <p>{{ .Params.hypothesis }}</p>
+            </div>
+            <div>
+                <span>约束</span>
+                <p>{{ .Params.constraints }}</p>
+            </div>
+            <div>
+                <span>关键决策</span>
+                <p>{{ .Params.decision }}</p>
+            </div>
+        </div>
+    </section>
 
     {{- $followUps := .Params.follow_ups -}}
     {{- $reusedIn := .Params.reused_in -}}

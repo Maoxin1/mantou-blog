@@ -2,18 +2,13 @@
 
 {{- define "content" -}}
 <div class="page works-index" data-works-index>
-    <header class="section-intro">
-        <p class="section-kicker">VERIFIED WORK</p>
-        <h1>{{ .Title }}</h1>
-        <p>{{ .Description }}</p>
-        {{ with .Content }}<div class="section-intro__content">{{ . }}</div>{{ end }}
-        <div class="portfolio-standard">
-            <span>每个案例包含</span>
-            <p>问题与约束 · 阶段产出 · 验证证据 · 失败与限制 · 下一步判断</p>
-        </div>
+    <header class="works-index__intro">
+        <p class="works-index__eyebrow">做过的事</p>
+        <h1>作品集</h1>
+        <p>这里有身体实践、手机工具和 AI 工作流。每件作品都留下了成品或过程记录，也留下了当时没解决的问题。</p>
     </header>
 
-    <div class="work-grid">
+    <div class="work-grid works-index__list">
         {{- range .Pages.ByDate.Reverse -}}
             {{- partial "work-card.html" . -}}
         {{- end -}}

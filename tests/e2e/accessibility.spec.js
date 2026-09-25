@@ -117,7 +117,7 @@ test('深色作品页的按钮与标签保持 AA 对比度', async ({ page }) =>
       const parse = (value) => value.match(/\d+/g).slice(0, 3).map(Number);
       const backgroundElement = element.matches('.editorial-home__primary-link')
         ? element
-        : element.closest('.work-card');
+        : document.body;
       return {
         foreground: parse(getComputedStyle(element).color),
         background: parse(getComputedStyle(backgroundElement).backgroundColor),
@@ -127,7 +127,7 @@ test('深色作品页的按钮与标签保持 AA 对比度', async ({ page }) =>
   };
 
   await verifyContrast('/', '.editorial-home__primary-link');
-  await verifyContrast('/works/', '.work-card__summary span');
+  await verifyContrast('/works/', '.work-card__meta span');
 });
 
 test('首页主题切换使用语义化按钮，不输出 javascript 链接', async ({ page }) => {

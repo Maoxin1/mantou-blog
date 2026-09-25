@@ -39,12 +39,13 @@ test('当前下注清单说明验证问题、检查点与人工复核时间', as
   }
 });
 
-test('作品集说明收录标准并把证据承诺落到公开案例', async ({ page }) => {
+test('作品集用各自的转折引导读者进入公开案例', async ({ page }) => {
   await open(page, '/works/');
 
   const index = page.locator('[data-works-index]');
-  await expect(index).toContainText('只收录完成阶段验收');
-  await expect(index).toContainText('问题与约束 · 阶段产出 · 验证证据 · 失败与限制 · 下一步判断');
+  await expect(index).toContainText('一次眩晕之后');
+  await expect(index).toContainText('第一次在真实手机上断网启动');
+  await expect(index).toContainText('真实任务中的效果仍需继续观察');
 
   const firstCase = index.locator('.work-card__link').first();
   await expect(firstCase).toHaveAttribute('href', /\/works\/[^/]+\/$/);
@@ -60,6 +61,8 @@ test('关于页区分实践范围、公开证据和联系前提', async ({ page 
   await expect(about.getByRole('heading', { level: 1 })).toContainText('我是 mantou');
   await expect(about).toContainText('已有公开 PWA 案例可供核对');
   await expect(about).toContainText('当前证据以公开个人作品为主');
+  await about.locator('.about-principles-detail summary').click();
+  await expect(about).toContainText('从真实问题开始');
   await expect(about.getByRole('link', { name: '邮件说明你的问题' })).toHaveAttribute(
     'href',
     'mailto:2114206091@qq.com',

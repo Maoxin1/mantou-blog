@@ -36,6 +36,9 @@ test('访客能从首页进入作品证据与工作原则', async ({ page }) => 
   await expect(page.locator('[data-work-detail]')).toBeVisible();
   await expect(page.locator('[data-case-map]')).toBeVisible();
   await expect(page.locator('[data-verification-matrix]')).toContainText('先失败，修复后通过');
+  await page.getByRole('link', { name: /核对结果与限制/ }).click();
+  await expect(page).toHaveURL(/#evidence$/);
+  await expect(page.getByRole('heading', { name: '结果、证据与限制' })).toBeInViewport();
 
   await open(page, '/about/');
   await expect(page.locator('[data-about-collaboration]')).toBeVisible();
@@ -98,6 +101,10 @@ test('作品集中的每个公开作品都能完成浏览器验收', async ({ pa
       await expect(page.locator('[data-case-map]')).toBeVisible();
       await expect(page.locator('.evidence-panel')).toBeVisible();
       await expect(page.locator('h1')).toHaveCount(1);
+      const storyBeforeAudit = await page.locator('[data-work-detail]').evaluate((article) => (
+        Boolean(article.querySelector('#content').compareDocumentPosition(article.querySelector('#evidence')) & Node.DOCUMENT_POSITION_FOLLOWING)
+      ));
+      expect(storyBeforeAudit, `${route} should show its story before the audit summary`).toBe(true);
 
       const overflow = await page.evaluate(() => (
         Math.max(document.documentElement.scrollWidth, document.body.scrollWidth)
