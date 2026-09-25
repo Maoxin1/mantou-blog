@@ -2,35 +2,45 @@
 
 {{- define "content" -}}
 <div class="page about-collaboration" data-about-collaboration>
-    <header class="about-hero">
-        <p class="section-kicker">ABOUT · SCOPE · CONTACT</p>
-        <h1>我是 mantou。<br><span>这里说明我怎样做事，以及目前能讨论什么。</span></h1>
-        <p>{{ .Description }}</p>
+    <header class="about-hero about-hero--editorial">
+        <p class="section-kicker">关于 mantou</p>
+        <h1>我是 mantou。<br>现实改过我的作品。</h1>
+        <p>身体实践让我重新理解“自律”；一款手机工具让我发现本地测试漏掉了真实失败。我把这些过程写下来，也继续检验自己关于投资、工具和 AI 协作的判断。</p>
     </header>
 
-    <section class="about-section">
+    <section class="about-section about-section--editorial" aria-labelledby="about-principles-title">
         <div class="about-section__heading">
-            <p class="section-kicker">HOW I WORK</p>
-            <h2>工作原则</h2>
+            <h2 id="about-principles-title">工作原则，来自做错以后</h2>
+            <p>先把问题做具体，留住失败，再看结果是否足够支持下一步。</p>
         </div>
-        <div class="principle-grid">
-            {{- range $index, $principle := .Params.principles -}}
+        <div class="about-examples">
             <article>
-                <span>0{{ add $index 1 }}</span>
-                <h3>{{ $principle.title }}</h3>
-                <p>{{ $principle.text }}</p>
+                <span>身体实践</span>
+                <p>体重下降时，我曾继续压低饮食；力量下降和眩晕让我把恢复放回计划。</p>
+                <a href="/works/body-sculpting/">读 29 周的记录 →</a>
             </article>
-            {{- end -}}
+            <article>
+                <span>手机工具</span>
+                <p>自动化测试通过后，真实手机断网启动仍然失败。我修了路径，也改了测试环境。</p>
+                <a href="/works/mantou-checklist-pwa/">看失败与复验 →</a>
+            </article>
         </div>
+        <details class="about-principles-detail">
+            <summary>查看我现在用的四条工作原则</summary>
+            <ol>
+                {{- range .Params.principles -}}
+                <li><strong>{{ .title }}</strong><span>{{ .text }}</span></li>
+                {{- end -}}
+            </ol>
+        </details>
     </section>
 
-    <section class="about-section">
+    <section class="about-section about-section--editorial">
         <div class="about-section__heading">
-            <p class="section-kicker">CURRENT FIT</p>
             <h2>目前可以交流的具体范围</h2>
             <p>以下范围来自我正在做的实践。它们是沟通起点，不是对所有同类问题的能力承诺。</p>
         </div>
-        <div class="collaboration-grid">
+        <div class="collaboration-grid collaboration-grid--editorial">
             {{- range .Params.directions -}}
             <article>
                 <h3>{{ .title }}</h3>
@@ -40,15 +50,13 @@
         </div>
     </section>
 
-    <section class="boundary-callout">
-        <p class="section-kicker">BOUNDARY</p>
+    <section class="boundary-callout boundary-callout--editorial">
         <h2>当前证据以公开个人作品为主。</h2>
         <p>我会区分已经验证的结果、正在验证的假设和未来计划。涉及投资时，不公开账户总收益、金额和仓位；具体标的只在阶段复盘或完全退出后讨论。</p>
     </section>
 
-    <section class="contact-panel">
+    <section class="contact-panel contact-panel--editorial">
         <div>
-            <p class="section-kicker">CONTACT</p>
             <h2>如果问题落在上述范围，可以发邮件说明。</h2>
             <p>请写明具体问题、已有约束和希望得到的结果。我会据此判断是否适合继续交流。</p>
         </div>

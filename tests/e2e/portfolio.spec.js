@@ -28,16 +28,17 @@ test('访客能从首页进入作品证据与工作原则', async ({ page }) => 
   await open(page, '/');
 
   await expect(page.locator('[data-portfolio-home]')).toBeVisible();
-  await expect(page.locator('[data-portfolio-status]')).toContainText(
-    /目前公开 \d+ 个可独立验收的作品/,
-  );
+  await expect(page.getByRole('heading', { name: /直到身体开始报错/ })).toBeVisible();
   await expect(page.locator('[data-proof-strip]')).toHaveCount(0);
 
-  await page.locator('[data-featured-work] .work-card__link[href="/works/mantou-checklist-pwa/"]').click();
+  await page.getByRole('link', { name: /看失败与迭代记录/ }).click();
   await expect(page).toHaveURL(/\/works\/mantou-checklist-pwa\/$/);
   await expect(page.locator('[data-work-detail]')).toBeVisible();
   await expect(page.locator('[data-case-map]')).toBeVisible();
   await expect(page.locator('[data-verification-matrix]')).toContainText('先失败，修复后通过');
+  await page.getByRole('link', { name: /核对结果与限制/ }).click();
+  await expect(page).toHaveURL(/#evidence$/);
+  await expect(page.getByRole('heading', { name: '结果、证据与限制' })).toBeInViewport();
 
   await open(page, '/about/');
   await expect(page.locator('[data-about-collaboration]')).toBeVisible();
@@ -100,6 +101,10 @@ test('作品集中的每个公开作品都能完成浏览器验收', async ({ pa
       await expect(page.locator('[data-case-map]')).toBeVisible();
       await expect(page.locator('.evidence-panel')).toBeVisible();
       await expect(page.locator('h1')).toHaveCount(1);
+      const storyBeforeAudit = await page.locator('[data-work-detail]').evaluate((article) => (
+        Boolean(article.querySelector('#content').compareDocumentPosition(article.querySelector('#evidence')) & Node.DOCUMENT_POSITION_FOLLOWING)
+      ));
+      expect(storyBeforeAudit, `${route} should show its story before the audit summary`).toBe(true);
 
       const overflow = await page.evaluate(() => (
         Math.max(document.documentElement.scrollWidth, document.body.scrollWidth)
@@ -140,9 +145,9 @@ test('平板宽度下的长标题与说明保持分行且可读', async ({ page 
   await page.setViewportSize({ width: 820, height: 1180 });
   await open(page, '/');
 
-  const heading = page.locator('.portfolio-section__heading:not(.portfolio-section__heading--inline)').first();
-  const titleBlock = heading.locator(':scope > div').first();
-  const description = heading.locator(':scope > .portfolio-section__context');
+  const heading = page.locator('.editorial-home__intro');
+  const titleBlock = heading.locator('h1');
+  const description = heading.locator('.editorial-home__lead');
   const [titleBox, descriptionBox] = await Promise.all([
     titleBlock.boundingBox(),
     description.boundingBox(),
@@ -152,7 +157,7 @@ test('平板宽度下的长标题与说明保持分行且可读', async ({ page 
   expect(descriptionBox).not.toBeNull();
   expect(descriptionBox.y).toBeGreaterThanOrEqual(titleBox.y + titleBox.height - 1);
 
-  const lineHeightRatio = await heading.locator('h2').evaluate((element) => {
+  const lineHeightRatio = await titleBlock.evaluate((element) => {
     const style = getComputedStyle(element);
     return Number.parseFloat(style.lineHeight) / Number.parseFloat(style.fontSize);
   });

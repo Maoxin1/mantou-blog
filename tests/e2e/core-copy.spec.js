@@ -6,18 +6,17 @@ async function open(page, path) {
   expect(response.status(), `${path} should load successfully`).toBeLessThan(400);
 }
 
-test('首页按身份、实践范围、证据和下一步组织核心信息', async ({ page }) => {
+test('首页用三件具体作品引导阅读', async ({ page }) => {
   await open(page, '/');
 
   const home = page.locator('[data-portfolio-home]');
-  await expect(home.getByRole('heading', { level: 1 })).toContainText('我是 mantou');
-  await expect(home).toContainText('个人系统、主动投资、轻量工具与 AI 协作');
-  await expect(page.locator('[data-portfolio-status]')).toContainText(/目前公开 \d+ 个可独立验收的作品/);
-  await expect(home.getByRole('link', { name: '查看已公开作品' })).toHaveAttribute('href', '/works/');
-  await expect(home.getByRole('link', { name: '查看工作原则与合作范围' })).toHaveAttribute('href', '/about/');
-  await expect(home.getByRole('link', { name: '订阅后续更新' })).toHaveAttribute('href', '/follow/');
-  await expect(home.getByRole('heading', { name: '长期实践的四个方向', level: 2 })).toBeVisible();
-  await expect(home.getByRole('link', { name: '当前在做什么', exact: true })).toHaveAttribute('href', '/now/');
+  await expect(home.getByRole('heading', { level: 1 })).toContainText('直到身体开始报错');
+  await expect(home).toContainText('后来我把食物加了回来');
+  await expect(home).toContainText('第一次在真实手机上断网启动却失败了');
+  await expect(home).toContainText('真实任务里的表现还需要继续记录');
+  await expect(home.getByRole('link', { name: /读这段经历/ })).toHaveAttribute('href', '/works/body-sculpting/');
+  await expect(home.getByRole('link', { name: /打开工具/ })).toHaveAttribute('href', 'https://mantou-checklist.pages.dev/editor');
+  await expect(home.getByRole('link', { name: /看当前进展/ })).toHaveAttribute('href', '/now/');
 });
 
 test('当前下注清单说明验证问题、检查点与人工复核时间', async ({ page }) => {
@@ -40,12 +39,13 @@ test('当前下注清单说明验证问题、检查点与人工复核时间', as
   }
 });
 
-test('作品集说明收录标准并把证据承诺落到公开案例', async ({ page }) => {
+test('作品集用各自的转折引导读者进入公开案例', async ({ page }) => {
   await open(page, '/works/');
 
   const index = page.locator('[data-works-index]');
-  await expect(index).toContainText('只收录完成阶段验收');
-  await expect(index).toContainText('问题与约束 · 阶段产出 · 验证证据 · 失败与限制 · 下一步判断');
+  await expect(index).toContainText('一次眩晕之后');
+  await expect(index).toContainText('第一次在真实手机上断网启动');
+  await expect(index).toContainText('真实任务中的效果仍需继续观察');
 
   const firstCase = index.locator('.work-card__link').first();
   await expect(firstCase).toHaveAttribute('href', /\/works\/[^/]+\/$/);
@@ -61,6 +61,8 @@ test('关于页区分实践范围、公开证据和联系前提', async ({ page 
   await expect(about.getByRole('heading', { level: 1 })).toContainText('我是 mantou');
   await expect(about).toContainText('已有公开 PWA 案例可供核对');
   await expect(about).toContainText('当前证据以公开个人作品为主');
+  await about.locator('.about-principles-detail summary').click();
+  await expect(about).toContainText('从真实问题开始');
   await expect(about.getByRole('link', { name: '邮件说明你的问题' })).toHaveAttribute(
     'href',
     'mailto:2114206091@qq.com',

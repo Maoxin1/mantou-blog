@@ -50,9 +50,9 @@ def main() -> int:
             pages["homepage"],
             (
                 'data-portfolio-home',
-                'data-portfolio-status',
+                'editorial-home__intro',
+                'data-home-featured-work',
                 'data-featured-work',
-                'data-work-method-compact',
                 'data-analytics-loader',
                 'location.hostname',
                 'mantou-blog.pages.dev',
@@ -66,10 +66,19 @@ def main() -> int:
             issues,
         )
         require_href("homepage", pages["homepage"], "/works/", issues)
+        require_href("homepage", pages["homepage"], "/works/body-sculpting/", issues)
+        require_href("homepage", pages["homepage"], "/works/mantou-checklist-pwa/", issues)
+        require_href("homepage", pages["homepage"], "/works/codex-agents/", issues)
         require_href("homepage", pages["homepage"], "/about/", issues)
+        require_href("homepage", pages["homepage"], "/now/", issues)
         require_href("homepage", pages["homepage"], "/categories/essays/", issues)
     if "works index" in pages:
-        require_text("works index", pages["works index"], ('data-works-index', 'mantou-checklist-pwa'), issues)
+        require_text(
+            "works index",
+            pages["works index"],
+            ('data-works-index', 'body-sculpting', 'mantou-checklist-pwa', 'codex-agents'),
+            issues,
+        )
     if "PWA work" in pages:
         require_text(
             "PWA work",
