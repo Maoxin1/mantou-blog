@@ -1,10 +1,57 @@
 title = "mantou の blog"
 baseURL = "https://mantou-blog.pages.dev/"
 languageCode = "zh-cn"
+defaultContentLanguage = "zh-cn"
+defaultContentLanguageInSubdir = false
 hasCJKLanguage = true
 timeZone = "Asia/Shanghai"
 # 未来日期只作为草稿保护；需要定时发布时使用 publishDate。
 buildFuture = false
+
+[languages.zh-cn]
+  languageCode = "zh-cn"
+  languageName = "中文"
+  contentDir = "content"
+  weight = 1
+[languages.en]
+  languageCode = "en"
+  languageName = "English"
+  contentDir = "content_en"
+  hasCJKLanguage = false
+  title = "mantou's blog"
+  weight = 2
+  [languages.en.params]
+    description = "Notes on life, reading, personal experiments, and small tools by mantou."
+  [[languages.en.menu.main]]
+    identifier = "articles"
+    name = "Writing"
+    url = "/posts/"
+    weight = 1
+  [[languages.en.menu.main]]
+    identifier = "portfolio"
+    name = "Projects"
+    url = "/works/"
+    weight = 2
+  [[languages.en.menu.main]]
+    identifier = "now"
+    name = "Now"
+    url = "/now/"
+    weight = 3
+  [[languages.en.menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 4
+  [[languages.en.menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 5
+  [[languages.en.menu.main]]
+    identifier = "follow"
+    name = "Subscribe"
+    url = "/follow/"
+    weight = 6
 
 # 显式挂载 vendored 主题，以免把当前未启用的数学和图库字体复制到生产包。
 [module]

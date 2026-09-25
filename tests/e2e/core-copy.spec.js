@@ -67,7 +67,7 @@ test('关于页区分实践范围、公开证据和联系前提', async ({ page 
     'href',
     'mailto:2114206091@qq.com',
   );
-  await expect(about.getByRole('link', { name: '核对 GitHub 源码' })).toHaveAttribute(
+  await expect(about.getByRole('link', { name: '查看 GitHub 源码' })).toHaveAttribute(
     'href',
     'https://github.com/Maoxin1',
   );

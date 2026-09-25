@@ -6,6 +6,9 @@ const productionRoutes = [
   { path: '/works/mantou-checklist-pwa/', marker: '[data-work-detail]' },
   { path: '/about/', marker: '[data-about-collaboration]' },
   { path: '/search/', marker: '#search' },
+  { path: '/en/', marker: '[data-portfolio-home]' },
+  { path: '/en/works/', marker: '[data-works-index]' },
+  { path: '/en/p/20260803/', marker: '#content' },
 ];
 
 test('正式域名的关键路径与资源可以访问', async ({ page }) => {
@@ -19,6 +22,16 @@ test('正式域名的关键路径与资源可以访问', async ({ page }) => {
       /^https:\/\/mantou-blog\.pages\.dev\//,
     );
   }
+});
+
+test('正式英文搜索和语言切换可以使用', async ({ page }) => {
+  await page.goto('/en/search/?q=offline');
+  const result = page.locator('.pagefind-ui__result-link').first();
+  await expect(result).toBeVisible({ timeout: 10_000 });
+  await expect(result).toHaveAttribute('href', /\/en\//);
+  await page.goto('/en/p/20260803/');
+  await page.locator('.language-switch:visible').getByRole('link', { name: '中文' }).click();
+  await expect(page).toHaveURL('https://mantou-blog.pages.dev/p/20260803/');
 });
 
 test('正式搜索可以找到并打开代表作品', async ({ page }) => {
@@ -98,6 +111,7 @@ test('正式 Sveltia 灰度后台可用且所有后台资源禁止缓存', async
 
   for (const path of [
     '/admin/',
+    '/admin/analytics/',
     '/admin/config.yml?production-cache-check=1',
     '/admin/sveltia/',
     '/admin/sveltia/config.yml?production-cache-check=1',

@@ -1,0 +1,18 @@
+{{- $target := .Destination -}}
+{{- $url := urls.Parse $target -}}
+{{- if and (eq .Page.Language.Lang "en") (or (not $url.Host) (eq $url.Host "mantou-blog.pages.dev")) -}}
+  {{- $path := $url.Path -}}
+  {{- if and (hasPrefix $path "/") (not (hasPrefix $path "/en/")) -}}
+    {{- $matched := false -}}
+    {{- range (index .Page.Sites 0).RegularPages -}}
+      {{- if or (eq .RelPermalink $path) (in .Aliases $path) -}}
+        {{- range .Translations -}}{{- if eq .Language.Lang "en" -}}{{- $target = .RelPermalink -}}{{- $matched = true -}}{{- end -}}{{- end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if and (not $matched) (or (eq $path "/") (hasPrefix $path "/p/") (hasPrefix $path "/works/") (hasPrefix $path "/posts/") (hasPrefix $path "/about/") (hasPrefix $path "/now/") (hasPrefix $path "/tags/") (hasPrefix $path "/categories/") (hasPrefix $path "/follow/") (hasPrefix $path "/search/")) -}}
+      {{- $target = $path | relLangURL -}}{{- $matched = true -}}
+    {{- end -}}
+    {{- if $matched -}}{{- with $url.RawQuery -}}{{- $target = printf "%s?%s" $target . -}}{{- end -}}{{- with $url.Fragment -}}{{- $target = printf "%s#%s" $target . -}}{{- end -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $target | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text | safeHTML }}</a>

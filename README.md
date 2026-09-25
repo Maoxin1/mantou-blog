@@ -1,6 +1,8 @@
 # mantou-blog
 
-`mantou-blog` 是使用 Hugo 和 LoveIt 主题构建、部署到 Cloudflare Pages 的中文个人博客。仓库同时包含 Decap CMS 配置、Pagefind 站内搜索和图片压缩自动化。
+`mantou-blog` 是使用 Hugo 和 LoveIt 主题构建、部署到 Cloudflare Pages 的中英双语个人博客。首页并列呈现文章和作品，仓库同时包含 Decap CMS 配置、Pagefind 站内搜索和图片压缩自动化。
+
+双语内容维护、首页选择、两种语言的订阅与本人可见的流量后台，见[双语与统计手册](docs/bilingual-site.md)。历史文章的机器初译会在英文页面明确标注。
 
 线上站点：https://mantou-blog.pages.dev/
 
@@ -11,6 +13,7 @@
 ```powershell
 py -3 scripts/validate_admin_config.py
 py -3 scripts/validate_posts.py
+py -3 scripts/validate_translations.py
 py -3 scripts/validate_portfolio.py
 py -3 -m unittest discover -s tests/python -p "test_*.py"
 hugo --minify --panicOnWarning --cleanDestinationDir

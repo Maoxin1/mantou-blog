@@ -3,15 +3,15 @@
 <section class="body-evidence" data-body-evidence aria-labelledby="body-evidence-title">
   <header class="body-evidence__header">
     <p class="section-kicker">EVIDENCE · 29 WEEKS</p>
-    <h2 id="body-evidence-title">29 周体重变化</h2>
-    <p>从 86.5kg 到 70.0kg，一次真实执行与持续修正的记录。</p>
+    <h2 id="body-evidence-title">{{ T "weightTitle" }}</h2>
+    <p>{{ T "weightIntro" }}</p>
   </header>
 
-  <div class="body-evidence__metrics" aria-label="阶段结果摘要">
-    <div><span>周期</span><strong>{{ .Params.project_weeks }} 周</strong></div>
-    <div><span>体重</span><strong>{{ .Params.start_weight }} → {{ .Params.end_weight }} kg</strong></div>
+  <div class="body-evidence__metrics" aria-label="{{ T "resultsSummary" }}">
+    <div><span>{{ T "duration" }}</span><strong>{{ .Params.project_weeks }} {{ T "weeks" }}</strong></div>
+    <div><span>{{ T "weight" }}</span><strong>{{ .Params.start_weight }} → {{ .Params.end_weight }} kg</strong></div>
     <div><span>BMI</span><strong>{{ .Params.start_bmi }} → {{ .Params.end_bmi }}</strong></div>
-    <div><span>阶段身体成分</span><strong>体脂 {{ .Params.body_fat }}% · 骨骼肌 {{ .Params.skeletal_muscle }}kg</strong></div>
+    <div><span>{{ T "bodyComposition" }}</span><strong>{{ T "bodyFat" }} {{ .Params.body_fat }}% · {{ T "skeletalMuscle" }} {{ .Params.skeletal_muscle }}kg</strong></div>
   </div>
 
   <div class="body-weight-chart" data-start="{{ .Params.project_start }}" data-weeks="{{ .Params.project_weeks }}" data-points='{{ $entries | jsonify }}'>
@@ -20,7 +20,7 @@
   </div>
 
   {{- with .Params.weight_milestones -}}
-  <ol class="body-evidence__milestones" aria-label="关键调整节点">
+  <ol class="body-evidence__milestones" aria-label="{{ T "milestones" }}">
     {{- range . -}}
     <li>
       <span>W{{ .week }} · {{ .period }}</span>
@@ -30,7 +30,7 @@
   </ol>
   {{- end -}}
 
-  <p class="body-evidence__caption">体重并没有一路下降。更重要的是，在平台、波动和生活干扰出现后，系统仍然继续运行，并逐步修正。W26（8/29）没有记录，图中明确保留缺口。</p>
+  <p class="body-evidence__caption">{{ T "weightCaption" }}</p>
 </section>
 
 <script>
@@ -72,11 +72,11 @@
     const Y=w=>pad.t+(hi-w)/(hi-lo)*plotH;
     const yTicks=[70,75,80,85];
     const monthAnchors=[
-      {week:1,label:'3月'},
-      {week:9,label:'5月'},
-      {week:18,label:'7月'},
-      {week:24,label:'8月'},
-      {week:29,label:'9月'}
+      {week:1,label:'{{ T "march" }}'},
+      {week:9,label:'{{ T "may" }}'},
+      {week:18,label:'{{ T "july" }}'},
+      {week:24,label:'{{ T "august" }}'},
+      {week:29,label:'{{ T "september" }}'}
     ];
 
     const segments=[];
@@ -87,7 +87,7 @@
     });
     if(current.length) segments.push(current);
 
-    let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="29周体重变化，从86.5公斤到70公斤，W26未记录">';
+    let svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="{{ T "weightChartAlt" }}">';
     yTicks.forEach(v=>{
       const y=Y(v);
       svg+='<line class="body-weight-chart__grid" x1="'+pad.l+'" y1="'+y+'" x2="'+(W-pad.r)+'" y2="'+y+'"/>';
@@ -114,7 +114,7 @@
       }
       const mx=X(missing),my=H-pad.b+4;
       svg+='<circle class="body-weight-chart__missing" cx="'+mx+'" cy="'+my+'" r="5" data-week="'+slots[missing].week+'"/>';
-      svg+='<text class="body-weight-chart__missing-label" x="'+mx+'" y="'+(my-11)+'" text-anchor="middle">未记录</text>';
+      svg+='<text class="body-weight-chart__missing-label" x="'+mx+'" y="'+(my-11)+'" text-anchor="middle">{{ T "notRecorded" }}</text>';
     }
 
     monthAnchors.forEach(a=>{
@@ -139,10 +139,11 @@
     const show=(week,target)=>{
       const slot=slots[week-1];
       if(!slot) return;
+      let targetHtml;
       if(slot.point){
-        targetHtml='<strong>W'+week+'</strong> · '+slot.point.date+'<br>体重 <b>'+slot.point.weight.toFixed(1)+'</b> kg'+(slot.point.bmi!=null?' · BMI <b>'+slot.point.bmi.toFixed(1)+'</b>':'');
+        targetHtml='<strong>W'+week+'</strong> · '+slot.point.date+'<br>{{ T "weight" }} <b>'+slot.point.weight.toFixed(1)+'</b> kg'+(slot.point.bmi!=null?' · BMI <b>'+slot.point.bmi.toFixed(1)+'</b>':'');
       }else{
-        targetHtml='<strong>W'+week+'</strong> · '+fmtDate(slot.target)+'<br><b>未记录</b>';
+        targetHtml='<strong>W'+week+'</strong> · '+fmtDate(slot.target)+'<br><b>{{ T "notRecorded" }}</b>';
       }
       tip.innerHTML=targetHtml;
       tip.hidden=false;

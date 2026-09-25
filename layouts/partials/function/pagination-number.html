@@ -1,0 +1,8 @@
+{{- $number := 1 -}}
+{{- if and .Pages (or (eq .Kind "term") (and .IsSection (eq .Section "posts"))) -}}
+  {{- $size := .Site.Params.section.paginate | default .Site.Params.paginate -}}
+  {{- if eq .Kind "term" -}}{{- $size = .Site.Params.list.paginate | default .Site.Params.paginate -}}{{- end -}}
+  {{- $groups := .Pages.GroupByDate "2006" -}}
+  {{- with .Paginate $groups $size -}}{{- $number = .PageNumber -}}{{- end -}}
+{{- end -}}
+{{- return $number -}}

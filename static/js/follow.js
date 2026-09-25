@@ -24,9 +24,9 @@
       const original = label?.textContent;
       try {
         await navigator.clipboard.writeText(button.dataset.feedUrl);
-        if (label) label.textContent = '已复制 RSS 地址';
+        if (label) label.textContent = button.dataset.copySuccess;
       } catch (_) {
-        window.prompt('复制下面的 RSS 地址', button.dataset.feedUrl);
+        window.prompt(button.dataset.copyPrompt, button.dataset.feedUrl);
       }
       if (label && original) window.setTimeout(() => { label.textContent = original; }, 2000);
     });

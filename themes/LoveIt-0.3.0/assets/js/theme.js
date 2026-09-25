@@ -84,7 +84,7 @@ class Theme {
       $menuToggleMobile.classList.toggle('active', open);
       $menuMobile.classList.toggle('active', open);
       $menuToggleMobile.setAttribute('aria-expanded', String(open));
-      $menuToggleMobile.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
+      $menuToggleMobile.setAttribute('aria-label', open ? $menuToggleMobile.dataset.closeLabel : $menuToggleMobile.dataset.openLabel);
     };
     const closeMenuOnEscape = event => {
       if (event.key !== 'Escape' || !$menuToggleMobile.classList.contains('active')) return;

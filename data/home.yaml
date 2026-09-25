@@ -1,8 +1,10 @@
 # 首页精选只维护内容路径与类型；标题、摘要始终来自内容本身。
+featured_post: /posts/2026-08-03-当答案变得廉价时，决策却变得更加昂贵
+featured_work: /works/mantou-checklist-pwa
 selected:
   - page: /posts/2026-02-01-友谊万岁：我的感动日记！
-    label: 生活记录
+    label_key: lifeNotes
   - page: /works/body-sculpting
-    label: 身体实践
-  - page: /posts/2026-08-03-当答案变得廉价时，决策却变得更加昂贵
-    label: AI 与判断
+    label_key: bodyPractice
+  - page: /posts/2026-09-04-交付物标准
+    label_key: readingPractice

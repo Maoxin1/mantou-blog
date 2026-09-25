@@ -1,0 +1,28 @@
+{{ define "title" }}{{ .Title }} - {{ .Site.Title }}{{ end }}
+{{ define "content" }}
+<div class="page single" data-search-page>
+  <h1 class="single-title">{{ .Title }}</h1>
+  <p>{{ T "searchLanguage" }}</p>
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+  <div id="search" class="pf-search"></div>
+  <script src="/pagefind/pagefind-ui.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const ui = new PagefindUI({ element: '#search', showSubResults: true, showImages: false, pageSize: 8, translations: { placeholder: {{ T "searchPlaceholder" | jsonify | safeJS }}, search_label: {{ T "searchLabel" | jsonify | safeJS }} } });
+      const input = document.querySelector('.pagefind-ui__search-input');
+      const restore = () => ui.triggerSearch(new URLSearchParams(location.search).get('q') || '');
+      input.addEventListener('input', () => {
+        const url = new URL(location.href);
+        const query = input.value.trim();
+        if (query) url.searchParams.set('q', query); else url.searchParams.delete('q');
+        history.replaceState(null, '', url.pathname + url.search + url.hash);
+      });
+      document.querySelector('#search').addEventListener('click', (event) => {
+        if (event.target.closest('.pagefind-ui__search-clear')) requestAnimationFrame(() => input.dispatchEvent(new Event('input')));
+      });
+      window.addEventListener('popstate', restore);
+      if (new URLSearchParams(location.search).get('q')) restore();
+    });
+  </script>
+</div>
+{{ end }}

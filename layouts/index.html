@@ -1,94 +1,69 @@
 {{- define "content" -}}
-{{- $posts := where site.RegularPages "Section" "posts" -}}
-<div class="page portfolio-home editorial-home" data-portfolio-home>
-    <header class="editorial-home__intro">
-        <p class="editorial-home__overline">mantou 的博客</p>
-        <h1>你好，我是 mantou。</h1>
-        <p class="editorial-home__lead">我在这里写日记，记读书时的想法，也记录身体实践和自己做的小工具。下面是最近发表的文章；第一次来，可以再看看我选出的三篇。</p>
-        <div class="editorial-home__links">
-            <a class="editorial-home__primary-link" href="#latest">读最近的文章 <span aria-hidden="true">↓</span></a>
-            <a href="/works/">看做出来的东西 <span aria-hidden="true">→</span></a>
-        </div>
-    </header>
-
-    <section class="editorial-home__latest" id="latest" aria-labelledby="latest-title" data-home-latest>
-        <div class="editorial-home__section-heading">
-            <h2 id="latest-title">最近更新</h2>
-            <p>按发表时间排列。</p>
-        </div>
-        <ol class="editorial-home__latest-list">
-            {{- range first 5 $posts.ByDate.Reverse -}}
-            <li>
-                <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
-                <div>
-                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                    {{ with .Description }}<p>{{ . }}</p>{{ end }}
-                </div>
-            </li>
-            {{- end -}}
-        </ol>
-        <a class="editorial-home__all-work" href="/posts/">进入全部文章 →</a>
+{{- $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse -}}
+{{- $works := (where .Site.RegularPages "Section" "works").ByDate.Reverse -}}
+<div class="page portfolio-home editorial-home balanced-home" data-portfolio-home>
+  <header class="editorial-home__intro">
+    <h1>{{ T "homeHello" }}</h1>
+    <p class="editorial-home__lead">{{ T "homeLead" }}</p>
+  </header>
+  <div class="home-pair" data-home-pair>
+    <section aria-labelledby="writing-title" data-home-featured-post>
+      <div class="home-pair__label"><h2 id="writing-title">{{ T "writing" }}</h2><a href="{{ "/posts/" | relLangURL }}">{{ T "allWriting" }} →</a></div>
+      {{- with .Site.GetPage .Site.Data.home.featured_post -}}
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <p>{{ .Description }}</p>
+      <a class="home-action" href="{{ .RelPermalink }}">{{ T "readArticle" }} →</a>
+      {{- else -}}{{ errorf "Missing home featured post" }}{{- end -}}
     </section>
-
-    <section class="editorial-home__selected" aria-labelledby="selected-title" data-home-selected>
-        <div class="editorial-home__section-heading">
-            <h2 id="selected-title">第一次来，可以从这里读起</h2>
-            <p>生活记录、身体实践和思考文章，各有不同的写法。</p>
+    <section aria-labelledby="projects-title" data-home-featured-work>
+      <div class="home-pair__label"><h2 id="projects-title">{{ T "projects" }}</h2><a href="{{ "/works/" | relLangURL }}">{{ T "allProjects" }} →</a></div>
+      {{- with .Site.GetPage .Site.Data.home.featured_work -}}
+      <div class="home-pair__project">
+        <div>
+          <p class="home-pair__status">{{ .Params.stage }}</p>
+          <h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3>
+          <p>{{ .Params.home_summary | default .Description }}</p>
+          <div class="editorial-home__work-links">
+            {{ with .Params.artifact_url }}<a class="home-action" href="{{ . }}" target="_blank" rel="noopener">{{ T "openTool" }} ↗</a>{{ end }}
+            <a class="home-action" href="{{ .RelPermalink }}">{{ T "makingNotes" }} →</a>
+          </div>
         </div>
-        <div class="editorial-home__selected-list">
-            {{- range site.Data.home.selected -}}
-                {{- $item := . -}}
-                {{- with site.GetPage $item.page -}}
-                <article>
-                    <span>{{ $item.label }}</span>
-                    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-                    {{ with .Description }}<p>{{ . }}</p>{{ end }}
-                </article>
-                {{- else -}}
-                    {{ errorf "Homepage selection missing: %s" $item.page }}
-                {{- end -}}
-            {{- end -}}
-        </div>
+        {{- $workURL := .RelPermalink -}}
+        {{- with .Params.preview_image -}}<a class="home-pair__preview" href="{{ $workURL }}" tabindex="-1" aria-hidden="true"><img src="{{ . }}" alt="" width="388" height="624" decoding="async"></a>{{- end -}}
+      </div>
+      {{- else -}}{{ errorf "Missing home featured work" }}{{- end -}}
     </section>
-
-    {{- with site.GetPage "/works/mantou-checklist-pwa" -}}
-    {{- $work := . -}}
-    <section class="editorial-home__tool" aria-labelledby="tool-title" data-home-featured-work>
-        <div>
-            <p class="editorial-home__overline">做出来的工具</p>
-            <h2 id="tool-title">{{ .Title }}</h2>
-            <p>{{ .Description }}</p>
-            <div class="editorial-home__work-links">
-                {{ with .Params.artifact_url }}<a href="{{ . }}" target="_blank" rel="noopener">打开工具 ↗</a>{{ end }}
-                <a href="{{ .RelPermalink }}">读制作记录 →</a>
-                <a href="/works/">看全部作品 →</a>
-            </div>
-        </div>
-        {{ with .Params.preview_image }}
-        <figure>
-            <img src="{{ . }}" alt="{{ $work.Params.preview_alt }}" width="388" height="624" loading="lazy" decoding="async">
-            <figcaption>2026 年 9 月的公开界面</figcaption>
-        </figure>
-        {{ end }}
+  </div>
+  <div class="home-updates" id="latest">
+    <section class="editorial-home__latest" aria-labelledby="latest-title" data-home-latest>
+      <div class="editorial-home__section-heading"><h2 id="latest-title">{{ T "recentWriting" }}</h2><p>{{ T "byPublished" }}</p></div>
+      <ol class="editorial-home__latest-list">
+        {{- range first 5 $posts -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3></div></li>{{- end -}}
+      </ol>
+      <a class="home-action" href="{{ "/posts/" | relLangURL }}">{{ T "allWriting" }} →</a>
     </section>
-    {{- end -}}
-
-    <nav class="editorial-home__closing" aria-label="继续阅读">
-        <div>
-            <span>最近在做</span>
-            <p>正在推进的事情和当前判断，放在近况页。</p>
-            <a href="/now/">看当前进展 →</a>
-        </div>
-        <div>
-            <span>认识我</span>
-            <p>关于写作、作品和交流方式。</p>
-            <a href="/about/">读关于页 →</a>
-        </div>
-        <div>
-            <span>收到更新</span>
-            <p>有新文章时，可以通过邮件或 RSS 收到提醒。</p>
-            <a href="/follow/" data-follow-open>订阅后续更新 →</a>
-        </div>
-    </nav>
+    <section class="editorial-home__latest" aria-labelledby="project-updates-title" data-home-work-updates>
+      <div class="editorial-home__section-heading"><h2 id="project-updates-title">{{ T "projectNotes" }}</h2><p>{{ T "projectNotesLead" }}</p></div>
+      <ol class="editorial-home__latest-list">
+        {{- range first 3 $works -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3><p>{{ .Params.stage }}</p></div></li>{{- end -}}
+      </ol>
+      <a class="home-action" href="{{ "/now/" | relLangURL }}">{{ T "seeNow" }} →</a>
+    </section>
+  </div>
+  <section class="editorial-home__selected" aria-labelledby="selected-title" data-home-selected>
+    <div class="editorial-home__section-heading"><h2 id="selected-title">{{ T "startHere" }}</h2></div>
+    <div class="editorial-home__selected-list">
+      {{- range .Site.Data.home.selected -}}
+        {{- $item := . -}}
+        {{- with $.Site.GetPage $item.page -}}<article><span>{{ T $item.label_key }}</span><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>{{ with .Description }}<p>{{ . }}</p>{{ end }}</article>{{- else -}}{{ errorf "Homepage selection missing: %s" $item.page }}{{- end -}}
+      {{- end -}}
+    </div>
+  </section>
+  <nav class="editorial-home__closing" aria-label="{{ T "exploreMore" }}">
+    <div><span>{{ T "aboutMe" }}</span><p>{{ T "aboutShort" }}</p><a href="{{ "/about/" | relLangURL }}">{{ T "readAbout" }} →</a></div>
+    <div><span>{{ T "browseTopics" }}</span><p>{{ T "topicsShort" }}</p><a href="{{ "/tags/" | relLangURL }}">{{ T "browseTopics" }} →</a></div>
+    <div><span>{{ T "getUpdates" }}</span><p>{{ T "updatesShort" }}</p><a href="{{ "/follow/" | relLangURL }}" data-follow-open>{{ T "subscribe" }} →</a></div>
+  </nav>
 </div>
 {{- end -}}

@@ -1,0 +1,443 @@
+{
+  "homeHello": {
+    "other": "Hi, I'm mantou."
+  },
+  "homeLead": {
+    "other": "I write about life and reading, and build small tools I use myself."
+  },
+  "writing": {
+    "other": "Writing"
+  },
+  "projects": {
+    "other": "Projects"
+  },
+  "allWriting": {
+    "other": "All writing"
+  },
+  "allProjects": {
+    "other": "All projects"
+  },
+  "readArticle": {
+    "other": "Read the article"
+  },
+  "openTool": {
+    "other": "Open the tool"
+  },
+  "makingNotes": {
+    "other": "How I made it"
+  },
+  "recentWriting": {
+    "other": "Recent writing"
+  },
+  "byPublished": {
+    "other": "By publication date."
+  },
+  "projectNotes": {
+    "other": "Project notes"
+  },
+  "projectNotesLead": {
+    "other": "Published experiments and tools."
+  },
+  "seeNow": {
+    "other": "What I am doing now"
+  },
+  "startHere": {
+    "other": "A few places to start"
+  },
+  "lifeNotes": {
+    "other": "Life notes"
+  },
+  "bodyPractice": {
+    "other": "Personal health experiment"
+  },
+  "aiJudgment": {
+    "other": "AI and judgment"
+  },
+  "exploreMore": {
+    "other": "Explore more"
+  },
+  "aboutMe": {
+    "other": "About me"
+  },
+  "aboutShort": {
+    "other": "Writing, things I have made, and ways to get in touch."
+  },
+  "readAbout": {
+    "other": "About mantou"
+  },
+  "browseTopics": {
+    "other": "Browse topics"
+  },
+  "topicsShort": {
+    "other": "Find a subject that interests you in the archive."
+  },
+  "getUpdates": {
+    "other": "Get updates"
+  },
+  "updatesShort": {
+    "other": "Choose the way you like to follow along."
+  },
+  "subscribe": {
+    "other": "Subscribe"
+  },
+  "chooseLanguage": {
+    "other": "Choose language"
+  },
+  "mainNavigation": {
+    "other": "Main navigation"
+  },
+  "openMenu": {
+    "other": "Open navigation menu"
+  },
+  "closeMenu": {
+    "other": "Close navigation menu"
+  },
+  "machineTranslation": {
+    "other": "Machine translation; not fully reviewed and may contain errors."
+  },
+  "translatedFromChinese": {
+    "other": "Translated from Chinese."
+  },
+  "readOriginal": {
+    "other": "Read the Chinese original"
+  },
+  "browseWriting": {
+    "other": "Browse writing"
+  },
+  "byDate": {
+    "other": "By date"
+  },
+  "categories": {
+    "other": "Categories"
+  },
+  "searchLanguage": {
+    "other": "Search English writing and projects. Switch to 中文 to search the Chinese originals."
+  },
+  "pageNotFound": {
+    "other": "Page not found"
+  },
+  "pageNotFoundLead": {
+    "other": "The address may have changed. Try the homepage or search."
+  },
+  "home": {
+    "other": "Home"
+  },
+  "postArchive": {
+    "other": "Writing archive"
+  },
+  "byYear": {
+    "other": "Browse writing by year"
+  },
+  "emptyPosts": {
+    "other": "No articles yet."
+  },
+  "articlePath": {
+    "other": "Article navigation"
+  },
+  "madeThings": {
+    "other": "Things I have made"
+  },
+  "projectsIntro": {
+    "other": "Personal experiments, mobile tools, and AI workflows, with working results, making notes, and open questions."
+  },
+  "typeInvestment": {
+    "other": "Investment research"
+  },
+  "typeTools": {
+    "other": "Tools"
+  },
+  "typeMethodology": {
+    "other": "Methods"
+  },
+  "readWork": {
+    "other": "Read the project"
+  },
+  "viewArtifact": {
+    "other": "Open the project"
+  },
+  "viewSource": {
+    "other": "View source"
+  },
+  "checkResults": {
+    "other": "Results and limitations"
+  },
+  "thisArticle": {
+    "other": "In this article"
+  },
+  "articleContents": {
+    "other": "Article contents"
+  },
+  "resultsEvidence": {
+    "other": "Results, evidence, and limitations"
+  },
+  "previewDate": {
+    "other": "Public interface, September 2026 (in Chinese)"
+  },
+  "evidenceLead": {
+    "other": "Results and supporting material, with the questions that remain open."
+  },
+  "verificationSummary": {
+    "other": "Project results"
+  },
+  "outcome": {
+    "other": "Outcome"
+  },
+  "evidence": {
+    "other": "Evidence"
+  },
+  "limitations": {
+    "other": "Limitations"
+  },
+  "nextStep": {
+    "other": "Next steps"
+  },
+  "pastDecisions": {
+    "other": "Decisions along the way"
+  },
+  "decisionRecord": {
+    "other": "Decision notes"
+  },
+  "problem": {
+    "other": "Problem"
+  },
+  "hypothesis": {
+    "other": "Hypothesis"
+  },
+  "constraints": {
+    "other": "Constraints"
+  },
+  "decision": {
+    "other": "Key decision"
+  },
+  "afterRelease": {
+    "other": "What happened after publication"
+  },
+  "afterReleaseLead": {
+    "other": "Feedback and uses recorded after publication."
+  },
+  "feedback": {
+    "other": "What came back"
+  },
+  "reuse": {
+    "other": "Where it was used"
+  },
+  "backProjects": {
+    "other": "Back to projects"
+  },
+  "aboutTitle": {
+    "other": "About mantou"
+  },
+  "aboutIntro": {
+    "other": "I keep a diary, write about books and everyday life, and share things I have made. Recent projects include a personal health experiment, a mobile tool, and experiments with AI workflows."
+  },
+  "writingAndProjects": {
+    "other": "Writing and projects"
+  },
+  "writingAndProjectsLead": {
+    "other": "My diary keeps thoughts as they happened. Project pages follow what I went on to make and learn. Both are part of this site."
+  },
+  "fourPrinciples": {
+    "other": "Four principles I currently work by"
+  },
+  "discussScope": {
+    "other": "Things we can talk about"
+  },
+  "discussScopeLead": {
+    "other": "These are areas I am currently exploring. They are starting points for a conversation."
+  },
+  "personalEvidence": {
+    "other": "My public projects show my experience so far."
+  },
+  "publicBoundary": {
+    "other": "I distinguish observed results from ideas and future plans. I do not publish account returns, balances, or positions. Individual investments are discussed only at a review point or after I have fully exited."
+  },
+  "contactTitle": {
+    "other": "Have something in mind? Email me."
+  },
+  "contactLead": {
+    "other": "Tell me what you are working on and what you would like help with, so I can see whether I can contribute."
+  },
+  "emailMe": {
+    "other": "Email me"
+  },
+  "githubSource": {
+    "other": "View my GitHub"
+  },
+  "nowDirections": {
+    "other": "Current areas of focus"
+  },
+  "testing": {
+    "other": "What I am exploring"
+  },
+  "checkpoint": {
+    "other": "Next checkpoint"
+  },
+  "reviewedOn": {
+    "other": "Last reviewed: "
+  },
+  "rssWays": {
+    "other": "RSS subscription options"
+  },
+  "inoreader": {
+    "other": "Follow in Inoreader"
+  },
+  "feedly": {
+    "other": "Follow in Feedly"
+  },
+  "addReader": {
+    "other": "Add this site to your reader"
+  },
+  "copyFeed": {
+    "other": "Copy RSS address"
+  },
+  "pasteReader": {
+    "other": "Paste into any RSS reader"
+  },
+  "rawFeed": {
+    "other": "View the RSS feed"
+  },
+  "copiedFeed": {
+    "other": "RSS address copied"
+  },
+  "copyPrompt": {
+    "other": "Copy this RSS address"
+  },
+  "closeFollow": {
+    "other": "Close subscription window"
+  },
+  "followMantou": {
+    "other": "Follow mantou"
+  },
+  "followLead": {
+    "other": "Choose how you would like to receive new writing and project notes."
+  },
+  "rssFollow": {
+    "other": "Follow by RSS"
+  },
+  "rssOpen": {
+    "other": "RSS is an open subscription format. Use the reader you prefer."
+  },
+  "emailAddress": {
+    "other": "Email address"
+  },
+  "emailConfirmation": {
+    "other": "Confirm the email from follow.it after subscribing. You can unsubscribe at any time."
+  },
+  "emailPending": {
+    "other": "Email updates"
+  },
+  "emailPendingLead": {
+    "other": "Use the English RSS feed below. Email delivery is currently available for the Chinese feed only."
+  },
+  "wantUpdates": {
+    "other": "Would you like to keep reading?"
+  },
+  "followNewPosts": {
+    "other": "Subscribe for new writing and project notes."
+  },
+  "subscribeUpdates": {
+    "other": "Subscribe to updates"
+  },
+  "subscribeLead": {
+    "other": "Follow new writing and projects in your RSS reader, or subscribe to Chinese email updates."
+  },
+  "emailUpdates": {
+    "other": "Email updates"
+  },
+  "emailLead": {
+    "other": "Chinese email updates are delivered by follow.it after you confirm your address. English updates are available through RSS below."
+  },
+  "rssSubscription": {
+    "other": "RSS subscription"
+  },
+  "rssLead": {
+    "other": "Add this feed to your reader. It will check for new posts for you."
+  },
+  "deliveryPrivacy": {
+    "other": "Delivery and unsubscribing"
+  },
+  "deliveryPrivacyLead": {
+    "other": "Email addresses are sent to follow.it for confirmation and delivery; its free plan may include branding or recommendations. Unsubscribe through an email, or remove the RSS feed from your reader."
+  },
+  "weightTitle": {
+    "other": "Weight over 29 weeks"
+  },
+  "weightIntro": {
+    "other": "From 86.5 kg to 70.0 kg, with adjustments along the way."
+  },
+  "resultsSummary": {
+    "other": "Results summary"
+  },
+  "duration": {
+    "other": "Duration"
+  },
+  "weeks": {
+    "other": "weeks"
+  },
+  "weight": {
+    "other": "Weight"
+  },
+  "bodyComposition": {
+    "other": "Body composition"
+  },
+  "bodyFat": {
+    "other": "Body fat"
+  },
+  "skeletalMuscle": {
+    "other": "Skeletal muscle"
+  },
+  "milestones": {
+    "other": "Key changes"
+  },
+  "weightCaption": {
+    "other": "Weight did not fall in a straight line. I kept adjusting through plateaus and interruptions. Week 26 (August 29) has no record; the gap is preserved."
+  },
+  "weightChartAlt": {
+    "other": "Weight over 29 weeks, from 86.5 kg to 70 kg; week 26 is missing"
+  },
+  "notRecorded": {
+    "other": "No record"
+  },
+  "march": {
+    "other": "Mar"
+  },
+  "may": {
+    "other": "May"
+  },
+  "july": {
+    "other": "Jul"
+  },
+  "august": {
+    "other": "Aug"
+  },
+  "september": {
+    "other": "Sep"
+  },
+  "searchPlaceholder": {
+    "other": "Search articles…"
+  },
+  "searchLabel": {
+    "other": "Search this site"
+  },
+  "videoTitle": {
+    "other": "Article video"
+  },
+  "videoUnsupported": {
+    "other": "Your browser does not support HTML5 video."
+  },
+  "downloadVideo": {
+    "other": "Download the video"
+  },
+  "readingPractice": {
+    "other": "Reading and practice"
+  },
+  "translationUnavailable": {
+    "other": "An English translation is not available yet."
+  },
+  "pendingTranslation": {
+    "other": "pending"
+  },
+  "translationStale": {
+    "other": "The Chinese original has been updated since this translation."
+  }
+}

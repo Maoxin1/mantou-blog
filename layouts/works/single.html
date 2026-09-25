@@ -1,7 +1,7 @@
 {{- define "title" -}}{{ .Title }} - {{ .Site.Title }}{{- end -}}
 
 {{- define "content" -}}
-{{- $typeLabels := dict "investment" "投资研究" "tools" "工具产品" "methodology" "方法论" "body" "身体实践" -}}
+{{- $typeLabels := dict "investment" (T "typeInvestment") "tools" (T "typeTools") "methodology" (T "typeMethodology") "body" (T "bodyPractice") -}}
 <article class="page single work-detail" data-work-detail data-pagefind-body>
     <header class="work-detail__header">
         <div class="work-detail__eyebrow">
@@ -12,22 +12,33 @@
         <p class="work-detail__description">{{ .Description }}</p>
         <div class="work-detail__actions">
             {{ with .Params.artifact_url }}
-                <a class="portfolio-button portfolio-button--primary" href="{{ . }}" target="_blank" rel="noopener">查看成品</a>
+                <a class="portfolio-button portfolio-button--primary" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }}</a>
             {{ end }}
             {{ with .Params.source_url }}
-                <a class="portfolio-button portfolio-button--secondary" href="{{ . }}" target="_blank" rel="noopener">查看源码</a>
+                <a class="portfolio-button portfolio-button--secondary" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewSource" }}</a>
             {{ end }}
-            <a class="work-detail__evidence-link" href="#evidence">核对结果与限制&nbsp;↓</a>
+            <a class="work-detail__evidence-link" href="#evidence">{{ T "checkResults" }}&nbsp;↓</a>
         </div>
     </header>
 
     {{- with .TableOfContents -}}
-    <div class="work-detail__toc">
-        <p>这篇记录</p>
-        {{ replace . "id=\"TableOfContents\"" "id=\"work-contents\" aria-label=\"本篇目录\"" | safeHTML }}
-        <a href="#evidence">结果、证据与限制</a>
-    </div>
+    <details class="work-detail__toc" data-pagefind-ignore>
+        <summary>{{ T "thisArticle" }}</summary>
+        {{ replace . "id=\"TableOfContents\"" (printf "id=\"work-contents\" aria-label=\"%s\"" (T "articleContents")) | safeHTML }}
+        <a href="#evidence">{{ T "resultsEvidence" }}</a>
+    </details>
     {{- end -}}
+
+    {{ partial "translation-note.html" . }}
+    <div class="content" id="content">
+        {{ .Content }}
+    </div>
+
+    <section class="work-detail__audit" id="evidence" aria-labelledby="work-audit-title">
+        <header class="work-detail__audit-heading">
+            <h2 id="work-audit-title">{{ T "resultsEvidence" }}</h2>
+            <p>{{ T "evidenceLead" }}</p>
+        </header>
 
     {{- if and (eq .Params.work_type "body") .Params.weight_evidence -}}
         {{- partial "work-body-evidence.html" . -}}
@@ -36,58 +47,38 @@
     {{- with .Params.preview_image -}}
     <figure class="work-detail__preview">
         <img src="{{ . }}" alt="{{ $.Params.preview_alt }}" width="388" height="624" loading="lazy" decoding="async">
-        <figcaption>2026 年 9 月的公开界面</figcaption>
+        <figcaption>{{ T "previewDate" }}</figcaption>
     </figure>
     {{- end -}}
 
-    <div class="content" id="content">
-        {{ .Content }}
-    </div>
-
-    <section class="work-detail__audit" id="evidence" aria-labelledby="work-audit-title">
-        <header class="work-detail__audit-heading">
-            <h2 id="work-audit-title">结果、证据与限制</h2>
-            <p>正文记录了过程；这里集中放可以核对的结果和仍未解决的部分。</p>
-        </header>
-
-        <div class="evidence-panel" aria-label="作品验收摘要">
+        <div class="evidence-panel" aria-label="{{ T "verificationSummary" }}">
             <div>
-                <span>阶段结果</span>
+                <span>{{ T "outcome" }}</span>
                 <p>{{ .Params.outcome }}</p>
             </div>
             <div>
-                <span>验证证据</span>
+                <span>{{ T "evidence" }}</span>
                 <p>{{ .Params.evidence }}</p>
             </div>
             <div>
-                <span>当前限制</span>
+                <span>{{ T "limitations" }}</span>
                 <p>{{ .Params.limitations }}</p>
             </div>
-            <div>
-                <span>下一步判断</span>
-                <p>{{ .Params.next_step }}</p>
-            </div>
+            {{ with .Params.next_step }}<div>
+                <span>{{ T "nextStep" }}</span>
+                <p>{{ . }}</p>
+            </div>{{ end }}
         </div>
 
-        <h3 class="work-detail__audit-subhead">当时怎么判断</h3>
-        <div class="case-map" data-case-map aria-label="案例决策记录">
-            <div>
-                <span>问题</span>
-                <p>{{ .Params.problem }}</p>
-            </div>
-            <div>
-                <span>假设</span>
-                <p>{{ .Params.hypothesis }}</p>
-            </div>
-            <div>
-                <span>约束</span>
-                <p>{{ .Params.constraints }}</p>
-            </div>
-            <div>
-                <span>关键决策</span>
-                <p>{{ .Params.decision }}</p>
-            </div>
-        </div>
+        {{- if or .Params.problem .Params.hypothesis .Params.constraints .Params.decision -}}
+        <details class="work-decisions"><summary>{{ T "pastDecisions" }}</summary>
+          <div class="case-map" data-case-map aria-label="{{ T "decisionRecord" }}">
+            {{- range $field := slice "problem" "hypothesis" "constraints" "decision" -}}
+              {{- with index $.Params $field -}}<div><span>{{ T $field }}</span><p>{{ . }}</p></div>{{- end -}}
+            {{- end -}}
+          </div>
+        </details>
+        {{- end -}}
     </section>
 
     {{- $followUps := .Params.follow_ups -}}
@@ -95,14 +86,13 @@
     {{- if or $followUps $reusedIn -}}
     <section class="work-afterlife" data-work-afterlife aria-labelledby="work-afterlife-title">
         <header class="work-afterlife__header">
-            <p class="section-kicker">AFTER RELEASE</p>
-            <h2 id="work-afterlife-title">这件作品后来发生了什么</h2>
-            <p>这里只记录发布以后真实带回的反馈、认知与复用，不补写预期。</p>
+            <h2 id="work-afterlife-title">{{ T "afterRelease" }}</h2>
+            <p>{{ T "afterReleaseLead" }}</p>
         </header>
 
         {{- with $followUps -}}
         <div class="work-afterlife__group" data-work-follow-ups>
-            <h3>后来带回了什么</h3>
+            <h3>{{ T "feedback" }}</h3>
             <ol>
                 {{- range . -}}
                 <li>
@@ -116,13 +106,13 @@
 
         {{- with $reusedIn -}}
         <div class="work-afterlife__group" data-work-reused-in>
-            <h3>后来用在了哪里</h3>
+            <h3>{{ T "reuse" }}</h3>
             <ul>
                 {{- range . -}}
                 {{- $reuse := . -}}
                 <li>
                     {{- with $reuse.url -}}
-                    <a href="{{ . }}">{{ $reuse.title }}</a>
+                    <a href="{{ . | relLangURL }}">{{ $reuse.title }}</a>
                     {{- else -}}
                     <strong>{{ $reuse.title }}</strong>
                     {{- end -}}
@@ -138,8 +128,7 @@
     {{- partial "follow-card.html" . -}}
 
     <footer class="work-detail__footer" data-pagefind-ignore>
-        <p>这件作品首先解决真实问题，再用测试、证据和复盘检验结果。</p>
-        <a href="/works/">返回作品集&nbsp;→</a>
+        <a href="{{ "/works/" | relLangURL }}">{{ T "backProjects" }}&nbsp;→</a>
     </footer>
 </article>
 {{- end -}}

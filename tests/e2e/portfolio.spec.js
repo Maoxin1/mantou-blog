@@ -31,10 +31,11 @@ test('访客能从首页进入工具、目录与证据', async ({ page }) => {
   await expect(page.getByRole('heading', { name: '你好，我是 mantou。' })).toBeVisible();
   await expect(page.locator('[data-proof-strip]')).toHaveCount(0);
 
-  await page.getByRole('link', { name: /读制作记录/ }).click();
+  await page.getByRole('link', { name: /制作记录/ }).click();
   await expect(page).toHaveURL(/\/works\/mantou-checklist-pwa\/$/);
   await expect(page.locator('[data-work-detail]')).toBeVisible();
-  await expect(page.locator('[data-case-map]')).toBeVisible();
+  await page.locator('.work-decisions summary').click();
+      await expect(page.locator('[data-case-map]')).toBeVisible();
   await expect(page.locator('.work-detail__toc')).toBeVisible();
   await expect(page.locator('.work-detail__preview img')).toBeVisible();
   await expect(page.locator('[data-verification-matrix]')).toContainText('先失败，修复后通过');
@@ -60,7 +61,7 @@ test('身体作品展示真实阶段证据与缺失周', async ({ page }) => {
   const chartBeforeStory = await page.locator('[data-work-detail]').evaluate((article) => (
     Boolean(article.querySelector('[data-body-evidence]').compareDocumentPosition(article.querySelector('#content')) & Node.DOCUMENT_POSITION_FOLLOWING)
   ));
-  expect(chartBeforeStory).toBe(true);
+  expect(chartBeforeStory).toBe(false);
 
   const chart = page.locator('.body-weight-chart__canvas svg');
   await expect(chart).toBeVisible();
@@ -105,6 +106,7 @@ test('作品集中的每个公开作品都能完成浏览器验收', async ({ pa
       await page.setViewportSize(viewport);
       await open(page, route);
       await expect(page.locator('[data-work-detail]')).toBeVisible();
+      await page.locator('.work-decisions summary').click();
       await expect(page.locator('[data-case-map]')).toBeVisible();
       await expect(page.locator('.evidence-panel')).toBeVisible();
       await expect(page.locator('h1')).toHaveCount(1);
@@ -280,7 +282,7 @@ test('文章分享地址使用短英文路径且旧中文地址继续跳转', as
 test('访客可以从首页一键打开关注入口并继续使用 RSS', async ({ page }) => {
   await open(page, '/');
 
-  await page.getByRole('link', { name: '订阅后续更新' }).click();
+  await page.locator('.editorial-home__closing [data-follow-open]').click();
   const dialog = page.getByRole('dialog', { name: '关注馒头' });
   await expect(dialog).toBeVisible();
   await expect(page).toHaveURL(/\/$/);
