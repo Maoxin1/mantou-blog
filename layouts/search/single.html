@@ -8,7 +8,7 @@
   <script src="/pagefind/pagefind-ui.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      const ui = new PagefindUI({ element: '#search', showSubResults: true, showImages: false, pageSize: 8, translations: { placeholder: {{ T "searchPlaceholder" }}, search_label: {{ T "searchLabel" }} } });
+      const ui = new PagefindUI({ element: '#search', showSubResults: true, showImages: false, pageSize: 8, translations: { placeholder: {{ T "searchPlaceholder" | jsonify | safeJS }}, search_label: {{ T "searchLabel" | jsonify | safeJS }} } });
       const input = document.querySelector('.pagefind-ui__search-input');
       const restore = () => ui.triggerSearch(new URLSearchParams(location.search).get('q') || '');
       input.addEventListener('input', () => {
