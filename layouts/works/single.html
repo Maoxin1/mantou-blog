@@ -4,20 +4,30 @@
 {{- $typeLabels := dict "investment" (T "typeInvestment") "tools" (T "typeTools") "methodology" (T "typeMethodology") "body" (T "bodyPractice") -}}
 <article class="page single work-detail" data-work-detail data-pagefind-body>
     <header class="work-detail__header">
-        <div class="work-detail__eyebrow">
-            <span>{{ index $typeLabels .Params.work_type | default .Params.work_type }}</span>
-            <span>{{ .Params.stage }}</span>
-        </div>
-        <h1>{{ .Title }}</h1>
-        <p class="work-detail__description">{{ .Description }}</p>
-        <div class="work-detail__actions">
-            {{ with .Params.artifact_url }}
-                <a class="portfolio-button portfolio-button--primary" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }}</a>
-            {{ end }}
-            {{ with .Params.source_url }}
-                <a class="portfolio-button portfolio-button--secondary" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewSource" }}</a>
-            {{ end }}
-            <a class="work-detail__evidence-link" href="#evidence">{{ T "checkResults" }}&nbsp;↓</a>
+        <div{{ if .Params.preview_image }} class="work-detail__visual-intro"{{ end }}>
+            <div>
+                <div class="work-detail__eyebrow">
+                    <span>{{ index $typeLabels .Params.work_type | default .Params.work_type }}</span>
+                    <span>{{ .Params.stage }}</span>
+                </div>
+                <h1>{{ .Title }}</h1>
+                <p class="work-detail__description">{{ .Description }}</p>
+                <div class="work-detail__actions">
+                    {{ with .Params.artifact_url }}
+                        <a class="portfolio-button portfolio-button--primary" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }}</a>
+                    {{ end }}
+                    {{ with .Params.source_url }}
+                        <a class="portfolio-button portfolio-button--secondary" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewSource" }}</a>
+                    {{ end }}
+                    <a class="work-detail__evidence-link" href="#evidence">{{ T "checkResults" }}&nbsp;↓</a>
+                </div>
+            </div>
+            {{- with .Params.preview_image -}}
+            <figure class="work-detail__preview">
+                <img src="{{ . }}" alt="{{ $.Params.preview_alt }}" width="388" height="624" decoding="async">
+                <figcaption>{{ T "previewDate" }}</figcaption>
+            </figure>
+            {{- end -}}
         </div>
     </header>
 
@@ -42,13 +52,6 @@
 
     {{- if and (eq .Params.work_type "body") .Params.weight_evidence -}}
         {{- partial "work-body-evidence.html" . -}}
-    {{- end -}}
-
-    {{- with .Params.preview_image -}}
-    <figure class="work-detail__preview">
-        <img src="{{ . }}" alt="{{ $.Params.preview_alt }}" width="388" height="624" loading="lazy" decoding="async">
-        <figcaption>{{ T "previewDate" }}</figcaption>
-    </figure>
     {{- end -}}
 
         <div class="evidence-panel" aria-label="{{ T "verificationSummary" }}">

@@ -1,4 +1,5 @@
 ---
+home_status: "Four installable agents"
 title: Four recurring tasks, packaged as installable Codex agents
 date: '2026-09-14'
 description: A set of custom agents for refining prompts, critical thinking, fact-checking, and investment research,
@@ -30,7 +31,7 @@ privacy_reviewed: true
 featured: false
 translation_status: reviewed
 translation_provider: Machine-assisted, edited against the Chinese source
-translation_source_hash: 4b168f6de8e2d3b07bd9076abf2a169549985e5e6db20bd28bd84fe7c78691c2
+translation_source_hash: 6a1b2353b31110c3bdcfb5c81775f2f7c1cf9b4d8a98865602fdae5ed7f920f7
 ---
 
 ## The problem and the idea

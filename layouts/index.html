@@ -21,11 +21,11 @@
       {{- with .Site.GetPage .Site.Data.home.featured_work -}}
       <div class="home-pair__project">
         <div>
-          <p class="home-pair__status">{{ .Params.stage }}</p>
+          <p class="home-pair__status">{{ .Params.home_status | default .Params.stage }}</p>
           <h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3>
           <p>{{ .Params.home_summary | default .Description }}</p>
           <div class="editorial-home__work-links">
-            {{ with .Params.artifact_url }}<a class="home-action" href="{{ . }}" target="_blank" rel="noopener">{{ T "openTool" }} ↗</a>{{ end }}
+            {{ with .Params.artifact_url }}<a class="home-action" href="{{ . }}" target="_blank" rel="noopener">{{ T "openTool" }} <span class="text-arrow" aria-hidden="true">↗&#xfe0e;</span></a>{{ end }}
             <a class="home-action" href="{{ .RelPermalink }}">{{ T "makingNotes" }} →</a>
           </div>
         </div>
@@ -37,16 +37,15 @@
   </div>
   <div class="home-updates" id="latest">
     <section class="editorial-home__latest" aria-labelledby="latest-title" data-home-latest>
-      <div class="editorial-home__section-heading"><h2 id="latest-title">{{ T "recentWriting" }}</h2><p>{{ T "byPublished" }}</p></div>
+      <div class="editorial-home__section-heading"><h2 id="latest-title">{{ T "recentWriting" }}</h2></div>
       <ol class="editorial-home__latest-list">
         {{- range first 5 $posts -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3></div></li>{{- end -}}
       </ol>
-      <a class="home-action" href="{{ "/posts/" | relLangURL }}">{{ T "allWriting" }} →</a>
     </section>
     <section class="editorial-home__latest" aria-labelledby="project-updates-title" data-home-work-updates>
-      <div class="editorial-home__section-heading"><h2 id="project-updates-title">{{ T "projectNotes" }}</h2><p>{{ T "projectNotesLead" }}</p></div>
+      <div class="editorial-home__section-heading"><h2 id="project-updates-title">{{ T "projectNotes" }}</h2></div>
       <ol class="editorial-home__latest-list">
-        {{- range first 3 $works -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3><p>{{ .Params.stage }}</p></div></li>{{- end -}}
+        {{- range first 3 $works -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3><p>{{ .Params.home_status | default .Params.stage }}</p></div></li>{{- end -}}
       </ol>
       <a class="home-action" href="{{ "/now/" | relLangURL }}">{{ T "seeNow" }} →</a>
     </section>

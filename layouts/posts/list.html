@@ -22,7 +22,7 @@
           {{- range .Pages -}}
             <article class="archive-item">
               <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .Title | emojify }}</a>
-              <time class="archive-item-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ $.Site.Params.section.dateFormat | default "01-02" | .Date.Format }}</time>
+              <time class="archive-item-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ $.Site.Params.section.dateFormat | default "01.02" | .Date.Format }}</time>
             </article>
           {{- end -}}
         {{- end -}}
