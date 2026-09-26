@@ -5,6 +5,15 @@
   "homeLead": {
     "other": "写日记、读书，也做些自己用得上的工具。试着把日子过明白一点——目前仍在调试。"
   },
+  "homeShortcuts": {
+    "other": "快速找到内容"
+  },
+  "featuredArticle": {
+    "other": "精选"
+  },
+  "chineseInterface": {
+    "other": "中文界面"
+  },
   "writing": {
     "other": "文章"
   },
@@ -22,6 +31,9 @@
   },
   "openTool": {
     "other": "打开工具"
+  },
+  "openChineseTool": {
+    "other": "打开中文工具"
   },
   "makingNotes": {
     "other": "制作记录"

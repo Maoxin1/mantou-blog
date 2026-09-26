@@ -5,12 +5,16 @@
   <header class="editorial-home__intro">
     <h1>{{ T "homeHello" }}</h1>
     <p class="editorial-home__lead">{{ T "homeLead" }}</p>
+    <nav class="home-shortcuts" aria-label="{{ T "homeShortcuts" }}">
+      <a href="#selected">{{ T "startHere" }} ↓</a>
+      <a href="#latest">{{ T "recentWriting" }} ↓</a>
+    </nav>
   </header>
   <div class="home-pair" data-home-pair>
     <section aria-labelledby="writing-title" data-home-featured-post>
       <div class="home-pair__label"><h2 id="writing-title">{{ T "writing" }}</h2><a href="{{ "/posts/" | relLangURL }}">{{ T "allWriting" }} →</a></div>
       {{- with .Site.GetPage .Site.Data.home.featured_post -}}
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+      <span class="home-pair__feature-context">{{ T "featuredArticle" }} · </span><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
       <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
       <p>{{ .Description }}</p>
       <a class="home-action" href="{{ .RelPermalink }}">{{ T "readArticle" }} →</a>
@@ -19,13 +23,14 @@
     <section aria-labelledby="projects-title" data-home-featured-work>
       <div class="home-pair__label"><h2 id="projects-title">{{ T "projects" }}</h2><a href="{{ "/works/" | relLangURL }}">{{ T "allProjects" }} →</a></div>
       {{- with .Site.GetPage .Site.Data.home.featured_work -}}
+      {{- $work := . -}}
       <div class="home-pair__project">
         <div>
           <p class="home-pair__status">{{ .Params.home_status | default .Params.stage }}</p>
           <h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3>
           <p>{{ .Params.home_summary | default .Description }}</p>
           <div class="editorial-home__work-links">
-            {{ with .Params.artifact_url }}<a class="home-action" href="{{ . }}" target="_blank" rel="noopener">{{ T "openTool" }} <span class="text-arrow" aria-hidden="true">↗&#xfe0e;</span></a>{{ end }}
+            {{ with .Params.artifact_url }}<a class="home-action" href="{{ . }}" target="_blank" rel="noopener">{{ if and (eq $work.Site.Language.Lang "en") (eq $work.Params.artifact_language "zh-cn") }}{{ T "openChineseTool" }}{{ else }}{{ T "openTool" }}{{ end }} <span class="text-arrow" aria-hidden="true">↗&#xfe0e;</span></a>{{ end }}
             <a class="home-action" href="{{ .RelPermalink }}">{{ T "makingNotes" }} →</a>
           </div>
         </div>
@@ -51,7 +56,7 @@
       <a class="home-action" href="{{ "/now/" | relLangURL }}">{{ T "seeNow" }} →</a>
     </section>
   </div>
-  <section class="editorial-home__selected" aria-labelledby="selected-title" data-home-selected>
+  <section class="editorial-home__selected" id="selected" aria-labelledby="selected-title" data-home-selected>
     <div class="editorial-home__section-heading"><h2 id="selected-title">{{ T "startHere" }}</h2></div>
     <div class="editorial-home__selected-list">
       {{- range .Site.Data.home.selected -}}

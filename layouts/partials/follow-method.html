@@ -1,0 +1,19 @@
+{{- if eq .Method "rss" -}}
+<section class="follow-page__section" aria-labelledby="follow-rss-title">
+    <span class="follow-page__number">{{ .Number }}</span>
+    <div>
+        <h2 id="follow-rss-title">{{ T "rssSubscription" }}</h2>
+        <p>{{ T "rssLead" }}</p>
+        {{- partial "follow-options.html" .Page -}}
+    </div>
+</section>
+{{- else -}}
+<section class="follow-page__section" aria-labelledby="follow-email-title">
+    <span class="follow-page__number">{{ .Number }}</span>
+    <div>
+        <h2 id="follow-email-title">{{ T "emailUpdates" }}</h2>
+        <p>{{ T "emailLead" }}</p>
+        {{- partial "follow-form.html" (dict "Site" .Page.Site "FieldID" "follow-email-page") -}}
+    </div>
+</section>
+{{- end -}}

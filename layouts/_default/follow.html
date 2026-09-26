@@ -3,28 +3,18 @@
 {{- define "content" -}}
 <div class="page follow-page" data-follow-page>
     <header class="follow-page__hero">
-        <p class="section-kicker">EMAIL · RSS</p>
+        <p class="section-kicker">{{ if eq .Site.Language.Lang "en" }}RSS · EMAIL{{ else }}EMAIL · RSS{{ end }}</p>
         <h1>{{ T "subscribeUpdates" }}</h1>
         <p>{{ T "subscribeLead" }}</p>
     </header>
 
-    <section class="follow-page__section" aria-labelledby="follow-email-title">
-        <span class="follow-page__number">01</span>
-        <div>
-            <h2 id="follow-email-title">{{ T "emailUpdates" }}</h2>
-            <p>{{ T "emailLead" }}</p>
-            {{- partial "follow-form.html" (dict "Site" .Site "FieldID" "follow-email-page") -}}
-        </div>
-    </section>
-
-    <section class="follow-page__section" aria-labelledby="follow-rss-title">
-        <span class="follow-page__number">02</span>
-        <div>
-            <h2 id="follow-rss-title">{{ T "rssSubscription" }}</h2>
-            <p>{{ T "rssLead" }}</p>
-            {{- partial "follow-options.html" . -}}
-        </div>
-    </section>
+    {{- if eq .Site.Language.Lang "en" -}}
+        {{- partial "follow-method.html" (dict "Page" . "Method" "rss" "Number" "01") -}}
+        {{- partial "follow-method.html" (dict "Page" . "Method" "email" "Number" "02") -}}
+    {{- else -}}
+        {{- partial "follow-method.html" (dict "Page" . "Method" "email" "Number" "01") -}}
+        {{- partial "follow-method.html" (dict "Page" . "Method" "rss" "Number" "02") -}}
+    {{- end -}}
 
     <section class="follow-page__promise" aria-labelledby="follow-promise-title">
         <p class="section-kicker">DELIVERY · PRIVACY</p>

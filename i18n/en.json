@@ -5,6 +5,15 @@
   "homeLead": {
     "other": "I write, read, and build small tools. Still figuring life out. Still debugging."
   },
+  "homeShortcuts": {
+    "other": "Jump to sections"
+  },
+  "featuredArticle": {
+    "other": "Selected"
+  },
+  "chineseInterface": {
+    "other": "Chinese interface"
+  },
   "writing": {
     "other": "Writing"
   },
@@ -22,6 +31,9 @@
   },
   "openTool": {
     "other": "Open the tool"
+  },
+  "openChineseTool": {
+    "other": "Open Chinese tool"
   },
   "makingNotes": {
     "other": "How I made it"
@@ -327,7 +339,7 @@
     "other": "Email updates"
   },
   "emailPendingLead": {
-    "other": "Use the English RSS feed below. Email delivery is currently available for the Chinese feed only."
+    "other": "Email delivery is currently available for the Chinese feed only. For English updates, use the RSS feed."
   },
   "wantUpdates": {
     "other": "Would you like to keep reading?"
@@ -345,7 +357,7 @@
     "other": "Email updates"
   },
   "emailLead": {
-    "other": "Chinese email updates are delivered by follow.it after you confirm your address. English updates are available through RSS below."
+    "other": "Chinese email updates are delivered by follow.it after you confirm your address. For English updates, use the RSS feed."
   },
   "rssSubscription": {
     "other": "RSS subscription"

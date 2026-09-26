@@ -9,5 +9,5 @@
         <p class="work-card__story">{{ .Params.list_summary | default .Description }}</p>
         <span class="work-card__action">{{ T "readWork" }}&nbsp;→</span>
     </a>
-    {{ with .Params.artifact_url }}<a class="work-direct-link" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }} <span class="text-arrow" aria-hidden="true">↗&#xfe0e;</span></a>{{ end }}
+    {{ with .Params.artifact_url }}<a class="work-direct-link" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }}{{ partial "artifact-language-note.html" $ }} <span class="text-arrow" aria-hidden="true">↗&#xfe0e;</span></a>{{ end }}
 </article>

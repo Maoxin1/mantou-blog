@@ -40,7 +40,7 @@
           {{- $authorLink := $params.authorlink | default .Site.Params.Author.link | default .Site.Home.RelPermalink -}}
           <a class="author" href="{{ $authorLink }}" rel="author">{{ $author }}</a>
           <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006.01.02" }}</time>
-          <span>{{ T "readingTime" .ReadingTime }}</span>
+          {{- if gt .ReadingTime 0 }}<span>{{ T "readingTime" .ReadingTime }}</span>{{ end -}}
         </div>
       </div>
     </header>

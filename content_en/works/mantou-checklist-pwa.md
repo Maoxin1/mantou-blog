@@ -24,6 +24,7 @@ decision: Align the installation entry and Cloudflare route, make automated test
 outcome: V1 added installation and offline use. V2 reduced daily input to focused-reading minutes, exercise status,
   and journaling status, with weekly totals and one-click 1080 × 1536 PNG export.
 artifact_url: https://mantou-checklist.pages.dev/editor
+artifact_language: zh-cn
 source_url: https://github.com/Maoxin1/mantou-checklist
 evidence: V1 passed five checks on a real Android phone. V2 passed code validation and is deployed, and is being
   used to record and share progress in my daily-routine experiment.
@@ -50,7 +51,7 @@ disclosure: public
 featured: true
 translation_status: reviewed
 translation_provider: Machine-assisted, edited against the Chinese source
-translation_source_hash: 25e64523dafacf43c42b4c57223d3efaf1a086ada39a8d15cd09d3fe542478c6
+translation_source_hash: a56e8982f4303c0a546e2a85c98a6f3f3c5d1531d776517a00ef3a878915d923
 ---
 
 ## The problem and the idea
