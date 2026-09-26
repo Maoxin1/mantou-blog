@@ -42,10 +42,31 @@
 
 ## 私有流量后台
 
-入口：`https://mantou-blog.pages.dev/admin/analytics/`，也可从两个内容后台右下角打开。它链接到 Cloudflare 账户内的 Web Analytics，需要本人登录有权限的账户。入口页不存放凭据或访问数据，不将统计公开嵌入博客。
+入口：`https://mantou-blog.pages.dev/admin/analytics/`，也可从两个内容后台右下角打开。它链接到 Cloudflare Web Analytics 和 Umami Cloud，均需本人登录。入口页不存放凭据或访问数据，不将统计公开嵌入博客。
 
-选择 `mantou-blog.pages.dev`，查看最近 7 天或 30 天的浏览量、访问次数、热门页面、来源、设备和加载性能。根据 Path 区分 `/en/` 英文内容、`/p/` 中文文章、`/works/` 中文作品。Visits 是访问次数，不是去重后的访客人数；本模块不统计按钮点击、订阅转化或“阅读完成”。
+Cloudflare 中选择 `mantou-blog.pages.dev`，查看最近 7 天或 30 天的浏览量、访问次数、热门页面、来源、设备和加载性能。根据 Path 区分 `/en/` 英文内容、`/p/` 中文文章、`/works/` 中文作品。Visits 是访问次数，不是去重后的访客人数。Cloudflare 不支持自定义事件，所以不能单独完成内容到订阅意向的漏斗。
 
 当前采集只允许正式域名，本地与预览域名不加载脚本。更换域名时需同步更新 `layouts/partials/analytics.html` 和 Cloudflare 的站点规则。站点采集请求返回成功不等同于已经核对后台历史数据；当前本地部署凭据没有 Analytics 读取权限，历史数据需在本人登录的控制台确认。
 
-参考：[Hugo 多语言](https://gohugo.io/content-management/multilingual/)、[Pagefind 多语言](https://pagefind.app/docs/multilingual/)、[Cloudflare 指标](https://developers.cloudflare.com/web-analytics/data-metrics/high-level-metrics/)。
+### 行为漏斗：Umami（待启用）
+
+选择 [Umami 开源项目](https://github.com/umami-software/umami) 的托管版 Hobby：它支持无 Cookie 的页面浏览、自定义事件、漏斗和来源归因，省去自建数据库与升级维护。[GoatCounter](https://github.com/arp242/goatcounter) 可作为更轻的访问统计参考，但本站需要的顺序漏斗以 Umami 的现成功能更贴合；[Plausible 的漏斗](https://plausible.io/docs/funnel-analysis)属于其 Business 套餐，不符合优先免费的选择。Umami 免费额度与功能以[官方套餐](https://umami.is/pricing)为准。站点当前尚未取得 Website ID，因此 `hugo.toml` 中 `params.analytics.umamiWebsiteID` 留空，构建结果不会加载 Umami；Cloudflare 仍持续工作。Umami 的统计从启用时开始，不能自动补回之前的行为事件。
+
+启用时：在 [Umami Cloud](https://cloud.umami.is/) 创建免费账户和网站，域名填 `mantou-blog.pages.dev`；将网站设置中公开的 Website ID 填入 `hugo.toml`，构建并发布。后台保持私有，不开启 Share URL。发布后打开正式站点，在浏览器网络面板确认 `cloud.umami.is/script.js` 和采集请求成功，再在 Umami 的实时视图中核对一次站内文章访问和作品链接点击。不要将账户密码或 API Key 放入仓库。
+
+采集范围只包括正式域名；Umami 脚本尊重浏览器 Do Not Track。站点不调用 `umami.identify()`，不额外传入邮箱、个人标识或外链地址；Umami 默认仍会采集当前页面的标题、路径和设备信息。Umami 会用请求信息生成轮换的会话哈希以统计漏斗；这不是跨站身份识别，也不应把估算访客数当成实名人数。前端发送的页面地址仅保留路径及 `utm_source`、`utm_medium`、`utm_campaign`；来源地址只保留外站域名或站内路径，避免把搜索词及任意查询参数带入统计。分享外部链接时如需区分推广来源，只使用这三个 UTM 参数，绝不把邮箱或个人标识塞入参数。
+
+| 信号 | 定义 | 可回答的问题 |
+| --- | --- | --- |
+| `/p/*`、`/en/p/*` 页面浏览 | 到达文章 | 哪些来源带来了文章读者 |
+| `/works/*`、`/en/works/*` 页面浏览 | 到达作品详情 | 文章读者是否进一步看作品 |
+| `artifact_open` | 点击作品的外部成品链接 | 哪些作品引发了实际打开行为 |
+| `subscribe_open` | 打开站内订阅弹窗 | 文章是否促使读者了解订阅 |
+| `subscribe_submit` | 邮件表单通过浏览器校验后提交至 follow.it | 中文邮件订阅意向；**不是订阅成功** |
+| `rss_intent` | 点击 RSS/阅读器入口或复制 Feed | 中英文 RSS 订阅意向；**不是订阅成功** |
+
+分析时先按 Referrer 或 UTM Source 筛选来源，再分别建漏斗：`/p/* → /works/*`、`/en/p/* → /en/works/*`；中文邮件为 `/p/* → subscribe_submit`，中英文 RSS 分别为文章路径 `→ rss_intent`。可另外看 `/works/* → artifact_open` 和 `subscribe_open → subscribe_submit`。来源是筛选维度，不是漏斗的一个页面步骤。先看每一步的原始人数和样本量，再看转化率；分享软件可能抹掉来源，因而 Direct 不能直接解释为读者主动输入网址。英文邮件尚未开通，不能将英文 RSS 意向混作邮件订阅。
+
+若要统计真正的“订阅成功”，需 follow.it 提供可核验的成功回调或确认页，并在其完成后单独记录；目前的站内表单提交及阅读器点击都只代表意向。
+
+参考：[Hugo 多语言](https://gohugo.io/content-management/multilingual/)、[Pagefind 多语言](https://pagefind.app/docs/multilingual/)、[Cloudflare 指标](https://developers.cloudflare.com/web-analytics/data-metrics/high-level-metrics/)、[Umami 漏斗](https://docs.umami.is/docs/funnel)、[Umami 归因](https://docs.umami.is/docs/attribution)。

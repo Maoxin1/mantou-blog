@@ -5,11 +5,12 @@
 <body>
 <nav><a href="/admin/">内容后台 / Content manager</a><a href="/">博客 / Blog</a></nav>
 <h1>网站流量 / Website analytics</h1>
-<p>访问量和性能数据保存在 Cloudflare 后台，需要登录拥有此站点权限的账户。博客页面不会展示统计数据。</p>
-<p lang="en">Traffic and performance data are available in your private Cloudflare dashboard. Sign in with the account that owns this site.</p>
+<p>基础访问量与性能数据保存在 Cloudflare；来源、文章、作品与订阅意向的行为漏斗将在配置 Umami Website ID 后开始采集。两个后台都需要本人登录，不在博客公开展示数据。</p>
+<p lang="en">Cloudflare holds traffic and performance data. Source-to-article-to-project or subscription-intent funnels begin collecting after an Umami Website ID is configured. Both dashboards require your own login.</p>
 <a class="action" href="https://dash.cloudflare.com/60fce3c87fe0af3ac0a66d4b03594598/web-analytics">打开统计后台 / Open analytics →</a>
+<p><a href="https://cloud.umami.is/">打开行为漏斗后台 / Open behavior dashboard →</a></p>
 <small>选择 mantou-blog.pages.dev。页面路径以 /en/ 开头的是英文内容；/p/ 是中文文章，/works/ 是中文作品。</small>
 <small lang="en">Select mantou-blog.pages.dev. English pages start with /en/. Chinese articles use /p/ and projects use /works/.</small>
-<p>建议查看：浏览量、访问次数、热门页面、来源、设备和加载性能。访问次数不等于去重访客人数；当前统计不包含按钮点击或订阅转化。</p>
-<p lang="en">Review page views, visits, popular pages, referrers, devices, and loading performance. Visits are not unique visitors. Button clicks and subscription conversions are not tracked.</p>
+<p>Cloudflare 可查看浏览量、访问次数、热门页面、来源、设备和加载性能。Umami 启用后可查看作品打开、RSS 意向与邮件表单提交；表单提交不等于订阅成功。</p>
+<p lang="en">Cloudflare shows page views, visits, popular pages, sources, devices, and performance. Once enabled, Umami shows project opens, RSS intent, and email form submissions. A submitted form does not prove a confirmed subscription.</p>
 </body></html>

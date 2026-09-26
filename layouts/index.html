@@ -30,7 +30,7 @@
           <h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3>
           <p>{{ .Params.home_summary | default .Description }}</p>
           <div class="editorial-home__work-links">
-            {{ with .Params.artifact_url }}<a class="home-action" href="{{ . }}" target="_blank" rel="noopener">{{ if and (eq $work.Site.Language.Lang "en") (eq $work.Params.artifact_language "zh-cn") }}{{ T "openChineseTool" }}{{ else }}{{ T "openTool" }}{{ end }} <span class="text-arrow" aria-hidden="true">↗&#xfe0e;</span></a>{{ end }}
+            {{ with .Params.artifact_url }}<a class="home-action" href="{{ . }}" target="_blank" rel="noopener" data-umami-event="artifact_open">{{ if and (eq $work.Site.Language.Lang "en") (eq $work.Params.artifact_language "zh-cn") }}{{ T "openChineseTool" }}{{ else }}{{ T "openTool" }}{{ end }} <span class="text-arrow" aria-hidden="true">↗&#xfe0e;</span></a>{{ end }}
             <a class="home-action" href="{{ .RelPermalink }}">{{ T "makingNotes" }} →</a>
           </div>
         </div>
