@@ -12,7 +12,7 @@
 
 ## 翻译与发布
 
-历史文章英文包含机器初译，页面会明确标注，并提供中文原文链接。初译使用 Google Translate，限流后以本地 Argos Translate 1.9 补充；临时翻译工具和模型不进入仓库、构建或访客浏览器。`translation_status: reviewed` 仅用于实际逐篇审校过的内容。
+截至 2026-09-26，现有 206 篇文章的英文版均已对照中文原文逐篇审校，页面保留中文原文链接。历史初译曾使用 Google Translate，限流后以本地 Argos Translate 1.9 补充；临时翻译工具和模型不进入仓库、构建或访客浏览器。`translation_status: reviewed` 仅用于实际逐篇审校过的内容；未来新增文章仍可先标注 `machine`，待审校后再改为 `reviewed`。
 
 发布或修改中文内容时：
 
