@@ -21,7 +21,13 @@
           <h2 class="group-title">{{ .Key }}</h2>
           {{- range .Pages -}}
             <article class="archive-item">
-              <a href="{{ .RelPermalink }}" class="archive-item-link">{{ .Title | emojify }}</a>
+              <a href="{{ .RelPermalink }}" class="archive-item-link">
+                {{- with partial "function/article-image.html" . -}}
+                  {{- $thumbnail := .Fill "192x128 webp q75" -}}
+                  <img class="archive-item__image" src="{{ $thumbnail.RelPermalink }}" width="96" height="64" alt="" loading="lazy" decoding="async">
+                {{- end -}}
+                <span>{{ .Title | emojify }}</span>
+              </a>
               <time class="archive-item-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ $.Site.Params.section.dateFormat | default "01.02" | .Date.Format }}</time>
             </article>
           {{- end -}}

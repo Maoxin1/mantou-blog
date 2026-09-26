@@ -442,5 +442,56 @@
   },
   "aboutAside": {
     "other": "计划写得很认真，周六也会喊累。这里会把两种情况都留下。"
+  },
+  "lifePhotos": {
+    "other": "生活里的两张照片"
+  },
+  "lifePhotosLead": {
+    "other": "计划之外，也有值得留下的小事。"
+  },
+  "photoFrogAlt": {
+    "other": "放在枕头边的手工编织小青蛙挂件"
+  },
+  "photoFrogTitle": {
+    "other": "一只小青蛙，一整晚好心情"
+  },
+  "photoFrogCaption": {
+    "other": "小礼物的后劲，有时候挺大。"
+  },
+  "photoStreetAlt": {
+    "other": "傍晚街道上的车辆、树木与路牌"
+  },
+  "photoStreetTitle": {
+    "other": "写逻辑，也出门看看"
+  },
+  "photoStreetCaption": {
+    "other": "书里的问题，带到街上想想。"
+  },
+  "mantouAvatar": {
+    "other": "mantou 使用的黄色连帽衫插画头像"
+  },
+  "readerFeedbackTitle": {
+    "other": "读到这里，聊两句？"
+  },
+  "readerFeedbackLead": {
+    "other": "有共鸣、有疑问，或者觉得哪句不太对，都欢迎告诉我。馒头经得起揉。"
+  },
+  "feedbackMailSubject": {
+    "other": "读者反馈"
+  },
+  "feedbackMailBody": {
+    "other": "我想说："
+  },
+  "feedbackByEmail": {
+    "other": "给 mantou 写两句"
+  },
+  "feedbackMailHint": {
+    "other": "会打开你的邮件应用，文章标题和链接已经带上；内容只发给我。"
+  },
+  "loadComments": {
+    "other": "点赞 · 留下评论"
+  },
+  "feedbackPrivacy": {
+    "other": "无需注册；昵称和留言会公开，邮箱可不填。评论审核后显示。打开时会连接本站评论服务。"
   }
 }

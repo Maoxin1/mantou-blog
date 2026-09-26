@@ -35,6 +35,7 @@
       {{- else -}}{{ errorf "Missing home featured work" }}{{- end -}}
     </section>
   </div>
+  {{ partial "home-photos.html" . }}
   <div class="home-updates" id="latest">
     <section class="editorial-home__latest" aria-labelledby="latest-title" data-home-latest>
       <div class="editorial-home__section-heading"><h2 id="latest-title">{{ T "recentWriting" }}</h2></div>

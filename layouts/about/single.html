@@ -3,6 +3,10 @@
 {{- define "content" -}}
 <div class="page about-collaboration" data-about-collaboration>
     <header class="about-hero about-hero--editorial">
+        {{- with resources.Get "blog-media/mantou.jpg" -}}
+          {{- $avatar := .Resize "192x webp q80" -}}
+          <img class="about-hero__avatar" src="{{ $avatar.RelPermalink }}" width="96" height="96" alt="{{ T "mantouAvatar" }}" decoding="async">
+        {{- end -}}
         <h1>{{ T "aboutTitle" }}</h1>
         <p>{{ T "aboutIntro" }}</p>
         <p class="about-hero__aside">{{ T "aboutAside" }}</p>
