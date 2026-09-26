@@ -14,7 +14,7 @@
                 <p class="work-detail__description">{{ .Description }}</p>
                 <div class="work-detail__actions">
                     {{ with .Params.artifact_url }}
-                        <a class="portfolio-button portfolio-button--primary" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }}</a>
+                        <a class="portfolio-button portfolio-button--primary" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }}{{ partial "artifact-language-note.html" $ }}</a>
                     {{ end }}
                     {{ with .Params.source_url }}
                         <a class="portfolio-button portfolio-button--secondary" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewSource" }}</a>

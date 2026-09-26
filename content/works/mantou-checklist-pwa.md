@@ -17,6 +17,7 @@ constraints: "不增加账号、云同步和复杂配置；继续保持单页、
 decision: "统一安装入口与 Cloudflare 路由，并让自动化测试模拟正式部署环境，再用真实手机复验。"
 outcome: "V1 完成可安装与离线使用；V2 将日常输入收敛为「破界行动」分钟、训练状态、日记状态 3 个事实，自动汇总周进度并一键下载 1080 × 1536 PNG。"
 artifact_url: "https://mantou-checklist.pages.dev/editor"
+artifact_language: "zh-cn"
 source_url: "https://github.com/Maoxin1/mantou-checklist"
 evidence: "V1 在真实 Android 手机上完成 5 项验收；V2 代码验证通过并已部署到正式站，继续作为作息重构实验的日常记录与公开输出工具。"
 limitations: "数据只保存在当前浏览器，不自动跨设备同步；首次安装和获取更新仍需要联网。"
