@@ -173,7 +173,7 @@ main h1, main h2, main h3 { overflow-wrap: anywhere; }
 }
 @media (max-width: 720px) {
   .home-pair, .home-updates { grid-template-columns: 1fr; gap: .5rem; }
-  .balanced-home .editorial-home__intro { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+  .balanced-home .editorial-home__intro { padding-top: 1rem; padding-bottom: 1rem; }
   .balanced-home .editorial-home__intro h1 { font-size: 1.9rem; }
   .balanced-home .editorial-home__lead { font-size: 1rem; }
   .home-pair__label { margin-bottom: .6rem; }
