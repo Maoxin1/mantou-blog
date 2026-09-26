@@ -1,4 +1,5 @@
 ---
+home_status: "Mobile-ready · Works offline"
 home_title: Three daily entries, one picture to keep
 home_summary: Log reading, exercise, and journaling. Save a picture; use it offline.
 title: Turning my daily practice checklist into an offline mobile PWA
@@ -49,7 +50,7 @@ disclosure: public
 featured: true
 translation_status: reviewed
 translation_provider: Machine-assisted, edited against the Chinese source
-translation_source_hash: 06d81b8c1949332f0d6b47630f88b3f2fda4fcb333fe14b2ac6e0da2cf0cf36f
+translation_source_hash: 25e64523dafacf43c42b4c57223d3efaf1a086ada39a8d15cd09d3fe542478c6
 ---
 
 ## The problem and the idea

@@ -3,11 +3,11 @@
     <a class="work-card__link" href="{{ .RelPermalink }}">
         <div class="work-card__meta">
             <span>{{ index $typeLabels .Params.work_type | default .Params.work_type }}</span>
-            <span>{{ .Params.stage }}</span>
+            <span>{{ .Params.home_status | default .Params.stage }}</span>
         </div>
         <h3>{{ .Title }}</h3>
         <p class="work-card__story">{{ .Params.list_summary | default .Description }}</p>
         <span class="work-card__action">{{ T "readWork" }}&nbsp;→</span>
     </a>
-    {{ with .Params.artifact_url }}<a class="work-direct-link" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }} ↗</a>{{ end }}
+    {{ with .Params.artifact_url }}<a class="work-direct-link" href="{{ . }}" target="_blank" rel="noopener">{{ T "viewArtifact" }} <span class="text-arrow" aria-hidden="true">↗&#xfe0e;</span></a>{{ end }}
 </article>

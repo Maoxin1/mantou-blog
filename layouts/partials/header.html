@@ -4,8 +4,8 @@
     <nav class="menu" aria-label="{{ T "mainNavigation" }}"><div class="menu-inner">
       {{- range .Site.Menus.main -}}
         {{- $url := .URL | relLangURL -}}
-        {{- $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) (eq $.RelPermalink $url) -}}
-        <a class="menu-item{{ if $active }} active{{ end }}" href="{{ $url }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+        {{- $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) (eq $.RelPermalink $url) (and (eq .Identifier "articles") (eq $.Section "posts")) (and (eq .Identifier "portfolio") (eq $.Section "works")) -}}
+        <a class="menu-item{{ if $active }} active{{ end }}" href="{{ $url }}"{{ if in (slice "search" "follow") .Identifier }} data-nav-utility{{ end }}{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
       {{- end -}}
       {{ partial "language-switch.html" . }}
       <button type="button" class="menu-item theme-switch" title="{{ T "switchTheme" }}" aria-label="{{ T "switchTheme" }}"><i class="fas fa-adjust fa-fw" aria-hidden="true"></i></button>
@@ -24,8 +24,8 @@
     <nav class="menu" id="menu-mobile" aria-label="{{ T "mainNavigation" }}">
       {{- range .Site.Menus.main -}}
         {{- $url := .URL | relLangURL -}}
-        {{- $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) (eq $.RelPermalink $url) -}}
-        <a class="menu-item{{ if $active }} active{{ end }}" href="{{ $url }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+        {{- $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) (eq $.RelPermalink $url) (and (eq .Identifier "articles") (eq $.Section "posts")) (and (eq .Identifier "portfolio") (eq $.Section "works")) -}}
+        <a class="menu-item{{ if $active }} active{{ end }}" href="{{ $url }}"{{ if in (slice "search" "follow") .Identifier }} data-nav-utility{{ end }}{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
       {{- end -}}
       <button type="button" class="menu-item theme-switch" title="{{ T "switchTheme" }}" aria-label="{{ T "switchTheme" }}"><i class="fas fa-adjust fa-fw" aria-hidden="true"></i></button>
     </nav>

@@ -3,7 +3,7 @@
     "other": "Hi, I'm mantou."
   },
   "homeLead": {
-    "other": "I write about life and reading, and build small tools I use myself."
+    "other": "I write, read, and build small tools. Still figuring life out. Still debugging."
   },
   "writing": {
     "other": "Writing"
@@ -60,7 +60,7 @@
     "other": "About me"
   },
   "aboutShort": {
-    "other": "Writing, things I have made, and ways to get in touch."
+    "other": "Thoughts on life, and things I am working on."
   },
   "readAbout": {
     "other": "About mantou"
@@ -75,7 +75,7 @@
     "other": "Get updates"
   },
   "updatesShort": {
-    "other": "Choose the way you like to follow along."
+    "other": "A way to meet again when there is something new."
   },
   "subscribe": {
     "other": "Subscribe"
@@ -117,7 +117,7 @@
     "other": "Page not found"
   },
   "pageNotFoundLead": {
-    "other": "The address may have changed. Try the homepage or search."
+    "other": "This page could not be found; the link may have changed. Make yourself at home, or try a search."
   },
   "home": {
     "other": "Home"
@@ -228,13 +228,13 @@
     "other": "About mantou"
   },
   "aboutIntro": {
-    "other": "I keep a diary, write about books and everyday life, and share things I have made. Recent projects include a personal health experiment, a mobile tool, and experiments with AI workflows."
+    "other": "I am mantou. I keep a diary, read, and build small tools for the everyday problems that keep coming back. Recent projects explore personal health, a mobile tool, and working with AI."
   },
   "writingAndProjects": {
     "other": "Writing and projects"
   },
   "writingAndProjectsLead": {
-    "other": "My diary keeps thoughts as they happened. Project pages follow what I went on to make and learn. Both are part of this site."
+    "other": "My diary keeps thoughts as they happened. Project pages follow what I made and learned. Some problems are solved; others are putting up a good fight."
   },
   "fourPrinciples": {
     "other": "Four principles I currently work by"
@@ -252,10 +252,10 @@
     "other": "I distinguish observed results from ideas and future plans. I do not publish account returns, balances, or positions. Individual investments are discussed only at a review point or after I have fully exited."
   },
   "contactTitle": {
-    "other": "Have something in mind? Email me."
+    "other": "Have a specific problem? Let’s talk."
   },
   "contactLead": {
-    "other": "Tell me what you are working on and what you would like help with, so I can see whether I can contribute."
+    "other": "Email me what you are working on, where you are stuck, and any constraints. Putting the problem into words is a useful first step."
   },
   "emailMe": {
     "other": "Email me"
@@ -333,7 +333,7 @@
     "other": "Would you like to keep reading?"
   },
   "followNewPosts": {
-    "other": "Subscribe for new writing and project notes."
+    "other": "New writing and projects, as they come together."
   },
   "subscribeUpdates": {
     "other": "Subscribe to updates"
@@ -439,5 +439,8 @@
   },
   "translationStale": {
     "other": "The Chinese original has been updated since this translation."
+  },
+  "aboutAside": {
+    "other": "I make serious plans. I also write things like “Saturday. Tired.” Both belong here."
   }
 }

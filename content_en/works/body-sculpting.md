@@ -1,4 +1,5 @@
 ---
+home_status: "A 29-week health experiment"
 title: 'Project Sculpt: making health the default'
 date: '2026-09-19'
 description: From 86.5 kg to 70.0 kg over 29 weeks. How I gradually changed a “just eat less” plan into a more sustainable
@@ -61,7 +62,7 @@ weight_milestones:
   label: Stage review
 translation_status: reviewed
 translation_provider: Machine-assisted, edited against the Chinese source
-translation_source_hash: 15cc07563780af2caadb06ec27ccd7447b0d04a36d593fdddb1e4745ead6205e
+translation_source_hash: 80837178dbbc8af7e514bd8c47e56afd949abd33931907123471fd2e34e13e38
 ---
 
 If you looked only at the result, this could easily be a story about how I lost weight. Looking back, though, what I want to keep is how I spent six months finding problems, changing rules, and gradually making a rough weight-loss plan fit my own life.
