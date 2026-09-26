@@ -1,4 +1,4 @@
-<!-- Cloudflare Web Analytics: production host only, so preview traffic stays separate. -->
+<!-- Analytics run on the production host only; Umami remains off until its public Website ID is configured. -->
 <script data-analytics-loader>
   (() => {
     const allowedHosts = new Set(["mantou-blog.pages.dev"]);
@@ -9,5 +9,37 @@
     beacon.src = "https://static.cloudflareinsights.com/beacon.min.js";
     beacon.dataset.cfBeacon = JSON.stringify({ token: "0d8c083becee43c0a1cb14ad2a2c2216" });
     document.head.appendChild(beacon);
+
+    {{- with .Site.Params.analytics.umamiWebsiteID }}
+    // Keep only the campaign fields needed for source attribution; search queries
+    // and arbitrary link parameters should not become analytics dimensions.
+    window.mantouAnalyticsBeforeSend = (_, payload) => {
+      const url = new URL(payload.url || window.location.href, window.location.origin);
+      const campaign = new URLSearchParams();
+      for (const key of ["utm_source", "utm_medium", "utm_campaign"]) {
+        if (url.searchParams.has(key)) campaign.set(key, url.searchParams.get(key));
+      }
+      let referrer = "";
+      if (payload.referrer) {
+        const source = new URL(payload.referrer, window.location.origin);
+        referrer = source.origin === window.location.origin
+          ? source.origin + source.pathname
+          : source.origin;
+      }
+      return {
+        ...payload,
+        url: url.pathname + (campaign.size ? `?${campaign}` : ""),
+        referrer,
+      };
+    };
+    const behavior = document.createElement("script");
+    behavior.defer = true;
+    behavior.src = "https://cloud.umami.is/script.js";
+    behavior.dataset.websiteId = {{ . | jsonify | safeJS }};
+    behavior.dataset.domains = "mantou-blog.pages.dev";
+    behavior.dataset.doNotTrack = "true";
+    behavior.dataset.beforeSend = "mantouAnalyticsBeforeSend";
+    document.head.appendChild(behavior);
+    {{- end }}
   })();
 </script>

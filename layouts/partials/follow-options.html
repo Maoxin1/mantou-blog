@@ -1,10 +1,10 @@
 {{- $feed := "index.xml" | absLangURL -}}
 <div class="follow-options" aria-label="{{ T "rssWays" }}">
-    <a class="follow-option follow-option--primary" href="https://www.inoreader.com/?add_feed={{ $feed | urlquery }}" target="_blank" rel="noopener">
+    <a class="follow-option follow-option--primary" href="https://www.inoreader.com/?add_feed={{ $feed | urlquery }}" target="_blank" rel="noopener" data-umami-event="rss_intent">
         <span>{{ T "inoreader" }}</span>
         <small>{{ T "addReader" }}</small>
     </a>
-    <a class="follow-option" href="https://feedly.com/i/subscription/feed/{{ $feed | urlquery }}" target="_blank" rel="noopener">
+    <a class="follow-option" href="https://feedly.com/i/subscription/feed/{{ $feed | urlquery }}" target="_blank" rel="noopener" data-umami-event="rss_intent">
         <span>{{ T "feedly" }}</span>
         <small>{{ T "addReader" }}</small>
     </a>
@@ -12,7 +12,7 @@
         <span data-copy-feed-label>{{ T "copyFeed" }}</span>
         <small>{{ T "pasteReader" }}</small>
     </button>
-    <a class="follow-option" href="{{ $feed }}" target="_blank" rel="noopener">
+    <a class="follow-option" href="{{ $feed }}" target="_blank" rel="noopener" data-umami-event="rss_intent">
         <span>{{ T "rawFeed" }}</span>
         <small>{{ $feed }}</small>
     </a>
