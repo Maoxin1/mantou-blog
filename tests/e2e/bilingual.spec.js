@@ -79,7 +79,8 @@ test('两种语言的 RSS 都包含全部文章与作品', async ({ request }) =
   expect(englishItems.length).toBeLessThanOrEqual(chineseItems.length);
   expect(english).toContain('<language>en</language>');
   expect(english).toContain('/en/works/mantou-checklist-pwa/');
-  expect(english).toContain('Machine translation; not fully reviewed');
+  expect(english).toContain('Edited English version based on the Chinese original.');
+  expect(english).not.toContain('Machine translation; not fully reviewed');
 });
 
 test('统计入口指向需要登录的 Cloudflare 后台', async ({ page }) => {
