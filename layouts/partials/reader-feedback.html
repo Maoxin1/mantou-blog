@@ -1,0 +1,27 @@
+{{- $server := .Site.Params.feedback.serverURL | default "" -}}
+{{- if and $server (not (hasPrefix $server "https://")) -}}{{ errorf "Feedback serverURL must use HTTPS" }}{{- end -}}
+{{- $email := .Site.Params.social.Email -}}
+{{- $subject := printf "%s：%s" (T "feedbackMailSubject") .Title -}}
+{{- $body := printf "%s\n%s\n\n%s\n" .Title .Permalink (T "feedbackMailBody") -}}
+{{- $mailURL := printf "mailto:%s?subject=%s&body=%s" $email (replace (urlquery $subject) "+" "%20") (replace (urlquery $body) "+" "%20") -}}
+<section class="reader-feedback" id="comments" aria-labelledby="reader-feedback-title" data-reader-feedback data-pagefind-ignore>
+  <h2 id="reader-feedback-title">{{ T "readerFeedbackTitle" }}</h2>
+  <p>{{ T "readerFeedbackLead" }}</p>
+  {{- if $server -}}
+    {{- $feedbackPath := .RelPermalink -}}
+    {{- range .AllTranslations -}}{{- if eq .Language.Lang "zh-cn" -}}{{- $feedbackPath = .RelPermalink -}}{{- end -}}{{- end -}}
+    <div class="reader-feedback__options" data-feedback-server="{{ $server }}" data-feedback-path="{{ $feedbackPath }}" data-feedback-lang="{{ .Language.Lang }}">
+      <button type="button" class="reader-feedback__load" data-feedback-load>{{ T "loadComments" }}</button>
+      <p class="reader-feedback__status" data-feedback-status role="status" aria-live="polite"></p>
+      <p class="reader-feedback__privacy">{{ T "feedbackPrivacy" }}</p>
+      <button type="button" class="reader-feedback__helpful" data-feedback-helpful aria-pressed="false" hidden>
+        <img src="/images/feedback-helpful.svg" width="28" height="28" alt="">
+        <span data-feedback-helpful-label></span><span data-feedback-count></span>
+      </button>
+      <div id="reader-comments"></div>
+    </div>
+    <script type="module" src="{{ "js/reader-feedback.js" | relURL }}"></script>
+  {{- end -}}
+  <a class="reader-feedback__email" href="{{ $mailURL | safeURL }}">{{ T "feedbackByEmail" }} <span aria-hidden="true">→</span></a>
+  {{- if not $server -}}<p class="reader-feedback__hint">{{ T "feedbackMailHint" }}</p>{{- end -}}
+</section>

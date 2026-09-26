@@ -1,0 +1,22 @@
+<section class="home-photos" aria-labelledby="home-photos-title" data-home-photos>
+  <div class="home-photos__heading">
+    <h2 id="home-photos-title">{{ T "lifePhotos" }}</h2>
+    <p>{{ T "lifePhotosLead" }}</p>
+  </div>
+  <div class="home-photos__grid">
+    {{- range .Site.Data.home.photos -}}
+      {{- $photo := . -}}
+      {{- with $.Site.GetPage .page -}}
+        {{- $page := . -}}
+        {{- with resources.Get (printf "blog-media/%s" (strings.TrimPrefix "/images/" $photo.image)) -}}
+          {{- $small := .Fill "360x180 webp q80" -}}
+          {{- $large := .Fill "720x360 webp q80" -}}
+          <a class="home-photos__item" href="{{ $page.RelPermalink }}">
+            <img src="{{ $large.RelPermalink }}" srcset="{{ $small.RelPermalink }} 360w, {{ $large.RelPermalink }} 720w" sizes="(max-width: 720px) calc((100vw - 3rem) / 2), 520px" width="720" height="360" loading="lazy" decoding="async" alt="{{ T $photo.alt_key }}">
+            <span class="home-photos__caption"><strong>{{ T $photo.title_key }}</strong><span>{{ T $photo.caption_key }}</span></span>
+          </a>
+        {{- else -}}{{ errorf "Homepage photo missing: %s" $photo.image }}{{- end -}}
+      {{- else -}}{{ errorf "Homepage photo article missing: %s" .page }}{{- end -}}
+    {{- end -}}
+  </div>
+</section>

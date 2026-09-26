@@ -442,5 +442,56 @@
   },
   "aboutAside": {
     "other": "I make serious plans. I also write things like “Saturday. Tired.” Both belong here."
+  },
+  "lifePhotos": {
+    "other": "A couple of moments from life"
+  },
+  "lifePhotosLead": {
+    "other": "Small things worth keeping, somewhere between the plans."
+  },
+  "photoFrogAlt": {
+    "other": "A hand-crocheted frog keychain resting on a pillow"
+  },
+  "photoFrogTitle": {
+    "other": "A little frog, a very good evening"
+  },
+  "photoFrogCaption": {
+    "other": "Small gifts can stay with you."
+  },
+  "photoStreetAlt": {
+    "other": "Cars, trees, and road signs on a street in the evening"
+  },
+  "photoStreetTitle": {
+    "other": "Thinking things through, out in the world"
+  },
+  "photoStreetCaption": {
+    "other": "A street scene from my reading notes."
+  },
+  "mantouAvatar": {
+    "other": "mantou’s illustrated avatar in a yellow hoodie"
+  },
+  "readerFeedbackTitle": {
+    "other": "Made it this far? Say hello."
+  },
+  "readerFeedbackLead": {
+    "other": "Something resonated, raised a question, or sounded wrong? I would like to hear it."
+  },
+  "feedbackMailSubject": {
+    "other": "Reader feedback"
+  },
+  "feedbackMailBody": {
+    "other": "My thoughts:"
+  },
+  "feedbackByEmail": {
+    "other": "Write a note to mantou"
+  },
+  "feedbackMailHint": {
+    "other": "Opens your email app with this article’s title and link included. Your note is sent privately to me."
+  },
+  "loadComments": {
+    "other": "React · Leave a comment"
+  },
+  "feedbackPrivacy": {
+    "other": "No registration required. Your name and comment will be public; email is optional. Comments appear after approval. Opening this area connects to the comment service."
   }
 }

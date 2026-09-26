@@ -1,0 +1,16 @@
+{{- /* Only reuse an image already published with this article. */ -}}
+{{- $image := false -}}
+{{- $path := .Params.featuredimage | default "" -}}
+{{- if not $path -}}
+  {{- with findRE `!\[[^\]]*\]\(/images/[^)\s]+(?:\s+"[^"]*")?\)` .RawContent 1 -}}
+    {{- $path = replaceRE `^.*\((/images/[^)\s]+).*\)$` "$1" (index . 0) -}}
+  {{- end -}}
+{{- end -}}
+{{- if hasPrefix $path "/images/" -}}
+  {{- with resources.Get (printf "blog-media/%s" (strings.TrimPrefix "/images/" $path)) -}}
+    {{- if in (slice "jpeg" "png" "webp") .MediaType.SubType -}}
+      {{- $image = . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $image -}}
