@@ -9,3 +9,5 @@ categories:
   - essays
 ---
 ![耶稣在人群中与一位行人同行的插画](/images/posts/1000106879.jpg)
+
+标题经文：[《以赛亚书》41:10（英文原文）](https://www.jw.org/en/library/bible/study-bible/books/isaiah/41/#v23041010) · [中文对照](https://www.jw.org/cmn-hans/多媒体图书馆/圣经/精读本圣经/圣经卷目/以赛亚书/41/#v23041010)，jw.org《圣经新世界译本》（精读本）。
