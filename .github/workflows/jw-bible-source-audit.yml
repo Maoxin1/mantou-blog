@@ -1,0 +1,51 @@
+name: Audit Bible citation sources
+
+on:
+  push:
+    branches: [chore/jw-bible-source-audit-20260927]
+    paths: [.github/workflows/jw-bible-source-audit.yml]
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Collect source text and citation inventory
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re, subprocess, zipfile
+          paths = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')
+          matches = []
+          pattern = re.compile(r'圣经|聖經|经文|經文|bible|jw\.org|esv\.org|youversion|和合本|哥林多|箴言|传道书|傳道書|诗篇|詩篇|马太福音|馬太福音', re.I)
+          output = Path('/tmp/bible-source-audit')
+          output.mkdir()
+          with zipfile.ZipFile(output / 'source-text.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+              for name in paths:
+                  path = Path(name)
+                  if not path.is_file() or path.suffix.lower() not in {'.md', '.html', '.xml', '.toml', '.yaml', '.yml', '.py', '.json', '.js', '.ts', '.scss', '.css', '.txt'}:
+                      continue
+                  if path.stat().st_size > 500000:
+                      continue
+                  archive.write(path, name)
+                  if name.startswith(('content/', 'content_en/', 'layouts/', 'data/', 'scripts/')):
+                      text = path.read_text(encoding='utf-8')
+                      found = [{'line': i, 'text': line} for i, line in enumerate(text.splitlines(), 1) if pattern.search(line)]
+                      if found:
+                          matches.append({'path': name, 'matches': found})
+          (output / 'citations.json').write_text(json.dumps(matches, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(json.dumps(matches, ensure_ascii=False, indent=2))
+          print(f'Matching files: {len(matches)}')
+          PY
+      - name: Upload read-only audit source
+        uses: actions/upload-artifact@v4
+        with:
+          name: bible-source-audit
+          path: /tmp/bible-source-audit/
+          retention-days: 1
