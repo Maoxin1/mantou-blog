@@ -8,7 +8,7 @@
 
 ## 本地验证
 
-需要 Hugo Extended 0.154.5、Python 3.12 或更高版本，以及 Node.js/npm。
+需要 Hugo Extended 0.154.5、Python 3.12 或更高版本，以及 Node.js 22 或更高版本（推荐 24 LTS）和 npm。
 
 ```powershell
 py -3 scripts/validate_admin_config.py
@@ -29,6 +29,8 @@ npm run test:e2e
 ```
 
 其中 Python 脚本检查内容结构、CMS契约、投资隐私预检、生成结果与内部链接；Playwright 在真实 Chromium 中验证首页到案例的访客路径、全部公开作品、中文搜索、桌面/平板/手机布局、主题与移动导航、基础语义以及页面运行时错误。失败时会生成 `playwright-report/` 和 `test-results/`，这两个目录不提交到 Git。测试范围、参考来源和未移植项见 [`tests/README.md`](tests/README.md)，新功能先使用[`功能验收模板`](docs/feature-acceptance-template.md)定义主张与失败条件，并在[`边缘风险登记表`](docs/edge-case-register.md)记录仍未覆盖的风险。投资作品发布前还需完成[`人工检查单`](docs/investment-publication-checklist.md)。
+
+新建文章由默认 Decap 后台自动补充 `/posts/日期-英文slug/` 旧路径别名；已有文章保留历史别名。单文件文章缺少有效别名时，CI 会在安装 Node、Hugo 和浏览器之前报错，构建后还会检查每个旧路径的 canonical 和实际跳转目标。Sveltia 新建文章需自行填写别名，同样接受 CI 校验。
 
 Cloudflare Pages 项目采用 Direct Upload，验证和部署是两条相互隔离的流水线：
 

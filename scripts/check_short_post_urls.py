@@ -3,28 +3,38 @@
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
+
+if __package__:
+    from .post_aliases import legacy_aliases
+else:
+    from post_aliases import legacy_aliases
 
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTS_DIR = ROOT / "content" / "posts"
 PUBLIC_DIR = ROOT / "public"
 SLUG_PATTERN = re.compile(r"(?m)^slug:\s*['\"]?(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)*)")
-ALIASES_BLOCK = re.compile(r"(?ms)^aliases:\s*\n(?P<items>(?:[ \t]+-.*\n?)+)")
 
 
 class CanonicalParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.canonical: str | None = None
+        self.redirect: str | None = None
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
         if tag == "link" and values.get("rel") == "canonical":
             self.canonical = values.get("href")
+        if tag == "meta" and (values.get("http-equiv") or "").lower() == "refresh":
+            match = re.fullmatch(r"\s*0\s*;\s*url=(.*?)\s*", values.get("content") or "", re.I)
+            if match:
+                self.redirect = match.group(1).strip("'\"")
 
 
 def main() -> int:
@@ -50,9 +60,11 @@ def main() -> int:
         slugs.add(slug)
         checked += 1
 
-        alias_match = ALIASES_BLOCK.search(text)
-        if not alias_match or "/posts/" not in alias_match.group("items"):
-            issues.append(f"{source.relative_to(ROOT)}: missing legacy /posts/ alias")
+        aliases = legacy_aliases(text)
+        if not aliases:
+            issues.append(
+                f"{source.relative_to(ROOT)}: missing valid legacy /posts/.../ alias"
+            )
 
         output = PUBLIC_DIR / "p" / slug / "index.html"
         if not output.is_file():
@@ -65,6 +77,28 @@ def main() -> int:
         parser.feed(html)
         if parser.canonical != canonical:
             issues.append(f"{output.relative_to(ROOT)}: incorrect canonical URL")
+
+        for alias in aliases:
+            redirect = PUBLIC_DIR / alias.strip("/") / "index.html"
+            if not redirect.is_file():
+                issues.append(
+                    f"{source.relative_to(ROOT)}: legacy alias {alias!r} "
+                    "did not generate a redirect page"
+                )
+                continue
+
+            redirect_parser = CanonicalParser()
+            redirect_parser.feed(redirect.read_text(encoding="utf-8"))
+            if redirect_parser.canonical != canonical:
+                issues.append(
+                    f"{redirect.relative_to(ROOT)}: legacy redirect canonical "
+                    f"must point to {canonical}"
+                )
+            if redirect_parser.redirect != canonical:
+                issues.append(
+                    f"{redirect.relative_to(ROOT)}: legacy redirect refresh "
+                    f"must point to {canonical}"
+                )
 
     feed_path = PUBLIC_DIR / "index.xml"
     if not feed_path.is_file():
@@ -79,6 +113,8 @@ def main() -> int:
     if issues:
         print("Short post URL validation failed:\n")
         for issue in issues:
+            if os.environ.get("GITHUB_ACTIONS") == "true":
+                print(f"::error title=Post URL validation::{issue}")
             print(f"- {issue}")
         return 1
 
