@@ -26,6 +26,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Validate post metadata and local images
+        run: python scripts/validate_posts.py
+
       - name: Set up Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -68,9 +71,6 @@ jobs:
 
       - name: Validate Decap CMS admin config
         run: python scripts/validate_admin_config.py
-
-      - name: Validate post metadata and local images
-        run: python scripts/validate_posts.py
 
       - name: Validate translations and report pending updates
         run: python scripts/validate_translations.py --allow-pending

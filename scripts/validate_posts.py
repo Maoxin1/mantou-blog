@@ -9,10 +9,16 @@ Front matter may be YAML (---) or TOML (+++).
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+
+if __package__:
+    from .post_aliases import legacy_aliases
+else:
+    from post_aliases import legacy_aliases
 
 ROOT = Path(__file__).resolve().parents[1]
 POSTS_DIR = ROOT / "content" / "posts"
@@ -24,6 +30,18 @@ TITLE_PATTERN = re.compile(r"^title\s*[:=]\s*(?P<title>.+)$", re.MULTILINE)
 SLUG_PATTERN = re.compile(r"^slug\s*[:=]\s*['\"]?(?P<slug>[^'\"\r\n]+)", re.MULTILINE)
 VALID_SLUG_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 IMAGE_PATTERN = re.compile(r"!\[(?P<alt>[^\]]*)\]\((?P<target>[^)]*)\)")
+
+
+def validate_legacy_alias(path: Path, text: str, label: str, issues: list[str]) -> None:
+    """Require at least one explicit legacy redirect for single-file posts."""
+    if legacy_aliases(text):
+        return
+
+    suggested = f"/posts/{path.stem}/"
+    issues.append(
+        f"{label}: missing valid legacy /posts/.../ alias; "
+        f"new posts should include {suggested!r}"
+    )
 
 
 def validate_images(path: Path, text: str, label: str, issues: list[str]) -> None:
@@ -97,7 +115,10 @@ def main() -> int:
         if not m:
             continue
         checked += 1
-        slug = check(path, m.group("date"), str(path), issues)
+        label = str(path)
+        text = path.read_text(encoding="utf-8")
+        validate_legacy_alias(path, text, label, issues)
+        slug = check(path, m.group("date"), label, issues)
         if slug:
             if slug in slugs:
                 issues.append(f"{path}: duplicate slug {slug!r} also used by {slugs[slug]}")
@@ -126,6 +147,8 @@ def main() -> int:
     if issues:
         print("Post validation failed:\n")
         for issue in issues:
+            if os.environ.get("GITHUB_ACTIONS") == "true":
+                print(f"::error title=Post source validation::{issue}")
             print(f"- {issue}")
         return 1
 
