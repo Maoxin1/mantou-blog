@@ -37,7 +37,11 @@
 <link rel="feed" href="{{ .Permalink }}" type="application/rss+xml" title="{{ $.Site.Title }}">
 {{- end -}}
 
-{{- $options := dict "Source" "css/style.scss" "Fingerprint" $fingerprint -}}
+{{- /* A content-addressed stylesheet prevents old Service Worker cache entries
+      from mixing the previous layout with newly deployed HTML. */ -}}
+{{- $styleFingerprint := $fingerprint -}}
+{{- if hugo.IsProduction }}{{ $styleFingerprint = "sha256" }}{{ end -}}
+{{- $options := dict "Source" "css/style.scss" "Fingerprint" $styleFingerprint -}}
 {{- $toCSS := dict "targetPath" "css/style.min.css" "enableSourceMap" false -}}
 {{- $options = dict "Context" . "ToCSS" $toCSS | merge $options -}}
 {{- partial "plugin/style.html" $options -}}

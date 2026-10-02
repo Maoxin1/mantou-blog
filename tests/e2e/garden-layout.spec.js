@@ -114,3 +114,29 @@ for (const width of [390, 820, 1024, 1025, 1440]) {
     expect(errors).toEqual([]);
   });
 }
+
+
+test('旧固定样式缓存不会覆盖新版花园样式', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/');
+  const stylesheet = page.locator('link[rel="stylesheet"][href^="/css/style.min."]');
+  await expect(stylesheet).toHaveAttribute('href', /^\/css\/style\.min\.[a-f0-9]{64}\.css$/);
+  await expect(stylesheet).toHaveAttribute('integrity', /^sha256-/);
+  await page.evaluate(async () => {
+    await navigator.serviceWorker.ready;
+    const cache = await caches.open('mantou-blog-v3');
+    await cache.put('/css/style.min.css', new Response('#header-desktop { display: none !important; }', {
+      headers: { 'Content-Type': 'text/css' },
+    }));
+  });
+  await page.reload();
+  await expect.poll(() => page.evaluate(() => Boolean(navigator.serviceWorker.controller))).toBe(true);
+  const oldCachedCSS = await page.evaluate(async () => {
+    const cache = await caches.open('mantou-blog-v3');
+    return (await cache.match('/css/style.min.css')).text();
+  });
+  expect(oldCachedCSS).toContain('display: none !important');
+  await expect(page.locator('#header-desktop')).toBeVisible();
+  expect(await page.locator('#header-desktop').evaluate(element => getComputedStyle(element).position)).toBe('fixed');
+  await expectNoOverflow(page, 'garden with a stale previous-release CSS cache');
+});
