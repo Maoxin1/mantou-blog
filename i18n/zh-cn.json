@@ -505,5 +505,38 @@
   },
   "feedbackPrivacy": {
     "other": "无需注册；昵称和留言会公开，邮箱可不填。评论审核后显示。打开时会连接本站评论服务。"
+  },
+  "gardenKicker": {
+    "other": "DIGITAL GARDEN / 生活 · 阅读 · 实践"
+  },
+  "gardenTitle": {
+    "other": "想法有自己的生长速度。"
+  },
+  "gardenLead": {
+    "other": "写日记、读书，也做些自己用得上的工具。"
+  },
+  "gardenTagline": {
+    "other": "一座持续生长的小花园"
+  },
+  "gardenEssays": {
+    "other": "值得慢慢读"
+  },
+  "gardenNotes": {
+    "other": "随手记录"
+  },
+  "gardenReading": {
+    "other": "书桌上的阅读"
+  },
+  "gardenTools": {
+    "other": "亲手做的"
+  },
+  "gardenNow": {
+    "other": "最近在做"
+  },
+  "gardenClosing": {
+    "other": "这里的每一页，都可以继续长大。"
+  },
+  "gardenSkip": {
+    "other": "跳到正文"
   }
 }

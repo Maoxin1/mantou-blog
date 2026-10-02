@@ -1,21 +1,24 @@
 <header class="desktop" id="header-desktop">
   <div class="header-wrapper">
-    <div class="header-title"><a href="{{ .Site.Home.RelPermalink }}" title="{{ .Site.Title }}">mantou</a></div>
+    <div class="header-title"><a href="{{ .Site.Home.RelPermalink }}" title="{{ .Site.Title }}">mantou.</a></div>
+    <p class="garden-tagline">{{ T "gardenTagline" }}</p>
     <nav class="menu" aria-label="{{ T "mainNavigation" }}"><div class="menu-inner">
       {{- range .Site.Menus.main -}}
         {{- $url := .URL | relLangURL -}}
         {{- $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) (eq $.RelPermalink $url) (and (eq .Identifier "articles") (eq $.Section "posts")) (and (eq .Identifier "portfolio") (eq $.Section "works")) -}}
         <a class="menu-item{{ if $active }} active{{ end }}" href="{{ $url }}"{{ if in (slice "search" "follow") .Identifier }} data-nav-utility{{ end }}{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
       {{- end -}}
+      <a class="garden-rss" href="{{ "index.xml" | relLangURL }}">RSS ↗</a>
       {{ partial "language-switch.html" . }}
       <button type="button" class="menu-item theme-switch" title="{{ T "switchTheme" }}" aria-label="{{ T "switchTheme" }}"><i class="fas fa-adjust fa-fw" aria-hidden="true"></i></button>
     </div></nav>
+    {{ with .Site.GetPage "/now" }}<aside class="garden-sidebar-now"><span>{{ T "gardenNow" }}</span><a href="{{ .RelPermalink }}">{{ .Title }} ↗</a></aside>{{ end }}
   </div>
 </header>
 <header class="mobile" id="header-mobile">
   <div class="header-container">
     <div class="header-wrapper">
-      <div class="header-title"><a href="{{ .Site.Home.RelPermalink }}" title="{{ .Site.Title }}">mantou</a></div>
+      <div class="header-title"><a href="{{ .Site.Home.RelPermalink }}" title="{{ .Site.Title }}">mantou.</a></div>
       <div class="mobile-controls">
         {{ partial "language-switch.html" . }}
         <button type="button" class="menu-toggle" id="menu-toggle-mobile" aria-label="{{ T "openMenu" }}" data-open-label="{{ T "openMenu" }}" data-close-label="{{ T "closeMenu" }}" aria-controls="menu-mobile" aria-expanded="false"><span></span><span></span><span></span></button>

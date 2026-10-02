@@ -23,6 +23,7 @@ py -3 scripts/check_internal_links.py
 py -3 scripts/check_short_post_urls.py
 py -3 scripts/check_portfolio_output.py
 py -3 scripts/check_seo_output.py
+py -3 scripts/check_garden_output.py
 npm ci
 npx playwright install chromium
 npm run test:e2e
@@ -61,3 +62,5 @@ Decap CMS稳定入口位于`/admin/`，Sveltia灰度入口位于`/admin/sveltia/
 ## 许可
 
 仓库原创代码采用 [MIT License](LICENSE)。博客文章、图片和个人数据不包含在 MIT 许可中，详见 [CONTENT_LICENSE.md](CONTENT_LICENSE.md)。LoveIt 主题及其第三方依赖遵循各自随附的许可证。
+
+生长花园布局的实现范围与验收限制见 [改版说明](docs/growing-garden.md)。
