@@ -505,5 +505,38 @@
   },
   "feedbackPrivacy": {
     "other": "No registration required. Your name and comment will be public; email is optional. Comments appear after approval. Opening this area connects to the comment service."
+  },
+  "gardenKicker": {
+    "other": "DIGITAL GARDEN / LIFE · READING · PRACTICE"
+  },
+  "gardenTitle": {
+    "other": "Ideas grow at their own pace."
+  },
+  "gardenLead": {
+    "other": "Notes on life, reading, and small tools I use myself."
+  },
+  "gardenTagline": {
+    "other": "A small, growing garden"
+  },
+  "gardenEssays": {
+    "other": "Worth a slower read"
+  },
+  "gardenNotes": {
+    "other": "Recent notes"
+  },
+  "gardenReading": {
+    "other": "On my reading desk"
+  },
+  "gardenTools": {
+    "other": "Made by hand"
+  },
+  "gardenNow": {
+    "other": "On my mind"
+  },
+  "gardenClosing": {
+    "other": "Every page here has room to grow."
+  },
+  "gardenSkip": {
+    "other": "Skip to content"
   }
 }

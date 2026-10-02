@@ -102,5 +102,8 @@ jobs:
       - name: Validate generated SEO metadata
         run: python scripts/check_seo_output.py
 
+      - name: Validate growing garden output
+        run: python scripts/check_garden_output.py
+
       - name: Validate portfolio in a real browser
         run: npm run test:e2e

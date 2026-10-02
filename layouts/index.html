@@ -1,15 +1,18 @@
 {{- define "content" -}}
 {{- $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse -}}
 {{- $works := (where .Site.RegularPages "Section" "works").ByDate.Reverse -}}
-<div class="page portfolio-home editorial-home balanced-home" data-portfolio-home>
+<div class="page portfolio-home editorial-home balanced-home garden-home" data-portfolio-home>
   <header class="editorial-home__intro">
-    <h1>{{ T "homeHello" }}</h1>
-    <p class="editorial-home__lead">{{ T "homeLead" }}</p>
+    <p class="garden-kicker">{{ T "gardenKicker" }}</p>
+    <h1>{{ T "gardenTitle" }}</h1>
+    <p class="editorial-home__lead">{{ T "gardenLead" }}</p>
     <nav class="home-shortcuts" aria-label="{{ T "homeShortcuts" }}">
       <a href="#selected">{{ T "startHere" }} ↓</a>
       <a href="#latest">{{ T "recentWriting" }} ↓</a>
+      <a href="#reading">{{ T "gardenReading" }} ↓</a>
     </nav>
   </header>
+  <h2 class="garden-section-title">{{ T "gardenEssays" }}</h2>
   <div class="home-pair" data-home-pair>
     <section aria-labelledby="writing-title" data-home-featured-post>
       <div class="home-pair__label"><h2 id="writing-title">{{ T "writing" }}</h2><a href="{{ "/posts/" | relLangURL }}">{{ T "allWriting" }} →</a></div>
@@ -20,8 +23,24 @@
       <a class="home-action" href="{{ .RelPermalink }}">{{ T "readArticle" }} →</a>
       {{- else -}}{{ errorf "Missing home featured post" }}{{- end -}}
     </section>
+    <section class="garden-reading" id="reading" aria-labelledby="reading-title" data-garden-reading>
+      <div class="home-pair__label"><h2 id="reading-title">{{ T "gardenReading" }}</h2></div>
+      {{ range .Site.Data.home.selected }}{{ if eq .label_key "readingPractice" }}{{ with $.Site.GetPage .page }}
+      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      <a class="home-action" href="{{ .RelPermalink }}">{{ T "readArticle" }} ↗</a>
+      {{ end }}{{ end }}{{ end }}
+    </section>
+  </div>
+  <div class="home-updates" id="latest">
+    <section class="editorial-home__latest" aria-labelledby="latest-title" data-home-latest>
+      <div class="editorial-home__section-heading"><h2 id="latest-title">{{ T "gardenNotes" }}</h2></div>
+      <ol class="editorial-home__latest-list">
+        {{- range first 5 $posts -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3></div></li>{{- end -}}
+      </ol>
+    </section>
     <section aria-labelledby="projects-title" data-home-featured-work>
-      <div class="home-pair__label"><h2 id="projects-title">{{ T "projects" }}</h2><a href="{{ "/works/" | relLangURL }}">{{ T "allProjects" }} →</a></div>
+      <div class="home-pair__label"><h2 id="projects-title">{{ T "gardenTools" }}</h2><a href="{{ "/works/" | relLangURL }}">{{ T "allProjects" }} →</a></div>
       {{- with .Site.GetPage .Site.Data.home.featured_work -}}
       {{- $work := . -}}
       <div class="home-pair__project">
@@ -40,22 +59,6 @@
       {{- else -}}{{ errorf "Missing home featured work" }}{{- end -}}
     </section>
   </div>
-  {{ partial "home-photos.html" . }}
-  <div class="home-updates" id="latest">
-    <section class="editorial-home__latest" aria-labelledby="latest-title" data-home-latest>
-      <div class="editorial-home__section-heading"><h2 id="latest-title">{{ T "recentWriting" }}</h2></div>
-      <ol class="editorial-home__latest-list">
-        {{- range first 5 $posts -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3></div></li>{{- end -}}
-      </ol>
-    </section>
-    <section class="editorial-home__latest" aria-labelledby="project-updates-title" data-home-work-updates>
-      <div class="editorial-home__section-heading"><h2 id="project-updates-title">{{ T "projectNotes" }}</h2></div>
-      <ol class="editorial-home__latest-list">
-        {{- range first 3 $works -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3><p>{{ .Params.home_status | default .Params.stage }}</p></div></li>{{- end -}}
-      </ol>
-      <a class="home-action" href="{{ "/now/" | relLangURL }}">{{ T "seeNow" }} →</a>
-    </section>
-  </div>
   <section class="editorial-home__selected" id="selected" aria-labelledby="selected-title" data-home-selected>
     <div class="editorial-home__section-heading"><h2 id="selected-title">{{ T "startHere" }}</h2></div>
     <div class="editorial-home__selected-list">
@@ -65,10 +68,21 @@
       {{- end -}}
     </div>
   </section>
+  <div class="garden-bottom">
+    <section class="editorial-home__latest" aria-labelledby="project-updates-title" data-home-work-updates>
+      <div class="editorial-home__section-heading"><h2 id="project-updates-title">{{ T "projectNotes" }}</h2></div>
+      <ol class="editorial-home__latest-list">
+        {{- range first 3 $works -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3><p>{{ .Params.home_status | default .Params.stage }}</p></div></li>{{- end -}}
+      </ol>
+      <a class="home-action" href="{{ "/now/" | relLangURL }}">{{ T "seeNow" }} →</a>
+    </section>
+  {{ partial "home-photos.html" . }}
+  </div>
   <nav class="editorial-home__closing" aria-label="{{ T "exploreMore" }}">
     <div><span>{{ T "aboutMe" }}</span><p>{{ T "aboutShort" }}</p><a href="{{ "/about/" | relLangURL }}">{{ T "readAbout" }} →</a></div>
     <div><span>{{ T "browseTopics" }}</span><p>{{ T "topicsShort" }}</p><a href="{{ "/tags/" | relLangURL }}">{{ T "browseTopics" }} →</a></div>
     <div><span>{{ T "getUpdates" }}</span><p>{{ T "updatesShort" }}</p><a href="{{ "/follow/" | relLangURL }}" data-follow-open>{{ T "subscribe" }} →</a></div>
   </nav>
+  <p class="garden-signoff">{{ T "gardenClosing" }}</p>
 </div>
 {{- end -}}

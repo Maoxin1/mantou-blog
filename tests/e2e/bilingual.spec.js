@@ -49,7 +49,11 @@ test('英文主要页面有正确语言与单一标题，移动布局不溢出',
     await expect(page.locator('main h1')).toHaveCount(1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
     if (path === '') {
-      const action = await page.locator('[data-home-featured-work] .home-action').first().boundingBox();
+      const toolLink = page.locator('[data-home-featured-work] .home-action').first();
+      await toolLink.scrollIntoViewIfNeeded();
+      await expect(toolLink).toBeInViewport();
+      const action = await toolLink.boundingBox();
+      expect(action.height).toBeGreaterThanOrEqual(44);
       expect(action.y + action.height).toBeLessThanOrEqual(844);
     }
   }
