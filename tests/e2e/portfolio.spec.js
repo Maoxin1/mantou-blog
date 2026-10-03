@@ -305,6 +305,27 @@ test('访客可以从首页一键打开关注入口并继续使用 RSS', async (
   await expect(dialog).not.toBeVisible();
 });
 
+test('邮件意向只在有效表单提交时记录，统计事件不包含邮箱', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.recordedEvents = [];
+    window.umami = { track: (...args) => window.recordedEvents.push(args) };
+  });
+  await open(page, '/p/20260825/');
+  await page.locator('.follow-card [data-follow-open]').click();
+
+  const form = page.locator('[data-follow-dialog] [data-follow-form]');
+  await form.evaluate((element) => element.addEventListener('submit', (event) => event.preventDefault()));
+  await form.getByRole('button', { name: '关注' }).click();
+  expect(await page.evaluate(() => window.recordedEvents)).toEqual([['subscribe_open']]);
+
+  await form.getByRole('textbox', { name: '邮箱地址' }).fill('reader@example.test');
+  await form.getByRole('button', { name: '关注' }).click();
+  expect(await page.evaluate(() => window.recordedEvents)).toEqual([
+    ['subscribe_open'],
+    ['subscribe_submit'],
+  ]);
+});
+
 test('关注页、文章和作品结尾都提供可发现的关注路径', async ({ page }) => {
   await open(page, '/follow/');
   await expect(page.locator('[data-follow-page]')).toBeVisible();

@@ -113,10 +113,11 @@ buildFuture = false
   Email = "2114206091@qq.com"
   twitter = "mantouaoao"
 
-# 已停用主题内置统计，统一用 layouts/partials/analytics.html 中的
-# Cloudflare Web Analytics。
+# 已停用主题内置统计。Cloudflare 负责现有访问量与性能；填入 Umami 的公开
+# Website ID 后启用匿名行为漏斗。两个脚本仅在正式域名加载。
 [params.analytics]
   enable = false
+  umamiWebsiteID = ""
 
 [params.app]
   # 使用 static/ 下生成的标准图标集（favicon.ico / 32 / 16 / apple-touch-icon / site.webmanifest）
