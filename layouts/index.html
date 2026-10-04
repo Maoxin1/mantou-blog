@@ -1,44 +1,51 @@
 {{- define "content" -}}
 {{- $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse -}}
 {{- $works := (where .Site.RegularPages "Section" "works").ByDate.Reverse -}}
-<div class="page portfolio-home editorial-home balanced-home mantou-home" data-portfolio-home data-visual-identity="01-p1-original-book">
+<div class="page portfolio-home editorial-home balanced-home mantou-home" data-portfolio-home data-visual-identity="01-p1-warm-comic-v3">
   <section class="mantou-hero">
     <header class="editorial-home__intro">
       <p class="mantou-kicker">{{ T "identityKicker" }}</p>
       <h1>{{ T "identityTitleFirst" }}<br><span>{{ T "identityTitleSecond" }}</span></h1>
       <p class="editorial-home__lead">{{ T "identityLead" }}</p>
-      <div class="mantou-hero-actions"><a class="mantou-primary" href="{{ "/posts/" | relLangURL }}">{{ T "identityStart" }} <span aria-hidden="true">↗</span></a><a class="mantou-secondary" href="{{ "/works/" | relLangURL }}">{{ T "identityProjects" }}</a></div>
-      <nav class="home-shortcuts" aria-label="{{ T "homeShortcuts" }}"><a href="#selected">{{ T "startHere" }} ↓</a><a href="#latest">{{ T "recentWriting" }} ↓</a><a href="#reading">{{ T "gardenReading" }} ↓</a></nav>
     </header>
-    <figure class="mantou-hero-picture"><img src="{{ "/images/identity/paper-path.webp" | relURL }}" alt="{{ T "identityHeroAlt" }}" width="1536" height="1024" fetchpriority="high" decoding="async"><figcaption>{{ T "identityHeroCaption" }}</figcaption></figure>
+    <figure class="mantou-hero-picture"><img src="{{ "/images/identity/comic-book-v3-900.webp" | relURL }}" srcset="{{ "/images/identity/comic-book-v3-450.webp" | relURL }} 450w, {{ "/images/identity/comic-book-v3-900.webp" | relURL }} 900w" sizes="(max-width: 760px) 240px, 480px" alt="{{ T "identityHeroAlt" }}" width="900" height="600" fetchpriority="high" decoding="async"></figure>
   </section>
-  <div class="mantou-section-heading"><h2>{{ T "identityNotes" }}</h2><a href="{{ "/posts/" | relLangURL }}">{{ T "allWriting" }} ↗</a></div>
-  <div class="mantou-cards" data-home-pair>
-    <section class="mantou-card mantou-card--feature" aria-labelledby="writing-title" data-home-featured-post>
-      <div class="mantou-card-label"><h2 id="writing-title">{{ T "featuredArticle" }} · {{ T "writing" }}</h2></div>
+  <div class="mantou-section-heading"><h2 id="notes-title">{{ T "identityNotes" }}</h2><a href="{{ "/posts/" | relLangURL }}">{{ T "allWriting" }} →</a></div>
+  <div class="mantou-filters" role="group" aria-label="{{ T "identityFilterLabel" }}" data-home-filters hidden>
+    <button type="button" data-home-filter="all" aria-pressed="true">{{ T "identityFilterAll" }}</button>
+    <button type="button" data-home-filter="investment" aria-pressed="false">{{ T "identityInvestment" }}</button>
+    <button type="button" data-home-filter="reading" aria-pressed="false">{{ T "identityReading" }}</button>
+    <button type="button" data-home-filter="practice" aria-pressed="false">{{ T "identityPractice" }}</button>
+  </div>
+  <div class="mantou-cards" data-home-pair aria-labelledby="notes-title">
+    <section class="mantou-card mantou-card--feature" aria-labelledby="writing-title" data-home-featured-post data-home-topic="investment">
       {{- with .Site.GetPage .Site.Data.home.featured_post -}}
-      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p>{{ .Description }}</p>
-      <div class="mantou-card-foot"><a class="home-action" href="{{ .RelPermalink }}">{{ T "readArticle" }} ↗</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time></div>
-      <img class="mantou-card-person" src="{{ "/images/identity/mantou-p1-stand.svg" | relURL }}" alt="" width="323" height="571" aria-hidden="true" decoding="async">
+      <div class="mantou-feature-copy">
+        <div class="mantou-card-label"><h2 id="writing-title">{{ T "featuredArticle" }} · {{ T "identityInvestment" }}</h2><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time></div>
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p>{{ T "identityInvestmentSummary" }}</p>
+        <a class="home-action" href="{{ .RelPermalink }}">{{ T "readArticle" }} →</a>
+      </div>
+      <img class="mantou-feature-art" src="{{ "/images/identity/comic-investigation-v3-600.webp" | relURL }}" srcset="{{ "/images/identity/comic-investigation-v3-300.webp" | relURL }} 300w, {{ "/images/identity/comic-investigation-v3-600.webp" | relURL }} 600w" sizes="(max-width: 760px) 104px, 280px" alt="" aria-hidden="true" width="600" height="400" decoding="async">
       {{- else -}}{{ errorf "Missing home featured post" }}{{- end -}}
     </section>
-    <section class="mantou-card mantou-card--reading" id="reading" aria-labelledby="reading-title" data-garden-reading>
-      <div class="mantou-card-label"><h2 id="reading-title">{{ T "readingPractice" }}</h2></div>
-      {{ range .Site.Data.home.selected }}{{ if eq .label_key "readingPractice" }}{{ with $.Site.GetPage .page }}
-      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>{{ with .Description }}<p>{{ . }}</p>{{ end }}
-      <a class="home-action" href="{{ .RelPermalink }}">{{ T "readArticle" }} ↗</a>
-      {{ end }}{{ end }}{{ end }}
+    <section class="mantou-card mantou-card--reading mantou-note-row" id="reading" aria-labelledby="reading-title" data-garden-reading data-home-topic="reading">
+      {{- with .Site.GetPage .Site.Data.home.reading_post -}}
+      <div class="mantou-note-meta"><h2 id="reading-title">{{ T "identityReading" }}</h2><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time></div>
+      <div class="mantou-note-copy"><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>{{ with .Description }}<p>{{ . }}</p>{{ end }}</div>
+      <a class="home-action" href="{{ .RelPermalink }}"><span class="mantou-visually-hidden">{{ T "readArticle" }}: {{ .Title }}</span><span aria-hidden="true">→</span></a>
+      {{- else -}}{{ errorf "Missing home reading post" }}{{- end -}}
     </section>
-    <section class="mantou-card mantou-card--life" aria-labelledby="life-title" data-home-life>
-      <div class="mantou-card-label"><h2 id="life-title">{{ T "lifeNotes" }}</h2></div>
-      {{ range .Site.Data.home.selected }}{{ if eq .label_key "lifeNotes" }}{{ with $.Site.GetPage .page }}
-      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>{{ with .Description }}<p>{{ . }}</p>{{ end }}
-      <a class="home-action" href="{{ .RelPermalink }}">{{ T "readArticle" }} ↗</a>
-      {{ end }}{{ end }}{{ end }}
+    <section class="mantou-card mantou-card--life mantou-note-row" aria-labelledby="life-title" data-home-life data-home-topic="practice">
+      {{- with .Site.GetPage .Site.Data.home.practice_post -}}
+      <div class="mantou-note-meta"><h2 id="life-title">{{ T "identityPractice" }}</h2><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time></div>
+      <div class="mantou-note-copy"><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>{{ with .Description }}<p>{{ . }}</p>{{ end }}</div>
+      <a class="home-action" href="{{ .RelPermalink }}"><span class="mantou-visually-hidden">{{ T "readArticle" }}: {{ .Title }}</span><span aria-hidden="true">→</span></a>
+      {{- else -}}{{ errorf "Missing home practice post" }}{{- end -}}
     </section>
   </div>
+  <nav class="home-shortcuts mantou-reading-shortcuts" aria-label="{{ T "homeShortcuts" }}"><a href="#selected">{{ T "startHere" }} ↓</a><a href="#latest">{{ T "recentWriting" }} ↓</a><a href="#reading">{{ T "gardenReading" }} ↑</a></nav>
   <section class="mantou-project" aria-labelledby="projects-title" data-home-featured-work>
-    <img class="mantou-project-art" src="{{ "/images/identity/paper-bridge.webp" | relURL }}" alt="{{ T "identityBridgeAlt" }}" width="1536" height="1024" loading="lazy" decoding="async">
+    <img class="mantou-project-art" src="{{ "/images/identity/comic-bridge-v3-400.webp" | relURL }}" alt="{{ T "identityBridgeAlt" }}" width="400" height="267" loading="lazy" decoding="async">
     {{- with .Site.GetPage .Site.Data.home.featured_work -}}
     {{- $work := . -}}
     <div class="mantou-project-copy"><div class="mantou-card-label"><h2 id="projects-title">{{ T "gardenTools" }}</h2><span>{{ .Params.home_status | default .Params.stage }}</span></div><h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3><p>{{ .Params.home_summary | default .Description }}</p>
@@ -74,4 +81,6 @@
   </nav>
   <p class="garden-signoff">{{ T "identityClosing" }}</p>
 </div>
+{{- $filters := resources.Get "js/home-filters.js" | minify | fingerprint -}}
+<script src="{{ $filters.RelPermalink }}" integrity="{{ $filters.Data.Integrity }}" defer></script>
 {{- end -}}

@@ -17,6 +17,7 @@
     </nav>
   {{- end -}}
 
+  <div class="mantou-reading-layout{{ if not $hasTOC }} mantou-reading-layout--no-toc{{ end }}">
   <article class="page single special reading-post" data-pagefind-body>
     <header class="post-heading">
       <nav class="post-meta post-path" aria-label="{{ T "articlePath" }}" data-pagefind-ignore>
@@ -32,6 +33,9 @@
           {{- end -}}
         </div>
       </nav>
+      {{- if eq .File.ContentBaseName "2026-09-04-交付物标准" -}}
+      <img class="mantou-post-art" src="{{ "/images/identity/comic-book-v3-450.webp" | relURL }}" alt="" aria-hidden="true" width="450" height="300" decoding="async" data-pagefind-ignore>
+      {{- end -}}
       <h1 class="single-title" data-pagefind-meta="title">{{ .Title | emojify }}</h1>
       {{- with $params.subtitle }}<p class="single-subtitle">{{ . }}</p>{{ end -}}
       <div class="post-meta" data-pagefind-ignore>
@@ -64,4 +68,8 @@
       {{- partial "single/footer.html" . -}}
     </div>
   </article>
+  {{- if $hasTOC -}}
+    <aside class="mantou-reading-toc" aria-label="{{ T "contents" }}" data-pagefind-ignore><h2>{{ T "contents" }}</h2>{{ .TableOfContents | replaceRE `id="TableOfContents"` `id="mantou-table-of-contents"` | safeHTML }}</aside>
+  {{- end -}}
+  </div>
 {{- end -}}

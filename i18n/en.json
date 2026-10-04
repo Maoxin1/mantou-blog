@@ -540,16 +540,16 @@
     "other": "Skip to content"
   },
   "identityKicker": {
-    "other": "THE LONG VIEW · KEEP ITERATING"
+    "other": "mantou · THE LONG VIEW"
   },
   "identityTitleFirst": {
-    "other": "Take your time."
+    "other": "Keep learning."
   },
   "identityTitleSecond": {
-    "other": "Keep moving forward."
+    "other": "Look ahead."
   },
   "identityLead": {
-    "other": "Notes on investing, reading, learning and life, and on turning ideas into things that work."
+    "other": "Investment thinking, lessons from books, and projects I have built."
   },
   "identityStart": {
     "other": "Start with writing"
@@ -558,18 +558,36 @@
     "other": "Explore projects"
   },
   "identityNotes": {
-    "other": "Writing and notes"
+    "other": "Writing"
   },
   "identityHeroAlt": {
-    "other": "A simple round-headed figure walks along a bright paper path towards an open book in the night."
+    "other": "A round-headed pen figure turns a page in a large warm orange book."
   },
   "identityHeroCaption": {
-    "other": "A little further, one step at a time."
+    "other": "Keep learning. Keep a record."
   },
   "identityBridgeAlt": {
     "other": "A simple round-headed figure pushes the last piece of a paper bridge into place."
   },
   "identityClosing": {
-    "other": "Keep learning. Keep moving forward."
+    "other": "mantou · Keep learning. Keep a record."
+  },
+  "identityFilterLabel": {
+    "other": "Filter selected writing"
+  },
+  "identityFilterAll": {
+    "other": "All"
+  },
+  "identityInvestment": {
+    "other": "Investing"
+  },
+  "identityReading": {
+    "other": "Reading"
+  },
+  "identityPractice": {
+    "other": "Practice"
+  },
+  "identityInvestmentSummary": {
+    "other": "Is its core asset the blind-box mechanism, or the ability to keep developing IP?"
   }
 }

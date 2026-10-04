@@ -4,7 +4,7 @@ for (const width of [1366, 390]) {
   test(`首页在 ${width}px 同时提供文章与作品的实质入口`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: /慢慢来，\s*也一直向前。/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /知不足而奋进，\s*望远山而前行。/ })).toBeVisible();
     for (const selector of ['[data-home-featured-post]', '[data-garden-reading]', '[data-home-featured-work]']) {
       const section = page.locator(selector);
       const title = section.locator('h3');
