@@ -77,13 +77,13 @@ test('键盘焦点有清晰指示，关注对话框带有完整说明', async ({
   });
   expect(lightFocus.style).toBe('solid');
   expect(Number.parseFloat(lightFocus.width)).toBeGreaterThanOrEqual(2);
-  expect(lightFocus.color).toBe('rgb(15, 107, 55)');
+  expect(lightFocus.color).toBe('rgb(168, 78, 50)');
 
   await page.evaluate(() => document.body.setAttribute('theme', 'dark'));
   await trigger.focus();
   await expect(trigger).toBeFocused();
   await expect.poll(() => trigger.evaluate((element) => getComputedStyle(element).outlineColor))
-    .toBe('rgb(139, 233, 174)');
+    .toBe('rgb(231, 167, 138)');
 
   await trigger.click();
   const dialog = page.getByRole('dialog', { name: '关注馒头' });

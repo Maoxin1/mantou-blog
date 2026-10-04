@@ -9,23 +9,25 @@ async function expectNoOverflow(page, label) {
   expect(Math.max(sizes.document, sizes.body), label).toBeLessThanOrEqual(sizes.viewport + 1);
 }
 
-test('1440px 花园侧栏固定且不遮挡首页，跳转与深色主题可用', async ({ page }) => {
+test('1440px 顶部导航固定且不遮挡首页，跳转与深色主题可用', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   const sidebar = page.locator('#header-desktop');
   await expect(sidebar).toBeVisible();
   await expect(page.locator('#header-mobile')).not.toBeVisible();
-  await expect(page.locator('h1')).toHaveText('想法有自己的生长速度。');
-  await expect(sidebar.locator('.garden-tagline')).toHaveText('一座持续生长的小花园');
+  await expect(page.locator('h1')).toHaveText('慢慢来，也一直向前。');
+  await expect(sidebar.locator('.mantou-brand img').first()).toHaveAttribute('src', '/images/identity/mantou-wordmark-ink.svg');
+  await expect(page.locator('.mantou-hero-picture img')).toHaveAttribute('src', '/images/identity/paper-path.webp');
+  await expect(page.locator('.mantou-card-person')).toHaveAttribute('src', '/images/identity/mantou-p1-stand.svg');
   await expect(sidebar.locator('.garden-rss')).toHaveAttribute('href', '/index.xml');
-  await expect(sidebar.locator('.garden-sidebar-now a')).toHaveAttribute('href', '/now/');
+  await expect(sidebar.locator('a[href="/now/"]')).toHaveAttribute('href', '/now/');
 
   const sidebarBox = await sidebar.boundingBox();
   const mainBox = await page.locator('main').boundingBox();
   expect(sidebarBox.x).toBe(0);
-  expect(sidebarBox.width).toBeGreaterThanOrEqual(200);
-  expect(mainBox.x).toBeGreaterThanOrEqual(sidebarBox.x + sidebarBox.width - 1);
-  expect(await sidebar.evaluate(element => getComputedStyle(element).position)).toBe('fixed');
+  expect(sidebarBox.width).toBe(1440);
+  expect(mainBox.y).toBeGreaterThanOrEqual(sidebarBox.y + sidebarBox.height - 1);
+  expect(await sidebar.evaluate(element => getComputedStyle(element).position)).toBe('sticky');
 
   const skip = page.locator('.garden-skip');
   await skip.focus();
@@ -41,6 +43,7 @@ test('1440px 花园侧栏固定且不遮挡首页，跳转与深色主题可用'
     await expect(section.locator('.home-action').first()).toBeVisible();
   }
   expect((await sidebar.boundingBox()).y).toBe(0);
+  await expect(sidebar).toHaveCSS('opacity', '1');
   await expectNoOverflow(page, 'desktop garden');
 
   await page.evaluate(() => localStorage.setItem('theme', 'light'));
@@ -52,11 +55,14 @@ test('1440px 花园侧栏固定且不遮挡首页，跳转与深色主题可用'
   await expectNoOverflow(page, 'dark desktop garden');
 });
 
-test('390px 花园导航可收起，搜索和语言切换保留真实入口', async ({ page }) => {
+test('390px 顶部导航滚动后仍可见，菜单可收起并保留搜索和语言入口', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.locator('#header-desktop')).not.toBeVisible();
   await expect(page.locator('#header-mobile')).toBeVisible();
+  await page.locator('[data-home-featured-work]').scrollIntoViewIfNeeded();
+  await expect(page.locator('#header-mobile')).toBeInViewport();
+  await expect(page.locator('#header-mobile')).toHaveCSS('opacity', '1');
   const toggle = page.locator('#menu-toggle-mobile');
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
   await toggle.click();
@@ -74,16 +80,16 @@ test('390px 花园导航可收起，搜索和语言切换保留真实入口', as
   await page.goto('/');
   await page.locator('#header-mobile .language-switch').getByRole('link', { name: 'English' }).click();
   await expect(page).toHaveURL(/\/en\/$/);
-  await expect(page.locator('h1')).toHaveText('Ideas grow at their own pace.');
+  await expect(page.locator('h1')).toHaveText('Take your time.Keep moving forward.');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expectNoOverflow(page, 'English mobile garden');
   await page.locator('#header-mobile .language-switch').getByRole('link', { name: '中文' }).click();
   await expect(page).toHaveURL(/(?<!en)\/$/);
-  await expect(page.locator('h1')).toHaveText('想法有自己的生长速度。');
+  await expect(page.locator('h1')).toHaveText('慢慢来，也一直向前。');
 });
 
 for (const width of [390, 820, 1024, 1025, 1440]) {
-  test(`${width}px 花园文章正文与侧栏无横向溢出`, async ({ page }) => {
+  test(`${width}px 身份文章正文与导航无横向溢出`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1000 });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
@@ -108,7 +114,9 @@ for (const width of [390, 820, 1024, 1025, 1440]) {
         await expect(page.locator('#toc-auto')).not.toBeVisible();
         const article = await page.locator('.reading-post').boundingBox();
         const sidebar = await page.locator('#header-desktop').boundingBox();
-        expect(article.x).toBeGreaterThanOrEqual(sidebar.x + sidebar.width - 1);
+        expect(article.x).toBeGreaterThanOrEqual(0);
+        expect(article.x + article.width).toBeLessThanOrEqual(width);
+        expect(article.width).toBeLessThanOrEqual(700);
       }
     }
     expect(errors).toEqual([]);
@@ -116,7 +124,7 @@ for (const width of [390, 820, 1024, 1025, 1440]) {
 }
 
 
-test('旧固定样式缓存不会覆盖新版花园样式', async ({ page }) => {
+test('旧固定样式缓存不会覆盖新版身份样式', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
   const stylesheet = page.locator('link[rel="stylesheet"][href^="/css/style.min."]');
@@ -137,6 +145,6 @@ test('旧固定样式缓存不会覆盖新版花园样式', async ({ page }) => 
   });
   expect(oldCachedCSS).toContain('display: none !important');
   await expect(page.locator('#header-desktop')).toBeVisible();
-  expect(await page.locator('#header-desktop').evaluate(element => getComputedStyle(element).position)).toBe('fixed');
+  expect(await page.locator('#header-desktop').evaluate(element => getComputedStyle(element).position)).toBe('sticky');
   await expectNoOverflow(page, 'garden with a stale previous-release CSS cache');
 });

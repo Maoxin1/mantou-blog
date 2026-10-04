@@ -1,0 +1,6 @@
+{{- if ne .Site.Params.footer.enable false -}}
+<footer class="footer"><div class="footer-container">
+  <div class="mantou-footer-brand"><a class="mantou-brand" href="{{ .Site.Home.RelPermalink }}" aria-label="mantou"><img class="mantou-logo--ink" src="{{ "/images/identity/mantou-wordmark-ink.svg" | relURL }}" alt="mantou" width="2080" height="458"><img class="mantou-logo--paper" src="{{ "/images/identity/mantou-wordmark-paper.svg" | relURL }}" alt="" aria-hidden="true" width="2080" height="458"></a><p>{{ T "identityClosing" }}</p></div>
+  <div class="mantou-footer-meta"><a href="{{ "/about/" | relLangURL }}">{{ T "aboutMe" }}</a> · <a href="{{ "/follow/" | relLangURL }}">{{ T "subscribe" }}</a> · <a href="{{ "index.xml" | relLangURL }}">RSS</a><br>© {{ now.Year }} mantou · <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> / <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener">LoveIt</a></div>
+</div></footer>
+{{- end -}}

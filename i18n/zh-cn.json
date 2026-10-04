@@ -538,5 +538,38 @@
   },
   "gardenSkip": {
     "other": "跳到正文"
+  },
+  "identityKicker": {
+    "other": "长期主义 · 持续迭代"
+  },
+  "identityTitleFirst": {
+    "other": "慢慢来，"
+  },
+  "identityTitleSecond": {
+    "other": "也一直向前。"
+  },
+  "identityLead": {
+    "other": "这里记录投资、阅读、学习与生活，也记录把想法做成作品的过程。"
+  },
+  "identityStart": {
+    "other": "从文章开始"
+  },
+  "identityProjects": {
+    "other": "看看项目"
+  },
+  "identityNotes": {
+    "other": "文章与笔记"
+  },
+  "identityHeroAlt": {
+    "other": "P1 圆头小人沿着明亮的纸路，走向夜色中翻开的厚页书本。"
+  },
+  "identityHeroCaption": {
+    "other": "一点点，走到新的地方。"
+  },
+  "identityBridgeAlt": {
+    "other": "P1 圆头小人将纸桥的最后一段推到位。"
+  },
+  "identityClosing": {
+    "other": "知不足而奋进，望远山而前行。"
   }
 }

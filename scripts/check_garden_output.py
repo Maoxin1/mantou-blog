@@ -66,7 +66,7 @@ def validate_home(html: str, prefix: str, public: Path) -> list[str]:
     root = Document(html).root
     label = prefix or "/"
     issues = []
-    expected_title = "Ideas grow at their own pace." if prefix else "想法有自己的生长速度。"
+    expected_title = "Take your time.Keep moving forward." if prefix else "慢慢来，也一直向前。"
     headings = root.find(tag="h1")
     if len(headings) != 1 or headings[0].text.strip() != expected_title:
         issues.append(f"{label}: expected a single localized garden h1")
@@ -86,15 +86,15 @@ def validate_home(html: str, prefix: str, public: Path) -> list[str]:
 
     desktop = root.find(tag="header", attr="id", value="header-desktop")
     if len(desktop) != 1:
-        issues.append(f"{label}: missing desktop garden sidebar")
+        issues.append(f"{label}: missing desktop identity navigation")
     else:
         destinations = {node.attrs.get("href") for node in desktop[0].find(tag="a")}
         for path in ("posts/", "works/", "now/", "about/", "search/", "follow/", "index.xml"):
             if prefix + "/" + path not in destinations:
-                issues.append(f"{label}: sidebar missing {path}")
+                issues.append(f"{label}: navigation missing {path}")
         for language in ("zh-cn", "en"):
             if not desktop[0].find(tag="a", attr="hreflang", value=language):
-                issues.append(f"{label}: sidebar missing {language} switch")
+                issues.append(f"{label}: navigation missing {language} switch")
 
     # Check actual rendered targets, including reading/selected cards and anchors.
     for anchor in root.find(tag="a", attr="href"):
@@ -134,7 +134,7 @@ def main():
     if issues:
         print("Garden output validation failed:\n" + "\n".join(f"- {issue}" for issue in issues))
         return 1
-    print("Garden output validation passed: bilingual modules, sidebar, skip link, and real destinations.")
+    print("Garden output validation passed: bilingual modules, navigation, skip link, and real destinations.")
     return 0
 
 

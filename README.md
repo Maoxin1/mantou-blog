@@ -8,7 +8,7 @@
 
 ## 本地验证
 
-需要 Hugo Extended 0.154.5、Python 3.12 或更高版本，以及 Node.js/npm。
+需要 Hugo Extended 0.154.5、Python 3.12 或更高版本，以及 Node.js 24.11 或更高版本/npm。
 
 ```powershell
 py -3 scripts/validate_admin_config.py
@@ -63,4 +63,4 @@ Decap CMS稳定入口位于`/admin/`，Sveltia灰度入口位于`/admin/sveltia/
 
 仓库原创代码采用 [MIT License](LICENSE)。博客文章、图片和个人数据不包含在 MIT 许可中，详见 [CONTENT_LICENSE.md](CONTENT_LICENSE.md)。LoveIt 主题及其第三方依赖遵循各自随附的许可证。
 
-生长花园布局的实现范围与验收限制见 [改版说明](docs/growing-garden.md)。
+当前 mantou 视觉改版的已选素材、参数与发布边界见 [视觉改版说明](docs/visual-identity.md)。生长花园布局的历史实现见 [原改版说明](docs/growing-garden.md)。
