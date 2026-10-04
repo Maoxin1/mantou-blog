@@ -18,7 +18,7 @@ for (const width of [1440, 768, 390]) {
     }
     await page.goto('/p/blog-feedback-system/');
     await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; });
-    const tocLink = page.locator('#toc-static a').first();
+    const tocLink = page.locator(width > 1024 ? '.mantou-reading-toc a' : '#toc-static a').first();
     if (!(await tocLink.isVisible())) await page.locator('#toc-static summary').click();
     await expect(tocLink).toBeVisible();
     const hash = await tocLink.getAttribute('href');

@@ -66,7 +66,7 @@ def validate_home(html: str, prefix: str, public: Path) -> list[str]:
     root = Document(html).root
     label = prefix or "/"
     issues = []
-    expected_title = "Take your time.Keep moving forward." if prefix else "慢慢来，也一直向前。"
+    expected_title = "Keep learning.Look ahead." if prefix else "知不足而奋进，望远山而前行。"
     headings = root.find(tag="h1")
     if len(headings) != 1 or headings[0].text.strip() != expected_title:
         issues.append(f"{label}: expected a single localized garden h1")

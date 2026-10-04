@@ -15,10 +15,10 @@ test('1440px 顶部导航固定且不遮挡首页，跳转与深色主题可用'
   const sidebar = page.locator('#header-desktop');
   await expect(sidebar).toBeVisible();
   await expect(page.locator('#header-mobile')).not.toBeVisible();
-  await expect(page.locator('h1')).toHaveText('慢慢来，也一直向前。');
+  await expect(page.locator('h1')).toHaveText('知不足而奋进，望远山而前行。');
   await expect(sidebar.locator('.mantou-brand img').first()).toHaveAttribute('src', '/images/identity/mantou-wordmark-ink.svg');
-  await expect(page.locator('.mantou-hero-picture img')).toHaveAttribute('src', '/images/identity/paper-path.webp');
-  await expect(page.locator('.mantou-card-person')).toHaveAttribute('src', '/images/identity/mantou-p1-stand.svg');
+  await expect(page.locator('.mantou-hero-picture img')).toHaveAttribute('src', '/images/identity/comic-book-v3-900.webp');
+  await expect(page.locator('.mantou-feature-art')).toHaveAttribute('src', '/images/identity/comic-investigation-v3-600.webp');
   await expect(sidebar.locator('.garden-rss')).toHaveAttribute('href', '/index.xml');
   await expect(sidebar.locator('a[href="/now/"]')).toHaveAttribute('href', '/now/');
 
@@ -80,12 +80,12 @@ test('390px 顶部导航滚动后仍可见，菜单可收起并保留搜索和�
   await page.goto('/');
   await page.locator('#header-mobile .language-switch').getByRole('link', { name: 'English' }).click();
   await expect(page).toHaveURL(/\/en\/$/);
-  await expect(page.locator('h1')).toHaveText('Take your time.Keep moving forward.');
+  await expect(page.locator('h1')).toHaveText('Keep learning.Look ahead.');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expectNoOverflow(page, 'English mobile garden');
   await page.locator('#header-mobile .language-switch').getByRole('link', { name: '中文' }).click();
   await expect(page).toHaveURL(/(?<!en)\/$/);
-  await expect(page.locator('h1')).toHaveText('慢慢来，也一直向前。');
+  await expect(page.locator('h1')).toHaveText('知不足而奋进，望远山而前行。');
 });
 
 for (const width of [390, 820, 1024, 1025, 1440]) {
@@ -103,7 +103,7 @@ for (const width of [390, 820, 1024, 1025, 1440]) {
         await expectNoOverflow(page, `${route} at ${width}px in ${theme}`);
       }
       const toc = page.locator('#toc-static');
-      if (await toc.count()) {
+      if (await toc.count() && width <= 1024) {
         await expect(toc).toHaveAttribute('data-kept', 'true');
         if (!(await toc.evaluate(element => element.open))) await toc.locator('summary').click();
         await expect(toc.locator('#TableOfContents a').first()).toBeVisible();
@@ -112,6 +112,11 @@ for (const width of [390, 820, 1024, 1025, 1440]) {
       if (width >= 1025) {
         await expect(page.locator('#header-desktop')).toBeVisible();
         await expect(page.locator('#toc-auto')).not.toBeVisible();
+        if (await toc.count()) {
+          await expect(page.locator('.mantou-reading-toc')).toBeVisible();
+          await expect(page.locator('.mantou-reading-toc a').first()).toBeVisible();
+          await expect(toc).not.toBeVisible();
+        }
         const article = await page.locator('.reading-post').boundingBox();
         const sidebar = await page.locator('#header-desktop').boundingBox();
         expect(article.x).toBeGreaterThanOrEqual(0);

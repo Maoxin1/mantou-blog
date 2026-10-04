@@ -18,6 +18,9 @@ module.exports = defineConfig({
     baseURL: 'http://127.0.0.1:4174',
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
+    // Optional local Chromium path; CI continues to use the pinned Playwright browser.
+    launchOptions: process.env.MANTOU_CHROMIUM_PATH
+      ? { executablePath: process.env.MANTOU_CHROMIUM_PATH } : {},
   },
   projects: [
     {

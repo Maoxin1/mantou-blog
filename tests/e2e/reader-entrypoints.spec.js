@@ -1,10 +1,11 @@
 const { test, expect } = require('@playwright/test');
 
 for (const width of [1366, 390]) {
-  test(`首页在 ${width}px 能直达精选和最近更新`, async ({ page }) => {
+  test(`首页在 ${width}px 读完精选后能直达最近更新`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 });
     await page.goto('/');
     const shortcuts = page.locator('.home-shortcuts');
+    await shortcuts.scrollIntoViewIfNeeded();
     await expect(shortcuts).toBeInViewport();
     await shortcuts.locator('a[href="#selected"]').click();
     await expect(page).toHaveURL(/#selected$/);
