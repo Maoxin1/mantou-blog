@@ -46,6 +46,7 @@
       <a href="/admin/">/admin/</a> 打开。
     </div>
 
+    <script src="/admin/post-aliases.js"></script>
     <script>
       (function loadCMS() {
         var loading = document.getElementById('cms-loading');
@@ -53,6 +54,13 @@
         var integrity = 'sha384-fue7kFAg94Qs3xB6zYD5VeYJyw99klOSaHkOuTXQg888TMyBgMN6PyO+TxyASS+S';
 
         function done() {
+          try {
+            window.registerPostAliases(window.CMS);
+          } catch (error) {
+            fail();
+            console.error(error);
+            return;
+          }
           if (loading) loading.style.display = 'none';
         }
 

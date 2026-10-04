@@ -31,6 +31,8 @@ npm run test:e2e
 
 其中 Python 脚本检查内容结构、CMS契约、投资隐私预检、生成结果与内部链接；Playwright 在真实 Chromium 中验证首页到案例的访客路径、全部公开作品、中文搜索、桌面/平板/手机布局、主题与移动导航、基础语义以及页面运行时错误。失败时会生成 `playwright-report/` 和 `test-results/`，这两个目录不提交到 Git。测试范围、参考来源和未移植项见 [`tests/README.md`](tests/README.md)，新功能先使用[`功能验收模板`](docs/feature-acceptance-template.md)定义主张与失败条件，并在[`边缘风险登记表`](docs/edge-case-register.md)记录仍未覆盖的风险。投资作品发布前还需完成[`人工检查单`](docs/investment-publication-checklist.md)。
 
+新建文章在 Decap 与 Sveltia 两个入口保存时，都会自动补充 `/posts/日期-英文slug/` 旧地址；编辑已有文章会保留历史别名。源文件校验只读取真正的 YAML/TOML front matter，并在 Node/Hugo/浏览器安装前检查单文件文章别名。构建后逐个核对旧地址页面的 canonical 与 refresh 跳转目标。
+
 Cloudflare Pages 项目采用 Direct Upload，验证和部署是两条相互隔离的流水线：
 
 - `Validate` 在 PR 与 `main` 上运行全部校验，不读取任何 Cloudflare 凭据，也不部署；

@@ -28,6 +28,7 @@ collections:
         widget: "string"
         pattern: ["^(?=.{1,32}$)[a-z0-9]+(?:-[a-z0-9]+)*$", "使用不超过 32 个小写英文字母、数字和连字符，例如 memory-sector-review"]
         hint: "决定公开网址；简短、可读，发布后不要随意修改。"
+      - { label: "历史地址", name: "aliases", widget: "hidden", default: [], required: false }
       - { label: "摘要", name: "description", widget: "text", required: false }
       - { label: "内容归档", name: "categories", widget: "hidden", default: ["essays"] }
       - label: "标签"

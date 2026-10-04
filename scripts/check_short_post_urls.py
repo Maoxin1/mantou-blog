@@ -9,22 +9,30 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 
+if __package__:
+    from .post_front_matter import parse_front_matter, legacy_aliases
+else:
+    from post_front_matter import parse_front_matter, legacy_aliases
+
 ROOT = Path(__file__).resolve().parents[1]
 POSTS_DIR = ROOT / "content" / "posts"
 PUBLIC_DIR = ROOT / "public"
-SLUG_PATTERN = re.compile(r"(?m)^slug:\s*['\"]?(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)*)")
-ALIASES_BLOCK = re.compile(r"(?ms)^aliases:\s*\n(?P<items>(?:[ \t]+-.*\n?)+)")
 
 
 class CanonicalParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.canonical: str | None = None
+        self.redirect: str | None = None
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
         if tag == "link" and values.get("rel") == "canonical":
             self.canonical = values.get("href")
+        if tag == "meta" and (values.get("http-equiv") or "").lower() == "refresh":
+            match = re.fullmatch(r"\s*0\s*;\s*url=(.*?)\s*", values.get("content") or "", re.I)
+            if match:
+                self.redirect = match.group(1).strip("\"'")
 
 
 def main() -> int:
@@ -38,21 +46,25 @@ def main() -> int:
 
     for source in sorted(POSTS_DIR.glob("*.md")):
         text = source.read_text(encoding="utf-8")
-        slug_match = SLUG_PATTERN.search(text)
-        if not slug_match:
+        try:
+            fields = parse_front_matter(text)
+        except ValueError as error:
+            issues.append(f"{source.relative_to(ROOT)}: {error}")
+            continue
+        slug = str(fields.get("slug", ""))
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug) or len(slug) > 32:
             issues.append(f"{source.relative_to(ROOT)}: missing valid short slug")
             continue
 
-        slug = slug_match.group("slug")
         if slug in slugs:
             issues.append(f"{source.relative_to(ROOT)}: duplicate slug {slug!r}")
             continue
         slugs.add(slug)
         checked += 1
 
-        alias_match = ALIASES_BLOCK.search(text)
-        if not alias_match or "/posts/" not in alias_match.group("items"):
-            issues.append(f"{source.relative_to(ROOT)}: missing legacy /posts/ alias")
+        aliases = legacy_aliases(fields)
+        if not aliases:
+            issues.append(f"{source.relative_to(ROOT)}: missing valid legacy /posts/.../ alias")
 
         output = PUBLIC_DIR / "p" / slug / "index.html"
         if not output.is_file():
@@ -65,6 +77,18 @@ def main() -> int:
         parser.feed(html)
         if parser.canonical != canonical:
             issues.append(f"{output.relative_to(ROOT)}: incorrect canonical URL")
+
+        for alias in aliases:
+            redirect = PUBLIC_DIR / alias.strip("/") / "index.html"
+            if not redirect.is_file():
+                issues.append(f"{source.relative_to(ROOT)}: legacy alias {alias!r} did not generate a redirect page")
+                continue
+            redirect_parser = CanonicalParser()
+            redirect_parser.feed(redirect.read_text(encoding="utf-8"))
+            if redirect_parser.canonical != canonical:
+                issues.append(f"{redirect.relative_to(ROOT)}: legacy redirect canonical must point to {canonical}")
+            if redirect_parser.redirect != canonical:
+                issues.append(f"{redirect.relative_to(ROOT)}: legacy redirect refresh must point to {canonical}")
 
     feed_path = PUBLIC_DIR / "index.xml"
     if not feed_path.is_file():

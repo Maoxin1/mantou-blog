@@ -90,3 +90,14 @@ Sveltia灰度后台可以安装为`mantou 内容工作台`，用于缩短“打�
 
 若旧安装仍显示`Sveltia CMS`或旧图标，先卸载旧应用，再从灰度入口重新安装。断网时不应
 继续编辑或发布；恢复联网后重试。Sveltia不可用时仍从`/admin/`进入Decap稳定后台。
+
+## 新文章旧地址保护
+
+- Decap 与 Sveltia 共用 `/admin/post-aliases.js` 的 `preSave` 钩子，并以两者均支持的 `newRecord` 判断新文章
+- 新文章按日期和英文短链接自动加入 `/posts/YYYY-MM-DD-slug/`；重复保存不重复添加，已有文章和其他集合不改写
+- `aliases` 是后台隐藏字段，已有文章的历史地址会保留；不要删除它
+- PR 的源文件检查只解析文件开头的 YAML/TOML front matter，正文代码块中的示例不能代替字段
+- 生成结果检查每个旧地址是否存在、canonical 与 refresh 是否都指向该文章短链接
+- 本次自动化验收只调用保存前的纯数据转换，没有登录、创建草稿或执行真实发布
+
+接口依据：[Decap 事件](https://decapcms.org/docs/registering-events/)、[Sveltia 事件](https://sveltiacms.app/en/docs/api/events)。

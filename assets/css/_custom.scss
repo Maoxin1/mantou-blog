@@ -2262,7 +2262,7 @@ $portfolio-accent: #a84e32;
 .editorial-home__tool {
   padding: clamp(2.4rem, 5vw, 4rem) 0;
   border-top: 1px solid var(--editorial-line);
-  scroll-margin-top: 5rem;
+  scroll-margin-top: var(--anchor-offset, 5rem);
 }
 
 .editorial-home__section-heading {
@@ -2471,13 +2471,13 @@ $portfolio-accent: #a84e32;
 }
 
 .work-detail #content h2[id],
-.work-detail #content h3[id] { scroll-margin-top: 5rem; }
+.work-detail #content h3[id] { scroll-margin-top: var(--anchor-offset, 5rem); }
 
 .work-detail__audit {
   margin-top: 4rem;
   padding-top: 2.7rem;
   border-top: 1px solid $portfolio-line;
-  scroll-margin-top: 5rem;
+  scroll-margin-top: var(--anchor-offset, 5rem);
 }
 
 .work-detail__audit-heading {

@@ -21,10 +21,11 @@
 {{- if gt $pageNumber 1 -}}{{- $canonicalURL = printf "%spage/%d/" .Permalink $pageNumber -}}{{- end -}}
 <link rel="canonical" href="{{ $canonicalURL }}">
 {{- range .AllTranslations }}
-{{- $alternate := .Permalink -}}
-{{- if gt $pageNumber 1 -}}{{- $alternate = printf "%spage/%d/" .Permalink $pageNumber -}}{{- end -}}
+{{- $alternate := partial "function/paginated-url.html" (dict "Page" . "Number" $pageNumber "Absolute" true) -}}
+{{- if $alternate -}}
 <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ $alternate }}">
 {{- if eq .Language.Lang "zh-cn" }}<link rel="alternate" hreflang="x-default" href="{{ $alternate }}">{{ end }}
+{{- end -}}
 {{- end }}
 {{- if .PrevInSection -}}
 <link rel="prev" href="{{ .PrevInSection.Permalink }}">

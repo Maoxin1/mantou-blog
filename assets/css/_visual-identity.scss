@@ -1,6 +1,8 @@
 // Selected identity: 01 wordmark, P1 pen figure and the original open book.
 // Chinese text uses complete system fonts, never the preview-only font subset.
 .mantou-site {
+  --header-height: 100px;
+  --anchor-offset: calc(var(--header-height) + 16px);
   --site-ink: #292824;
   --site-muted: #6b6258;
   --site-line: #d9cebe;
@@ -39,14 +41,16 @@
 .mantou-site .wrapper { width: 100%; margin: 0; }
 .mantou-site .wrapper main { padding-top: 0; }
 .mantou-site .main > .container { width: calc(100% - 80px); max-width: 1080px; padding: 0; margin: 0 auto; }
-.mantou-site .page { width: 100%; }
+.mantou-site .page { width: 100%; padding-top: 0; }
+// Sticky headers remain in flow; anchors use the same breakpoint-aware height.
+.mantou-site main [id], .mantou-site #main-content { scroll-margin-top: var(--anchor-offset); }
 .mantou-site .mantou-home { max-width: none; margin: 0; }
 .mantou-site .editorial-home { --editorial-ink: var(--site-ink); --editorial-muted: var(--site-muted); --editorial-line: var(--site-line); --editorial-accent: var(--site-accent); }
 .mantou-home .home-action { color: var(--site-accent); }
 .garden-skip { position: fixed; top: -6rem; left: 20px; z-index: 1000; padding: 12px 18px; background: var(--site-paper); }
 .garden-skip:focus { top: 10px; }
-.mantou-site #header-desktop { position: sticky; top: 0; display: block; width: 100%; height: 100px; background: var(--site-paper); box-shadow: none; transform: none !important; z-index: 100; }
-.mantou-site #header-desktop .header-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: calc(100% - 80px); max-width: 1080px; height: 100px; padding: 0; border-bottom: 1px solid var(--site-line); }
+.mantou-site #header-desktop { position: sticky; top: 0; display: block; width: 100%; height: var(--header-height); background: var(--site-paper); box-shadow: none; transform: none !important; z-index: 100; }
+.mantou-site #header-desktop .header-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: calc(100% - 80px); max-width: 1080px; height: var(--header-height); padding: 0; border-bottom: 1px solid var(--site-line); }
 .mantou-site .header-title { margin: 0; padding: 0; flex-shrink: 0; line-height: 1; }
 .mantou-site .mantou-brand { display: inline-flex; align-items: center; min-height: 44px; }
 .mantou-brand img { width: 168px; height: auto; display: block; }
@@ -153,12 +157,13 @@
 .mantou-footer-meta a { text-decoration: underline; text-underline-offset: 3px; }
 @media only screen and (min-width: 1025px) { .mantou-site #header-mobile { display: none; } }
 @media only screen and (max-width: 1024px) {
+  .mantou-site { --header-height: 81px; }
   .mantou-site #header-desktop { display: none; }
-  .mantou-site #header-mobile { display: block; position: sticky; top: 0; height: 81px; transform: none !important; z-index: 100; }
+  .mantou-site #header-mobile { display: block; position: sticky; top: 0; height: var(--header-height); transform: none !important; z-index: 100; }
   .mantou-site #header-mobile .header-container { background: var(--site-paper); }
-  .mantou-site #header-mobile .header-wrapper { height: 81px; width: calc(100% - 40px); margin: 0 auto; padding: 0; border-bottom: 1px solid var(--site-line); }
+  .mantou-site #header-mobile .header-wrapper { height: var(--header-height); width: calc(100% - 40px); margin: 0 auto; padding: 0; border-bottom: 1px solid var(--site-line); }
   .mantou-site #header-mobile .mantou-brand img { width: 141px; }
-  .mantou-site #header-mobile .menu { background: var(--site-paper); border-bottom: 1px solid var(--site-line); padding: 12px 20px; max-height: calc(100dvh - 81px); overflow-y: auto; box-sizing: border-box; }
+  .mantou-site #header-mobile .menu { background: var(--site-paper); border-bottom: 1px solid var(--site-line); padding: 12px 20px; max-height: calc(100dvh - var(--header-height)); overflow-y: auto; box-sizing: border-box; }
   .mantou-site #header-mobile .menu-item { min-height: 44px; line-height: 44px; font-size: 14px; }
   .mantou-site #header-mobile .menu-item[aria-current] { color: var(--site-accent); }
   .mantou-site #menu-toggle-mobile span { background: var(--site-ink); }

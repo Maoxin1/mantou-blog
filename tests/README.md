@@ -54,3 +54,13 @@ npm run test:smoke
 | [Magic Portfolio](https://github.com/once-ui-system/magic-portfolio) | 未发现独立测试或 CI，只有 lint/build 脚本 | 仅作视觉与作品信息架构参考，不移植框架代码或测试 |
 
 没有采用视觉像素基线，是因为中文字体在 Windows、Linux 和移动设备上的渲染差异容易制造伪失败；没有把 Lighthouse 放进每次提交，是因为单次波动和执行成本暂时高于当前收益。出现真实性能问题后，再用明确预算补充性能验收。
+
+## 发布与离线异常回归
+
+- 两种真实固定版本 CMS 的 `preSave` 注册、首次保存别名、重复保存、历史文章与其他集合保持不变；不登录或创建真实草稿
+- 严格 YAML/TOML、重复键、正文伪字段、缺失/错误 canonical 和 refresh
+- Hugo 临时构建增加 4 篇中文文章，验证中文第 11 页不会链接不存在的英文第 11 页；语言切换回到英文归档，hreflang 不声明不存在的对应页
+- 桌面、平板、手机验证 sticky 导航没有额外页面补偿，首页阅读入口与文章目录标题不被遮挡
+- Service Worker 异常执行与浏览器回归覆盖 503、断网、超时、存储失败和缓存隔离
+
+Python 分页集成测试需要 PATH 中存在 Hugo，否则会明确跳过；CI 在运行测试之前安装 Hugo。

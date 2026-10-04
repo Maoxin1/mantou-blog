@@ -1,0 +1,8 @@
+{{- $paginator := false -}}
+{{- if and .Pages (or (eq .Kind "term") (and .IsSection (eq .Section "posts"))) -}}
+  {{- $size := .Site.Params.section.paginate | default .Site.Params.paginate -}}
+  {{- if eq .Kind "term" -}}{{- $size = .Site.Params.list.paginate | default .Site.Params.paginate -}}{{- end -}}
+  {{- $groups := .Pages.GroupByDate "2006" -}}
+  {{- if $size -}}{{- $paginator = .Paginate $groups $size -}}{{- else -}}{{- $paginator = .Paginate $groups -}}{{- end -}}
+{{- end -}}
+{{- return $paginator -}}

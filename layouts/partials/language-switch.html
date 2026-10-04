@@ -5,8 +5,7 @@
   {{- $site := . -}}
   {{- $target := .Home.RelPermalink -}}
   {{- $available := false -}}
-  {{- range $page.AllTranslations -}}{{- if eq .Language.Lang $site.Language.Lang -}}{{- $target = .RelPermalink -}}{{- $available = true -}}{{- end -}}{{- end -}}
-  {{- if gt $pageNumber 1 -}}{{- $target = printf "%spage/%d/" $target $pageNumber -}}{{- end -}}
+  {{- range $page.AllTranslations -}}{{- if eq .Language.Lang $site.Language.Lang -}}{{- $target = partial "function/paginated-url.html" (dict "Page" . "Number" $pageNumber) | default .RelPermalink -}}{{- $available = true -}}{{- end -}}{{- end -}}
   {{- if eq $page.Kind "404" -}}{{- $target = printf "%s404.html" .Home.RelPermalink -}}{{- end -}}
   {{- if and $page.IsPage (not $available) -}}
     <span aria-disabled="true" title="{{ T "translationUnavailable" }}">{{ .Language.LanguageName }} ({{ T "pendingTranslation" }})</span>

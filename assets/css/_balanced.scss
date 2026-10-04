@@ -36,7 +36,7 @@ main h1, main h2, main h3 { overflow-wrap: anywhere; }
 .balanced-home .editorial-home__lead { max-width: 43rem; margin: 0; font-size: 1.0625rem; line-height: 1.8; }
 .home-shortcuts { display: flex; flex-wrap: wrap; gap: 0 1.5rem; margin-top: .75rem; }
 .home-shortcuts a { display: inline-flex; align-items: center; min-height: 44px; color: var(--site-accent); font-size: .9375rem; text-decoration: underline; text-underline-offset: .2rem; }
-.balanced-home #latest, .balanced-home #selected { scroll-margin-top: 5rem; }
+.balanced-home #latest, .balanced-home #selected { scroll-margin-top: var(--anchor-offset, 5rem); }
 .home-pair, .home-updates { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; }
 .home-pair > section { border-top: 2px solid var(--site-ink); padding: 1rem 0 1.5rem; min-width: 0; }
 .home-pair__label { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1rem; }
@@ -99,7 +99,7 @@ main h1, main h2, main h3 { overflow-wrap: anywhere; }
   font-size: clamp(1.4rem, 2.4vw, 1.7rem);
   font-weight: 650;
   line-height: 1.5;
-  scroll-margin-top: 5rem;
+  scroll-margin-top: var(--anchor-offset, 5rem);
 }
 .single.reading-post .content > h3, .single.work-detail .content > h3 { font-size: 1.25rem; line-height: 1.55; }
 .single .content a, [theme=dark] .single .content a { color: var(--site-accent); text-decoration: underline; text-underline-offset: .18em; }
