@@ -20,12 +20,20 @@
       <code>unpkg.com</code> / <code>cdn.jsdelivr.net</code>。
     </div>
 
+    <script src="/admin/post-aliases.js"></script>
     <script>
       (function loadCMS() {
         var loading = document.getElementById('cms-loading');
         var error = document.getElementById('cms-error');
 
         function done() {
+          try {
+            window.registerPostAliases(window.CMS);
+          } catch (error) {
+            fail();
+            console.error(error);
+            return;
+          }
           if (loading) loading.style.display = 'none';
         }
 

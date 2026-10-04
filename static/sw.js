@@ -3,8 +3,10 @@
  * 策略：页面导航走“网络优先 + 离线回退”，静态资源走“缓存优先 + 后台更新”。
  * 改动缓存逻辑时，请把 VERSION 加一，旧缓存会被自动清理。
  */
-const VERSION = 'v4';
-const CACHE = 'mantou-blog-' + VERSION;
+const VERSION = 'v5';
+const CACHE_PREFIX = 'mantou-blog-';
+const CACHE = CACHE_PREFIX + VERSION;
+const NAVIGATION_TIMEOUT_MS = 4000;
 const PRECACHE = [
   '/',
   '/offline.html',
@@ -26,10 +28,69 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys
+        .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE)
+        .map((key) => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });
+
+// 缓存存储可能被禁用或写满；这些错误不应让正常的网络响应变成失败。
+async function cachedResponse(request) {
+  try {
+    const cache = await caches.open(CACHE);
+    const response = await cache.match(request);
+    return response && response.ok ? response : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+async function cacheSuccessfulResponse(request, response) {
+  // Cache.put 不接受 206；错误页、opaque 响应也不能覆盖可离线阅读的正文。
+  if (!response || !response.ok || response.status === 206) return;
+  try {
+    // 必须在异步打开缓存之前克隆，以免正文已经交给浏览器并被消费。
+    const copy = response.clone();
+    const cache = await caches.open(CACHE);
+    await cache.put(request, copy);
+  } catch {
+    // 配额不足、存储不可用、Vary: * 等情况不影响本次阅读。
+  }
+}
+
+async function fetchNavigation(request) {
+  const controller = new AbortController();
+  let timer;
+  try {
+    return await Promise.race([
+      fetch(request, { signal: controller.signal }),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => {
+          reject(new Error('Navigation network timeout'));
+          controller.abort();
+        }, NAVIGATION_TIMEOUT_MS);
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function navigationFallback(request, url) {
+  const cached = await cachedResponse(request);
+  if (cached) return cached;
+  const english = url.pathname === '/en' || url.pathname.startsWith('/en/');
+  const offline = await cachedResponse(english ? '/en/offline.html' : '/offline.html');
+  if (offline) return offline;
+  // 即使浏览器清空了离线页，respondWith 也始终得到可显示的本地化响应。
+  return new Response(english
+    ? '<!doctype html><html lang="en"><meta charset="utf-8"><title>Offline</title><h1>You are offline</h1><p>Please try again when you are back online.</p></html>'
+    : '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>离线</title><h1>🥯 当前处于离线状态</h1><p>请在恢复网络后重试。</p></html>', {
+    status: 503,
+    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+  });
+}
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
@@ -43,33 +104,19 @@ self.addEventListener('fetch', (event) => {
   // 访问网络，不能被博客离线缓存中的旧 config.yml 改变发布行为。
   if (url.pathname === '/admin' || url.pathname.startsWith('/admin/')) return;
 
-  // 页面导航：优先拿最新内容，断网时回退到缓存页，再不行就显示离线页
   if (req.mode === 'navigate') {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match(req).then((r) => r || caches.match(url.pathname.startsWith('/en/') ? '/en/offline.html' : '/offline.html')))
-    );
+    const network = fetchNavigation(req);
+    // 同步登记后台写入，避免响应返回后 Worker 提前终止。
+    event.waitUntil(network.then((res) => cacheSuccessfulResponse(req, res)).catch(() => {}));
+    event.respondWith(network
+      .then((res) => res.status >= 500 ? navigationFallback(req, url) : res)
+      .catch(() => navigationFallback(req, url)));
     return;
   }
 
-  // 静态资源（CSS/JS/图片/字体）：先用缓存秒开，同时后台静默更新
-  event.respondWith(
-    caches.match(req).then((cached) => {
-      const network = fetch(req)
-        .then((res) => {
-          if (res && res.status === 200) {
-            const copy = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(req, copy));
-          }
-          return res;
-        })
-        .catch(() => cached);
-      return cached || network;
-    })
-  );
+  // 静态资源（CSS/JS/图片/字体）：先用缓存秒开，同时后台静默更新。
+  const network = fetch(req);
+  event.waitUntil(network.then((res) => cacheSuccessfulResponse(req, res)).catch(() => {}));
+  event.respondWith(cachedResponse(req).then((cached) => cached || network)
+    .catch(() => Response.error()));
 });

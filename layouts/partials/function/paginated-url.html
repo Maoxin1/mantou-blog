@@ -1,0 +1,15 @@
+{{- /* Return an empty URL when this translated archive has no matching page.
+     Use the same collection/size as pagination-number and archive templates. */ -}}
+{{- $page := .Page -}}
+{{- $number := .Number | default 1 -}}
+{{- $url := $page.RelPermalink -}}
+{{- if .Absolute -}}{{- $url = $page.Permalink -}}{{- end -}}
+{{- if gt $number 1 -}}
+  {{- $paginator := partial "function/archive-paginator.html" $page -}}
+  {{- if and $paginator (le $number $paginator.TotalPages) -}}
+    {{- $url = printf "%spage/%d/" $url $number -}}
+  {{- else -}}
+    {{- $url = "" -}}
+  {{- end -}}
+{{- end -}}
+{{- return $url -}}
