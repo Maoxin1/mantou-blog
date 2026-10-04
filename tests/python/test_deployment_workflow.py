@@ -1,5 +1,7 @@
 import re
 import unittest
+
+import yaml
 from pathlib import Path
 
 
@@ -9,6 +11,16 @@ DEPLOY_WORKFLOW = ROOT / ".github" / "workflows" / "deploy-pages.yml"
 
 
 class DeploymentWorkflowSecurityTests(unittest.TestCase):
+    def test_production_output_validator_dependencies_are_always_installed(self) -> None:
+        workflow = yaml.safe_load(DEPLOY_WORKFLOW.read_text(encoding="utf-8"))
+        steps = workflow['jobs']['build']['steps']
+        install = next(index for index, step in enumerate(steps)
+                       if 'requirements-validation.txt' in step.get('run', ''))
+        validate = next(index for index, step in enumerate(steps)
+                        if 'python scripts/check_short_post_urls.py' in step.get('run', ''))
+        self.assertNotIn('if', steps[install], 'Production output checks also need PyYAML')
+        self.assertLess(install, validate)
+
     def test_validation_and_deployment_reject_disabled_runtime_assets(self) -> None:
         for workflow_path in (VALIDATE_WORKFLOW, DEPLOY_WORKFLOW):
             workflow = workflow_path.read_text(encoding="utf-8")
