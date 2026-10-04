@@ -8,7 +8,7 @@
 
 ## 本地验证
 
-需要 Hugo Extended 0.154.5、Python 3.12 或更高版本，以及 Node.js/npm。
+需要 Hugo Extended 0.154.5、Python 3.12 或更高版本，以及 Node.js 24.11 或更高版本/npm。
 
 ```powershell
 py -3 scripts/validate_admin_config.py

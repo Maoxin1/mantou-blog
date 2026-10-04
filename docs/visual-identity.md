@@ -31,4 +31,6 @@
 
 桌面 1280 px、手机 390 px、中英文及深色的实际构建截图已检查；可见图片均加载成功，页面宽度未超出视口。中文字体仍由访问者设备决定，本轮截图不是跨操作系统字体测试。读者反馈与长期辨识度没有进行外部测试。
 
+PR 首次完整验证被旧主题的开发依赖审计阻断：Babel 7 CLI 的 Chokidar 3 链带入无修复版的 braces 漏洞（[GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)）。改为配套的 Babel CLI/Core/Preset Env 8.0.6，按[官方迁移说明](https://babeljs.io/docs/v8-migration)调整 targets 并声明 Node 要求；其余四个主题直接依赖保持原锁定版本。此项只更新主题开发工具，已随仓库提供的浏览器运行时脚本没有重新编译或替换。依赖锁由 npm 重新生成，发布审计门槛保持不变。主题 npm ci、npm audit（0 项漏洞）、源码编译及生成脚本语法检查已通过。
+
 改版在独立分支审阅，不改写历史文章。原始项目需求要求不自动发布现有网站，因此发布须在改版确认后单独推进。合并到 main 后现有 Validate / Deploy Pages 流程会自动部署；不要在审阅前合并。
