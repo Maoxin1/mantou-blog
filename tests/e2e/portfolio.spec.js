@@ -28,7 +28,7 @@ test('访客能从首页进入工具、目录与证据', async ({ page }) => {
   await open(page, '/');
 
   await expect(page.locator('[data-portfolio-home]')).toBeVisible();
-  await expect(page.getByRole('heading', { name: '想法有自己的生长速度。' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /慢慢来，\s*也一直向前。/ })).toBeVisible();
   await expect(page.locator('[data-proof-strip]')).toHaveCount(0);
 
   await page.getByRole('link', { name: /制作记录/ }).click();

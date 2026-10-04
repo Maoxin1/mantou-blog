@@ -99,6 +99,11 @@ buildFuture = false
 [params.seo]
   image = "/images/mantou-social.jpg"
 
+# 顶部导航滚动时保持可见，避免主题的自动淡出遮住身份与菜单。
+[params.header]
+  desktopMode = "fixed"
+  mobileMode = "fixed"
+
 # 网站左上角显示的站点名（覆盖主题默认的 "My cool site"）
 [params.header.title]
   name = "mantou"
@@ -106,7 +111,7 @@ buildFuture = false
 [params.author]
   enable = true
   name = "mantou"
-  avatar = "/images/mantou.jpg"
+  avatar = "/images/identity/mantou-avatar-400.png"
   link = "https://github.com/Maoxin1"
 
 [params.social]

@@ -10,17 +10,17 @@ ROOT = Path(__file__).resolve().parents[2]
 
 class GardenLayoutTests(unittest.TestCase):
     def test_localized_garden_copy_is_complete(self):
-        keys = ("gardenKicker", "gardenTitle", "gardenLead", "gardenTagline", "gardenEssays", "gardenNotes", "gardenReading", "gardenTools", "gardenNow", "gardenClosing", "gardenSkip")
+        keys = ("identityKicker", "identityTitleFirst", "identityTitleSecond", "identityLead", "identityStart", "identityProjects", "identityHeroAlt", "identityHeroCaption", "identityBridgeAlt", "identityClosing", "gardenSkip")
         for language in ("en", "zh-cn"):
             copy = json.loads((ROOT / "i18n" / f"{language}.json").read_text(encoding="utf-8"))
             for key in keys:
                 self.assertTrue(copy[key]["other"].strip(), f"{language}: {key}")
 
     def test_responsive_and_dark_theme_contracts_are_present(self):
-        css = (ROOT / "assets/css/_garden.scss").read_text(encoding="utf-8")
-        for rule in (".garden-site[theme=dark]", ".garden-skip:focus", "min-width: 1025px", "max-width: 1024px", "max-width: 680px", "grid-template-columns: minmax(0, 1fr)", "#header-mobile", "#header-desktop", "#toc-static", "#toc-auto"):
+        css = (ROOT / "assets/css/_visual-identity.scss").read_text(encoding="utf-8")
+        for rule in (".mantou-site[theme=dark]", ".garden-skip:focus", "min-width: 1025px", "max-width: 1024px", "max-width: 680px", "grid-template-columns: minmax(0, 1fr)", "#header-mobile", "#header-desktop", "#toc-static", "#toc-auto"):
             self.assertIn(rule, css)
-        self.assertIn('@import "garden"', (ROOT / "assets/css/_custom.scss").read_text(encoding="utf-8"))
+        self.assertIn('@import "visual-identity"', (ROOT / "assets/css/_custom.scss").read_text(encoding="utf-8"))
 
     def test_skip_destination_and_mobile_toggle_are_semantic(self):
         base = (ROOT / "layouts/_default/baseof.html").read_text(encoding="utf-8")

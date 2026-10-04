@@ -538,5 +538,38 @@
   },
   "gardenSkip": {
     "other": "Skip to content"
+  },
+  "identityKicker": {
+    "other": "THE LONG VIEW · KEEP ITERATING"
+  },
+  "identityTitleFirst": {
+    "other": "Take your time."
+  },
+  "identityTitleSecond": {
+    "other": "Keep moving forward."
+  },
+  "identityLead": {
+    "other": "Notes on investing, reading, learning and life, and on turning ideas into things that work."
+  },
+  "identityStart": {
+    "other": "Start with writing"
+  },
+  "identityProjects": {
+    "other": "Explore projects"
+  },
+  "identityNotes": {
+    "other": "Writing and notes"
+  },
+  "identityHeroAlt": {
+    "other": "A simple round-headed figure walks along a bright paper path towards an open book in the night."
+  },
+  "identityHeroCaption": {
+    "other": "A little further, one step at a time."
+  },
+  "identityBridgeAlt": {
+    "other": "A simple round-headed figure pushes the last piece of a paper bridge into place."
+  },
+  "identityClosing": {
+    "other": "Keep learning. Keep moving forward."
   }
 }

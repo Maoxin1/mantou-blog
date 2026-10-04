@@ -1,0 +1,207 @@
+// Selected identity: 01 wordmark, P1 pen figure and the original open book.
+// Chinese text uses complete system fonts, never the preview-only font subset.
+.mantou-site {
+  --site-ink: #292824;
+  --site-muted: #6b6258;
+  --site-line: #d9cebe;
+  --site-accent: #a84e32;
+  --site-paper: #fffaf1;
+  --mt-card: #f7eddf;
+  --mt-leaf: #edf0e3;
+  --mt-blush: #f5e8de;
+  --mt-button: #a84e32;
+  --mt-button-text: #fffaf1;
+  background: var(--site-paper);
+  color: var(--site-ink);
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+}
+.mantou-site[theme=dark] {
+  --site-ink: #f5eee2;
+  --site-muted: #c4b7a7;
+  --site-line: #514b43;
+  --site-accent: #e7a78a;
+  --site-paper: #24231f;
+  --mt-card: #34302a;
+  --mt-leaf: #30352b;
+  --mt-blush: #3b2f29;
+  --mt-button: #e7a78a;
+  --mt-button-text: #24231f;
+  background: var(--site-paper);
+  color: var(--site-ink);
+}
+.mantou-site :focus-visible { outline: 3px solid var(--site-accent) !important; outline-offset: 4px; }
+.mantou-site a { color: inherit; }
+.mantou-site a:hover { color: var(--site-accent); }
+.mantou-site h1, .mantou-site h2, .mantou-site h3 { font-family: inherit; font-weight: 700; color: var(--site-ink); }
+.mantou-site img { max-width: 100%; height: auto; }
+.mantou-site .wrapper { width: 100%; margin: 0; }
+.mantou-site .wrapper main { padding-top: 0; }
+.mantou-site .main > .container { width: calc(100% - 80px); max-width: 1080px; padding: 0; margin: 0 auto; }
+.mantou-site .page { width: 100%; }
+.mantou-site .mantou-home { max-width: none; margin: 0; }
+.mantou-site .editorial-home { --editorial-ink: var(--site-ink); --editorial-muted: var(--site-muted); --editorial-line: var(--site-line); --editorial-accent: var(--site-accent); }
+.mantou-home .home-action { color: var(--site-accent); }
+.garden-skip { position: fixed; top: -6rem; left: 20px; z-index: 1000; padding: 12px 18px; background: var(--site-paper); }
+.garden-skip:focus { top: 10px; }
+.mantou-site #header-desktop { position: sticky; top: 0; display: block; width: 100%; height: 100px; background: var(--site-paper); box-shadow: none; transform: none !important; z-index: 100; }
+.mantou-site #header-desktop .header-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: calc(100% - 80px); max-width: 1080px; height: 100px; padding: 0; border-bottom: 1px solid var(--site-line); }
+.mantou-site .header-title { margin: 0; padding: 0; flex-shrink: 0; line-height: 1; }
+.mantou-site .mantou-brand { display: inline-flex; align-items: center; min-height: 44px; }
+.mantou-brand img { width: 168px; height: auto; display: block; }
+.mantou-brand .mantou-logo--paper { display: none; }
+[theme=dark] .mantou-brand .mantou-logo--ink { display: none; }
+[theme=dark] .mantou-brand .mantou-logo--paper { display: block; }
+.mantou-site #header-desktop .menu-inner { display: flex; align-items: center; gap: 12px; margin: 0; }
+.mantou-site #header-desktop .menu-item { margin: 0; padding: 0 2px; min-height: 44px; font-size: 13px; white-space: nowrap; }
+.mantou-site #header-desktop .theme-switch { width: 32px; }
+.mantou-site .language-switch { margin-inline: 3px; gap: 0; font-size: 12px; }
+.mantou-site .language-switch a { padding: 0 3px; }
+.mantou-site .garden-rss { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; color: var(--site-muted); }
+.mantou-site #header-mobile { display: none; background: var(--site-paper); box-shadow: none; }
+.mantou-site #header-desktop .menu-item[aria-current], .mantou-site .menu-item:hover { color: var(--site-accent); }
+.mantou-hero { display: grid; grid-template-columns: .92fr 1.08fr; gap: 38px; align-items: center; padding: 48px 0 46px; }
+.mantou-home .editorial-home__intro { max-width: none; padding: 0; border: 0; margin: 0; }
+.mantou-home .mantou-kicker { margin: 0 0 19px; font-size: 12px; letter-spacing: 1.7px; font-weight: 600; color: var(--site-accent); }
+.mantou-home .editorial-home__intro h1 { font-size: 48px; font-weight: 700; line-height: 1.37; letter-spacing: -1.5px; margin: 0 0 23px; }
+.mantou-home .editorial-home__intro h1 span { position: relative; isolation: isolate; }
+.mantou-home .editorial-home__intro h1 span::after { content: ""; position: absolute; left: 0; right: 3px; bottom: 2px; height: 6px; background: #edc29e; border-radius: 70% 20% 50% 30%; transform: rotate(-1deg); z-index: -1; }
+[theme=dark] .mantou-home .editorial-home__intro h1 span::after { background: #765443; }
+.mantou-home .editorial-home__lead { max-width: 390px; font-size: 15px; line-height: 1.9; color: var(--site-muted); margin: 0 0 27px; }
+.mantou-hero-actions { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.mantou-site .mantou-primary, .mantou-site .mantou-secondary { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; }
+.mantou-site .mantou-primary { padding: 10px 18px; border: 1px solid var(--mt-button); border-radius: 8px; background: var(--mt-button); color: var(--mt-button-text); gap: 18px; }
+.mantou-site .mantou-primary:hover { text-decoration: none; filter: brightness(.92); }
+.mantou-site .mantou-primary:active { transform: translateY(1px); }
+.mantou-secondary { text-decoration: underline; text-underline-offset: 5px; }
+.mantou-home .home-shortcuts { margin-top: 12px; gap: 0 18px; }
+.mantou-home .home-shortcuts a { font-size: 11px; font-weight: 400; color: var(--site-muted); }
+.mantou-hero-picture { margin: 0; }
+.mantou-hero-picture > img { display: block; width: 100%; aspect-ratio: 3 / 2; border-radius: 12px; background: #201f1c; object-fit: contain; }
+.mantou-hero-picture figcaption { font-size: 11px; line-height: 1.7; color: var(--site-muted); margin-top: 9px; text-align: right; }
+.mantou-section-heading { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 22px; gap: 18px; }
+.mantou-section-heading h2 { font-size: 23px; letter-spacing: -.4px; margin: 0; }
+.mantou-section-heading > a { min-height: 44px; display: inline-flex; align-items: center; font-size: 12px; color: var(--site-muted); }
+.mantou-cards { display: grid; grid-template-columns: 1fr 1.15fr; grid-template-rows: auto auto; gap: 18px; }
+.mantou-card { border: 1px solid var(--site-line); border-radius: 12px; padding: 25px 27px; position: relative; display: flex; flex-direction: column; min-width: 0; }
+.mantou-card-label { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.mantou-card-label h2 { font-size: 12px; font-weight: 600; letter-spacing: .7px; color: var(--site-accent); margin: 0 0 12px; }
+.mantou-card h3 { font-size: 21px; line-height: 1.5; margin: 0 0 12px; }
+.mantou-card h3 a { color: var(--site-ink); }
+.mantou-card h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+.mantou-card:has(a:focus-visible) { outline: 3px solid var(--site-accent); outline-offset: 4px; }
+.mantou-card:has(a:hover) { border-color: var(--site-accent); }
+.mantou-card h3 a:hover { text-decoration: underline; text-underline-offset: 5px; }
+.mantou-card p { font-size: 14px; line-height: 1.8; color: var(--site-muted); margin: 0 0 12px; }
+.mantou-card .home-action { position: relative; z-index: 1; font-size: 12px; margin-top: auto; align-self: flex-start; color: var(--site-accent); }
+.mantou-card--feature { grid-row: span 2; background: var(--mt-card); min-height: 405px; }
+.mantou-card--feature h3 { font-size: 27px; line-height: 1.55; max-width: 340px; }
+.mantou-card--feature p { max-width: 320px; }
+.mantou-card-foot { display: flex; flex-direction: column; align-items: flex-start; border-top: 1px solid var(--site-line); width: 70%; margin-top: auto; padding-top: 12px; padding-right: 7px; }
+.mantou-card-foot time { font-size: 11px; font-variant-numeric: tabular-nums; color: var(--site-muted); }
+.mantou-card-person { position: absolute; width: 64px; bottom: 18px; right: 27px; pointer-events: none; }
+[theme=dark] .mantou-card-person { filter: invert(1); }
+.mantou-card--reading { background: var(--mt-leaf); }
+.mantou-card--life { background: var(--mt-blush); }
+.mantou-project { display: grid; grid-template-columns: 190px minmax(0, 1fr) 70px; align-items: center; gap: 24px; border-top: 1px solid var(--site-line); border-bottom: 1px solid var(--site-line); padding: 27px 0; margin-top: 35px; }
+.mantou-project-art { width: 190px; aspect-ratio: 3 / 2; object-fit: contain; background: #201f1c; border-radius: 8px; }
+.mantou-project .mantou-card-label h2 { margin: 0; }
+.mantou-project .mantou-card-label span { font-size: 11px; color: var(--site-muted); }
+.mantou-project h3 { font-size: 19px; margin: 9px 0 7px; }
+.mantou-project p { font-size: 13px; color: var(--site-muted); margin: 0; line-height: 1.8; }
+.mantou-project .editorial-home__work-links { gap: 0 18px; margin-top: 8px; }
+.mantou-project .home-action { font-size: 12px; color: var(--site-accent); }
+.mantou-tool-preview { width: 70px; display: block; }
+.mantou-tool-preview img { display: block; width: 100%; border: 1px solid var(--site-line); border-radius: 5px; }
+.mantou-home .mantou-latest { padding: 30px 0; }
+.mantou-home .editorial-home__section-heading h2 { font-size: 23px; }
+.mantou-home .editorial-home__latest-list h3 { font-size: 16px; font-weight: 500; line-height: 1.65; }
+.mantou-home .editorial-home__latest-list li { grid-template-columns: 3.1rem minmax(0, 1fr); border-color: var(--site-line); padding: 12px 0; }
+.mantou-home .editorial-home__latest-list time { font-size: 12px; color: var(--site-muted); white-space: nowrap; }
+.mantou-home .editorial-home__selected { padding: 24px 0 32px; border-top: 1px solid var(--site-line); }
+.mantou-home .editorial-home__selected-list { gap: 18px; }
+.mantou-home .editorial-home__selected-list article { background: var(--mt-card); border: 1px solid var(--site-line); border-radius: 10px; padding: 20px; }
+.mantou-home .editorial-home__selected-list h3 { font-size: 17px; line-height: 1.6; }
+.mantou-home .editorial-home__selected-list span { color: var(--site-accent); }
+.mantou-home .editorial-home__selected-list p { font-size: 14px; color: var(--site-muted); }
+.mantou-bottom { border-top: 1px solid var(--site-line); padding-top: 24px; }
+.mantou-home .editorial-home__closing { border-color: var(--site-line); }
+.mantou-home .editorial-home__closing span, .mantou-home .editorial-home__closing a { color: var(--site-accent); }
+.mantou-home .editorial-home__closing p { color: var(--site-muted); }
+.mantou-home .garden-signoff { font-size: 12px; color: var(--site-muted); margin: 0 0 28px; }
+.mantou-site .page.single.reading-post, .mantou-site .page.single.work-detail { width: 100%; max-width: 700px; }
+.mantou-site .single.reading-post .post-heading { padding: 40px 0 25px; }
+.mantou-site .single.reading-post .single-title { font-family: inherit; font-size: 39px; line-height: 1.45; font-weight: 700; letter-spacing: -1px; }
+.mantou-site .single.reading-post .content, .mantou-site .single.work-detail .content { font-size: 18px; line-height: 1.9; color: var(--site-ink); }
+.mantou-site .single .content p { margin: 0 0 24px; }
+.mantou-site .single .content > h2 { font-size: 25px; margin: 37px 0 19px; line-height: 1.55; }
+.mantou-site .single .content > h3 { font-size: 21px; line-height: 1.6; }
+.mantou-site .single .content a, .mantou-site .single .post-meta a { color: var(--site-accent); }
+.mantou-site .single .post-meta { color: var(--site-muted); }
+.mantou-site .single .content blockquote { margin: 32px 0; padding: 17px 24px; border-left: 3px solid var(--site-accent); background: var(--mt-card); color: var(--site-ink); }
+.mantou-site .single .content blockquote p { margin: 0; }
+.mantou-site .single .content .header-mark::before { color: var(--site-accent) !important; }
+.mantou-site #toc-auto { display: none; }
+.mantou-site #toc-static { display: block; border-color: var(--site-line); background: var(--mt-card); }
+.mantou-site .pf-search { --pagefind-ui-background: var(--site-paper); --pagefind-ui-text: var(--site-ink); --pagefind-ui-border: var(--site-line); --pagefind-ui-primary: var(--site-accent); }
+.mantou-site .footer { padding: 26px 0; margin-top: 40px; background: var(--site-paper); color: var(--site-muted); }
+.mantou-site .footer-container { max-width: 1080px; width: calc(100% - 80px); margin: auto; padding: 26px 0 0; border-top: 1px solid var(--site-line); display: flex; justify-content: space-between; align-items: center; text-align: left; gap: 24px; }
+.mantou-footer-brand img { width: 120px; }
+.mantou-footer-brand p { margin: 9px 0 0; font-size: 11px; }
+.mantou-footer-meta { text-align: right; font-size: 11px; line-height: 1.9; }
+.mantou-footer-meta a { text-decoration: underline; text-underline-offset: 3px; }
+@media only screen and (min-width: 1025px) { .mantou-site #header-mobile { display: none; } }
+@media only screen and (max-width: 1024px) {
+  .mantou-site #header-desktop { display: none; }
+  .mantou-site #header-mobile { display: block; position: sticky; top: 0; height: 81px; transform: none !important; z-index: 100; }
+  .mantou-site #header-mobile .header-container { background: var(--site-paper); }
+  .mantou-site #header-mobile .header-wrapper { height: 81px; width: calc(100% - 40px); margin: 0 auto; padding: 0; border-bottom: 1px solid var(--site-line); }
+  .mantou-site #header-mobile .mantou-brand img { width: 141px; }
+  .mantou-site #header-mobile .menu { background: var(--site-paper); border-bottom: 1px solid var(--site-line); padding: 12px 20px; max-height: calc(100dvh - 81px); overflow-y: auto; box-sizing: border-box; }
+  .mantou-site #header-mobile .menu-item { min-height: 44px; line-height: 44px; font-size: 14px; }
+  .mantou-site #header-mobile .menu-item[aria-current] { color: var(--site-accent); }
+  .mantou-site #menu-toggle-mobile span { background: var(--site-ink); }
+  .mantou-home .editorial-home__intro h1 { font-size: 38px; }
+  .mantou-hero { gap: 26px; padding: 36px 0; }
+  .mantou-card--feature h3 { font-size: 25px; }
+}
+@media only screen and (max-width: 760px) {
+  .mantou-site .main > .container { width: calc(100% - 40px); }
+  .mantou-hero { display: flex; flex-direction: column; align-items: stretch; gap: 29px; padding: 33px 0 35px; }
+  .mantou-home .mantou-kicker { font-size: 11px; margin-bottom: 14px; }
+  .mantou-home .editorial-home__intro h1 { font-size: 35px; line-height: 1.43; letter-spacing: -1px; margin-bottom: 18px; }
+  .mantou-home .editorial-home__lead { font-size: 14px; line-height: 1.85; margin-bottom: 22px; max-width: 100%; }
+  .mantou-home .home-shortcuts { gap: 0 16px; margin-top: 6px; }
+  .mantou-hero-picture figcaption { font-size: 10px; }
+  .mantou-section-heading { margin-bottom: 17px; }
+  .mantou-section-heading h2 { font-size: 20px; }
+  .mantou-section-heading > a { font-size: 11px; }
+  .mantou-cards { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .mantou-card { padding: 23px 22px; }
+  .mantou-card--feature { min-height: 365px; grid-row: auto; }
+  .mantou-card--feature h3 { font-size: 24px; line-height: 1.5; }
+  .mantou-card h3 { max-width: none; }
+  .mantou-card--feature p { margin-bottom: 32px; }
+  .mantou-card-person { width: 55px; right: 22px; bottom: 18px; }
+  .mantou-card-foot { width: 70%; }
+  .mantou-project { grid-template-columns: 100px minmax(0, 1fr); gap: 17px; margin-top: 27px; padding: 23px 0; }
+  .mantou-project-art { width: 100px; align-self: start; }
+  .mantou-project .mantou-card-label { display: block; }
+  .mantou-project .mantou-card-label span { display: block; margin-top: 5px; font-size: 10px; }
+  .mantou-project h3 { font-size: 16px; line-height: 1.5; }
+  .mantou-project p { font-size: 12px; }
+  .mantou-project .editorial-home__work-links { flex-direction: column; align-items: flex-start; gap: 0; }
+  .mantou-tool-preview { display: none; }
+  .mantou-home .editorial-home__section-heading h2 { font-size: 20px; }
+  .mantou-home .editorial-home__selected-list { grid-template-columns: minmax(0, 1fr); }
+  .mantou-site .single.reading-post .post-heading { padding-top: 24px; }
+  .mantou-site .single.reading-post .single-title { font-size: 30px; line-height: 1.5; letter-spacing: -.5px; }
+  .mantou-site .single.reading-post .content, .mantou-site .single.work-detail .content { font-size: 17px; line-height: 1.9; }
+  .mantou-site .single .content > h2 { font-size: 22px; margin-top: 32px; }
+  .mantou-site .single .content blockquote { padding: 16px 18px; }
+  .mantou-site .footer-container { width: calc(100% - 40px); display: block; }
+  .mantou-footer-meta { text-align: left; margin-top: 12px; }
+}
+@media only screen and (max-width: 680px) { .mantou-bottom { display: block; } }
+@media (prefers-reduced-motion: reduce) { .mantou-site * { scroll-behavior: auto !important; transition: none !important; } }

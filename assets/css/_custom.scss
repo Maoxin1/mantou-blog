@@ -5,19 +5,19 @@
 //  不需要时整段删除即可恢复主题原样。
 // ===========================================================================
 
-// 统一强调色：沿用首页体重图的绿色，全站只保留这一种强调色
-$accent: #1f6b43;
-$accent-hover: #185a36;
+// 统一强调色：已选视觉规范的陶土色。
+$accent: #a84e32;
+$accent-hover: #893a25;
 
 // 键盘焦点不能只依赖颜色或浏览器默认样式。浅、深主题各使用与底色
 // 有充分反差的焦点环，覆盖主题中个别会清除 outline 的旧规则。
 :focus-visible {
-  outline: 3px solid #0f6b37 !important;
+  outline: 3px solid #a84e32 !important;
   outline-offset: 0.24rem;
 }
 
 [theme=dark] :focus-visible {
-  outline-color: #8be9ae !important;
+  outline-color: #e7a78a !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -134,11 +134,11 @@ $accent-hover: #185a36;
 }
 
 // ---- 5. 作品型首页与作品集 ----
-$portfolio-ink: #17211b;
-$portfolio-muted: #5f6c64;
-$portfolio-paper: #f5f7f3;
-$portfolio-line: #dce4dd;
-$portfolio-accent: #1f6b43;
+$portfolio-ink: #292824;
+$portfolio-muted: #6b6258;
+$portfolio-paper: #f7eddf;
+$portfolio-line: #d9cebe;
+$portfolio-accent: #a84e32;
 
 .portfolio-home,
 .works-index,
@@ -541,12 +541,12 @@ $portfolio-accent: #1f6b43;
   }
 
   p:not(.section-kicker) {
-    color: #c8d2cb;
+    color: #d7cabc;
   }
 
   .portfolio-button--secondary {
-    border-color: #8eaa98;
-    color: #e7eee9 !important;
+    border-color: #9d8771;
+    color: #f5eee2 !important;
   }
 }
 
@@ -1046,7 +1046,7 @@ $portfolio-accent: #1f6b43;
   p:not(.section-kicker) {
     max-width: 42rem;
     margin-bottom: 0;
-    color: #c8d2cb;
+    color: #d7cabc;
     line-height: 1.7;
   }
 
@@ -1055,8 +1055,8 @@ $portfolio-accent: #1f6b43;
   }
 
   .portfolio-button--secondary {
-    border-color: #8eaa98;
-    color: #e7eee9 !important;
+    border-color: #9d8771;
+    color: #f5eee2 !important;
   }
 }
 
@@ -1094,7 +1094,7 @@ $portfolio-accent: #1f6b43;
   .principle-grid article > span,
   .about-hero h1 span,
   .work-detail__footer a {
-    color: #50c985;
+    color: #e7a78a;
   }
 
   .portfolio-button--primary {
@@ -1103,8 +1103,8 @@ $portfolio-accent: #1f6b43;
   }
 
   .portfolio-button--secondary {
-    border-color: #50c985;
-    color: #67d899 !important;
+    border-color: #e7a78a;
+    color: #e7a78a !important;
   }
 
   .portfolio-hero h1,
@@ -1132,11 +1132,11 @@ $portfolio-accent: #1f6b43;
   .work-afterlife__group p,
   .work-detail__header h1,
   .evidence-panel p {
-    color: #edf3ef;
+    color: #f5eee2;
   }
 
   .work-card__summary span {
-    color: #50c985;
+    color: #e7a78a;
   }
 
   .portfolio-hero,
@@ -1162,7 +1162,7 @@ $portfolio-accent: #1f6b43;
   .work-afterlife__group li,
   .evidence-panel,
   .work-detail__footer {
-    border-color: #39463e;
+    border-color: #514b43;
   }
 
   .direction-grid article,
@@ -1173,16 +1173,16 @@ $portfolio-accent: #1f6b43;
   .verification-matrix,
   .principle-grid article,
   .boundary-callout {
-    background: #202b24;
+    background: #34302a;
   }
 
   .case-map > div,
   .collaboration-grid article {
-    background: #1b241e;
+    background: #2b2924;
   }
 
   .work-card {
-    background: #1b241e;
+    background: #2b2924;
   }
 
   .portfolio-hero__lead,
@@ -1207,7 +1207,7 @@ $portfolio-accent: #1f6b43;
   .work-afterlife__group time,
   .work-detail__description,
   .work-detail__footer {
-    color: #acb9b0;
+    color: #c4b7a7;
   }
 }
 
@@ -1497,7 +1497,7 @@ $portfolio-accent: #1f6b43;
     min-height: 2.9rem;
     flex: 1;
     padding: 0.7rem 0.9rem;
-    border: 1px solid #aebbb1;
+    border: 1px solid #d9cebe;
     border-radius: 0.7rem;
     background: #fff;
     color: $portfolio-ink;
@@ -1520,7 +1520,7 @@ $portfolio-accent: #1f6b43;
 .follow-email-pending {
   margin-top: 1.25rem;
   padding: 1rem;
-  border: 1px dashed #aebbb1;
+  border: 1px dashed #d9cebe;
   border-radius: 0.75rem;
   background: $portfolio-paper;
 
@@ -1580,7 +1580,7 @@ $portfolio-accent: #1f6b43;
 
 .follow-option--primary {
   border-color: $portfolio-accent;
-  background: #eff7f1;
+  background: #f7eddf;
 }
 
 .follow-page {
@@ -1645,7 +1645,7 @@ $portfolio-accent: #1f6b43;
 
   > p:last-child {
     margin-bottom: 0;
-    color: #c8d2cb;
+    color: #d7cabc;
     line-height: 1.7;
   }
 }
@@ -1655,8 +1655,8 @@ $portfolio-accent: #1f6b43;
   .follow-email-pending,
   .follow-dialog__panel,
   .follow-option {
-    border-color: #39463e;
-    background: #202823;
+    border-color: #514b43;
+    background: #34302a;
   }
 
   .follow-dialog,
@@ -1667,24 +1667,24 @@ $portfolio-accent: #1f6b43;
   .follow-option,
   .follow-page__hero h1,
   .follow-page__section h2 {
-    color: #edf3ef !important;
+    color: #f5eee2 !important;
   }
 
   .follow-option--primary {
-    border-color: #50c985;
-    background: #203328;
+    border-color: #e7a78a;
+    background: #3b3029;
   }
 
   .follow-form__row input {
-    border-color: #536158;
-    background: #151a17;
-    color: #edf3ef;
+    border-color: #665b4d;
+    background: #24231f;
+    color: #f5eee2;
   }
 
   .follow-dialog__close,
   .follow-page__hero,
   .follow-page__section {
-    border-color: #39463e;
+    border-color: #514b43;
   }
 }
 
@@ -1754,13 +1754,13 @@ $portfolio-accent: #1f6b43;
 
 [theme=dark] .work-detail .content {
   > h2 {
-    color: #edf3ef;
+    color: #f5eee2;
   }
 
   blockquote {
-    border-left-color: #50c985;
-    background: #202b24;
-    color: #edf3ef;
+    border-left-color: #e7a78a;
+    background: #34302a;
+    color: #f5eee2;
   }
 }
 
@@ -1952,67 +1952,67 @@ $portfolio-accent: #1f6b43;
 
 [theme=dark] {
   .body-evidence {
-    border-color: #39463e;
+    border-color: #514b43;
   }
 
   .body-evidence__header h2,
   .body-evidence__metrics strong,
   .body-evidence__milestones strong {
-    color: #edf3ef;
+    color: #f5eee2;
   }
 
   .body-evidence__header > p:last-child,
   .body-evidence__metrics span,
   .body-evidence__caption {
-    color: #acb9b0;
+    color: #c4b7a7;
   }
 
   .body-evidence__metrics,
   .body-weight-chart,
   .body-evidence__milestones {
-    border-color: #39463e;
+    border-color: #514b43;
   }
 
   .body-evidence__metrics,
   .body-evidence__milestones {
-    background: #39463e;
+    background: #514b43;
   }
 
   .body-evidence__metrics > div,
   .body-evidence__milestones li {
-    background: #1b241e;
+    background: #2b2924;
   }
 
   .body-weight-chart {
-    background: #202b24;
+    background: #34302a;
   }
 
   .body-weight-chart__dot {
-    fill: #202b24;
-    stroke: #50c985;
+    fill: #34302a;
+    stroke: #e7a78a;
   }
 
   .body-weight-chart__line {
-    stroke: #50c985;
+    stroke: #e7a78a;
   }
 
   .body-weight-chart__missing {
-    fill: #202b24;
-    stroke: #acb9b0;
+    fill: #34302a;
+    stroke: #c4b7a7;
   }
 
   .body-weight-chart__ylabel,
   .body-weight-chart__xlabel,
   .body-weight-chart__missing-label {
-    fill: #acb9b0;
+    fill: #c4b7a7;
   }
 
   .body-weight-chart__endpoint {
-    fill: #edf3ef;
+    fill: #f5eee2;
   }
 
   .body-evidence__milestones span {
-    color: #50c985;
+    color: #e7a78a;
   }
 }
 
@@ -2048,10 +2048,10 @@ $portfolio-accent: #1f6b43;
 }
 
 [theme=dark] .single.work-detail .content blockquote {
-  border-left-color: #50c985 !important;
-  background: #202b24 !important;
-  background-color: #202b24 !important;
-  color: #edf3ef !important;
+  border-left-color: #e7a78a !important;
+  background: #34302a !important;
+  background-color: #34302a !important;
+  color: #f5eee2 !important;
 }
 
 .single.work-detail .content > h2 > .header-mark::before {
@@ -2195,10 +2195,10 @@ $portfolio-accent: #1f6b43;
 
 // 首页先给出最新文章，再提供跨类型的精选与一件可直接使用的工具。
 .editorial-home {
-  --editorial-ink: #17211b;
-  --editorial-muted: #5f6c64;
-  --editorial-line: #dce4dd;
-  --editorial-accent: #1f6b43;
+  --editorial-ink: #292824;
+  --editorial-muted: #6b6258;
+  --editorial-line: #d9cebe;
+  --editorial-accent: #a84e32;
   color: var(--editorial-ink);
 
   a {
@@ -2334,11 +2334,11 @@ $portfolio-accent: #1f6b43;
 }
 
 [theme=dark] .editorial-home {
-  --editorial-ink: #edf3ef;
-  --editorial-muted: #acb9b0;
-  --editorial-line: #39463e;
-  --editorial-accent: #67d899;
-  .editorial-home__links .editorial-home__primary-link { background: #1f6b43; color: #fff; }
+  --editorial-ink: #f5eee2;
+  --editorial-muted: #c4b7a7;
+  --editorial-line: #514b43;
+  --editorial-accent: #e7a78a;
+  .editorial-home__links .editorial-home__primary-link { background: #a84e32; color: #fff; }
 }
 
 @media only screen and (max-width: 680px) {
@@ -2540,18 +2540,18 @@ $portfolio-accent: #1f6b43;
   .works-index .work-card--editorial .work-card__story,
   .work-detail__audit-heading h2,
   .work-detail__audit-subhead {
-    color: #edf3ef;
+    color: #f5eee2;
   }
 
   .works-index__intro > p:last-child,
   .works-index .work-card--editorial .work-card__detail,
   .work-detail__audit-heading p {
-    color: #acb9b0;
+    color: #c4b7a7;
   }
 
   .works-index__eyebrow,
   .work-detail__evidence-link {
-    color: #67d899;
+    color: #e7a78a;
   }
 
   .works-index .work-card--editorial,
@@ -2560,7 +2560,7 @@ $portfolio-accent: #1f6b43;
   .work-detail__audit,
   .work-detail__audit .case-map > div,
   .work-detail__audit .evidence-panel > div {
-    border-color: #39463e;
+    border-color: #514b43;
   }
 
   .works-index .work-card--editorial,
@@ -2664,20 +2664,20 @@ $portfolio-accent: #1f6b43;
 
 [theme=dark] {
   .about-principles-detail summary {
-    color: #67d899;
+    color: #e7a78a;
   }
 
   .about-principles-detail strong {
-    color: #edf3ef;
+    color: #f5eee2;
   }
 
   .about-principles-detail li {
-    color: #acb9b0;
+    color: #c4b7a7;
   }
 
   .about-collaboration .collaboration-grid--editorial article,
   .about-collaboration .boundary-callout--editorial {
-    border-color: #39463e;
+    border-color: #514b43;
   }
 
   .about-collaboration .collaboration-grid--editorial article,
@@ -2697,4 +2697,4 @@ $portfolio-accent: #1f6b43;
 @import "balanced";
 @import "reader-feedback";
 
-@import "garden";
+@import "visual-identity";

@@ -10,11 +10,11 @@ test('首页同时呈现最近更新、精选文章和实际工具', async ({ pa
   await open(page, '/');
 
   const home = page.locator('[data-portfolio-home]');
-  await expect(home.getByRole('heading', { level: 1 })).toHaveText('想法有自己的生长速度。');
+  await expect(home.getByRole('heading', { level: 1 })).toHaveText('慢慢来，也一直向前。');
   await expect(home.locator('[data-home-latest] li')).toHaveCount(5);
   await expect(home.locator('[data-home-selected]')).toContainText('友谊万岁：我的感动日记！');
   await expect(home.locator('[data-home-selected] a[href="/works/body-sculpting/"]')).toBeVisible();
-  await expect(home.locator('[data-home-featured-work] img')).toBeVisible();
+  await expect(home.locator('[data-home-featured-work] .mantou-project-art')).toBeVisible();
   await expect(home.getByRole('link', { name: /打开工具/ })).toHaveAttribute('href', 'https://mantou-checklist.pages.dev/editor');
   await expect(home.getByRole('link', { name: /看当前进展/ })).toHaveAttribute('href', '/now/');
 });

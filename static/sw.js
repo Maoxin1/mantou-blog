@@ -3,7 +3,7 @@
  * 策略：页面导航走“网络优先 + 离线回退”，静态资源走“缓存优先 + 后台更新”。
  * 改动缓存逻辑时，请把 VERSION 加一，旧缓存会被自动清理。
  */
-const VERSION = 'v3';
+const VERSION = 'v4';
 const CACHE = 'mantou-blog-' + VERSION;
 const PRECACHE = [
   '/',
