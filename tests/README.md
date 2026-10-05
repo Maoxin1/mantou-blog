@@ -64,3 +64,48 @@ npm run test:smoke
 - Service Worker 异常执行与浏览器回归覆盖 503、断网、超时、存储失败和缓存隔离
 
 Python 分页与翻译输出集成测试需要 PATH 中存在 Hugo，否则会明确跳过；CI 在运行测试之前安装 Hugo。翻译夹具使用临时源码副本，不修改仓库文章或已有译文状态。
+
+## 评论本地失败与同页提交回归
+
+首轮本地范围对应 Waline spec v0.2 的 TM-002/003/005/019/024：
+
+```sh
+HUGO_BIN=/path/to/hugo npm run test:feedback
+```
+
+Windows PowerShell 可先设置 `$env:HUGO_BIN = 'C:\path\to\hugo.exe'` 再运行
+`npm run test:feedback`；Hugo 已在 PATH 时不用设置。
+
+该命令使用 Node 24 原生测试 runner，无新增 npm 依赖。VM 模块需要显式的
+`--experimental-vm-modules`（Node 会打印实验性 API 提醒）：
+
+- Hugo 构建刻画：未配置服务仍生成正文和邮件入口，没有 Waline 入口/脚本
+- loader 组件：执行实际加载脚本与 vendored API，DOM、网络、import/init 为受控替身；
+  检查明确失败、锁定响应结构、显式恢复、重复打开和初始化次数
+- submit 组件：执行实际 vendored 提交/快捷键函数，闭包依赖为受控替身；
+  检查明确拒绝保稿、UA 异步窗口和请求中的防重复、早退/异常后解锁
+- 3 个固定 seed（20261005/20261006/20261007）下的有限短序列回归；
+  失败输出 seed、case、最小确定性重现或操作序列，禁止自动发往真实服务
+- vendor 补丁逐字节可重现，升级时未知原始 hash 必须拒绝
+
+这些检查不证明真实数据库持久化、跨设备幂等、未知提交结果恢复、浏览器模块缓存、
+实际 CSS/Vue 渲染或真实 DNS/CORS/TLS 行为。对应真实浏览器用例仍在
+`tests/e2e/reader-feedback.spec.js`，必要时单独运行：
+
+```sh
+npm run test:e2e -- tests/e2e/reader-feedback.spec.js
+```
+
+2026-10-05 的本地 Chromium 启动被执行环境的 Unix socket IPC 权限限制阻断；
+功能断言未执行，不能把此环境失败当成 TDD 红灯或浏览器通过。已新增的 TM-019
+浏览器定义需要在允许启动 Chromium 的隔离环境重新运行。
+
+资源更新另由 `tests/python/test_reader_feedback_assets.py` 在临时 Hugo 构建和
+真实 SW 的 Node VM 中检查：loader 与本地 Waline 按文件内容生成 SHA-256 URL，
+新页面首次加载避开旧静态缓存。它随 Python 全量测试运行，也可单独运行：
+
+```sh
+HUGO_BIN=/path/to/hugo python -m unittest discover -s tests/python -p test_reader_feedback_assets.py -v
+```
+
+只覆盖线上重新导航获得新页面的生命周期；旧标签页和离线旧 HTML 保留旧引用。

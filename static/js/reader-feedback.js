@@ -84,7 +84,7 @@ if (options) {
     });
     try {
       const [{ init, getComment, getArticleCounter, updateArticleCounter }] = await Promise.race([
-        Promise.all([import('/lib/waline/3.15.2/waline.js'), loadStyles()]),
+        Promise.all([import(options.dataset.feedbackClient), loadStyles()]),
         deadline,
       ]);
       // A reachable page is not enough: the comment database must answer too.
@@ -93,7 +93,12 @@ if (options) {
         getComment({ ...connection, page: 1, pageSize: 1, sortBy: 'latest', signal: abort.signal }),
         getArticleCounter({ ...counterOptions, signal: abort.signal }),
       ]);
-      if (!comments || !Array.isArray(comments.data) || typeof comments.count !== 'number') {
+      // Validate the required pagination fields from Waline 3.15.2 before mounting.
+      if (!comments || !Array.isArray(comments.data) ||
+          !Number.isInteger(comments.count) || comments.count < 0 ||
+          !Number.isInteger(comments.page) || comments.page < 1 ||
+          !Number.isInteger(comments.pageSize) || comments.pageSize < 1 ||
+          !Number.isInteger(comments.totalPages) || comments.totalPages < 0) {
         throw new Error('Unexpected comment response');
       }
       showCount(counters);
