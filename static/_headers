@@ -10,3 +10,6 @@
 
 /sw.js
   Cache-Control: no-cache, max-age=0, must-revalidate
+
+/version.json
+  Cache-Control: no-store

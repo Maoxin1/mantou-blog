@@ -162,6 +162,20 @@ jobs:
           name: pages-site-${{ github.run_id }}
           path: public/
 
+      - name: Record the exact source in the deployed site
+        env:
+          DEPLOY_COMMIT: ${{ needs.build.outputs.commit_sha }}
+          DEPLOY_BRANCH: ${{ needs.build.outputs.deploy_branch }}
+        run: python scripts/deployment_metadata.py write public/version.json
+
+      - name: Preserve version metadata for the post-deploy smoke check
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: pages-version-${{ github.run_id }}-${{ github.run_attempt }}
+          path: public/version.json
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Deploy verified artifact to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

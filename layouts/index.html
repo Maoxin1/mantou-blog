@@ -1,6 +1,6 @@
 {{- define "content" -}}
 {{- $posts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse -}}
-{{- $works := (where .Site.RegularPages "Section" "works").ByDate.Reverse -}}
+{{- $works := (where .Site.RegularPages "Section" "works").ByLastmod.Reverse -}}
 <div class="page portfolio-home editorial-home balanced-home mantou-home" data-portfolio-home data-visual-identity="01-p1-warm-comic-v3">
   <section class="mantou-hero">
     <header class="editorial-home__intro">
@@ -68,7 +68,13 @@
     <section class="editorial-home__latest" aria-labelledby="project-updates-title" data-home-work-updates>
       <div class="editorial-home__section-heading"><h2 id="project-updates-title">{{ T "projectNotes" }}</h2></div>
       <ol class="editorial-home__latest-list">
-        {{- range first 3 $works -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3><p>{{ .Params.home_status | default .Params.stage }}</p></div></li>{{- end -}}
+        {{- range first 3 $works -}}
+        <li><time datetime="{{ .Date.Format "2006-01-02" }}" title="{{ T "firstPublished" }} {{ .Date.Format "2006.01.02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Params.home_title | default .Title }}</a></h3><p>{{ .Params.home_status | default .Params.stage }}</p>
+          {{- if and .Params.lastmod (gt (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02")) -}}
+          <p class="home-work-updated" data-work-updated>{{ T "lastUpdated" }} <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "2006.01.02" }}</time></p>
+          {{- end -}}
+        </div></li>
+        {{- end -}}
       </ol>
       <a class="home-action" href="{{ "/now/" | relLangURL }}">{{ T "seeNow" }} →</a>
     </section>

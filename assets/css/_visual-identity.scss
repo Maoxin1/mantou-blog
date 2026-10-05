@@ -37,6 +37,8 @@
 .mantou-site a { color: inherit; }
 .mantou-site a:hover { color: var(--site-accent); }
 .mantou-site h1, .mantou-site h2, .mantou-site h3 { font-family: inherit; font-weight: 700; color: var(--site-ink); }
+// The delivery card stays dark in both themes; do not inherit page-heading ink.
+.mantou-site .follow-page__promise h2 { color: #f5eee2; }
 .mantou-site img { max-width: 100%; height: auto; }
 .mantou-site .wrapper { width: 100%; margin: 0; }
 .mantou-site .wrapper main { padding-top: 0; }

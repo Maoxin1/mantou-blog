@@ -604,5 +604,29 @@
   },
   "growthWorksLink": {
     "other": "Explore my projects"
+  },
+  "giveFeedback": {
+    "other": "Send feedback"
+  },
+  "backToWriting": {
+    "other": "Back to writing"
+  },
+  "firstPublished": {
+    "other": "First published"
+  },
+  "lastUpdated": {
+    "other": "Updated"
+  },
+  "searchType": {
+    "other": "Type"
+  },
+  "searchDate": {
+    "other": "Published"
+  },
+  "searchWriting": {
+    "other": "Article"
+  },
+  "searchProject": {
+    "other": "Project"
   }
 }
