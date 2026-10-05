@@ -596,28 +596,13 @@
   "growthAlt": {
     "other": "深黑背景上，几个靠近的银白粒子起点向四面八方延伸、交织，长出密集而不规则的新分支。"
   },
-  "growthCaption": {
-    "other": "几个靠近的起点，持续长出新的可能。"
-  },
   "growthTitle": {
     "other": "让几个习惯，长出更多可能。"
   },
   "growthMeaning": {
     "other": "我把几个持续下去的好习惯想象成靠近的起点。它们延伸、交织，逐渐长出新的能力与可能。"
   },
-  "growthPracticeLink": {
-    "other": "进入我的练习"
-  },
-  "practiceAskAI": {
-    "other": "让 AI 陪我练习"
-  },
-  "practiceCopy": {
-    "other": "复制练习提问"
-  },
-  "practiceCopied": {
-    "other": "已复制，可以粘贴到你的 AI 对话中。"
-  },
-  "practiceCopyFailed": {
-    "other": "复制未成功，请选中上面的文字手动复制。"
+  "growthWorksLink": {
+    "other": "看我的实践与作品"
   }
 }

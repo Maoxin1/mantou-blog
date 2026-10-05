@@ -9,8 +9,6 @@
     </header>
     {{ partial "translation-note.html" . }}
 
-    {{ partial "growth-note.html" . }}
-
     <ol class="now-list" aria-label="{{ T "nowDirections" }}">
         {{- range .Params.directions -}}
             <li class="now-item">

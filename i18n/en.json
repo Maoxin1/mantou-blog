@@ -596,28 +596,13 @@
   "growthAlt": {
     "other": "On a deep black field, nearby silver-white particle origins extend and intertwine in many directions, forming dense irregular branches."
   },
-  "growthCaption": {
-    "other": "A few nearby starting points, growing into new possibilities."
-  },
   "growthTitle": {
     "other": "A few habits can grow into more possibilities."
   },
   "growthMeaning": {
     "other": "I imagine the good habits I keep practising as nearby starting points. They extend and intertwine, gradually developing into new abilities and possibilities."
   },
-  "growthPracticeLink": {
-    "other": "Open my practice"
-  },
-  "practiceAskAI": {
-    "other": "Practise with AI"
-  },
-  "practiceCopy": {
-    "other": "Copy practice prompt"
-  },
-  "practiceCopied": {
-    "other": "Copied. Paste it into your AI conversation."
-  },
-  "practiceCopyFailed": {
-    "other": "Copy failed. Select the text above and copy it manually."
+  "growthWorksLink": {
+    "other": "Explore my projects"
   }
 }
