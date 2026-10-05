@@ -5,7 +5,8 @@
   "description": "Browser-level acceptance tests for the mantou portfolio blog.",
   "scripts": {
     "test:e2e": "playwright test",
-    "test:smoke": "playwright test --config playwright.smoke.config.js"
+    "test:smoke": "playwright test --config playwright.smoke.config.js",
+    "test:feedback": "node --experimental-vm-modules --test tests/node/*.test.cjs"
   },
   "devDependencies": {
     "@playwright/test": "1.62.1",

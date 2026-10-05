@@ -28,6 +28,12 @@ async function enableFeedback(page, state = {}) {
     const pathname = new URL(route.request().url()).pathname;
     await route.fulfill({ contentType: 'text/html', body: readFileSync(join(enabledSite, pathname, 'index.html')) });
   });
+  // Fingerprinted feedback assets belong to this enabled fixture build, while
+  // the shared static server uses the default (feedback-disabled) build.
+  await page.route(/\/(?:js\/reader-feedback|lib\/waline\/3\.15\.2\/waline)\.[a-f0-9]+\.js(?:\?.*)?$/, async route => {
+    const pathname = new URL(route.request().url()).pathname;
+    await route.fulfill({ contentType: 'text/javascript', body: readFileSync(join(enabledSite, pathname)) });
+  });
   await page.route('https://comments.example.test/**', async route => {
     const request = route.request();
     const url = new URL(request.url());
@@ -46,6 +52,7 @@ async function enableFeedback(page, state = {}) {
         state.count += body.action === 'desc' ? -1 : 1;
         return json({ errno: 0, data: [{ reaction0: state.count }] });
       }
+      if (state.holdComment) await state.holdComment;
       // A rejected comment must retain the reader's draft; no live service is contacted.
       return json({ errno: 1, errmsg: '测试服务暂时无法保存留言' });
     }
@@ -162,3 +169,88 @@ test('无需登录和邮箱即可提交，服务拒绝时保留留言草稿', as
   const submitted = state.writes.find(write => write.endpoint === '/api/comment').body;
   expect(submitted).toMatchObject({ nick: '测试读者', mail: '', url: articlePath });
 });
+
+
+test('TM-019：异步 UA 准备、连续点击和快捷键共用一次提交锁', async ({ page }) => {
+  let releaseComment;
+  const holdComment = new Promise(resolve => { releaseComment = resolve; });
+  const state = await enableFeedback(page, { holdComment });
+  await page.addInitScript(() => {
+    const pending = [];
+    window.releaseFeedbackUA = () => pending.splice(0).forEach(resolve => resolve({ platformVersion: '13.0.0' }));
+    Object.defineProperty(navigator, 'userAgentData', {
+      configurable: true,
+      value: {
+        platform: 'Windows',
+        getHighEntropyValues: () => new Promise(resolve => pending.push(resolve)),
+      },
+    });
+  });
+  await page.goto(articlePath);
+  await page.locator('[data-feedback-load]').click();
+  await page.locator('#reader-comments input[name="nick"]').fill('测试读者');
+  const editor = page.locator('#reader-comments textarea');
+  await editor.fill('异步窗口中的同一份草稿');
+  await page.evaluate(() => {
+    const button = document.querySelector('#reader-comments button[type="submit"].primary');
+    const textarea = document.querySelector('#reader-comments textarea');
+    button.click();
+    button.click();
+    textarea.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', ctrlKey: true, bubbles: true }));
+    textarea.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', metaKey: true, bubbles: true }));
+  });
+  expect(state.writes.filter(write => write.endpoint === '/api/comment')).toHaveLength(0);
+  await page.evaluate(() => window.releaseFeedbackUA());
+  await expect.poll(() => state.writes.filter(write => write.endpoint === '/api/comment').length).toBe(1);
+  await editor.press('Control+Enter');
+  await editor.press('Meta+Enter');
+  const submit = page.locator('#reader-comments button[type="submit"].primary');
+  await expect(submit).toBeDisabled();
+  const dialog = page.waitForEvent('dialog');
+  releaseComment();
+  const rejection = await dialog;
+  expect(rejection.message()).toBe('测试服务暂时无法保存留言');
+  await rejection.accept();
+  await expect(submit).toBeEnabled();
+  await expect(editor).toHaveValue('异步窗口中的同一份草稿');
+  expect(state.writes.filter(write => write.endpoint === '/api/comment')).toHaveLength(1);
+  await expect(page.locator('.reader-feedback__email')).toBeVisible();
+  await expect(page.locator('h1')).toBeVisible();
+});
+
+for (const resource of ['CSS', 'JS']) {
+  test(`TM-024：${resource} 明确加载失败后保留正文邮件，恢复后可显式重试`, async ({ page }) => {
+    const state = await enableFeedback(page);
+    let unavailable = true;
+    const resourceRequests = [];
+    const pattern = resource === 'CSS'
+      ? '**/lib/waline/3.15.2/waline.css'
+      : /\/lib\/waline\/3\.15\.2\/waline\.[a-f0-9]+\.js(?:\?.*)?$/;
+    await page.route(pattern, route => {
+      resourceRequests.push(route.request().url());
+      return unavailable ? route.abort('failed') : route.fallback();
+    });
+    await page.goto(articlePath);
+    const trigger = page.locator('[data-feedback-load]');
+    await trigger.click();
+    await expect(page.locator('[data-feedback-status]')).toContainText('评论暂时没加载出来');
+    await expect(trigger).toBeEnabled();
+    await expect(page.locator('#reader-comments textarea')).toHaveCount(0);
+    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.locator('.reader-feedback__email')).toBeVisible();
+    expect(state.requests).toHaveLength(0);
+    unavailable = false;
+    // Recovery must use the visible explicit retry; no automatic reload or POST.
+    await trigger.click();
+    await expect(page.locator('#reader-comments textarea')).toBeVisible();
+    await expect(page.locator('#reader-comments [data-waline]')).toHaveCount(1);
+    await expect(trigger).toBeHidden();
+    await expect(page.locator('[data-feedback-status]')).toHaveText('');
+    expect(state.writes).toHaveLength(0);
+    expect(resourceRequests).toHaveLength(2);
+    if (resource === 'JS') {
+      expect(new URL(resourceRequests[1]).pathname).toBe(new URL(resourceRequests[0]).pathname);
+      expect(new URL(resourceRequests[1]).searchParams.get('retry')).toBe('1');
+    }
+  });
+}

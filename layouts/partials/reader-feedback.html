@@ -8,9 +8,12 @@
   <h2 id="reader-feedback-title">{{ T "readerFeedbackTitle" }}</h2>
   <p>{{ T "readerFeedbackLead" }}</p>
   {{- if $server -}}
+    {{/* New bytes need new URLs: the site's worker serves warm static assets first. */}}
+    {{- $feedbackLoader := resources.FromString "js/reader-feedback.js" (readFile "static/js/reader-feedback.js") | fingerprint "sha256" -}}
+    {{- $feedbackClient := resources.FromString "lib/waline/3.15.2/waline.js" (readFile "static/lib/waline/3.15.2/waline.js") | fingerprint "sha256" -}}
     {{- $feedbackPath := .RelPermalink -}}
     {{- range .AllTranslations -}}{{- if eq .Language.Lang "zh-cn" -}}{{- $feedbackPath = .RelPermalink -}}{{- end -}}{{- end -}}
-    <div class="reader-feedback__options" data-feedback-server="{{ $server }}" data-feedback-path="{{ $feedbackPath }}" data-feedback-lang="{{ .Language.Lang }}">
+    <div class="reader-feedback__options" data-feedback-server="{{ $server }}" data-feedback-path="{{ $feedbackPath }}" data-feedback-lang="{{ .Language.Lang }}" data-feedback-client="{{ $feedbackClient.RelPermalink }}">
       <button type="button" class="reader-feedback__load" data-feedback-load>{{ T "loadComments" }}</button>
       <p class="reader-feedback__status" data-feedback-status role="status" aria-live="polite"></p>
       <p class="reader-feedback__privacy">{{ T "feedbackPrivacy" }}</p>
@@ -20,7 +23,7 @@
       </button>
       <div id="reader-comments"></div>
     </div>
-    <script type="module" src="{{ "js/reader-feedback.js" | relURL }}"></script>
+    <script type="module" src="{{ $feedbackLoader.RelPermalink }}"></script>
   {{- end -}}
   <a class="reader-feedback__email" href="{{ $mailURL | safeURL }}">{{ T "feedbackByEmail" }} <span aria-hidden="true">→</span></a>
   {{- if not $server -}}<p class="reader-feedback__hint">{{ T "feedbackMailHint" }}</p>{{- end -}}
