@@ -1,0 +1,53 @@
+{{- define "title" -}}{{ .Title }} - {{ .Site.Title }}{{- end -}}
+{{- define "content" -}}
+<article class="page practice-page" data-practice-page data-pagefind-body>
+  <header class="practice-hero">
+    <div class="practice-hero__copy">
+      <p class="practice-kicker">{{ .Params.kicker }}</p>
+      <h1>{{ range .Params.heading_lines }}<span>{{ . }}</span>{{ end }}</h1>
+      <p>{{ .Params.lead }}</p>
+      <nav class="practice-choices" aria-label="{{ .Params.choose }}">
+        {{ range .Params.tracks }}<a href="#{{ .id }}">{{ .title }} <span aria-hidden="true">↓</span></a>{{ end }}
+      </nav>
+    </div>
+    <figure class="practice-hero__art">
+      {{ partial "growth-image.html" (dict "page" . "priority" true) }}
+      <figcaption>{{ T "growthCaption" }}</figcaption>
+    </figure>
+  </header>
+  {{ partial "translation-note.html" . }}
+  <section class="practice-start" aria-labelledby="practice-start-title">
+    <h2 id="practice-start-title">{{ .Params.choose }}</h2>
+    <div class="practice-tracks">
+      {{- range .Params.tracks -}}
+      {{- $track := . -}}
+      <section class="practice-track" id="{{ .id }}" aria-labelledby="{{ .id }}-title">
+        <p class="practice-track__intent">{{ .subtitle }}</p>
+        <h3 id="{{ .id }}-title">{{ .title }}</h3>
+        <ol>{{ range .steps }}<li>{{ . }}</li>{{ end }}</ol>
+        {{- with $.Site.GetPage .page -}}
+          {{- $target := . -}}
+          {{- if $track.english_page -}}
+            {{- range .AllTranslations -}}{{- if eq .Language.Lang "en" -}}{{- $target = . -}}{{- end -}}{{- end -}}
+          {{- end -}}
+          <a class="practice-track__link" href="{{ $target.RelPermalink }}">{{ $track.link_label }} →</a>
+        {{- else -}}{{ errorf "Practice page missing: %s" .page }}{{- end -}}
+        <details class="practice-prompt">
+          <summary>{{ T "practiceAskAI" }}</summary>
+          <p id="{{ .id }}-prompt" data-practice-prompt>{{ .prompt }}</p>
+          <button type="button" data-copy-practice="{{ .id }}-prompt" hidden>{{ T "practiceCopy" }}</button>
+        </details>
+      </section>
+      {{- end -}}
+    </div>
+    <p class="practice-copy-status" role="status" aria-live="polite" data-practice-status data-success="{{ T "practiceCopied" }}" data-failure="{{ T "practiceCopyFailed" }}"></p>
+  </section>
+  <section class="practice-closing">
+    <h2>{{ .Params.closing }}</h2>
+    <p>{{ .Params.closing_text }}</p>
+    <a href="{{ "/now/" | relLangURL }}">{{ T "seeNow" }} →</a>
+  </section>
+</article>
+{{- $practiceJS := resources.Get "js/practice.js" | minify | fingerprint -}}
+<script src="{{ $practiceJS.RelPermalink }}" integrity="{{ $practiceJS.Data.Integrity }}" defer></script>
+{{- end -}}
