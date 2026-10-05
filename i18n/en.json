@@ -592,5 +592,17 @@
   },
   "identityInvestmentSummary": {
     "other": "Is its core asset the blind-box mechanism, or the ability to keep developing IP?"
+  },
+  "growthAlt": {
+    "other": "On a deep black field, nearby silver-white particle origins extend and intertwine in many directions, forming dense irregular branches."
+  },
+  "growthTitle": {
+    "other": "A few habits can grow into more possibilities."
+  },
+  "growthMeaning": {
+    "other": "I imagine the good habits I keep practising as nearby starting points. They extend and intertwine, gradually developing into new abilities and possibilities."
+  },
+  "growthWorksLink": {
+    "other": "Explore my projects"
   }
 }

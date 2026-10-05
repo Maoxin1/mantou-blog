@@ -1,0 +1,8 @@
+<section class="growth-note" aria-labelledby="growth-note-title">
+  <figure>{{ partial "growth-image.html" (dict "page" . "priority" false) }}</figure>
+  <div class="growth-note__copy">
+    <h2 id="growth-note-title">{{ T "growthTitle" }}</h2>
+    <p>{{ T "growthMeaning" }}</p>
+    <a href="{{ "/works/" | relLangURL }}">{{ T "growthWorksLink" }} →</a>
+  </div>
+</section>

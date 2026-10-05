@@ -592,5 +592,17 @@
   },
   "identityInvestmentSummary": {
     "other": "它的核心资产，是盲盒机制，还是持续孵化 IP 的能力？"
+  },
+  "growthAlt": {
+    "other": "深黑背景上，几个靠近的银白粒子起点向四面八方延伸、交织，长出密集而不规则的新分支。"
+  },
+  "growthTitle": {
+    "other": "让几个习惯，长出更多可能。"
+  },
+  "growthMeaning": {
+    "other": "我把几个持续下去的好习惯想象成靠近的起点。它们延伸、交织，逐渐长出新的能力与可能。"
+  },
+  "growthWorksLink": {
+    "other": "看我的实践与作品"
   }
 }
