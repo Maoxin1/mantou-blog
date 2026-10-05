@@ -1,24 +1,81 @@
 name: Production smoke
 
 on:
+  workflow_run:
+    workflows: ["Deploy Pages"]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: "15 1 * * *"
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
-  group: production-smoke
+  # A skipped preview completion must not cancel a production check.
+  group: production-smoke-${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || github.event_name }}
   cancel-in-progress: true
 
 jobs:
+  deployment:
+    if: >-
+      github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'workflow_run' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      production: ${{ steps.completed.outputs.production }}
+    steps:
+      - name: Confirm the production deploy job actually ran
+        id: completed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEPLOY_RUN_ID: ${{ github.event.workflow_run.id }}
+          DEPLOY_RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
+        # Deploy Pages also completes after PR validation with all jobs skipped.
+        # Its workflow-level conclusion alone cannot prove a deployment occurred.
+        run: |
+          completed=$(gh api --paginate \
+            "repos/$GITHUB_REPOSITORY/actions/runs/$DEPLOY_RUN_ID/attempts/$DEPLOY_RUN_ATTEMPT/jobs?per_page=100" \
+            --jq '.jobs[] | select(.name == "deploy" and .conclusion == "success") | .id')
+          if [[ "$completed" =~ ^[0-9]+$ ]]; then
+            echo "production=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "production=false" >> "$GITHUB_OUTPUT"
+          fi
+
   smoke:
+    needs: deployment
+    if: >-
+      always() && !cancelled() &&
+      (github.event_name != 'workflow_run' ||
+       needs.deployment.outputs.production == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Download the completed deployment's version metadata
+        if: github.event_name == 'workflow_run'
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: pages-version-${{ github.event.workflow_run.id }}-${{ github.event.workflow_run.run_attempt }}
+          path: deployment-metadata/
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+
+      - name: Verify the production source identity
+        if: github.event_name == 'workflow_run'
+        env:
+          DEPLOY_RUN_ID: ${{ github.event.workflow_run.id }}
+          DEPLOY_RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
+        run: python scripts/deployment_metadata.py expected deployment-metadata/version.json
 
       - name: Set up Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0

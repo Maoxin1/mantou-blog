@@ -41,10 +41,12 @@
                 <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
             </a>
 
-            {{- /* comment button */ -}}
-            <a href="#" id="view-comments" class="fixed-button" title="{{ T `viewComments` }}">
+            {{- /* Only article/project templates provide the feedback target. */ -}}
+            {{- if and .IsPage (in (slice "posts" "works") .Section) -}}
+            <a href="#comments" id="view-comments" class="fixed-button" title="{{ T `giveFeedback` }}" aria-label="{{ T `giveFeedback` }}">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
+            {{- end -}}
         </div>
 
         {{- /* Load JavaScript scripts and CSS */ -}}

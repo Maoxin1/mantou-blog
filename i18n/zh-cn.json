@@ -604,5 +604,29 @@
   },
   "growthWorksLink": {
     "other": "看我的实践与作品"
+  },
+  "giveFeedback": {
+    "other": "给我反馈"
+  },
+  "backToWriting": {
+    "other": "返回文章列表"
+  },
+  "firstPublished": {
+    "other": "首发于"
+  },
+  "lastUpdated": {
+    "other": "更新于"
+  },
+  "searchType": {
+    "other": "类型"
+  },
+  "searchDate": {
+    "other": "首发日期"
+  },
+  "searchWriting": {
+    "other": "文章"
+  },
+  "searchProject": {
+    "other": "作品"
   }
 }

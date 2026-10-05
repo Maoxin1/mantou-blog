@@ -18,7 +18,7 @@
   {{- end -}}
 
   <div class="mantou-reading-layout{{ if not $hasTOC }} mantou-reading-layout--no-toc{{ end }}">
-  <article class="page single special reading-post" data-pagefind-body>
+  <article class="page single special reading-post" data-pagefind-body data-search-type="{{ T "searchWriting" }}" data-search-date="{{ .Date.Format "2006-01-02" }}" data-pagefind-meta="{{ T "searchType" }}[data-search-type], {{ T "searchDate" }}[data-search-date]">
     <header class="post-heading">
       <nav class="post-meta post-path" aria-label="{{ T "articlePath" }}" data-pagefind-ignore>
         <div class="post-meta-line">

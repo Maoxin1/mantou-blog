@@ -26,8 +26,6 @@ test('英文搜索只返回英文内容，订阅使用英文 Feed', async ({ pag
   await expect(page.locator('[data-follow-page] [data-copy-feed]')).toHaveAttribute('data-feed-url', 'https://mantou-blog.pages.dev/en/index.xml');
   await expect(page.locator('[data-follow-page] [data-follow-form]')).toHaveCount(0);
   await expect(page.locator('[data-follow-page]')).toContainText('Chinese feed only');
-  await page.goto('/en/p/20260803/');
-  await expect(page.locator('.translation-note')).not.toContainText('updated since');
 });
 
 test('分页归档切换语言保留页码和 SEO 地址', async ({ page }) => {
@@ -77,14 +75,24 @@ test('两种语言的 RSS 都包含全部文章与作品', async ({ request }) =
   const chinese = await (await request.get('/index.xml')).text();
   const english = await (await request.get('/en/index.xml')).text();
   const chineseItems = chinese.match(/<item>/g) || [];
-  const englishItems = english.match(/<item>/g) || [];
+  const englishItems = english.match(/<item>[\s\S]*?<\/item>/g) || [];
   expect(chineseItems.length).toBeGreaterThanOrEqual(209);
   expect(englishItems.length).toBeGreaterThanOrEqual(209);
   expect(englishItems.length).toBeLessThanOrEqual(chineseItems.length);
   expect(english).toContain('<language>en</language>');
   expect(english).toContain('/en/works/mantou-checklist-pwa/');
-  expect(english).toContain('Edited English version based on the Chinese original.');
-  expect(english).not.toContain('Machine translation; not fully reviewed');
+  // Both editorial states are publishable. Check each entry's disclosure,
+  // rather than requiring the whole growing corpus to have been reviewed.
+  // Generated Python fixtures verify exact status/freshness -> HTML/RSS output.
+  for (const item of englishItems) {
+    const note = item.match(/<p\b[^>]*class=["']?translation-note["']?[^>]*>[\s\S]*?<\/p>/)?.[0];
+    expect(note, item.match(/<link>(.*?)<\/link>/)?.[1]).toBeTruthy();
+    const machine = note.includes('Machine translation; not fully reviewed');
+    const reviewed = note.includes('Edited English version based on the Chinese original.');
+    expect(Number(machine) + Number(reviewed)).toBe(1);
+    const link = item.match(/<link>(.*?)<\/link>/)[1];
+    expect(note).toContain(link.replace('/en/', '/'));
+  }
 });
 
 test('统计入口指向需要登录的 Cloudflare 后台', async ({ page }) => {

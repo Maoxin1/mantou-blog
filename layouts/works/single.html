@@ -2,7 +2,7 @@
 
 {{- define "content" -}}
 {{- $typeLabels := dict "investment" (T "typeInvestment") "tools" (T "typeTools") "methodology" (T "typeMethodology") "body" (T "bodyPractice") -}}
-<article class="page single work-detail" data-work-detail data-pagefind-body>
+<article class="page single work-detail" data-work-detail data-pagefind-body data-search-type="{{ T "searchProject" }}" data-search-date="{{ .Date.Format "2006-01-02" }}" data-pagefind-meta="{{ T "searchType" }}[data-search-type], {{ T "searchDate" }}[data-search-date]">
     <header class="work-detail__header">
         <div{{ if .Params.preview_image }} class="work-detail__visual-intro"{{ end }}>
             <div>

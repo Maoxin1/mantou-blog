@@ -8,9 +8,79 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 VALIDATE_WORKFLOW = ROOT / ".github" / "workflows" / "validate.yml"
 DEPLOY_WORKFLOW = ROOT / ".github" / "workflows" / "deploy-pages.yml"
+SMOKE_WORKFLOW = ROOT / ".github" / "workflows" / "smoke-production.yml"
 
 
 class DeploymentWorkflowSecurityTests(unittest.TestCase):
+    def test_smoke_follows_only_successful_production_deployments(self) -> None:
+        workflow = yaml.safe_load(SMOKE_WORKFLOW.read_text(encoding="utf-8"))
+        # PyYAML's YAML 1.1 loader treats the unquoted Actions `on` key as True.
+        triggers = workflow[True]
+        self.assertEqual(triggers['workflow_run'], {
+            'workflows': ['Deploy Pages'], 'types': ['completed'], 'branches': ['main'],
+        })
+        self.assertIn('workflow_dispatch', triggers)
+        self.assertEqual(triggers['schedule'], [{'cron': '15 1 * * *'}])
+        guard = workflow['jobs']['deployment']['if']
+        for condition in (
+            "github.event.workflow_run.conclusion == 'success'",
+            "github.event.workflow_run.event == 'workflow_run'",
+            "github.event.workflow_run.head_branch == 'main'",
+            "github.event.workflow_run.head_repository.full_name == github.repository",
+        ):
+            self.assertIn(condition, guard)
+        self.assertIn('github.event.workflow_run.id', workflow['concurrency']['group'])
+        self.assertEqual(workflow['permissions'], {'contents': 'read', 'actions': 'read'})
+        self.assertNotIn('CLOUDFLARE_API_TOKEN', SMOKE_WORKFLOW.read_text(encoding='utf-8'))
+
+    def test_successful_but_skipped_deployment_does_not_start_smoke(self) -> None:
+        workflow = yaml.safe_load(SMOKE_WORKFLOW.read_text(encoding='utf-8'))
+        job = workflow['jobs']['deployment']
+        step = job['steps'][0]
+        self.assertIn('attempts/$DEPLOY_RUN_ATTEMPT/jobs', step['run'])
+        self.assertIn('.name == "deploy" and .conclusion == "success"', step['run'])
+        self.assertIn('production=false', step['run'])
+        self.assertEqual(step['env']['GH_TOKEN'], '${{ github.token }}')
+        smoke = workflow['jobs']['smoke']
+        self.assertEqual(smoke['needs'], 'deployment')
+        self.assertIn("needs.deployment.outputs.production == 'true'", smoke['if'])
+        self.assertIn("github.event_name != 'workflow_run'", smoke['if'])
+        self.assertIn('always()', smoke['if'])
+        self.assertIn('!cancelled()', smoke['if'])
+
+    def test_smoke_uses_exact_deployment_metadata_not_workflow_head(self) -> None:
+        workflow = yaml.safe_load(SMOKE_WORKFLOW.read_text(encoding="utf-8"))
+        steps = workflow['jobs']['smoke']['steps']
+        download = next(step for step in steps if step.get('uses', '').startswith('actions/download-artifact@'))
+        self.assertEqual(download['if'], "github.event_name == 'workflow_run'")
+        self.assertEqual(download['with']['run-id'], '${{ github.event.workflow_run.id }}')
+        self.assertEqual(download['with']['github-token'], '${{ github.token }}')
+        self.assertIn('github.event.workflow_run.run_attempt', download['with']['name'])
+        verify = next(step for step in steps if 'deployment_metadata.py expected' in step.get('run', ''))
+        self.assertEqual(verify['if'], "github.event_name == 'workflow_run'")
+        self.assertEqual(verify['env']['DEPLOY_RUN_ID'], '${{ github.event.workflow_run.id }}')
+        self.assertEqual(verify['env']['DEPLOY_RUN_ATTEMPT'], '${{ github.event.workflow_run.run_attempt }}')
+        self.assertNotIn('workflow_run.head_sha', SMOKE_WORKFLOW.read_text(encoding='utf-8'))
+
+    def test_deployment_publishes_the_same_version_in_site_and_metadata_artifact(self) -> None:
+        workflow = yaml.safe_load(DEPLOY_WORKFLOW.read_text(encoding="utf-8"))
+        steps = workflow['jobs']['deploy']['steps']
+        marker_index = next(index for index, step in enumerate(steps)
+                            if 'deployment_metadata.py write' in step.get('run', ''))
+        marker = steps[marker_index]
+        self.assertEqual(marker['env']['DEPLOY_COMMIT'], '${{ needs.build.outputs.commit_sha }}')
+        self.assertEqual(marker['env']['DEPLOY_BRANCH'], '${{ needs.build.outputs.deploy_branch }}')
+        upload_index = next(index for index, step in enumerate(steps)
+                            if step.get('uses', '').startswith('actions/upload-artifact@'))
+        self.assertEqual(steps[upload_index]['with']['path'], 'public/version.json')
+        self.assertIn('github.run_attempt', steps[upload_index]['with']['name'])
+        deploy_index = next(index for index, step in enumerate(steps)
+                            if 'wrangler pages deploy' in step.get('run', ''))
+        self.assertLess(marker_index, upload_index)
+        self.assertLess(upload_index, deploy_index)
+        self.assertRegex((ROOT / 'static/_headers').read_text(encoding='utf-8'),
+                         r'/version\.json\n\s+Cache-Control: no-store')
+
     def test_production_output_validator_dependencies_are_always_installed(self) -> None:
         workflow = yaml.safe_load(DEPLOY_WORKFLOW.read_text(encoding="utf-8"))
         steps = workflow['jobs']['build']['steps']
