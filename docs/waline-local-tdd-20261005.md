@@ -21,6 +21,7 @@
 4. 旧缓存预存固定脚本 URL：新页面首次获取 loader 仍拿到旧字节。内容寻址后，4 项构建/SW-VM 测试通过；全站原缓存行为保持原样
 5. userAgent 以 null、undefined、string 拒绝，分别使用中英文：6 个用例原先提示自身抛错或显示 undefined。归一化提示后通过
 6. 原生 Node Response 返回 HTTP 503，但 JSON 为 errno:0：评论和计数两个 GET 用例原先仍初始化。GET 检查 Response.ok 后通过；POST 未改
+7. 首次 GitHub CI 真实浏览器运行 108 项通过、1 项失败：JS 资源首次加载失败后，同 URL 的失败模块缓存导致恢复后仍无法打开。保留原断言，仅 import 失败后在原同源内容地址上增加显式 retry 键；本地可控 module-map 重放先红后绿，成功 import 遇 API 失败仍复用原模块
 
 测试准备中的 Chromium IPC、一次 argv 大小限制和一次中间修补的变量作用域错误，均单独记录，没有当成功能红灯。已有正确行为没有故意改坏；未删除或放宽断言。
 
@@ -37,13 +38,15 @@ npm run test:e2e -- tests/e2e/reader-feedback.spec.js
 
 Hugo 不在 PATH 时设置 HUGO_BIN。Node 组件测试使用显式 `--experimental-vm-modules`。
 
-- 本地 57 项 Node 检查通过；真实 loader、vendored API、提交/快捷键函数均从实际文件执行，DOM、网络、Vue init 或闭包依赖按测试层替换
+- 本地 59 项 Node 检查通过；真实 loader、vendored API、提交/快捷键函数均从实际文件执行，DOM、网络、Vue init 或闭包依赖按测试层替换
 - 113 项 Python 检查通过，含 4 项新资产构建/SW-VM 测试及 16 项既有 SW 可靠性测试
 - 三个固定 seed：20261005、20261006、20261007。提交与加载各 300 条有限短序列，失败输出 seed、case 和操作序列；无生成反例
 - 提交每 seed 最多 100 例/30 秒，加载合计最多 300 例/30 秒；这些是测试预算，不是新产品超时阈值
 - Hugo、Pagefind 1.5.2、源码和生成结果校验通过。Validate 增加 Node 反馈检查，沿用现有 Python 和浏览器流程
 
-本地 Chromium 在测试主体执行前被 Unix socket IPC 限制阻断。新增真实浏览器用例已加入现有 E2E，需由本次草稿 PR 的完整 Validate 验证；不能用 Node/VM 通过替代浏览器通过。
+本地 Chromium 在测试主体执行前被 Unix socket IPC 限制阻断。首次 CI 已执行真实浏览器断言并发现上述 JS 重试问题；后续完整结果以草稿 PR 的 Validate 为准。reader-feedback.spec.js 共 9 条，包含 2 条照片/文章链接和 7 条反馈场景。
+
+首次失败的 CI 日志保留断言和截图/trace 生成路径，但原 Validate 没有上传工件，无法取回该次截图与 trace。现为后续运行保留浏览器报告与 test-results，使用仓库既有的固定版本 upload-artifact，保留 14 天。不能用 Node/VM 通过替代真实浏览器结果。
 
 ## 保留边界
 

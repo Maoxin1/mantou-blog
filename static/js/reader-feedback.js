@@ -30,6 +30,19 @@ if (options) {
   let busy = false;
   let instance;
   let stylesheet;
+  let clientAttempt = 0;
+  const loadClient = async () => {
+    // Browsers retain failed module imports by URL. Change the key only after
+    // an import failure; successful modules still reuse their content address.
+    const source = options.dataset.feedbackClient;
+    const url = clientAttempt ? `${source}?retry=${clientAttempt}` : source;
+    try {
+      return await import(url);
+    } catch (error) {
+      clientAttempt += 1;
+      throw error;
+    }
+  };
   const connection = {
     serverURL: options.dataset.feedbackServer,
     path: options.dataset.feedbackPath,
@@ -84,7 +97,7 @@ if (options) {
     });
     try {
       const [{ init, getComment, getArticleCounter, updateArticleCounter }] = await Promise.race([
-        Promise.all([import(options.dataset.feedbackClient), loadStyles()]),
+        Promise.all([loadClient(), loadStyles()]),
         deadline,
       ]);
       // A reachable page is not enough: the comment database must answer too.

@@ -30,7 +30,7 @@ async function enableFeedback(page, state = {}) {
   });
   // Fingerprinted feedback assets belong to this enabled fixture build, while
   // the shared static server uses the default (feedback-disabled) build.
-  await page.route(/\/(?:js\/reader-feedback|lib\/waline\/3\.15\.2\/waline)\.[a-f0-9]+\.js$/, async route => {
+  await page.route(/\/(?:js\/reader-feedback|lib\/waline\/3\.15\.2\/waline)\.[a-f0-9]+\.js(?:\?.*)?$/, async route => {
     const pathname = new URL(route.request().url()).pathname;
     await route.fulfill({ contentType: 'text/javascript', body: readFileSync(join(enabledSite, pathname)) });
   });
@@ -222,10 +222,14 @@ for (const resource of ['CSS', 'JS']) {
   test(`TM-024：${resource} 明确加载失败后保留正文邮件，恢复后可显式重试`, async ({ page }) => {
     const state = await enableFeedback(page);
     let unavailable = true;
+    const resourceRequests = [];
     const pattern = resource === 'CSS'
       ? '**/lib/waline/3.15.2/waline.css'
-      : /\/lib\/waline\/3\.15\.2\/waline\.[a-f0-9]+\.js$/;
-    await page.route(pattern, route => unavailable ? route.abort('failed') : route.fallback());
+      : /\/lib\/waline\/3\.15\.2\/waline\.[a-f0-9]+\.js(?:\?.*)?$/;
+    await page.route(pattern, route => {
+      resourceRequests.push(route.request().url());
+      return unavailable ? route.abort('failed') : route.fallback();
+    });
     await page.goto(articlePath);
     const trigger = page.locator('[data-feedback-load]');
     await trigger.click();
@@ -243,5 +247,10 @@ for (const resource of ['CSS', 'JS']) {
     await expect(trigger).toBeHidden();
     await expect(page.locator('[data-feedback-status]')).toHaveText('');
     expect(state.writes).toHaveLength(0);
+    expect(resourceRequests).toHaveLength(2);
+    if (resource === 'JS') {
+      expect(new URL(resourceRequests[1]).pathname).toBe(new URL(resourceRequests[0]).pathname);
+      expect(new URL(resourceRequests[1]).searchParams.get('retry')).toBe('1');
+    }
   });
 }

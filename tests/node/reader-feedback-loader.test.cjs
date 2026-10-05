@@ -268,3 +268,31 @@ test('TM-003/TM-024 generated short open/fail/retry sequences preserve independe
     t.diagnostic(`Generator v1 seed=${seed}; samples=100; maximum attempts=4; maximum repeated opens=4; elapsed_ms=${Math.round(performance.now() - started)}; stopped at sample cap; no counterexample`);
   }
 });
+
+
+test('TM-024 browser-counterexample replay: failed module URL needs a new explicit import key', async () => {
+  const harness = await createLoaderHarness();
+  harness.cacheFailedImports = true;
+  harness.importFailure = true;
+  await harness.click();
+  harness.assertRetryable();
+  const failedURL = harness.imports[0];
+  harness.recover();
+  await harness.click();
+  assert.equal(harness.inits.length, 1, 'Explicit recovery must not reuse the cached failed module URL');
+  assert.equal(harness.imports.length, 2);
+  assert.notEqual(harness.imports[1], failedURL);
+  harness.assertIndependent();
+});
+
+test('TM-024: API failure after a successful import reuses the successful module key', async () => {
+  const harness = await createLoaderHarness();
+  harness.response = () => ({ errno: 503, errmsg: 'Unavailable' });
+  await harness.click();
+  harness.assertRetryable();
+  const loadedURL = harness.imports[0];
+  harness.recover();
+  await harness.click();
+  assert.equal(harness.inits.length, 1);
+  assert.equal(harness.imports[1], loadedURL, 'Only an import failure changes the module identity');
+});

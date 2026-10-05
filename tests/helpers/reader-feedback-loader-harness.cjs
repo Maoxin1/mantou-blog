@@ -77,6 +77,8 @@ async function createLoaderHarness({ english = false, configured = true } = {}) 
     trigger, status, helpful, helpfulLabel, count, editor, article, mail, options,
     imports: [], links: [], requests: [], responses: [], inits: [], timers: new Map(),
     importFailure: false,
+    cacheFailedImports: false,
+    failedImports: new Set(),
     styleFailure: false,
     importGate: null,
     styleGate: null,
@@ -155,12 +157,23 @@ async function createLoaderHarness({ english = false, configured = true } = {}) 
     context,
     identifier: 'reader-feedback.js',
     async importModuleDynamically(specifier) {
-      assert.equal(specifier, options.dataset.feedbackClient);
+      const base = new URL(options.dataset.feedbackClient, 'https://blog.example.invalid');
+      const requested = new URL(specifier, base);
+      assert.equal(requested.origin, base.origin);
+      assert.equal(requested.pathname, base.pathname);
+      assert.match(requested.search, /^(?:\?retry=[1-9]\d*)?$/);
+      assert.equal(requested.hash, '');
       state.imports.push(specifier);
       const failed = state.importFailure;
       const gate = state.importGate;
       if (gate) await gate.promise;
-      if (failed) throw new TypeError('Fixture module loading failed');
+      if (state.cacheFailedImports && state.failedImports.has(specifier)) {
+        throw new TypeError('Previously failed module URL remains in the module map');
+      }
+      if (failed) {
+        if (state.cacheFailedImports) state.failedImports.add(specifier);
+        throw new TypeError('Fixture module loading failed');
+      }
       return api;
     },
   });
