@@ -14,6 +14,9 @@ module.exports = defineConfig({
   use: {
     baseURL: process.env.SMOKE_BASE_URL || 'https://mantou-blog.pages.dev',
     ...devices['Desktop Chrome'],
+    launchOptions: process.env.MANTOU_CHROMIUM_PATH ? {
+      executablePath: process.env.MANTOU_CHROMIUM_PATH,
+    } : {},
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
   },

@@ -9,14 +9,14 @@ ROOT = Path(__file__).resolve().parents[2]
 class AnchorOffsetTests(unittest.TestCase):
     def test_active_custom_anchor_rules_share_the_header_offset(self):
         for filename in ['_custom.scss', '_balanced.scss', '_visual-identity.scss']:
-            text = (ROOT / 'assets/css' / filename).read_text()
+            text = (ROOT / 'assets/css' / filename).read_text(encoding='utf-8')
             offsets = re.findall(r'scroll-margin-top:\s*([^;]+);', text)
             self.assertTrue(offsets, filename)
             for offset in offsets:
                 self.assertIn('var(--anchor-offset', offset, f'{filename}: {offset}')
 
     def test_header_token_tracks_desktop_and_mobile_height(self):
-        text = (ROOT / 'assets/css/_visual-identity.scss').read_text()
+        text = (ROOT / 'assets/css/_visual-identity.scss').read_text(encoding='utf-8')
         self.assertIn('--anchor-offset: calc(var(--header-height) + 16px);', text)
         self.assertIn('--header-height: 100px;', text)
         self.assertIn('--header-height: 81px;', text)

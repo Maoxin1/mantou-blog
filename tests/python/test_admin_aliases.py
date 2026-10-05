@@ -35,7 +35,7 @@ try { window.registerPostAliases({}); } catch { unsupportedRejected = true; }
 console.log(JSON.stringify({ calls, name: hook.name, first: first.get('aliases'), again: save(first).get('aliases'), unchanged,
   otherUnchanged: save(input, { collection: 'works' }) === input, invalidRejected, unsupportedRejected }));
 '''
-        result = subprocess.run(['node', '-e', program], cwd=ROOT, capture_output=True, text=True, check=True)
+        result = subprocess.run(['node', '-e', program], cwd=ROOT, capture_output=True, text=True, encoding='utf-8', check=True)
         cls.result = json.loads(result.stdout)
 
     def test_new_post_adds_alias_once_and_keeps_existing_aliases(self):
@@ -54,10 +54,10 @@ console.log(JSON.stringify({ calls, name: hook.name, first: first.get('aliases')
 
     def test_both_entrypoints_and_shared_config_keep_alias_contract(self):
         for path in ['static/admin/index.html', 'static/admin/sveltia/index.html']:
-            text = (ROOT / path).read_text()
+            text = (ROOT / path).read_text(encoding='utf-8')
             self.assertIn('<script src="/admin/post-aliases.js"></script>', text)
             self.assertIn('window.registerPostAliases(window.CMS)', text)
-        config = yaml.safe_load((ROOT / 'static/admin/config.yml').read_text())
+        config = yaml.safe_load((ROOT / 'static/admin/config.yml').read_text(encoding='utf-8'))
         posts = next(item for item in config['collections'] if item['name'] == 'posts')
         aliases = next(field for field in posts['fields'] if field['name'] == 'aliases')
         self.assertEqual('hidden', aliases['widget'])

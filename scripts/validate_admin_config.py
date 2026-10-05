@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 import yaml
@@ -119,12 +120,17 @@ def validate_now_contract(parsed_config: dict, issues: list[str]) -> None:
         if field.get("name")
     }
     required_fields = {"title", "question", "status", "checkpoint", "updated"}
-    if set(fields) != required_fields:
+    optional_fields = {"review_date"}
+    if set(fields) != required_fields | optional_fields:
         issues.append(
             "CMS now.directions fields must be exactly: "
-            + ", ".join(sorted(required_fields))
+            + ", ".join(sorted(required_fields | optional_fields))
         )
         return
+
+    review_field = fields["review_date"]
+    if review_field.get("required") is not False or review_field.get("widget") != "datetime":
+        issues.append("CMS now.review_date must be an optional datetime field")
 
     status_options = fields["status"].get("options", [])
     allowed_statuses = {
@@ -180,6 +186,16 @@ def validate_now_contract(parsed_config: dict, issues: list[str]) -> None:
             issues.append(
                 f"content/now.md direction {index} updated must use YYYY-MM-DD"
             )
+        review_date = direction.get("review_date")
+        if review_date not in (None, ""):
+            try:
+                if not isinstance(review_date, str) or not DATE_RE.fullmatch(review_date):
+                    raise ValueError("invalid date format")
+                date.fromisoformat(review_date)
+            except ValueError:
+                issues.append(
+                    f"content/now.md direction {index} review_date must be a valid YYYY-MM-DD date"
+                )
 
 
 def main() -> int:

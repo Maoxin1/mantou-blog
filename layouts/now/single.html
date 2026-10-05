@@ -25,6 +25,7 @@
                     <p>{{ .checkpoint }}</p>
                 </div>
                 <p class="now-item__updated">{{ T "reviewedOn" }}<time datetime="{{ .updated | time.Format "2006-01-02" }}">{{ .updated | time.Format "2006-01-02" }}</time></p>
+                {{ with .review_date }}<p class="now-item__updated now-item__review-date">{{ T "nextReviewOn" }}<time datetime="{{ . | time.Format "2006-01-02" }}">{{ . | time.Format "2006-01-02" }}</time></p>{{ end }}
             </li>
         {{- end -}}
     </ol>

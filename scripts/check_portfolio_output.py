@@ -6,6 +6,11 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+try:
+    from scripts.validate_admin_config import parse_front_matter
+except ModuleNotFoundError:
+    from validate_admin_config import parse_front_matter
+
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_DIR = ROOT / "public"
 EXPECTED_FILES = {
@@ -54,7 +59,6 @@ def main() -> int:
                 'data-home-latest',
                 'data-home-selected',
                 'data-home-featured-work',
-                '/images/mantou-checklist-preview.png',
                 'data-analytics-loader',
                 'location.hostname',
                 'mantou-blog.pages.dev',
@@ -89,7 +93,6 @@ def main() -> int:
                 'data-case-map',
                 'data-verification-matrix',
                 'work-detail__toc',
-                'mantou-checklist-preview.png',
                 'https://mantou-checklist.pages.dev/editor',
                 'https://github.com/Maoxin1/mantou-checklist',
             ),
@@ -101,6 +104,15 @@ def main() -> int:
             ('class=follow-card', 'href=/follow/'),
             issues,
         )
+    preview_image = parse_front_matter(ROOT / "content/works/mantou-checklist-pwa.md").get("preview_image")
+    if not isinstance(preview_image, str) or not preview_image.startswith("/images/"):
+        issues.append("PWA work: preview_image must point to a local image")
+    else:
+        if not (PUBLIC_DIR / preview_image.lstrip("/")).is_file():
+            issues.append(f"PWA work: preview image is missing from the build ({preview_image})")
+        for label in ("homepage", "PWA work"):
+            if label in pages:
+                require_text(label, pages[label], (preview_image,), issues)
     if "RSS feed" in pages:
         require_text(
             "RSS feed",

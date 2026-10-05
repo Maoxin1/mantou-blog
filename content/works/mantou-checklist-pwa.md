@@ -4,11 +4,11 @@ home_title: "每天三件事，留下一张记录"
 home_summary: "记录阅读、训练和日记，自动汇总成一张可以保存的图片。手机上可用，也支持离线。"
 title: "把个人定投清单做成可离线运行的手机 PWA"
 date: "2026-08-31"
-lastmod: "2026-09-22"
+lastmod: "2026-10-05"
 description: "从可离线运行的手机 PWA，继续迭代成每天只需更新「破界行动」、训练与日记 3 个事实、自动汇总并一键生成图片的个人状态工具。"
 list_summary: "真实手机断网启动失败后，我修正了路径和测试环境；持续使用又让我把每日输入收敛为三项。"
-preview_image: "/images/mantou-checklist-preview.png"
-preview_alt: "手机工具的实际预览界面，显示当天记录、本周进度和 PNG 导出入口"
+preview_image: "/images/mantou-checklist-preview-20261005.png"
+preview_alt: "2026 年 10 月版手机预览界面示例：行动档案与 PNG 导出入口，展示默认数据"
 work_type: "tools"
 stage: "V2 · 已部署"
 problem: "网页生成器虽然操作很快，但仍需先打开网址；断网冷启动也没有被真实验证。"
@@ -19,10 +19,12 @@ outcome: "V1 完成可安装与离线使用；V2 将日常输入收敛为「破�
 artifact_url: "https://mantou-checklist.pages.dev/editor"
 artifact_language: "zh-cn"
 source_url: "https://github.com/Maoxin1/mantou-checklist"
-evidence: "V1 在真实 Android 手机上完成 5 项验收；V2 代码验证通过并已部署到正式站，继续作为作息重构实验的日常记录与公开输出工具。"
+evidence: "V1 在真实 Android 手机上完成 5 项验收；2026-10-05 在正式域名通过新版浏览器检查，覆盖填写、自动保存、JSON 备份恢复、1080 × 1536 PNG 与离线使用。"
 limitations: "数据只保存在当前浏览器，不自动跨设备同步；首次安装和获取更新仍需要联网。"
 next_step: "进入真实使用：用它记录作息重构实验中的「破界行动」、训练与日记状态；只有再次出现明确摩擦时才增加功能。"
 follow_ups:
+  - date: "2026-10-05"
+    note: "新版默认先进入填写，切到预览后查看行动档案；界面与博客统一采用暖色纸张和漫画线条。正式域名已验证输入、自动保存、备份恢复和离线图片下载，案例截图与跨站测试也同步到这次发布。长期使用效果继续由实际记录检验。"
   - date: "2026-09-21"
     note: "持续使用后发现每日输入字段过多会开始抢占注意力，因此 V2 没有继续加功能，而是把日常输入收敛为「破界行动」分钟、训练状态、日记状态 3 个事实，并自动汇总周进度；「破界行动」是高质量阅读与批判性思维训练的内部代号，这次真实使用反馈直接改变了产品设计。"
 reused_in:
@@ -51,19 +53,19 @@ featured: true
 ## 本阶段产出与验证
 
 - 可以安装到手机桌面的 PWA；
-- 点击图标后直接进入清单工作区，以无地址栏的独立窗口运行；默认展示预览，可切至“填写”修改内容；
+- 点击图标后直接进入清单工作区，以无地址栏的独立窗口运行；默认先进入“填写”，更新当天信息后切至“预览”；
 - 表单内容自动保存在当前浏览器；
 - 实时生成 1080 × 1536 清单预览；
 - 支持 PNG 下载、JSON 备份和离线使用。
 
 你可以[在线打开编辑器](https://mantou-checklist.pages.dev/editor)，也可以在 [GitHub 仓库](https://github.com/Maoxin1/mantou-checklist)查看源码、测试和使用说明。
 
-技术层先用自动化检查启动入口、独立显示模式、自动保存、备份恢复、图片尺寸和离线下载；随后在真实 Android 手机上逐项验收：
+V1 先用自动化检查启动入口、独立显示模式、自动保存、备份恢复、图片尺寸和离线下载；随后在真实 Android 手机上逐项验收：
 
 <section class="verification-matrix" data-verification-matrix aria-label="真实手机验收结果">
   <div class="verification-matrix__heading">
     <span>REAL DEVICE ACCEPTANCE</span>
-    <strong>真实 Android 手机 · 5 / 5 通过</strong>
+    <strong>V1 · 真实 Android 手机 · 5 / 5 通过</strong>
   </div>
   <ol>
     <li><span>桌面图标能够启动</span><strong>通过</strong></li>
@@ -103,6 +105,12 @@ V1 解决的是“能不能像一个轻量 App 一样安装、离线运行和导
 部署方式也没有为了“工程化”而复杂化。Checklist 继续使用 Cloudflare Pages Direct Upload，由本机执行一条部署命令；GitHub Actions 只负责代码验证，不额外维护 Cloudflare Secrets。
 
 目前它开始承担一个新的角色：**不再只是“个人定投清单”，而是作息重构实验的低摩擦记录与公开输出层。** 复杂判断留在博客和实验复盘里，Checklist 只负责输入今天发生的事实，然后把状态计算和图片生成交给系统。
+
+## 2026-10-05：让公开案例跟上当前版本
+
+这次发布把清单界面与博客统一为暖色纸张和漫画线条，也把默认入口改为“填写”。先更新当天三个事实，再切到“预览”查看行动档案，最后下载图片。案例顶部截图来自新版正式站的默认数据，只用来展示界面。
+
+我在正式域名重新检查了填写、自动保存、JSON 备份恢复、1080 × 1536 PNG，以及离线填写和下载。博客的跨站测试也从案例中的成品链接进入工作区，检查填写、重新加载后保留数据、切换预览和实际下载。这些检查确认了本次发布的浏览器路径；上面的真实 Android 验收属于 V1，长期效果仍要回到实际使用记录里判断。
 
 ## 反证、限制与边界
 
