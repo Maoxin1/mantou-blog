@@ -4,13 +4,13 @@ home_title: Three daily entries, one picture to keep
 home_summary: Log reading, exercise, and journaling. Save a picture; use it offline.
 title: Turning my daily practice checklist into an offline mobile PWA
 date: '2026-08-31'
-lastmod: '2026-09-22'
+lastmod: '2026-10-05'
 description: An offline mobile PWA that now needs just three daily entries—focused reading, exercise, and journaling—to
   summarize progress and export an image.
 list_summary: An offline launch failed on a real phone. I fixed the routing and test environment; continued use
   then led me to reduce daily input to three entries.
-preview_image: /images/mantou-checklist-preview.png
-preview_alt: The actual Chinese-language mobile interface, showing daily entries, weekly progress, and PNG export
+preview_image: /images/mantou-checklist-preview-20261005.png
+preview_alt: The October 2026 mobile preview, showing the action record and PNG export with default example data
 work_type: tools
 stage: V2 · Deployed
 problem: The web generator was quick to use, but I still had to open a URL. Offline cold starts had not been verified
@@ -26,13 +26,18 @@ outcome: V1 added installation and offline use. V2 reduced daily input to focuse
 artifact_url: https://mantou-checklist.pages.dev/editor
 artifact_language: zh-cn
 source_url: https://github.com/Maoxin1/mantou-checklist
-evidence: V1 passed five checks on a real Android phone. V2 passed code validation and is deployed, and is being
-  used to record and share progress in my daily-routine experiment.
+evidence: V1 passed five checks on a real Android phone. Production browser checks on October 5, 2026 covered
+  editing, autosave, JSON backup restoration, 1080 × 1536 PNG export, and offline use in the current version.
 limitations: Data stays in the current browser and does not sync automatically between devices. Initial installation
   and updates need a network connection.
 next_step: Use it to record focused reading, exercise, and journaling in the routine experiment. Add features only
   when a specific difficulty appears again.
 follow_ups:
+- date: '2026-10-05'
+  note: The current version opens the form first, then shows the action record in the preview tab. Warm paper colors
+    and comic-style lines now match the blog. Production checks covered input, autosave, backup restoration, and
+    offline image downloads. The case screenshot and cross-site test now reflect this release. Longer-term results
+    still need evidence from actual use.
 - date: '2026-09-21'
   note: Continued use showed that too many daily fields consumed attention. V2 reduced them to focused-reading minutes,
     exercise status, and journaling status, with automatic weekly totals. “Boundary-breaking practice” is my internal
@@ -51,7 +56,7 @@ disclosure: public
 featured: true
 translation_status: reviewed
 translation_provider: Machine-assisted, edited against the Chinese source
-translation_source_hash: a56e8982f4303c0a546e2a85c98a6f3f3c5d1531d776517a00ef3a878915d923
+translation_source_hash: 8abb8cce0dd4f9da5964dafdb2679584db90f230a1b1928ce9528e49d74d1b4d
 ---
 
 ## The problem and the idea
@@ -69,17 +74,17 @@ The key decision was to align the PWA installation entry, launch URL, and offlin
 ## What I made and checked
 
 - A PWA that can be installed on the phone's home screen;
-- An icon that opens the checklist workspace in a standalone window, without a browser address bar; the preview is shown first, with an editing view available;
+- An icon that opens the checklist workspace in a standalone window, without a browser address bar; the form opens first, and the preview tab shows the updated record;
 - Automatic saving in the current browser;
 - A live 1080 × 1536 checklist preview;
 - PNG downloads, JSON backups, and offline use.
 
 You can [open the editor](https://mantou-checklist.pages.dev/editor) or find the source, tests, and instructions in the [GitHub repository](https://github.com/Maoxin1/mantou-checklist). The tool's interface is in Chinese.
 
-Automated checks covered the launch entry, standalone mode, autosave, backup restoration, image dimensions, and offline downloads. I then tested each item on a real Android phone:
+For V1, automated checks covered the launch entry, standalone mode, autosave, backup restoration, image dimensions, and offline downloads. I then tested each item on a real Android phone:
 
 <section class="verification-matrix" data-verification-matrix aria-label="Real-phone test results">
-  <div class="verification-matrix__heading"><span>REAL DEVICE ACCEPTANCE</span><strong>Real Android phone · 5 / 5 passed</strong></div>
+  <div class="verification-matrix__heading"><span>REAL DEVICE ACCEPTANCE</span><strong>V1 · Real Android phone · 5 / 5 passed</strong></div>
   <ol>
     <li><span>Launches from the home-screen icon</span><strong>Passed</strong></li>
     <li><span>No browser address bar after launch</span><strong>Passed</strong></li>
@@ -118,6 +123,12 @@ The original boundaries remain:
 Deployment stayed simple too. Checklist uses Cloudflare Pages Direct Upload, with a single deployment command run locally. GitHub Actions validates the code; it does not maintain additional Cloudflare secrets.
 
 The tool now has another role: **a low-effort way to record and share my daily-routine experiment.** The more complicated judgments stay in the blog and experiment reviews. Checklist takes today's facts and handles the totals and image generation.
+
+## October 5, 2026: bringing the public case up to date
+
+This release brings warm paper colors and comic-style lines to the checklist, matching the blog. It also opens the form first: update the day's three facts, switch to the preview to see the action record, then download the image. The screenshot at the top uses default data from the current production site to show the interface.
+
+I checked editing, autosave, JSON backup restoration, 1080 × 1536 PNG export, and offline editing and downloads on the production domain. The blog's cross-site test now follows the case's artifact link and checks input, persistence after reload, preview switching, and an actual download. These checks establish the browser flow for this release. The Android results above belong to V1; longer-term benefits still require records from actual use.
 
 ## Limits and boundaries
 

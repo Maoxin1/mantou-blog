@@ -44,6 +44,7 @@ collections:
           - "AI"
           - "写作博客"
           - "健康"
+          - "读书"
       - label: "Body"
         name: "body"
         widget: "markdown"
@@ -78,6 +79,7 @@ collections:
                   - "暂停"
               - { label: "下一检查点", name: "checkpoint", widget: "text", hint: "写明触发复核的事件，以及到时需要继续、修改还是暂停什么。" }
               - { label: "最近复核", name: "updated", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false, hint: "人工复核后更新；不会随构建自动变化。" }
+              - { label: "预计复查", name: "review_date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, picker_utc: false, required: false, hint: "每周日复查；填下一次计划日期，完成复查后再更新。" }
           - { label: "页面说明", name: "body", widget: "markdown", required: false }
 
   - name: "weight"

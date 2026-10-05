@@ -1,10 +1,11 @@
 import re
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 import yaml
 
-from scripts.validate_admin_config import parse_front_matter_text
+from scripts.validate_admin_config import parse_front_matter_text, validate_now_contract
 from scripts.validate_portfolio import UniqueKeyLoader
 
 
@@ -198,10 +199,13 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
         self.assertEqual(1, directions["min"])
         self.assertEqual(4, directions["max"])
         self.assertEqual(
-            {"title", "question", "status", "checkpoint", "updated"},
+            {"title", "question", "status", "checkpoint", "updated", "review_date"},
             {field["name"] for field in directions["fields"]},
         )
         self.assertNotIn("decision", {field["name"] for field in directions["fields"]})
+        review_date = next(field for field in directions["fields"] if field["name"] == "review_date")
+        self.assertFalse(review_date["required"])
+        self.assertEqual("datetime", review_date["widget"])
 
         status = next(
             field for field in directions["fields"] if field["name"] == "status"
@@ -218,6 +222,22 @@ class AdminPublishingWorkflowTests(unittest.TestCase):
                 for direction in now_content["directions"]
             )
         )
+
+    def test_next_review_accepts_missing_dates_and_rejects_invalid_calendar_dates(self) -> None:
+        direction = {
+            "title": "A direction", "question": "A question", "status": "进行中",
+            "checkpoint": "A checkpoint", "updated": "2026-09-22",
+        }
+        for value, expected_valid in [(None, True), ("", True), ("2026-10-11", True),
+                                      ("2026-02-30", False), ("11/10/2026", False)]:
+            with self.subTest(review_date=value):
+                entry = dict(direction)
+                if value is not None:
+                    entry["review_date"] = value
+                with patch("scripts.validate_admin_config.parse_front_matter", return_value={"directions": [entry]}):
+                    issues = []
+                    validate_now_contract(self.parsed_config, issues)
+                self.assertEqual(expected_valid, not issues, issues)
 
     def test_front_matter_parser_ignores_inline_delimiter_text(self) -> None:
         parsed = parse_front_matter_text(

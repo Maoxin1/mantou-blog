@@ -183,7 +183,7 @@
     "other": "Results, evidence, and limitations"
   },
   "previewDate": {
-    "other": "Public interface, September 2026 (in Chinese)"
+    "other": "Public tool interface example (in Chinese)"
   },
   "evidenceLead": {
     "other": "Results and supporting material, with the questions that remain open."
@@ -286,6 +286,9 @@
   },
   "reviewedOn": {
     "other": "Last reviewed: "
+  },
+  "nextReviewOn": {
+    "other": "Next review: "
   },
   "rssWays": {
     "other": "RSS subscription options"

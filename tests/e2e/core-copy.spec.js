@@ -19,7 +19,7 @@ test('首页同时呈现最近更新、精选文章和实际工具', async ({ pa
   await expect(home.getByRole('link', { name: /看当前进展/ })).toHaveAttribute('href', '/now/');
 });
 
-test('当前下注清单说明验证问题、检查点与人工复核时间', async ({ page }) => {
+test('当前下注清单分别显示已完成复核与每周日复查计划', async ({ page }) => {
   await open(page, '/now/');
 
   const now = page.locator('[data-now-page]');
@@ -35,8 +35,20 @@ test('当前下注清单说明验证问题、检查点与人工复核时间', as
     await expect(item.getByRole('heading', { name: '正在验证', level: 3 })).toBeVisible();
     await expect(item.getByRole('heading', { name: '下一检查点', level: 3 })).toBeVisible();
     await expect(item.locator('.now-item__detail p')).toHaveCount(2);
-    await expect(item.locator('time')).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/);
+    const reviewed = item.locator('.now-item__updated:not(.now-item__review-date) time');
+    const planned = item.locator('.now-item__review-date time');
+    await expect(reviewed).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/);
+    await expect(planned).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/);
+    const reviewDate = await planned.getAttribute('datetime');
+    expect(new Date(`${reviewDate}T12:00:00Z`).getUTCDay()).toBe(0);
+    await expect(item.locator('.now-item__review-date')).toContainText('预计复查：');
   }
+  await expect(now).toContainText('每周日复查一次');
+
+  await open(page, '/en/now/');
+  const english = page.locator('[data-now-page]');
+  await expect(english.locator('.now-item__review-date')).toHaveCount(count);
+  await expect(english.locator('.now-item__review-date').first()).toContainText('Next review:');
 });
 
 test('作品集使用作品自身摘要引导读者进入公开案例', async ({ page }) => {

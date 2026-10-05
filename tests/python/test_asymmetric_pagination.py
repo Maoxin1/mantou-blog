@@ -54,7 +54,7 @@ class AsymmetricPaginationTests(unittest.TestCase):
             build = subprocess.run(['hugo', '--source', str(ROOT), '--config', f'{ROOT / "hugo.toml"},{overlay}',
                                     '--destination', str(public),
                                     '--cacheDir', str(root / 'cache'), '--minify', '--panicOnWarning'],
-                                   capture_output=True, text=True, timeout=120)
+                                   capture_output=True, text=True, encoding='utf-8', timeout=120)
             self.assertEqual(0, build.returncode, build.stdout + build.stderr)
             page = public / f'categories/{category}/page/3/index.html'
             self.assertTrue(page.is_file())
@@ -74,6 +74,6 @@ class AsymmetricPaginationTests(unittest.TestCase):
                     if attrs['href'].endswith('/'):
                         target /= 'index.html'
                     self.assertTrue(target.is_file(), f'{output.relative_to(public)} -> {attrs["href"]}')
-            matching = Links((public / f'en/categories/{category}/page/2/index.html').read_text()).elements
+            matching = Links((public / f'en/categories/{category}/page/2/index.html').read_text(encoding='utf-8')).elements
             self.assertTrue(any(attrs.get('hreflang') == 'zh-cn' and attrs.get('href') ==
                                 f'https://mantou-blog.pages.dev/categories/{category}/page/2/' for _, attrs in matching))
