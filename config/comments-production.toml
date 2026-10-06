@@ -1,0 +1,4 @@
+# Explicit release overlay; default hugo.toml remains feedback-disabled.
+[params.feedback]
+serverURL = "https://mantou-comments.vercel.app"
+reactions = false

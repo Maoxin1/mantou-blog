@@ -55,3 +55,6 @@
   .about-hero__avatar { width: 72px; height: 72px; margin-left: 1.25rem; }
   .reader-feedback { padding-top: 1.4rem; }
 }
+.reader-feedback__options[data-feedback-reactions="false"] .wl-like {
+  display: none;
+}

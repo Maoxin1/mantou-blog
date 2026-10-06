@@ -1,5 +1,7 @@
 {{- $server := .Site.Params.feedback.serverURL | default "" -}}
 {{- if and $server (not (hasPrefix $server "https://")) -}}{{ errorf "Feedback serverURL must use HTTPS" }}{{- end -}}
+{{- $reactions := true -}}
+{{- if isset .Site.Params.feedback "reactions" -}}{{- $reactions = .Site.Params.feedback.reactions -}}{{- end -}}
 {{- $email := .Site.Params.social.Email -}}
 {{- $subject := printf "%s：%s" (T "feedbackMailSubject") .Title -}}
 {{- $body := printf "%s\n%s\n\n%s\n" .Title .Permalink (T "feedbackMailBody") -}}
@@ -13,8 +15,8 @@
     {{- $feedbackClient := resources.FromString "lib/waline/3.15.2/waline.js" (readFile "static/lib/waline/3.15.2/waline.js") | fingerprint "sha256" -}}
     {{- $feedbackPath := .RelPermalink -}}
     {{- range .AllTranslations -}}{{- if eq .Language.Lang "zh-cn" -}}{{- $feedbackPath = .RelPermalink -}}{{- end -}}{{- end -}}
-    <div class="reader-feedback__options" data-feedback-server="{{ $server }}" data-feedback-path="{{ $feedbackPath }}" data-feedback-lang="{{ .Language.Lang }}" data-feedback-client="{{ $feedbackClient.RelPermalink }}">
-      <button type="button" class="reader-feedback__load" data-feedback-load>{{ T "loadComments" }}</button>
+    <div class="reader-feedback__options" data-feedback-server="{{ $server }}" data-feedback-reactions="{{ $reactions }}" data-feedback-path="{{ $feedbackPath }}" data-feedback-lang="{{ .Language.Lang }}" data-feedback-client="{{ $feedbackClient.RelPermalink }}">
+      <button type="button" class="reader-feedback__load" data-feedback-load>{{ if $reactions }}{{ T "loadComments" }}{{ else }}{{ T "loadCommentsOnly" }}{{ end }}</button>
       <p class="reader-feedback__status" data-feedback-status role="status" aria-live="polite"></p>
       <p class="reader-feedback__privacy">{{ T "feedbackPrivacy" }}</p>
       <button type="button" class="reader-feedback__helpful" data-feedback-helpful aria-pressed="false" hidden>

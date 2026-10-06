@@ -503,6 +503,9 @@
   "feedbackMailHint": {
     "other": "Opens your email app with this article’s title and link included. Your note is sent privately to me."
   },
+  "loadCommentsOnly": {
+    "other": "Leave a comment"
+  },
   "loadComments": {
     "other": "React · Leave a comment"
   },
