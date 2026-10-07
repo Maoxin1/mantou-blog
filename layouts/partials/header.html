@@ -8,6 +8,7 @@
         <a class="menu-item{{ if $active }} active{{ end }}" href="{{ $url }}"{{ if in (slice "search" "follow") .Identifier }} data-nav-utility{{ end }}{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
       {{- end -}}
       <a class="garden-rss" href="{{ "index.xml" | relLangURL }}">RSS ↗</a>
+      {{ partial "pwa-install-button.html" (dict "Page" . "Placement" "header" "Short" true) }}
       {{ partial "language-switch.html" . }}
       <button type="button" class="menu-item theme-switch" title="{{ T "switchTheme" }}" aria-label="{{ T "switchTheme" }}"><i class="fas fa-adjust fa-fw" aria-hidden="true"></i></button>
     </div></nav>
@@ -18,6 +19,7 @@
     <div class="header-wrapper">
       <div class="header-title"><a href="{{ .Site.Home.RelPermalink }}" title="{{ .Site.Title }}" class="mantou-brand" aria-label="mantou"><img class="mantou-logo--ink" src="{{ "/images/identity/mantou-wordmark-ink.svg" | relURL }}" alt="mantou" width="2080" height="458"><img class="mantou-logo--paper" src="{{ "/images/identity/mantou-wordmark-paper.svg" | relURL }}" alt="" aria-hidden="true" width="2080" height="458"></a></div>
       <div class="mobile-controls">
+        {{ partial "pwa-install-button.html" (dict "Page" . "Placement" "mobile" "Short" true) }}
         {{ partial "language-switch.html" . }}
         <button type="button" class="menu-toggle" id="menu-toggle-mobile" aria-label="{{ T "openMenu" }}" data-open-label="{{ T "openMenu" }}" data-close-label="{{ T "closeMenu" }}" aria-controls="menu-mobile" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>

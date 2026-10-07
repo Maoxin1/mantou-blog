@@ -1,0 +1,27 @@
+{{- $english := eq .Site.Language.Lang "en" -}}
+<dialog id="pwa-install-dialog" class="pwa-install-dialog" aria-labelledby="pwa-install-title" aria-describedby="pwa-install-description" data-pwa-lang="{{ if $english }}en{{ else }}zh{{ end }}">
+  <h2 id="pwa-install-title">{{ if $english }}Add mantou to your home screen{{ else }}把博客添加到主屏幕 / 桌面{{ end }}</h2>
+  <p id="pwa-install-description">{{ if $english }}Open the blog in its own app window. Previously visited pages can be read offline; comments need an internet connection.{{ else }}以独立应用窗口打开博客；已浏览的页面可离线阅读，留言需要联网。{{ end }}</p>
+  <section data-pwa-guide="android" hidden>
+    <h3>Android · Chrome</h3>
+    <ol>{{ if $english }}<li>Use a regular Chrome tab, not Incognito.</li><li>Open the ⋮ menu and choose “Install app” or “Add to Home screen”.</li><li>Confirm installation in Chrome.</li>{{ else }}<li>使用 Chrome 普通标签页，不使用无痕模式。</li><li>点右上角 ⋮，选择“安装应用”或“添加到主屏幕”。</li><li>在 Chrome 的确认面板中完成安装。</li>{{ end }}</ol>
+  </section>
+  <section data-pwa-guide="ios" hidden>
+    <h3>iPhone / iPad · Safari</h3>
+    <ol>{{ if $english }}<li>Open the blog in Safari.</li><li>Choose Share, then “Add to Home Screen”.</li><li>If “Open as Web App” is shown, keep it enabled and tap Add.</li>{{ else }}<li>用 Safari 打开博客。</li><li>点“分享”，再选“添加到主屏幕”。</li><li>如显示“作为网页 App 打开”，保持开启，再点“添加”。</li>{{ end }}</ol>
+  </section>
+  <section data-pwa-guide="browser" hidden>
+    <h3>{{ if $english }}Chrome / Edge{{ else }}电脑 · Chrome / Edge{{ end }}</h3>
+    <p>{{ if $english }}Use the browser’s install icon or its menu to install this site as an app. If no install option is available, open it in a supported browser using a regular tab.{{ else }}使用地址栏的安装图标，或在浏览器菜单中将此网站安装为应用。若没有安装项，请用支持安装的浏览器普通标签页打开。{{ end }}</p>
+  </section>
+  <section data-pwa-guide="embedded" hidden>
+    <h3>{{ if $english }}Open in your browser first{{ else }}先在系统浏览器中打开{{ end }}</h3>
+    <p>{{ if $english }}This app’s built-in browser may not support installation. Use its menu to open the blog in Chrome on Android or Safari on iPhone.{{ else }}应用内浏览器可能不提供安装功能。请从当前应用菜单选择在浏览器中打开：安卓用 Chrome，iPhone 用 Safari。{{ end }}</p>
+    <label for="pwa-install-url">{{ if $english }}Blog address{{ else }}博客地址{{ end }}</label>
+    <input id="pwa-install-url" type="url" readonly value="{{ .Site.Home.Permalink }}">
+    <button type="button" data-pwa-copy>{{ if $english }}Copy link{{ else }}复制链接{{ end }}</button>
+  </section>
+  <p class="pwa-install-status" role="status" data-pwa-status></p>
+  <button type="button" class="pwa-install-close" data-pwa-close>{{ if $english }}Close{{ else }}关闭{{ end }}</button>
+</dialog>
+<noscript><p class="pwa-install-noscript">{{ if $english }}To add the blog to your home screen, use Chrome’s install menu on Android or Safari’s Share → Add to Home Screen on iPhone.{{ else }}添加博客到主屏幕：安卓使用 Chrome 菜单的安装项；iPhone 使用 Safari“分享 → 添加到主屏幕”。{{ end }}</p></noscript>

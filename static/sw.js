@@ -3,7 +3,7 @@
  * 策略：页面导航走“网络优先 + 离线回退”，静态资源走“缓存优先 + 后台更新”。
  * 改动缓存逻辑时，请把 VERSION 加一，旧缓存会被自动清理。
  */
-const VERSION = 'v5';
+const VERSION = 'v6';
 const CACHE_PREFIX = 'mantou-blog-';
 const CACHE = CACHE_PREFIX + VERSION;
 const NAVIGATION_TIMEOUT_MS = 4000;
@@ -79,16 +79,28 @@ async function fetchNavigation(request) {
 
 async function navigationFallback(request, url) {
   const cached = await cachedResponse(request);
-  if (cached) return cached;
+  if (cached) return navigationResponse(cached);
   const english = url.pathname === '/en' || url.pathname.startsWith('/en/');
   const offline = await cachedResponse(english ? '/en/offline.html' : '/offline.html');
-  if (offline) return offline;
+  if (offline) return navigationResponse(offline);
   // 即使浏览器清空了离线页，respondWith 也始终得到可显示的本地化响应。
   return new Response(english
     ? '<!doctype html><html lang="en"><meta charset="utf-8"><title>Offline</title><h1>You are offline</h1><p>Please try again when you are back online.</p></html>'
     : '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>离线</title><h1>🥯 当前处于离线状态</h1><p>请在恢复网络后重试。</p></html>', {
     status: 503,
     headers: { 'Content-Type': 'text/html; charset=utf-8' },
+  });
+}
+
+// Pages redirects /offline.html to /offline. A followed redirect remains
+// marked on the cached Response, which cannot satisfy a manual-redirect
+// navigation. Replay its successful body without propagating that flag.
+function navigationResponse(response) {
+  if (!response.redirected) return response;
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers,
   });
 }
 

@@ -1,0 +1,2 @@
+{{- $english := eq .Page.Site.Language.Lang "en" -}}
+<button type="button" class="pwa-install-trigger" data-pwa-install data-pwa-placement="{{ .Placement }}" aria-haspopup="dialog" aria-controls="pwa-install-dialog" hidden>{{ if .Short }}{{ if $english }}Install{{ else }}安装{{ end }}{{ else }}{{ if $english }}Install app{{ else }}安装到桌面{{ end }}{{ end }}</button>
