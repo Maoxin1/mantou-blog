@@ -41,6 +41,7 @@ test('Android Chrome has a visible mobile install entry and menu fallback', asyn
   const dialog = page.getByRole('dialog');
   await expect(dialog).toBeVisible();
   await expect(dialog.locator('[data-pwa-guide="android"]')).toBeVisible();
+  await expect(dialog).toContainText('安装并创建快捷方式');
   await expect(dialog).toContainText('安装应用');
   await expect(dialog).toContainText('添加到主屏幕');
   await page.keyboard.press('Escape');
