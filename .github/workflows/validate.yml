@@ -90,6 +90,14 @@ jobs:
       - name: Build production site
         run: hugo --minify --panicOnWarning --cleanDestinationDir
 
+      - name: Validate the comments production registry build
+        env:
+          DISCUSSION_SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          hugo --config hugo.toml,config/comments-production.toml --destination discussion-check --minify --panicOnWarning --cleanDestinationDir
+          python scripts/discussion_manifest.py generate --site discussion-check --source-commit "$DISCUSSION_SOURCE_COMMIT"
+          python scripts/discussion_manifest.py check --site discussion-check --source-commit "$DISCUSSION_SOURCE_COMMIT"
+
       - name: Build Pagefind search index
         run: npx --yes pagefind@1.5.2 --site public
 

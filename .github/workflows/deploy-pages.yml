@@ -110,6 +110,14 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: hugo --config hugo.toml --minify --panicOnWarning --cleanDestinationDir
 
+      - name: Generate and verify the published discussion registry
+        if: github.event_name == 'workflow_run'
+        env:
+          DISCUSSION_SOURCE_COMMIT: ${{ steps.source.outputs.commit_sha }}
+        run: |
+          python scripts/discussion_manifest.py generate --site public --source-commit "$DISCUSSION_SOURCE_COMMIT"
+          python scripts/discussion_manifest.py check --site public --source-commit "$DISCUSSION_SOURCE_COMMIT"
+
       - name: Build Pagefind search index
         run: npx --yes pagefind@1.5.2 --site public
 

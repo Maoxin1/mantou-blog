@@ -13,3 +13,6 @@
 
 /version.json
   Cache-Control: no-store
+
+/feedback/threads.json
+  Cache-Control: no-store
