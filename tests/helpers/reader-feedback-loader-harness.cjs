@@ -54,7 +54,7 @@ function deferred() {
 // only Vue init is a spy. HTTP status and JSON parsing use Response semantics.
 // DOM layout, browser module caching, CORS/TLS and real service persistence are
 // intentionally not simulated. No source rewriting or network access occurs.
-async function createLoaderHarness({ english = false, configured = true } = {}) {
+async function createLoaderHarness({ english = false, configured = true, reactions = true } = {}) {
   assert.equal(typeof vm.SourceTextModule, 'function', 'Run with --experimental-vm-modules');
   const trigger = element({ textContent: english ? 'Open comments' : '打开评论' });
   const status = element();
@@ -70,7 +70,7 @@ async function createLoaderHarness({ english = false, configured = true } = {}) 
     ['[data-feedback-count]', count], ['textarea', editor],
   ]);
   const options = element({
-    dataset: { feedbackServer: 'https://comments.example.invalid', feedbackPath: '/p/fixture/', feedbackLang: english ? 'en' : 'zh-cn', feedbackClient: clientURL },
+    dataset: { feedbackReactions: String(reactions), feedbackServer: 'https://comments.example.invalid', feedbackPath: '/p/fixture/', feedbackLang: english ? 'en' : 'zh-cn', feedbackClient: clientURL },
     querySelector: selector => elements.get(selector) ?? null,
   });
   const state = {

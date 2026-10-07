@@ -503,6 +503,9 @@
   "feedbackMailHint": {
     "other": "会打开你的邮件应用，文章标题和链接已经带上；内容只发给我。"
   },
+  "loadCommentsOnly": {
+    "other": "留下评论"
+  },
   "loadComments": {
     "other": "点赞 · 留下评论"
   },

@@ -7,6 +7,7 @@ if (options) {
   const helpful = options.querySelector('[data-feedback-helpful]');
   const helpfulLabel = options.querySelector('[data-feedback-helpful-label]');
   const count = options.querySelector('[data-feedback-count]');
+  const reactions = options.dataset.feedbackReactions !== 'false';
   const english = options.dataset.feedbackLang === 'en';
   const copy = english ? {
     loading: 'Opening the conversation…',
@@ -50,7 +51,7 @@ if (options) {
   };
   const preferenceKey = `mantou-helpful:${connection.path}`;
   let voted = false;
-  try { voted = localStorage.getItem(preferenceKey) === '1'; } catch { /* Storage can be disabled. */ }
+  try { if (reactions) voted = localStorage.getItem(preferenceKey) === '1'; } catch { /* Storage can be disabled. */ }
   const showPreference = () => {
     helpful.setAttribute('aria-pressed', String(voted));
     helpfulLabel.textContent = voted ? copy.helped : copy.helpful;
@@ -104,7 +105,7 @@ if (options) {
       const counterOptions = { ...connection, paths: [connection.path], type: ['reaction0'] };
       const [comments, counters] = await Promise.all([
         getComment({ ...connection, page: 1, pageSize: 1, sortBy: 'latest', signal: abort.signal }),
-        getArticleCounter({ ...counterOptions, signal: abort.signal }),
+        reactions ? getArticleCounter({ ...counterOptions, signal: abort.signal }) : undefined,
       ]);
       // Validate the required pagination fields from Waline 3.15.2 before mounting.
       if (!comments || !Array.isArray(comments.data) ||
@@ -114,7 +115,7 @@ if (options) {
           !Number.isInteger(comments.totalPages) || comments.totalPages < 0) {
         throw new Error('Unexpected comment response');
       }
-      showCount(counters);
+      if (reactions) showCount(counters);
       instance = init({
         ...connection,
         el: '#reader-comments',
@@ -135,6 +136,7 @@ if (options) {
         comment: false,
         noRss: true,
       });
+      if (reactions) {
       showPreference();
       helpful.hidden = false;
       helpful.addEventListener('click', async () => {
@@ -157,6 +159,7 @@ if (options) {
           helpful.disabled = false;
         }
       });
+      }
       trigger.hidden = true;
       status.textContent = '';
       options.querySelector('textarea')?.focus();

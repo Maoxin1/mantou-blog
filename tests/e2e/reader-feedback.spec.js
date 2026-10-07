@@ -5,10 +5,17 @@ const { tmpdir } = require('node:os');
 const { join } = require('node:path');
 
 test.use({ serviceWorkers: 'block' });
+// Tests use synthetic endpoints and must never write to the real service.
+test.beforeEach(async ({ page }) => {
+  await page.route('https://mantou-comments.vercel.app/**', route => route.abort());
+});
 let enabledSite;
+let disabledSite;
 const articlePath = '/p/20260803/';
 
 test.beforeAll(() => {
+  disabledSite = mkdtempSync(join(tmpdir(), 'mantou-feedback-disabled-'));
+  execFileSync(process.env.HUGO_BIN || 'hugo', ['--config', 'hugo.toml', '--destination', disabledSite, '--minify', '--panicOnWarning'], { stdio: 'pipe' });
   enabledSite = mkdtempSync(join(tmpdir(), 'mantou-feedback-'));
   execFileSync(process.env.HUGO_BIN || 'hugo', [
     '--config', 'hugo.toml,tests/fixtures/feedback.toml',
@@ -17,6 +24,7 @@ test.beforeAll(() => {
 });
 
 test.afterAll(() => {
+  if (disabledSite) rmSync(disabledSite, { recursive: true, force: true });
   if (enabledSite) rmSync(enabledSite, { recursive: true, force: true });
 });
 
@@ -87,6 +95,12 @@ for (const width of [1366, 390]) {
 }
 
 test('未配置服务时提供真实邮件反馈，不展示点赞或评论计数', async ({ page }) => {
+  // Characterize the explicit disabled configuration even when the server
+  // hosts a production-enabled build.
+  await page.route(/\/(?:en\/)?(?:p\/20260803|works\/mantou-checklist-pwa)\/$/, route => {
+    const pathname = new URL(route.request().url()).pathname;
+    return route.fulfill({ contentType: 'text/html', body: readFileSync(join(disabledSite, pathname, 'index.html')) });
+  });
   const network = [];
   page.on('request', request => network.push(request.url()));
   for (const path of [articlePath, `/en${articlePath}`, '/works/mantou-checklist-pwa/']) {
