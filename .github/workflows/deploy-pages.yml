@@ -103,7 +103,12 @@ jobs:
           python -m unittest discover -s tests/python -p "test_*.py"
 
       - name: Build production site
+        if: github.event_name == 'workflow_run'
         run: hugo --config hugo.toml,config/comments-production.toml --minify --panicOnWarning --cleanDestinationDir
+
+      - name: Build manual preview
+        if: github.event_name == 'workflow_dispatch'
+        run: hugo --config hugo.toml --minify --panicOnWarning --cleanDestinationDir
 
       - name: Build Pagefind search index
         run: npx --yes pagefind@1.5.2 --site public
