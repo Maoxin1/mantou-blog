@@ -29,6 +29,8 @@
   font: inherit;
   text-align: start;
 }
+.pwa-install-dialog:not([open]) { display: none; }
+.pwa-install-dialog[open] { display: block; }
 .pwa-install-dialog::backdrop { background: rgba(0, 0, 0, .45); }
 .pwa-install-dialog h2 { font-size: 1.25rem; margin-top: 0; }
 .pwa-install-dialog h3 { font-size: 1rem; }

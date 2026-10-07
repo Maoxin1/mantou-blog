@@ -100,6 +100,30 @@ test('standalone apps do not display redundant install controls', async ({ page 
   await expect(page.locator('[data-pwa-install]:visible')).toHaveCount(0);
 });
 
+test('unsupported dialog elements stay closed and can open and close the fallback', async ({ page }) => {
+  // An unknown element has neither native dialog methods nor UA closed styling.
+  // Removing showModal alone would retain that styling and mask the regression.
+  await page.route('**/', async route => {
+    if (route.request().resourceType() !== 'document'
+        || new URL(route.request().url()).pathname !== '/') return route.fallback();
+    const response = await route.fetch();
+    const body = (await response.text()).replace(/<dialog\b/, '<pwa-dialog')
+      .replace(/<\/dialog>/, '</pwa-dialog>');
+    await route.fulfill({ response, body });
+  });
+  await page.goto('/');
+  const button = page.locator('[data-pwa-placement="footer"]');
+  const dialog = page.locator('#pwa-install-dialog');
+  await expect(button).toBeVisible();
+  expect(await dialog.evaluate(element => typeof element.showModal)).toBe('undefined');
+  await expect(dialog).not.toBeVisible();
+  await button.click();
+  await expect(dialog).toBeVisible();
+  await dialog.locator('[data-pwa-close]').click();
+  await expect(dialog).not.toBeVisible();
+  await expect(button).toBeFocused();
+});
+
 test('actual HTTP redirects in cached offline pages still produce bilingual fallback', async ({ page, context }) => {
   const site = path.resolve('public');
   const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml', '.png': 'image/png' };
