@@ -164,6 +164,49 @@ class ServiceWorkerReliabilityTests(unittest.TestCase):
           assert.equal(state.writes.length, 0);
         """)
 
+    def test_redirected_offline_pages_are_replayed_as_navigation_responses(self) -> None:
+        self.run_worker(r"""
+          function redirected(response) {
+            Object.defineProperty(response, 'redirected', { value: true });
+            const clone = response.clone.bind(response);
+            response.clone = () => redirected(clone());
+            return response;
+          }
+          if (!stores.has(current)) stores.set(current, new Map());
+          for (const [path, body] of [['/offline.html', 'Chinese offline'], ['/en/offline.html', 'English offline']]) {
+            stores.get(current).set(key(path), redirected(new Response(body, { headers: { 'Content-Type': 'text/html' } })));
+          }
+          state.fetch = async () => { throw new TypeError('Offline'); };
+          for (const [path, body] of [['/unknown/', 'Chinese offline'], ['/en/unknown/', 'English offline']]) {
+            const event = dispatch(path);
+            const response = await event.response;
+            assert.equal(response.redirected, false, 'Manual navigation cannot receive a followed redirect');
+            assert.equal(response.status, 200);
+            assert.equal(response.headers.get('Content-Type'), 'text/html');
+            assert.equal(await response.text(), body);
+            await settle(event);
+          }
+        """)
+
+    def test_redirected_cached_article_is_replayed_without_losing_body(self) -> None:
+        self.run_worker(r"""
+          function redirected(response) {
+            Object.defineProperty(response, 'redirected', { value: true });
+            const clone = response.clone.bind(response);
+            response.clone = () => redirected(clone());
+            return response;
+          }
+          if (!stores.has(current)) stores.set(current, new Map());
+          stores.get(current).set(key('/article/'), redirected(new Response('article body', { headers: { 'Content-Language': 'en' } })));
+          state.fetch = async () => { throw new TypeError('Offline'); };
+          const event = dispatch('/article/');
+          const response = await event.response;
+          assert.equal(response.redirected, false);
+          assert.equal(response.headers.get('Content-Language'), 'en');
+          assert.equal(await response.text(), 'article body');
+          await settle(event);
+        """)
+
     def test_hanging_navigation_times_out_and_aborts(self) -> None:
         self.run_worker(r"""
           await seed('/article/', 'cached article');

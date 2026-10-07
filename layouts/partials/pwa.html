@@ -1,5 +1,13 @@
 {{- /* 注册 Service Worker（仅生产环境，避免本地 hugo server 调试时被缓存干扰） */ -}}
 {{- if hugo.IsProduction -}}
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="mantou">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+{{- $installCSS := resources.Get "css/pwa-install.css" | minify | fingerprint "sha256" -}}
+{{- $installJS := resources.Get "js/pwa-install.js" | minify | fingerprint "sha256" -}}
+<link rel="stylesheet" href="{{ $installCSS.RelPermalink }}" integrity="{{ $installCSS.Data.Integrity }}">
+<script defer src="{{ $installJS.RelPermalink }}" integrity="{{ $installJS.Data.Integrity }}"></script>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
