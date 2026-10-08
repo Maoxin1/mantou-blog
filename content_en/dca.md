@@ -8,7 +8,7 @@ hiddenFromHomePage: true
 comment: false
 ---
 
-The interactive notebook is currently available in Chinese. It includes monthly BTC/USDT historical backtests, a separate hypothetical compound-return simulator, and market quotes with visible timestamps and update status.
+The interactive notebook is currently available in Chinese. It includes monthly and Monday-based weekly BTC/USDT historical backtests, a separate hypothetical compound-return simulator, and the full available price history from the same source, and market quotes with visible timestamps and update status.
 
 <a href="/dca/">Open the interactive notebook (中文)</a>
 
