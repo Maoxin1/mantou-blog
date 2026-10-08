@@ -1,13 +1,16 @@
 import { simulateCompound } from './dca-compound.mjs';
 import { parseQuote, parseHistory, marketJSON, QUOTE_MAX_AGE } from './dca-market.mjs';
+import { parsePriceHistory, priceHistoryJSON } from './btc-prices.mjs';
 (()=>{
 const root=document.getElementById('mantou-dca-c');
 const q=id=>root.querySelector('#'+id);
 const data=JSON.parse(q('c-verified-data').textContent);
+const prices=JSON.parse(q('c-price-data').textContent);
 const number=v=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).format(v);
+const priceNumber=v=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:v<1?6:2}).format(v);
 const money=v=>'$'+number(v);
 const ns='http://www.w3.org/2000/svg';
-let marketLength=0, frequency='weekly', compoundFrequency='weekly', historyState='checking';
+let marketLength=0, frequency='weekly', compoundFrequency='weekly', historyState='checking', priceState='checking';
 const ranges={};
 const periods=()=>data[frequency].filter(r=>!r.partial);
 const date=t=>new Date(t).toISOString().slice(0,10);
@@ -16,15 +19,17 @@ let quoteState='snapshot', busy=false, pollTimer;
 const firstPeriod=()=>periods()[0].period;
 const lastPeriod=()=>periods().at(-1).period;
 const colors=()=>{const s=getComputedStyle(root);return {ink:s.getPropertyValue('--ink').trim(),muted:s.getPropertyValue('--muted').trim(),line:s.getPropertyValue('--line').trim(),orange:s.getPropertyValue('--orange').trim()};};
-function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],times=null){
+function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],times=null,logarithmic=false){
  const measured=svg.getBoundingClientRect().width;if(!measured)return;
  const width=Math.max(200,measured),height=width<450?230:250,L=51,R=12,T=26,B=35,c=colors();
  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.replaceChildren();
  const values=a?[...a,...b]:b;const max=Math.max(1,...values)*1.08;
- const x=i=>L+(width-L-R)*(times?(times[i]-times[0])/Math.max(1,times.at(-1)-times[0]):i/Math.max(1,b.length-1)),y=v=>height-B-(height-T-B)*v/max;
+ const low=logarithmic?Math.floor(Math.log10(Math.min(...values))):0,high=logarithmic?Math.ceil(Math.log10(Math.max(...values))):max;
+ const x=i=>L+(width-L-R)*(times?(times[i]-times[0])/Math.max(1,times.at(-1)-times[0]):i/Math.max(1,b.length-1)),y=v=>height-B-(height-T-B)*(logarithmic?(Math.log10(v)-low)/Math.max(1,high-low):v/max);
  const add=(tag,attrs,text)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(text!=null)e.textContent=text;svg.appendChild(e);return e;};
- const fmt=v=>v>=1e6?(v/1e6).toFixed(1)+'m':v>=1e3?(v/1e3).toFixed(v<1e4?1:0)+'k':Math.round(v);
- for(let i=0;i<=3;i++){const value=max*i/3,cy=y(value);add('line',{x1:L,y1:cy,x2:width-R,y2:cy,stroke:c.line,'stroke-width':.7});add('text',{x:L-7,y:cy+4,'text-anchor':'end',fill:c.muted,'font-size':11},fmt(value));}
+ const fmt=v=>v>=1e6?(v/1e6).toFixed(1)+'m':v>=1e3?(v/1e3).toFixed(v<1e4?1:0)+'k':v<1?String(v):Math.round(v);
+ const levels=[];if(logarithmic){const step=Math.max(1,Math.ceil((high-low)/4));for(let exponent=low;exponent<=high;exponent+=step)levels.push(10**exponent);if(levels.at(-1)!==10**high)levels.push(10**high);}else for(let i=0;i<=3;i++)levels.push(max*i/3);
+ for(const value of levels){const cy=y(value);add('line',{x1:L,y1:cy,x2:width-R,y2:cy,stroke:c.line,'stroke-width':.7});add('text',{x:L-7,y:cy+4,'text-anchor':'end',fill:c.muted,'font-size':11},fmt(value));}
  add('text',{x:L,y:13,fill:c.muted,'font-size':11},unit);
  const line=arr=>arr.map((v,i)=>(i?'L':'M')+x(i).toFixed(2)+','+y(v).toFixed(2)).join(' ');
  add('path',{d:line(b)+` L${x(b.length-1)},${height-B} L${L},${height-B}Z`,fill:c.orange,'fill-opacity':.065});
@@ -38,7 +43,7 @@ function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],t
  const guide=add('line',{x1:L,y1:T,x2:L,y2:height-B,stroke:c.orange,'stroke-width':1,visibility:'hidden'});
  const dot=add('circle',{cx:L,cy:y(b[0]),r:3,fill:c.orange,visibility:'hidden'});
  const hit=add('rect',{x:L,y:T,width:width-L-R,height:height-T-B,fill:'transparent','aria-hidden':'true'});
- let selected=b.length-1;const show=i=>{selected=i;detail.hidden=false;guide.setAttribute('x1',x(i));guide.setAttribute('x2',x(i));guide.setAttribute('visibility','visible');dot.setAttribute('cx',x(i));dot.setAttribute('cy',y(b[i]));dot.setAttribute('visibility','visible');detail.textContent=labels[i]+' · '+(a?names[0]+' '+number(a[i])+' / ':'')+names[1]+' '+number(b[i])+' '+unit;};
+ let selected=b.length-1;const show=i=>{selected=i;detail.hidden=false;guide.setAttribute('x1',x(i));guide.setAttribute('x2',x(i));guide.setAttribute('visibility','visible');dot.setAttribute('cx',x(i));dot.setAttribute('cy',y(b[i]));dot.setAttribute('visibility','visible');detail.textContent=labels[i]+' · '+(a?names[0]+' '+number(a[i])+' / ':'')+names[1]+' '+(logarithmic?priceNumber(b[i]):number(b[i]))+' '+unit;};
  const inspect=e=>{const box=svg.getBoundingClientRect();const px=(e.clientX-box.left)*width/box.width;let i=0;for(let j=1;j<b.length;j++)if(Math.abs(x(j)-px)<Math.abs(x(i)-px))i=j;show(i);};
  hit.addEventListener('pointermove',inspect);hit.addEventListener('click',inspect);svg.setAttribute('tabindex','0');svg.onkeydown=e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();show(e.key==='Home'?0:e.key==='End'?b.length-1:Math.max(0,Math.min(b.length-1,selected+(e.key==='ArrowRight'?1:-1))));}};svg.onfocus=()=>show(selected);
 }
@@ -85,14 +90,16 @@ function market(){
  const quote=data.quote;
  q('c-quote').textContent=number(Number(quote.lastPrice))+' USDT';q('c-quote-change').textContent='24h 变动 '+Number(quote.priceChangePercent).toFixed(2)+'%';
  q('c-quote-time').textContent='报价时间：'+new Intl.DateTimeFormat('zh-CN',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date(quote.closeTime))+' 北京时间';
- const all=[data.marketStart,...data.weekly.map(r=>({date:date(r.end),time:r.end,price:r.close}))];
+ const all=prices.daily.map(([date,price])=>({date,time:Date.parse(date+'T00:00:00Z'),price}));
  const cutoff=new Date(all.at(-1).time);cutoff.setUTCFullYear(cutoff.getUTCFullYear()-marketLength);
  const rows=marketLength?all.filter(r=>r.time>=cutoff.getTime()):all;
- chart(q('c-market-chart'),null,rows.map(r=>r.price),rows.map(r=>r.date),'USDT/BTC',['','价格'],rows.map(r=>r.time));
+ chart(q('c-market-chart'),null,rows.map(r=>r.price),rows.map(r=>r.date),'USD/BTC',['','价格'],rows.map(r=>r.time),true);
  root.querySelectorAll('[data-market]').forEach(el=>el.setAttribute('aria-pressed',String(+el.dataset.market===marketLength)));
  q('c-market-range').textContent=`${marketLength?'近 '+marketLength+' 年':'最大范围'}：${rows[0].date} — ${rows.at(-1).date}`;
+ priceStatus();
  updateQuoteStatus();
 }
+function priceStatus(){q('c-price-status').hidden=priceState==='fresh';q('c-price-status').textContent=priceState==='failed'?`价格历史更新未成功，显示截至 ${prices.daily.at(-1)[0]} 的数据。可刷新重试。`:'正在核对价格历史…';}
 function historyStatus(){
  const name=frequency==='weekly'?'周线':'月线',end=date(periods().at(-1).end);
  q('c-history-status').hidden=historyState==='fresh';
@@ -112,9 +119,10 @@ function populate(){
 }
 function updateQuoteStatus(){const el=q('c-quote-status');const age=Date.now()-Number(data.quote.closeTime);let state=quoteState;if(!navigator.onLine)state='offline';else if(state==='live'&&age>QUOTE_MAX_AGE)state='stale';el.dataset.state=state;el.textContent=({live:'行情已更新 · 每 60 秒刷新',snapshot:'随站点发布的快照 · 待更新',failed:'更新失败 · 显示旧报价',stale:'报价已过期 · 等待更新',offline:'离线 · 显示旧报价'})[state];}
 async function request(path){const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),8000);try{return await marketJSON(path,{signal:controller.signal});}finally{clearTimeout(timer);}}
+async function requestPrices(){const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),8000);try{return await priceHistoryJSON({signal:controller.signal});}finally{clearTimeout(timer);}}
 async function refresh(includeHistory=false){
  if(busy||document.hidden)return;
- if(!navigator.onLine){quoteState='offline';updateQuoteStatus();return;}
+ if(!navigator.onLine){quoteState='offline';updateQuoteStatus();if(includeHistory){priceState='failed';priceStatus();}return;}
  busy=true;q('c-refresh').disabled=true;q('c-refresh').textContent='更新中…';
  const quoteTask=(async()=>{try{const raw=await request('ticker/24hr?symbol=BTCUSDT');const parsed=parseQuote(raw);if(parsed.time<Number(data.quote.closeTime))throw new Error('Older quote');data.quote=raw;quoteState=parsed.fresh?'live':'stale';}catch{quoteState='failed';}market();})();
  const historyTask=includeHistory?(async()=>{
@@ -127,7 +135,8 @@ async function refresh(includeHistory=false){
    historyState='fresh';populate();history();market();
   }catch{historyState='failed';historyStatus();}
  })():Promise.resolve();
- try{await Promise.all([quoteTask,historyTask]);}finally{busy=false;q('c-refresh').disabled=false;q('c-refresh').textContent='刷新行情';}
+ const priceTask=includeHistory?(async()=>{try{const updated=parsePriceHistory(await requestPrices());if(updated.length<prices.daily.length)throw new Error('Short price history');prices.daily=updated;priceState='fresh';market();}catch{priceState='failed';priceStatus();}})():Promise.resolve();
+ try{await Promise.all([quoteTask,historyTask,priceTask]);}finally{busy=false;q('c-refresh').disabled=false;q('c-refresh').textContent='刷新行情';}
 }
 populate();
 root.querySelectorAll('[data-frequency]').forEach(el=>el.addEventListener('click',()=>{remember();frequency=el.dataset.frequency;populate();history();}));
