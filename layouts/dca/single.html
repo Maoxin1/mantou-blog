@@ -3,7 +3,7 @@
 {{ $css := resources.Get "css/dca.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 <article class="page" id="mantou-dca-c" data-pagefind-body>
-  <noscript>此页面需要 JavaScript 才能运行计算。定投回测来源于 Binance BTC/USDT，价格历史来源于 Coin Metrics BTC/USD，复利部分仅为假设情景。</noscript>
+  <noscript>此页面需要 JavaScript 才能运行计算。定投回测与价格历史同源于 Coin Metrics BTC/USD，复利部分仅为假设情景。</noscript>
   <div class="hero">
     <div class="hero-copy"><h1>把一点点，<br>交给时间。</h1></div>
     <img class="hero-picture" src="/images/identity/comic-book-v3-450.webp" alt="圆头小人翻书，记录一点点的积累" width="450" height="300">
@@ -39,11 +39,11 @@
     </details>
   </section>
   <section id="c-panel-history" role="tabpanel" aria-labelledby="c-tab-history">
-    <h2 class="sr-only">历史里的定投</h2><p class="panel-context">BTC/USDT 历史回测 · 定投不保证盈利</p>
+    <h2 class="sr-only">历史里的定投</h2><p class="panel-context">BTC/USD 参考价回测 · 定投不保证盈利</p>
     <fieldset disabled>
       <legend class="sr-only">定投频率与每次投入</legend>
       <div class="frequency" aria-label="定投频率"><button type="button" data-frequency="monthly" aria-pressed="false">每月</button><button type="button" data-frequency="weekly" aria-pressed="true">每周</button></div>
-      <div class="amount-control"><label for="c-monthly">每次投入（含买入费用）</label><div class="amount-row"><input id="c-monthly" type="number" min="1" max="100000" value="100" step="any"><span>USDT / 次</span></div><p class="input-hint" id="c-schedule">每周一 08:00 买入（北京时间）</p></div>
+      <div class="amount-control"><label for="c-monthly">每次投入（含买入费用）</label><div class="amount-row"><input id="c-monthly" type="number" min="1" max="100000" value="100" step="any"><span>USD / 次</span></div><p class="input-hint" id="c-schedule">每周一 08:00 买入（北京时间）</p></div>
       <p class="budget-note">切换频率会改变总投入。</p>
       <details id="c-options"><summary>日期与费率</summary>
         <div class="controls">
@@ -55,19 +55,20 @@
     </fieldset>
     <div id="c-h-error" class="error" role="alert"></div>
     <div class="history-results" aria-live="polite">
-      <div class="result-main"><span class="result-label">期末持仓价值 · USDT</span><strong id="c-h-value">—</strong><p class="result-caption" id="c-h-period"></p></div>
+      <div class="result-main"><span class="result-label">期末持仓价值 · USD</span><strong id="c-h-value">—</strong><p class="result-caption" id="c-h-period"></p></div>
       <div class="result-pair"><div><small>累计投入</small><strong id="c-h-invest">—</strong></div><div><small>浮动盈亏</small><strong id="c-h-profit">—</strong></div></div>
     </div>
     <div class="scenario history-scenarios"><button type="button" data-period="all" aria-pressed="true">完整历史</button><button type="button" data-period="down" aria-pressed="false" aria-label="查看下跌阶段：2021年11月至2022年12月">经历下跌</button></div>
     <div class="legend"><span class="key">累计投入</span><span class="key growth">持仓价值</span></div>
-    <svg id="c-history-chart" class="chart" role="img" aria-label="定投累计投入与期末持仓价值，单位 USDT"></svg>
+    <svg id="c-history-chart" class="chart" role="img" aria-label="定投累计投入与期末持仓价值，单位 USD"></svg>
     <p id="c-h-note" class="note"></p>
-    <details><summary>投入明细</summary><p id="c-h-detail"></p><div class="trade-scroll"><table><thead><tr><th id="c-trade-date">买入日期</th><th>买入价<br>USDT/BTC</th><th>新增 BTC</th><th>累计投入<br>USDT</th><th>期末价值<br>USDT</th></tr></thead><tbody id="c-trades"></tbody></table></div></details>
+    <details><summary>投入明细</summary><p id="c-h-detail"></p><div class="trade-scroll"><table><thead><tr><th id="c-trade-date">买入日期</th><th>买入参考价<br>USD/BTC</th><th>新增 BTC</th><th>累计投入<br>USD</th><th>期末价值<br>USD</th></tr></thead><tbody id="c-trades"></tbody></table></div></details>
     <details><summary>数据与计算说明</summary>
       <p id="c-history-range"></p><p id="c-history-method-range"></p>
-      <p>来源：<a href="https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints" target="_blank" rel="noopener noreferrer">Binance Spot API · BTCUSDT K线</a>，时区 UTC。每周按周一 00:00 UTC（北京时间周一 08:00）的开盘价买入，周末收盘估值；每月按月初 00:00 UTC（北京时间当日 08:00）买入，月末收盘估值。仅使用已结束的完整周／月；上线首个不完整周期不参与定投。</p>
+      <p>来源：<a href="https://coinmetrics.io/community-network-data/" target="_blank" rel="noopener noreferrer">Coin Metrics Community · BTC PriceUSD</a>，与价格图共用 2010-07-18 起的美元日参考价格。每周一 00:00 UTC（北京时间周一 08:00）或每月 1 日 00:00 UTC，按当时已知的前一日收盘参考价模拟买入；以周日／月末收盘参考价估值。日价格在次日 00:00 UTC 确定，仅计有完整买入及估值价格的已结束周期：周定投最早 2010-07-19，月定投最早 2010-08-01。</p>
+      <p>这是参考价格模拟，早期参考价不代表当时能成交的价格，未模拟早期交易可得性及流动性。数据按 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 使用，本页选取日价格并模拟定投。</p>
       <p>频率切换保留“每次投入”金额，不代表保持每月预算；同一金额每周买入会增加总投入。起止日期按所选周期单独保留。</p>
-      <p>先从每次投入中扣除所填买入费率，再计算新增 BTC。费率仅为假设；未扣期末卖出费、税费及滑点。USDT 不等同于美元法币，未模拟兑换成本。亏损统计仅观察每个周末／月末，无法反映周期内全部波动。</p>
+      <p>先从每次投入中扣除所填买入费率，再计算新增 BTC。费率仅为假设；未扣期末卖出费、税费及滑点。亏损统计仅观察每个周末／月末，无法反映周期内全部波动。</p>
     </details>
     <p id="c-history-status" class="data-status" role="status">已加载历史快照，正在检查更新。</p>
   </section>
@@ -88,7 +89,7 @@
     </div></div>
     <button type="button" id="c-refresh">刷新行情</button>
     <p class="panel-context">仅供参考，非可成交报价。</p>
-    <details><summary>数据与更新说明</summary><p>历史曲线：<a href="https://coinmetrics.io/community-network-data/" target="_blank" rel="noopener noreferrer">Coin Metrics Community</a> · BTC PriceUSD，美元日价格参考值。日期表示该 UTC 日的收盘，实际收盘时点为次日 00:00 UTC；对数刻度中，相同距离表示相同倍数变化。与上方 Binance BTC/USDT 报价及历史定投回测分别展示，USD 与 USDT 不视为同一单位。</p><p>数据按 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 使用；本页选取 BTC PriceUSD 并绘图。初始价格快照读取于 {{ .Site.Data.btcprices.readAt | time.Format "2006-01-02" }}，数据截止日期见图下。</p><p>页面可见时每 60 秒尝试更新报价；打开页面及手动刷新时核对完整价格历史。失败时保留已有数据并注明时间，可手动重试。</p></details>
+    <details><summary>数据与更新说明</summary><p>历史曲线：<a href="https://coinmetrics.io/community-network-data/" target="_blank" rel="noopener noreferrer">Coin Metrics Community</a> · BTC PriceUSD，美元日价格参考值。日期表示该 UTC 日的收盘，实际收盘时点为次日 00:00 UTC；对数刻度中，相同距离表示相同倍数变化。历史定投共用此日参考价格；上方 Binance BTC/USDT 报价独立显示，USD 与 USDT 不视为同一单位。</p><p>数据按 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 使用；本页选取 BTC PriceUSD 并绘图。初始价格快照读取于 {{ .Site.Data.btcprices.readAt | time.Format "2006-01-02" }}，数据截止日期见图下。</p><p>页面可见时每 60 秒尝试更新报价；打开页面及手动刷新时核对完整价格历史。失败时保留已有数据并注明时间，可手动重试。</p></details>
   </section>
   <dialog id="c-price-dialog" aria-labelledby="c-price-title">
     <div id="c-price-viewport" class="price-viewport">
@@ -98,7 +99,7 @@
     </div>
     </div>
   </dialog>
-  <script type="application/json" id="c-verified-data">{{ .Site.Data.dca | jsonify | safeJS }}</script>
+  <script type="application/json" id="c-verified-data">{{ dict "quote" .Site.Data.dca.quote | jsonify | safeJS }}</script>
   <script type="application/json" id="c-price-data">{{ .Site.Data.btcprices | jsonify | safeJS }}</script>
 </article>
 {{ $js := resources.Get "js/dca.js" | js.Build (dict "target" "es2020") | minify | fingerprint }}
