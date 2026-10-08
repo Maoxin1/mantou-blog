@@ -18,7 +18,7 @@ async function setup(page,state={mode:'ok',requests:0}) {
  await page.route('https://data-api.binance.vision/**',async route=>{
   const url=route.request().url();
   if(state.mode==='fail')return route.abort();
-  if(url.includes('klines'))return route.fulfill({json:candles(url.includes('interval=1w')?'weekly':'monthly')});
+  if(url.includes('klines')){state.historyRequests=(state.historyRequests||0)+1;return route.fulfill({json:candles(url.includes('interval=1w')?'weekly':'monthly')});}
   state.requests++;return route.fulfill({json:{...fixture.quote,lastPrice:'84000',closeTime:state.mode==='stale'?NOW-180000:await page.evaluate(()=>Date.now())}});
  });
  await page.goto('/dca/');await expect(page.locator('#c-tab-future')).toHaveAttribute('aria-selected','true');await page.locator('#c-tab-history').click();await expect(page.locator('#c-h-invest')).toHaveText((periods('weekly').length*100).toLocaleString('en-US',{minimumFractionDigits:2}));return state;
@@ -105,6 +105,32 @@ test('DCA quote failure, stale response and recovery preserve honest states',asy
  await page.evaluate(()=>{Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>false});dispatchEvent(new Event('offline'));});await expect(page.locator('#c-quote-status')).toContainText('离线');
  await page.evaluate(()=>{Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>true});dispatchEvent(new Event('online'));});await expect(page.locator('#c-quote-status')).toContainText('行情已更新');
 });
+
+for (const initial of ['offline','hidden']) {
+ test(`DCA validates deferred initial histories after ${initial} recovery`,async({page})=>{
+  await page.addInitScript(initial=>{
+   if(initial==='offline')Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>false});
+   else Object.defineProperty(document,'hidden',{configurable:true,get:()=>true});
+  },initial);
+  const state=await setup(page);
+  expect(state.historyRequests||0).toBe(0);expect(state.priceRequests||0).toBe(0);
+  if(initial==='offline'){
+   await expect(page.locator('#c-history-status')).toContainText('历史更新未成功');
+   await page.locator('#c-tab-market').click();await expect(page.locator('#c-price-status')).toContainText('价格历史更新未成功');
+  }
+  await page.evaluate(initial=>{
+   if(initial==='offline'){Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>true});dispatchEvent(new Event('online'));}
+   else {Object.defineProperty(document,'hidden',{configurable:true,get:()=>false});document.dispatchEvent(new Event('visibilitychange'));}
+  },initial);
+  await expect(page.locator('#c-refresh')).toBeEnabled();
+  await expect.poll(()=>state.historyRequests).toBe(2);await expect.poll(()=>state.priceRequests).toBe(1);
+  await page.locator('#c-tab-history').click();await expect(page.locator('#c-history-status')).toHaveText(/已核对最新完整周线/);
+  await expect(page.locator('#c-history-status')).toBeHidden();
+  await page.locator('#c-tab-market').click();await expect(page.locator('#c-price-status')).toBeHidden();
+  const quotes=state.requests;await page.clock.fastForward(60001);await expect.poll(()=>state.requests).toBeGreaterThan(quotes);
+  expect(state.historyRequests).toBe(2);expect(state.priceRequests).toBe(1);
+ });
+}
 
 test('DCA polls every minute and pauses while hidden',async({page})=>{
  const state=await setup(page);await expect(page.locator('#c-quote-status')).toContainText('行情已更新');

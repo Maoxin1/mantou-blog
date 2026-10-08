@@ -18,7 +18,7 @@ const ranges={};
 const periods=()=>data[frequency].filter(r=>!r.partial);
 const date=t=>new Date(t).toISOString().slice(0,10);
 const remember=()=>{ranges[frequency]={start:q('c-start').value,end:q('c-end').value};};
-let quoteState='snapshot', busy=false, pollTimer;
+let quoteState='snapshot', busy=false, pollTimer, initialHistoryPending=true;
 const firstPeriod=()=>periods()[0].period;
 const lastPeriod=()=>periods().at(-1).period;
 const colors=()=>{const s=getComputedStyle(root);return {ink:s.getPropertyValue('--ink').trim(),muted:s.getPropertyValue('--muted').trim(),line:s.getPropertyValue('--line').trim(),orange:s.getPropertyValue('--orange').trim()};};
@@ -141,7 +141,10 @@ async function request(path){const controller=new AbortController();const timer=
 async function requestPrices(){const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),8000);try{return await priceHistoryJSON({signal:controller.signal});}finally{clearTimeout(timer);}}
 async function refresh(includeHistory=false){
  if(busy||document.hidden)return;
- if(!navigator.onLine){quoteState='offline';updateQuoteStatus();if(includeHistory){priceState='failed';priceStatus();}return;}
+ includeHistory=includeHistory||initialHistoryPending;
+ if(!navigator.onLine){quoteState='offline';updateQuoteStatus();if(includeHistory){historyState='failed';historyStatus();priceState='failed';priceStatus();}return;}
+ // A hidden/offline first visit must still validate both histories when it resumes.
+ initialHistoryPending=false;
  busy=true;q('c-refresh').disabled=true;q('c-refresh').textContent='更新中…';
  const quoteTask=(async()=>{try{const raw=await request('ticker/24hr?symbol=BTCUSDT');const parsed=parseQuote(raw);if(parsed.time<Number(data.quote.closeTime))throw new Error('Older quote');data.quote=raw;quoteState=parsed.fresh?'live':'stale';}catch{quoteState='failed';}market();})();
  const historyTask=includeHistory?(async()=>{
