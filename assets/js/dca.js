@@ -10,6 +10,9 @@ const number=v=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFr
 const priceNumber=v=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:v<1?6:2}).format(v);
 const money=v=>'$'+number(v);
 const ns='http://www.w3.org/2000/svg';
+const marketSelection={label:null};
+const priceDialog=q('c-price-dialog'),priceScreen=q('c-price-screen');
+let nativePriceFullscreen=false,scrollLock;
 let marketLength=0, frequency='weekly', compoundFrequency='weekly', historyState='checking', priceState='checking';
 const ranges={};
 const periods=()=>data[frequency].filter(r=>!r.partial);
@@ -19,9 +22,10 @@ let quoteState='snapshot', busy=false, pollTimer;
 const firstPeriod=()=>periods()[0].period;
 const lastPeriod=()=>periods().at(-1).period;
 const colors=()=>{const s=getComputedStyle(root);return {ink:s.getPropertyValue('--ink').trim(),muted:s.getPropertyValue('--muted').trim(),line:s.getPropertyValue('--line').trim(),orange:s.getPropertyValue('--orange').trim()};};
-function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],times=null,logarithmic=false){
+function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],times=null,logarithmic=false,selection=null){
  const measured=svg.getBoundingClientRect().width;if(!measured)return;
- const width=Math.max(200,measured),height=width<450?230:250,L=51,R=12,T=26,B=35,c=colors();
+ const expanded=svg.id==='c-market-chart'&&priceDialog.open;
+ const width=Math.max(200,measured),height=expanded?Math.max(140,svg.getBoundingClientRect().height):width<450?230:250,L=51,R=12,T=26,B=35,c=colors();
  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.replaceChildren();
  const values=a?[...a,...b]:b;const max=Math.max(1,...values)*1.08;
  const low=logarithmic?Math.floor(Math.log10(Math.min(...values))):0,high=logarithmic?Math.ceil(Math.log10(Math.max(...values))):max;
@@ -35,17 +39,27 @@ function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],t
  add('path',{d:line(b)+` L${x(b.length-1)},${height-B} L${L},${height-B}Z`,fill:c.orange,'fill-opacity':.065});
  if(a)add('path',{d:line(a),fill:'none',stroke:c.ink,'stroke-width':1.7});
  add('path',{d:line(b),fill:'none',stroke:c.orange,'stroke-width':2.1});
- const ticks=[...new Set(width<420?[0,b.length-1]:[0,Math.floor((b.length-1)/2),b.length-1])];
- ticks.forEach((i,j)=>add('text',{x:x(i),y:height-10,'text-anchor':j===0?'start':j===ticks.length-1?'end':'middle',fill:c.muted,'font-size':11},labels[i]));
+ if(logarithmic&&times&&times.at(-1)-times[0]>2*366*86400000){
+  const first=new Date(times[0]).getUTCFullYear(),last=new Date(times.at(-1)).getUTCFullYear();
+  const capacity=Math.max(2,Math.floor((width-L-R)/60)),step=[1,2,4,5,10,20].find(s=>s>=(last-first)/capacity)||20;
+  const ticks=[{px:L,label:first}];
+  for(let year=first+step;year<last;year+=step){const px=L+(width-L-R)*(Date.UTC(year,0,1)-times[0])/(times.at(-1)-times[0]);if(px-ticks.at(-1).px>=52)ticks.push({px,label:year});}
+  if(width-R-ticks.at(-1).px<52)ticks.pop();ticks.push({px:width-R,label:last});
+  ticks.forEach((tick,j)=>add('text',{x:tick.px,y:height-10,'text-anchor':j===0?'start':j===ticks.length-1?'end':'middle',fill:c.muted,'font-size':12,'data-year-tick':tick.label},tick.label));
+ }else{
+  const ticks=[...new Set(width<420?[0,b.length-1]:[0,Math.floor((b.length-1)/2),b.length-1])];
+  ticks.forEach((i,j)=>add('text',{x:x(i),y:height-10,'text-anchor':j===0?'start':j===ticks.length-1?'end':'middle',fill:c.muted,'font-size':11},labels[i]));
+ }
  let detail=svg.nextElementSibling;
  if(!detail?.classList.contains('chart-detail')){detail=document.createElement('div');detail.className='chart-detail';detail.setAttribute('aria-live','polite');svg.insertAdjacentElement('afterend',detail);}
  detail.hidden=true;detail.textContent='';
  const guide=add('line',{x1:L,y1:T,x2:L,y2:height-B,stroke:c.orange,'stroke-width':1,visibility:'hidden'});
  const dot=add('circle',{cx:L,cy:y(b[0]),r:3,fill:c.orange,visibility:'hidden'});
  const hit=add('rect',{x:L,y:T,width:width-L-R,height:height-T-B,fill:'transparent','aria-hidden':'true'});
- let selected=b.length-1;const show=i=>{selected=i;detail.hidden=false;guide.setAttribute('x1',x(i));guide.setAttribute('x2',x(i));guide.setAttribute('visibility','visible');dot.setAttribute('cx',x(i));dot.setAttribute('cy',y(b[i]));dot.setAttribute('visibility','visible');detail.textContent=labels[i]+' · '+(a?names[0]+' '+number(a[i])+' / ':'')+names[1]+' '+(logarithmic?priceNumber(b[i]):number(b[i]))+' '+unit;};
- const inspect=e=>{const box=svg.getBoundingClientRect();const px=(e.clientX-box.left)*width/box.width;let i=0;for(let j=1;j<b.length;j++)if(Math.abs(x(j)-px)<Math.abs(x(i)-px))i=j;show(i);};
+ let selected=b.length-1;const show=i=>{selected=i;if(selection)selection.label=labels[i];detail.hidden=false;guide.setAttribute('x1',x(i));guide.setAttribute('x2',x(i));guide.setAttribute('visibility','visible');dot.setAttribute('cx',x(i));dot.setAttribute('cy',y(b[i]));dot.setAttribute('visibility','visible');detail.textContent=labels[i]+' · '+(a?names[0]+' '+number(a[i])+' / ':'')+names[1]+' '+(logarithmic?priceNumber(b[i]):number(b[i]))+' '+unit;};
+ const inspect=e=>{const box=svg.getBoundingClientRect();const px=(e.clientX-box.left)*width/box.width;let i=0;if(px>=width-R-6)i=b.length-1;else if(px>L+6)for(let j=1;j<b.length;j++)if(Math.abs(x(j)-px)<Math.abs(x(i)-px))i=j;show(i);};
  hit.addEventListener('pointermove',inspect);hit.addEventListener('click',inspect);svg.setAttribute('tabindex','0');svg.onkeydown=e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();show(e.key==='Home'?0:e.key==='End'?b.length-1:Math.max(0,Math.min(b.length-1,selected+(e.key==='ArrowRight'?1:-1))));}};svg.onfocus=()=>show(selected);
+ const remembered=selection?labels.indexOf(selection.label):-1;if(remembered>=0)show(remembered);
 }
 function clearChart(svg){svg.replaceChildren();svg.onfocus=null;svg.onkeydown=null;svg.removeAttribute('tabindex');const detail=svg.nextElementSibling;if(detail?.classList.contains('chart-detail')){detail.textContent='';detail.hidden=true;}}
 function clearHistory(message){q('c-h-error').textContent=message;['c-h-invest','c-h-value','c-h-profit'].forEach(id=>q(id).textContent='—');clearChart(q('c-history-chart')); q('c-h-note').textContent='';q('c-h-detail').textContent='';q('c-h-period').textContent='';q('c-trades').replaceChildren();}
@@ -93,7 +107,7 @@ function market(){
  const all=prices.daily.map(([date,price])=>({date,time:Date.parse(date+'T00:00:00Z'),price}));
  const cutoff=new Date(all.at(-1).time);cutoff.setUTCFullYear(cutoff.getUTCFullYear()-marketLength);
  const rows=marketLength?all.filter(r=>r.time>=cutoff.getTime()):all;
- chart(q('c-market-chart'),null,rows.map(r=>r.price),rows.map(r=>r.date),'USD/BTC',['','价格'],rows.map(r=>r.time),true);
+ chart(q('c-market-chart'),null,rows.map(r=>r.price),rows.map(r=>r.date),'USD/BTC',['','价格'],rows.map(r=>r.time),true,marketSelection);
  root.querySelectorAll('[data-market]').forEach(el=>el.setAttribute('aria-pressed',String(+el.dataset.market===marketLength)));
  q('c-market-range').textContent=`${marketLength?'近 '+marketLength+' 年':'最大范围'}：${rows[0].date} — ${rows.at(-1).date}`;
  priceStatus();
@@ -149,6 +163,29 @@ root.querySelectorAll('[data-compound-frequency]').forEach(el=>el.addEventListen
 root.querySelectorAll('[data-rate]').forEach(el=>el.addEventListener('click',()=>{q('c-rate').value=el.dataset.rate;future();}));
 root.querySelectorAll('[data-period]').forEach(el=>el.addEventListener('click',()=>{const rows=el.dataset.period==='all'?periods():periods().filter(r=>r.period>='2021-11'&&r.period<'2023-01');q('c-start').value=rows[0].period;q('c-end').value=rows.at(-1).period;history();}));
 root.querySelectorAll('[data-market]').forEach(el=>el.addEventListener('click',()=>{marketLength=+el.dataset.market;market();}));
+if(typeof priceDialog.showModal==='function'){
+ q('c-expand').hidden=false;
+ q('c-expand').addEventListener('click',()=>{
+  scrollLock={overflow:document.documentElement.style.overflow};document.documentElement.style.overflow='hidden';
+  q('c-market-home').style.minHeight=q('c-market-home').getBoundingClientRect().height+'px';
+  q('c-price-body').appendChild(q('c-market-view'));priceDialog.showModal();market();
+  if(document.fullscreenEnabled&&priceScreen.requestFullscreen)priceScreen.requestFullscreen().catch(()=>{});
+ });
+ q('c-collapse').addEventListener('click',()=>priceDialog.close());
+ priceDialog.addEventListener('close',()=>{
+  q('c-market-home').appendChild(q('c-market-view'));
+  q('c-market-home').style.minHeight='';
+  document.documentElement.style.overflow=scrollLock?.overflow||'';
+  if(document.fullscreenElement===priceScreen)document.exitFullscreen().catch(()=>{});
+  nativePriceFullscreen=false;market();q('c-expand').focus({preventScroll:true});
+ });
+ document.addEventListener('fullscreenchange',()=>{
+  if(document.fullscreenElement===priceScreen){if(!priceDialog.open){document.exitFullscreen().catch(()=>{});return;}nativePriceFullscreen=true;market();}
+  else if(nativePriceFullscreen&&priceDialog.open)priceDialog.close();
+ });
+ let priceWidth=0,priceHeight=0;
+ new ResizeObserver(()=>{const box=q('c-market-chart').getBoundingClientRect();if(box.width&& (Math.abs(priceWidth-box.width)>1||Math.abs(priceHeight-box.height)>1)){priceWidth=box.width;priceHeight=box.height;market();}}).observe(q('c-market-chart'));
+}
 root.querySelectorAll('fieldset').forEach(el=>el.disabled=false);
 history();future();market();let previousWidth=0;new ResizeObserver(()=>{const width=root.getBoundingClientRect().width;if(Math.abs(previousWidth-width)>1){previousWidth=width;history();future();market();}}).observe(root);
 new MutationObserver(()=>{history();future();market();}).observe(document.body,{attributes:true,attributeFilter:['theme']});

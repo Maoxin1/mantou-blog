@@ -51,6 +51,29 @@
 #mantou-dca-c .metric strong{display:block;font-size:clamp(17px,2.4vw,23px);font-weight:500;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 #mantou-dca-c .scenario{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:15px 0}
 #mantou-dca-c .market-ranges button{flex:1}
+#mantou-dca-c .market-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:15px 0}
+#mantou-dca-c .market-tools .market-ranges{flex:1;margin:0;min-width:220px}
+#mantou-dca-c #c-expand{font-size:14px;color:var(--orange)}
+#mantou-dca-c #c-price-dialog{position:fixed;inset:0;width:100%;max-width:none;height:100%;height:100dvh;max-height:none;margin:0;padding:0;border:0;background:var(--panel);color:var(--ink);font:inherit;overflow:hidden}
+#mantou-dca-c #c-price-dialog::backdrop{background:var(--paper)}
+#mantou-dca-c .price-screen{width:100%;height:100%;background:var(--panel);color:var(--ink);display:flex;flex-direction:column;gap:8px;padding:max(12px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+#mantou-dca-c .price-screen-head{display:flex;gap:12px;align-items:center;flex-shrink:0}
+#mantou-dca-c .price-screen-head h2{font-size:20px;font-weight:500;line-height:1.3}
+#mantou-dca-c .price-screen-head button{margin-left:auto;flex-shrink:0;font-size:14px}
+#mantou-dca-c .landscape-hint{font-size:14px;color:var(--muted)}
+#mantou-dca-c .price-screen-body{flex:1;min-height:0;overflow:auto}
+#mantou-dca-c .price-screen #c-market-view{display:flex;flex-direction:column;height:100%;min-height:280px}
+#mantou-dca-c .price-screen .panel-context{margin:0;font-size:14px}
+#mantou-dca-c .price-screen .market-tools{margin:6px 0;flex-shrink:0}
+#mantou-dca-c .price-screen #c-expand{display:none}
+#mantou-dca-c .price-screen .market-ranges{flex:0 1 360px}
+#mantou-dca-c .price-screen .chart{height:auto;flex:1;min-height:140px;touch-action:none}
+#mantou-dca-c .price-screen .chart-detail{min-height:28px;margin:0;flex-shrink:0}
+#mantou-dca-c .price-screen .chart-detail[hidden]{display:block!important;visibility:hidden}
+#mantou-dca-c .price-screen .result-caption{margin:0;flex-shrink:0}
+#mantou-dca-c .price-screen .data-status{margin:4px 0 0;flex-shrink:0}
+@media(orientation:landscape){#mantou-dca-c .landscape-hint{display:none}}
+@media(max-width:580px){#mantou-dca-c .price-screen-head h2{font-size:18px}#mantou-dca-c .landscape-hint{display:none}}
 #mantou-dca-c .market{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:15px 0}
 #mantou-dca-c .market-price{font-size:clamp(25px,4vw,34px);font-weight:500;overflow-wrap:anywhere}
 #mantou-dca-c .market-status{font-size:13px;color:var(--muted)}
