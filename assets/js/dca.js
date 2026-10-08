@@ -11,8 +11,8 @@ const priceNumber=v=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maxi
 const money=v=>'$'+number(v);
 const ns='http://www.w3.org/2000/svg';
 const marketSelection={label:null};
-const priceDialog=q('c-price-dialog'),priceScreen=q('c-price-screen');
-let nativePriceFullscreen=false,scrollLock;
+const priceDialog=q('c-price-dialog'),priceScreen=q('c-price-screen'),priceViewport=q('c-price-viewport');
+let nativePriceFullscreen=false,scrollLock,priceSession=0;
 let marketLength=0, frequency='weekly', compoundFrequency='weekly', historyState='checking', priceState='checking';
 const ranges={};
 const periods=()=>data[frequency].filter(r=>!r.partial);
@@ -23,22 +23,27 @@ const firstPeriod=()=>periods()[0].period;
 const lastPeriod=()=>periods().at(-1).period;
 const colors=()=>{const s=getComputedStyle(root);return {ink:s.getPropertyValue('--ink').trim(),muted:s.getPropertyValue('--muted').trim(),line:s.getPropertyValue('--line').trim(),orange:s.getPropertyValue('--orange').trim()};};
 function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],times=null,logarithmic=false,selection=null){
- const measured=svg.getBoundingClientRect().width;if(!measured)return;
+ const measured=svg.clientWidth;if(!measured)return;
  const expanded=svg.id==='c-market-chart'&&priceDialog.open;
- const width=Math.max(200,measured),height=expanded?Math.max(140,svg.getBoundingClientRect().height):width<450?230:250,L=51,R=12,T=26,B=35,c=colors();
+ const width=Math.max(200,measured),height=Math.max(expanded?120:200,svg.clientHeight),L=51,R=12,T=26,B=35,c=colors();
  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.replaceChildren();
  const values=a?[...a,...b]:b;const max=Math.max(1,...values)*1.08;
- const low=logarithmic?Math.floor(Math.log10(Math.min(...values))):0,high=logarithmic?Math.ceil(Math.log10(Math.max(...values))):max;
- const x=i=>L+(width-L-R)*(times?(times[i]-times[0])/Math.max(1,times.at(-1)-times[0]):i/Math.max(1,b.length-1)),y=v=>height-B-(height-T-B)*(logarithmic?(Math.log10(v)-low)/Math.max(1,high-low):v/max);
+ const logMin=logarithmic?Math.log10(Math.min(...values)):0,logMax=logarithmic?Math.log10(Math.max(...values)):0;
+ const padding=Math.min(Math.log10(1.15),Math.max(.001,(logMax-logMin)*.08));
+ const low=logarithmic?logMin-padding:0,high=logarithmic?logMax+padding:max;
+ const x=i=>L+(width-L-R)*(times?(times[i]-times[0])/Math.max(1,times.at(-1)-times[0]):i/Math.max(1,b.length-1)),y=v=>height-B-(height-T-B)*(logarithmic?(Math.log10(v)-low)/Math.max(.001,high-low):v/max);
  const add=(tag,attrs,text)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(text!=null)e.textContent=text;svg.appendChild(e);return e;};
- const fmt=v=>v>=1e6?(v/1e6).toFixed(1)+'m':v>=1e3?(v/1e3).toFixed(v<1e4?1:0)+'k':v<1?String(v):Math.round(v);
- const levels=[];if(logarithmic){const step=Math.max(1,Math.ceil((high-low)/4));for(let exponent=low;exponent<=high;exponent+=step)levels.push(10**exponent);if(levels.at(-1)!==10**high)levels.push(10**high);}else for(let i=0;i<=3;i++)levels.push(max*i/3);
- for(const value of levels){const cy=y(value);add('line',{x1:L,y1:cy,x2:width-R,y2:cy,stroke:c.line,'stroke-width':.7});add('text',{x:L-7,y:cy+4,'text-anchor':'end',fill:c.muted,'font-size':11},fmt(value));}
+ const fmt=v=>logarithmic&&high-low<.1?new Intl.NumberFormat('en-US',{maximumFractionDigits:6}).format(v):v>=1e6?(v/1e6).toFixed(1)+'m':v>=1e3?(v/1e3).toFixed(v<1e4?1:0)+'k':v<1?String(v):Math.round(v);
+ const levels=[];if(logarithmic){
+  const first=Math.ceil(low),last=Math.floor(high),step=Math.max(1,Math.ceil((last-first)/3));for(let exponent=first;exponent<=last;exponent+=step)levels.push(10**exponent);
+  if(!levels.length){const lower=10**low,upper=10**high,raw=(upper-lower)/3,scale=10**Math.floor(Math.log10(raw)),interval=[1,2,5,10].find(n=>n*scale>=raw)*scale;for(let value=Math.ceil(lower/interval)*interval;value<=upper;value+=interval)levels.push(value);}
+ }else for(let i=0;i<=3;i++)levels.push(max*i/3);
+ for(const value of levels){const cy=y(value);add('line',{x1:L,y1:cy,x2:width-R,y2:cy,stroke:c.line,'stroke-width':.7});add('text',{x:L-7,y:cy+4,'text-anchor':'end',fill:c.muted,'font-size':11,'data-value-tick':value},fmt(value));}
  add('text',{x:L,y:13,fill:c.muted,'font-size':11},unit);
  const line=arr=>arr.map((v,i)=>(i?'L':'M')+x(i).toFixed(2)+','+y(v).toFixed(2)).join(' ');
- add('path',{d:line(b)+` L${x(b.length-1)},${height-B} L${L},${height-B}Z`,fill:c.orange,'fill-opacity':.065});
+ if(!logarithmic)add('path',{d:line(b)+` L${x(b.length-1)},${height-B} L${L},${height-B}Z`,fill:c.orange,'fill-opacity':.065});
  if(a)add('path',{d:line(a),fill:'none',stroke:c.ink,'stroke-width':1.7});
- add('path',{d:line(b),fill:'none',stroke:c.orange,'stroke-width':2.1});
+ add('path',{d:line(b),fill:'none',stroke:c.orange,'stroke-width':logarithmic?1.5:2.1});
  if(logarithmic&&times&&times.at(-1)-times[0]>2*366*86400000){
   const first=new Date(times[0]).getUTCFullYear(),last=new Date(times.at(-1)).getUTCFullYear();
   const capacity=Math.max(2,Math.floor((width-L-R)/60)),step=[1,2,4,5,10,20].find(s=>s>=(last-first)/capacity)||20;
@@ -57,7 +62,7 @@ function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],t
  const dot=add('circle',{cx:L,cy:y(b[0]),r:3,fill:c.orange,visibility:'hidden'});
  const hit=add('rect',{x:L,y:T,width:width-L-R,height:height-T-B,fill:'transparent','aria-hidden':'true'});
  let selected=b.length-1;const show=i=>{selected=i;if(selection)selection.label=labels[i];detail.hidden=false;guide.setAttribute('x1',x(i));guide.setAttribute('x2',x(i));guide.setAttribute('visibility','visible');dot.setAttribute('cx',x(i));dot.setAttribute('cy',y(b[i]));dot.setAttribute('visibility','visible');detail.textContent=labels[i]+' · '+(a?names[0]+' '+number(a[i])+' / ':'')+names[1]+' '+(logarithmic?priceNumber(b[i]):number(b[i]))+' '+unit;};
- const inspect=e=>{const box=svg.getBoundingClientRect();const px=(e.clientX-box.left)*width/box.width;let i=0;if(px>=width-R-6)i=b.length-1;else if(px>L+6)for(let j=1;j<b.length;j++)if(Math.abs(x(j)-px)<Math.abs(x(i)-px))i=j;show(i);};
+ const inspect=e=>{const matrix=svg.getScreenCTM();if(!matrix)return;const point=svg.createSVGPoint();point.x=e.clientX;point.y=e.clientY;const px=point.matrixTransform(matrix.inverse()).x;let i=0;if(px>=width-R-6)i=b.length-1;else if(px>L+6)for(let j=1;j<b.length;j++)if(Math.abs(x(j)-px)<Math.abs(x(i)-px))i=j;show(i);};
  hit.addEventListener('pointermove',inspect);hit.addEventListener('click',inspect);svg.setAttribute('tabindex','0');svg.onkeydown=e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();show(e.key==='Home'?0:e.key==='End'?b.length-1:Math.max(0,Math.min(b.length-1,selected+(e.key==='ArrowRight'?1:-1))));}};svg.onfocus=()=>show(selected);
  const remembered=selection?labels.indexOf(selection.label):-1;if(remembered>=0)show(remembered);
 }
@@ -164,27 +169,39 @@ root.querySelectorAll('[data-rate]').forEach(el=>el.addEventListener('click',()=
 root.querySelectorAll('[data-period]').forEach(el=>el.addEventListener('click',()=>{const rows=el.dataset.period==='all'?periods():periods().filter(r=>r.period>='2021-11'&&r.period<'2023-01');q('c-start').value=rows[0].period;q('c-end').value=rows.at(-1).period;history();}));
 root.querySelectorAll('[data-market]').forEach(el=>el.addEventListener('click',()=>{marketLength=+el.dataset.market;market();}));
 if(typeof priceDialog.showModal==='function'){
+ const layoutPriceScreen=()=>{
+  if(!priceDialog.open)return;
+  const width=priceViewport.clientWidth,height=priceViewport.clientHeight,rotated=height>width;
+  priceScreen.classList.toggle('is-rotated',rotated);
+  priceScreen.style.width=(rotated?height:width)+'px';priceScreen.style.height=(rotated?width:height)+'px';market();
+ };
  q('c-expand').hidden=false;
  q('c-expand').addEventListener('click',()=>{
-  scrollLock={overflow:document.documentElement.style.overflow};document.documentElement.style.overflow='hidden';
+  priceSession++;
+  scrollLock={overflow:document.documentElement.style.overflow,x:scrollX,y:scrollY};document.documentElement.style.overflow='hidden';
   q('c-market-home').style.minHeight=q('c-market-home').getBoundingClientRect().height+'px';
-  q('c-price-body').appendChild(q('c-market-view'));priceDialog.showModal();market();
-  if(document.fullscreenEnabled&&priceScreen.requestFullscreen)priceScreen.requestFullscreen().catch(()=>{});
+  q('c-price-body').appendChild(q('c-market-view'));q('c-price-controls').appendChild(q('c-market-ranges'));
+  priceDialog.showModal();layoutPriceScreen();
+  if(document.fullscreenEnabled&&priceViewport.requestFullscreen)priceViewport.requestFullscreen().catch(()=>{});
  });
  q('c-collapse').addEventListener('click',()=>priceDialog.close());
  priceDialog.addEventListener('close',()=>{
+  q('c-market-controls').appendChild(q('c-market-ranges'));
   q('c-market-home').appendChild(q('c-market-view'));
   q('c-market-home').style.minHeight='';
   document.documentElement.style.overflow=scrollLock?.overflow||'';
-  if(document.fullscreenElement===priceScreen)document.exitFullscreen().catch(()=>{});
-  nativePriceFullscreen=false;market();q('c-expand').focus({preventScroll:true});
+  priceScreen.classList.remove('is-rotated');priceScreen.style.width='';priceScreen.style.height='';
+  const closedSession=priceSession,restore=()=>{if(priceDialog.open||closedSession!==priceSession)return;if(scrollLock)window.scrollTo({left:scrollLock.x,top:scrollLock.y,behavior:'instant'});q('c-expand').focus({preventScroll:true});};
+  if(document.fullscreenElement===priceViewport)document.exitFullscreen().catch(()=>{}).then(restore);
+  nativePriceFullscreen=false;market();restore();
  });
  document.addEventListener('fullscreenchange',()=>{
-  if(document.fullscreenElement===priceScreen){if(!priceDialog.open){document.exitFullscreen().catch(()=>{});return;}nativePriceFullscreen=true;market();}
+  if(document.fullscreenElement===priceViewport){if(!priceDialog.open){document.exitFullscreen().catch(()=>{});return;}nativePriceFullscreen=true;layoutPriceScreen();}
   else if(nativePriceFullscreen&&priceDialog.open)priceDialog.close();
  });
  let priceWidth=0,priceHeight=0;
- new ResizeObserver(()=>{const box=q('c-market-chart').getBoundingClientRect();if(box.width&& (Math.abs(priceWidth-box.width)>1||Math.abs(priceHeight-box.height)>1)){priceWidth=box.width;priceHeight=box.height;market();}}).observe(q('c-market-chart'));
+ new ResizeObserver(layoutPriceScreen).observe(priceViewport);
+ new ResizeObserver(()=>{const svg=q('c-market-chart'),width=svg.clientWidth,height=svg.clientHeight;if(width&&(Math.abs(priceWidth-width)>1||Math.abs(priceHeight-height)>1)){priceWidth=width;priceHeight=height;market();}}).observe(q('c-market-chart'));
 }
 root.querySelectorAll('fieldset').forEach(el=>el.disabled=false);
 history();future();market();let previousWidth=0;new ResizeObserver(()=>{const width=root.getBoundingClientRect().width;if(Math.abs(previousWidth-width)>1){previousWidth=width;history();future();market();}}).observe(root);
