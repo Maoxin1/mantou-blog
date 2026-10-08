@@ -28,12 +28,17 @@ function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],t
  const width=Math.max(200,measured),height=Math.max(expanded?120:200,svg.clientHeight),L=51,R=12,T=26,B=35,c=colors();
  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.replaceChildren();
  const values=a?[...a,...b]:b;const max=Math.max(1,...values)*1.08;
- const low=logarithmic?Math.log10(Math.min(...values)/1.15):0,high=logarithmic?Math.log10(Math.max(...values)*1.15):max;
+ const logMin=logarithmic?Math.log10(Math.min(...values)):0,logMax=logarithmic?Math.log10(Math.max(...values)):0;
+ const padding=Math.min(Math.log10(1.15),Math.max(.001,(logMax-logMin)*.08));
+ const low=logarithmic?logMin-padding:0,high=logarithmic?logMax+padding:max;
  const x=i=>L+(width-L-R)*(times?(times[i]-times[0])/Math.max(1,times.at(-1)-times[0]):i/Math.max(1,b.length-1)),y=v=>height-B-(height-T-B)*(logarithmic?(Math.log10(v)-low)/Math.max(.001,high-low):v/max);
  const add=(tag,attrs,text)=>{const e=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,String(v)));if(text!=null)e.textContent=text;svg.appendChild(e);return e;};
- const fmt=v=>v>=1e6?(v/1e6).toFixed(1)+'m':v>=1e3?(v/1e3).toFixed(v<1e4?1:0)+'k':v<1?String(v):Math.round(v);
- const levels=[];if(logarithmic){const first=Math.ceil(low),last=Math.floor(high),step=Math.max(1,Math.ceil((last-first)/3));for(let exponent=first;exponent<=last;exponent+=step)levels.push(10**exponent);}else for(let i=0;i<=3;i++)levels.push(max*i/3);
- for(const value of levels){const cy=y(value);add('line',{x1:L,y1:cy,x2:width-R,y2:cy,stroke:c.line,'stroke-width':.7});add('text',{x:L-7,y:cy+4,'text-anchor':'end',fill:c.muted,'font-size':11},fmt(value));}
+ const fmt=v=>logarithmic&&high-low<.1?new Intl.NumberFormat('en-US',{maximumFractionDigits:6}).format(v):v>=1e6?(v/1e6).toFixed(1)+'m':v>=1e3?(v/1e3).toFixed(v<1e4?1:0)+'k':v<1?String(v):Math.round(v);
+ const levels=[];if(logarithmic){
+  const first=Math.ceil(low),last=Math.floor(high),step=Math.max(1,Math.ceil((last-first)/3));for(let exponent=first;exponent<=last;exponent+=step)levels.push(10**exponent);
+  if(!levels.length){const lower=10**low,upper=10**high,raw=(upper-lower)/3,scale=10**Math.floor(Math.log10(raw)),interval=[1,2,5,10].find(n=>n*scale>=raw)*scale;for(let value=Math.ceil(lower/interval)*interval;value<=upper;value+=interval)levels.push(value);}
+ }else for(let i=0;i<=3;i++)levels.push(max*i/3);
+ for(const value of levels){const cy=y(value);add('line',{x1:L,y1:cy,x2:width-R,y2:cy,stroke:c.line,'stroke-width':.7});add('text',{x:L-7,y:cy+4,'text-anchor':'end',fill:c.muted,'font-size':11,'data-value-tick':value},fmt(value));}
  add('text',{x:L,y:13,fill:c.muted,'font-size':11},unit);
  const line=arr=>arr.map((v,i)=>(i?'L':'M')+x(i).toFixed(2)+','+y(v).toFixed(2)).join(' ');
  if(!logarithmic)add('path',{d:line(b)+` L${x(b.length-1)},${height-B} L${L},${height-B}Z`,fill:c.orange,'fill-opacity':.065});

@@ -12,6 +12,7 @@ async function setup(page,state={mode:'ok',requests:0}) {
   const mode=state.priceMode||state.mode;
   if(mode==='fail')return route.abort();
   const raw=priceResponse();if(mode==='gap')raw.data.splice(10,1);
+  if(mode==='narrow')raw.data.forEach((row,index)=>{row.PriceUSD=String(60000+20000*index/(raw.data.length-1));});
   return route.fulfill({json:raw});
  });
  await page.route('https://data-api.binance.vision/**',async route=>{
@@ -78,6 +79,23 @@ test('Dollar price history failure and missing days preserve the snapshot indepe
  state.priceMode='ok';await page.locator('#c-refresh').click();await expect(page.locator('#c-price-status')).toBeHidden();
  const requests=state.priceRequests;await page.clock.fastForward(60001);await expect.poll(()=>state.requests).toBeGreaterThan(2);expect(state.priceRequests).toBe(requests);
  await page.locator('#c-tab-history').click();await openOptions(page);await expect(page.locator('#c-start option').first()).toHaveValue('2017-08-21');expect(await value(page,'c-h-invest')).toBe(periods('weekly').length*100);
+});
+
+test('A narrow logarithmic price range retains readable numeric ticks, chart height and exact day prices',async({page})=>{
+ await setup(page,{mode:'ok',priceMode:'narrow',requests:0});await page.locator('#c-tab-market').click();await expect(page.locator('#c-price-status')).toBeHidden();
+ await page.locator('[data-market="1"]').click();await expect(page.locator('#c-market-range')).toContainText('近 1 年');
+ const chart=page.locator('#c-market-chart'),ticks=chart.locator('[data-value-tick]'),count=await ticks.count();
+ expect(count).toBeGreaterThanOrEqual(2);expect(count).toBeLessThanOrEqual(4);
+ expect(new Set(await ticks.allTextContents()).size).toBe(count);
+ for(const tick of await ticks.all())await expect(tick).toBeVisible();
+ const coordinates=await ticks.evaluateAll(nodes=>nodes.map(node=>{const box=node.getBBox(),svg=node.ownerSVGElement;return {value:Number(node.getAttribute('data-value-tick')),centerY:box.y+box.height/2,height:svg.viewBox.baseVal.height};}));
+ for(const tick of coordinates){expect(tick.value).toBeGreaterThan(0);expect(tick.centerY).toBeGreaterThanOrEqual(26);expect(tick.centerY).toBeLessThanOrEqual(tick.height-35);}
+ const recentSpan=await chart.locator('path').last().evaluate(path=>{const ys=[...path.getAttribute('d').matchAll(/[ML](-?[\d.]+),(-?[\d.]+)/g)].map(match=>Number(match[2]));return {span:Math.max(...ys)-Math.min(...ys),plotHeight:path.ownerSVGElement.viewBox.baseVal.height-61};});
+ expect(recentSpan.span).toBeGreaterThan(.6*recentSpan.plotHeight);
+ const cutoff=new Date(priceFixture.daily.at(-1)[0]+'T00:00:00Z');cutoff.setUTCFullYear(cutoff.getUTCFullYear()-1);
+ const firstIndex=priceFixture.daily.findIndex(([date])=>Date.parse(date+'T00:00:00Z')>=cutoff.getTime()),firstDate=priceFixture.daily[firstIndex][0],firstPrice=60000+20000*firstIndex/(priceFixture.daily.length-1);
+ await chart.focus();await page.keyboard.press('Home');
+ await expect(page.locator('#c-market-chart + .chart-detail')).toHaveText(firstDate+' · 价格 '+new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).format(firstPrice)+' USD/BTC');
 });
 
 test('DCA quote failure, stale response and recovery preserve honest states',async({page})=>{
