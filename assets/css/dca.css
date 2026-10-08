@@ -91,3 +91,25 @@ body[theme=dark] #mantou-dca-c .error{color:#ffb5a6}
   #mantou-dca-c .metric strong{font-size:20px}
 }
 @media(max-width:370px){#mantou-dca-c .controls{grid-template-columns:1fr}}
+
+/* A quiet reading order: settings, three results, chart, optional detail. */
+#mantou-dca-c .hero{padding:8px 0 18px}
+#mantou-dca-c .hero h1{margin:6px 0}
+#mantou-dca-c .hero-picture{width:150px}
+#mantou-dca-c .panel-context{font-size:14px;color:var(--muted);margin:0 0 18px}
+#mantou-dca-c label{font-size:14px;color:var(--ink)}
+#mantou-dca-c .budget-note,#mantou-dca-c .input-hint{font-size:14px;color:var(--muted);margin:12px 0}
+#mantou-dca-c .result-label,#mantou-dca-c .result-pair small{font-size:14px;color:var(--muted)}
+#mantou-dca-c .result-caption{font-size:14px;color:var(--muted);margin:10px 0 0}
+#mantou-dca-c .legend{font-size:14px}
+#mantou-dca-c .note,#mantou-dca-c .data-status,#mantou-dca-c .tag,#mantou-dca-c .market-status{font-size:14px}
+#mantou-dca-c details{font-size:14px}
+#mantou-dca-c summary{font-size:15px}
+#mantou-dca-c .chart-detail{font-size:14px}
+#mantou-dca-c .history-scenarios{margin-top:24px}
+#mantou-dca-c .amount-control .input-hint{margin-bottom:0}
+@media(max-width:580px){
+  #mantou-dca-c .hero{padding:4px 0 16px}
+  #mantou-dca-c .hero-picture{width:90px}
+  #mantou-dca-c .panel-context{margin-bottom:14px}
+}
