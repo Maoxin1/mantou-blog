@@ -13,21 +13,10 @@
   <div class="mantou-section-heading"><h2 id="notes-title">{{ T "identityNotes" }}</h2><a href="{{ "/posts/" | relLangURL }}">{{ T "allWriting" }} →</a></div>
   <div class="mantou-filters" role="group" aria-label="{{ T "identityFilterLabel" }}" data-home-filters hidden>
     <button type="button" data-home-filter="all" aria-pressed="true">{{ T "identityFilterAll" }}</button>
-    <button type="button" data-home-filter="investment" aria-pressed="false">{{ T "identityInvestment" }}</button>
     <button type="button" data-home-filter="reading" aria-pressed="false">{{ T "identityReading" }}</button>
     <button type="button" data-home-filter="practice" aria-pressed="false">{{ T "identityPractice" }}</button>
   </div>
   <div class="mantou-cards" data-home-pair aria-labelledby="notes-title">
-    <section class="mantou-card mantou-card--feature" aria-labelledby="writing-title" data-home-featured-post data-home-topic="investment">
-      {{- with .Site.GetPage .Site.Data.home.featured_post -}}
-      <div class="mantou-feature-copy">
-        <div class="mantou-card-label"><h2 id="writing-title">{{ T "featuredArticle" }} · {{ T "identityInvestment" }}</h2><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time></div>
-        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p>{{ T "identityInvestmentSummary" }}</p>
-        <a class="home-action" href="{{ .RelPermalink }}">{{ T "readArticle" }} →</a>
-      </div>
-      <img class="mantou-feature-art" src="{{ "/images/identity/comic-investigation-v3-600.webp" | relURL }}" srcset="{{ "/images/identity/comic-investigation-v3-300.webp" | relURL }} 300w, {{ "/images/identity/comic-investigation-v3-600.webp" | relURL }} 600w" sizes="(max-width: 760px) 104px, 280px" alt="" aria-hidden="true" width="600" height="400" decoding="async">
-      {{- else -}}{{ errorf "Missing home featured post" }}{{- end -}}
-    </section>
     <section class="mantou-card mantou-card--reading mantou-note-row" id="reading" aria-labelledby="reading-title" data-garden-reading data-home-topic="reading">
       {{- with .Site.GetPage .Site.Data.home.reading_post -}}
       <div class="mantou-note-meta"><h2 id="reading-title">{{ T "identityReading" }}</h2><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time></div>

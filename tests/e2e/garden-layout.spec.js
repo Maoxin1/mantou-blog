@@ -18,7 +18,7 @@ test('1440px 顶部导航固定且不遮挡首页，跳转与深色主题可用'
   await expect(page.locator('h1')).toHaveText('知不足而奋进，望远山而前行。');
   await expect(sidebar.locator('.mantou-brand img').first()).toHaveAttribute('src', '/images/identity/mantou-wordmark-ink.svg');
   await expect(page.locator('.mantou-hero-picture img')).toHaveAttribute('src', '/images/identity/comic-book-v3-900.webp');
-  await expect(page.locator('.mantou-feature-art')).toHaveAttribute('src', '/images/identity/comic-investigation-v3-600.webp');
+  await expect(page.locator('.mantou-feature-art')).toHaveCount(0);
   await expect(sidebar.locator('.garden-rss')).toHaveAttribute('href', '/index.xml');
   await expect(sidebar.locator('a[href="/now/"]')).toHaveAttribute('href', '/now/');
 
@@ -36,7 +36,7 @@ test('1440px 顶部导航固定且不遮挡首页，跳转与深色主题可用'
   await expect(page).toHaveURL(/#main-content$/);
   await expect(page.locator('main')).toHaveAttribute('id', 'main-content');
 
-  for (const marker of ['[data-home-featured-post]', '[data-garden-reading]', '[data-home-featured-work]']) {
+  for (const marker of ['[data-garden-reading]', '[data-home-life]', '[data-home-featured-work]']) {
     const section = page.locator(marker);
     await section.scrollIntoViewIfNeeded();
     await expect(section.locator('h3')).toBeInViewport();

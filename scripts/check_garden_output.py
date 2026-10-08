@@ -71,7 +71,7 @@ def validate_home(html: str, prefix: str, public: Path) -> list[str]:
     if len(headings) != 1 or headings[0].text.strip() != expected_title:
         issues.append(f"{label}: expected a single localized garden h1")
 
-    for marker in ("data-home-featured-post", "data-garden-reading", "data-home-latest", "data-home-featured-work", "data-home-selected", "data-home-work-updates"):
+    for marker in ("data-home-life", "data-garden-reading", "data-home-latest", "data-home-featured-work", "data-home-selected", "data-home-work-updates"):
         modules = root.find(attr=marker)
         if len(modules) != 1 or not modules[0].find(tag="a", attr="href"):
             issues.append(f"{label}: {marker} must be a single populated module")
@@ -95,6 +95,13 @@ def validate_home(html: str, prefix: str, public: Path) -> list[str]:
         for language in ("zh-cn", "en"):
             if not desktop[0].find(tag="a", attr="hreflang", value=language):
                 issues.append(f"{label}: navigation missing {language} switch")
+
+    if root.find(attr="data-home-filter", value="investment") or root.find(attr="data-home-topic", value="investment") or root.find(attr="data-home-featured-post"):
+        issues.append(f"{label}: retired investment filter and featured card must be absent")
+    for attr in ("data-home-filter", "data-home-topic"):
+        expected = ["all", "reading", "practice"] if attr == "data-home-filter" else ["reading", "practice"]
+        if [node.attrs[attr] for node in root.find(attr=attr)] != expected:
+            issues.append(f"{label}: {attr} must retain the reading and practice entries")
 
     # Check actual rendered targets, including reading/selected cards and anchors.
     for anchor in root.find(tag="a", attr="href"):
