@@ -13,7 +13,7 @@ for (const width of [1366, 390]) {
     await shortcuts.locator('a[href="#latest"]').click();
     await expect(page).toHaveURL(/#latest$/);
     await expect(page.locator('#latest h2').first()).toBeInViewport();
-    await expect(page.locator('[data-home-featured-post]')).toContainText('精选');
+    await expect(page.locator('[data-garden-reading]')).toContainText('阅读');
   });
 }
 

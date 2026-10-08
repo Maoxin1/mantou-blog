@@ -35,6 +35,12 @@ class GardenLayoutTests(unittest.TestCase):
         template = (ROOT / 'layouts/posts/single.html').read_text(encoding='utf-8')
         self.assertIn('id="toc-static" data-kept="true"', template)
 
+    def test_output_checker_rejects_retired_investment_entries(self):
+        with tempfile.TemporaryDirectory() as directory:
+            for marker in ('data-home-filter="investment"', 'data-home-topic="investment"', 'data-home-featured-post'):
+                issues = validate_home(f'<section {marker}></section>', "", Path(directory))
+                self.assertTrue(any("retired investment" in issue for issue in issues))
+
     def test_document_parser_keeps_nested_text_and_void_elements(self):
         root = Document('<h1>Ideas <em>grow</em>.</h1><img src="x"><nav><a href="/">Home</a></nav>').root
         self.assertEqual(root.find(tag="h1")[0].text, "Ideas grow.")
