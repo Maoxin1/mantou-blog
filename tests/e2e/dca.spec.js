@@ -59,7 +59,7 @@ test('Monthly calculation and independent compound zero/negative scenarios remai
 test('Maximum dollar price history starts in 2010 and retains early precision on a logarithmic chart',async({page})=>{
  await setup(page);await page.locator('#c-tab-market').click();
  await expect(page.locator('#c-market-range')).toContainText('2010-07-18');await expect(page.locator('#c-market-range')).toContainText('2026-10-07');await expect(page.locator('[data-market="0"]')).toHaveAttribute('aria-pressed','true');
- await expect(page.locator('#c-market-chart')).toContainText('2010-07-18');await expect(page.locator('#c-market-chart')).toContainText('USD/BTC');await expect(page.locator('#c-market-chart')).toContainText('0.01');await expect(page.locator('#c-panel-market .panel-context').first()).toContainText('对数刻度');
+ await expect(page.locator('#c-market-chart [data-year-tick]').first()).toHaveText('2010');await expect(page.locator('#c-market-chart [data-year-tick]').last()).toHaveText('2026');await expect(page.locator('#c-market-chart')).toContainText('USD/BTC');await expect(page.locator('#c-market-chart')).toContainText('0.01');await expect(page.locator('#c-panel-market .panel-context').first()).toContainText('对数刻度');
  const full=await page.locator('#c-market-chart path').last().getAttribute('d');
  await page.locator('[data-market="1"]').click();await expect(page.locator('#c-market-range')).toContainText('近 1 年');expect(await page.locator('#c-market-chart path').last().getAttribute('d')).not.toBe(full);
  await page.locator('[data-market="0"]').click();expect(await page.locator('#c-market-chart path').last().getAttribute('d')).toBe(full);
@@ -131,4 +131,61 @@ test('Quiet default presentation preserves important context and reveals graph d
  await page.locator('#c-future-chart').focus();await page.keyboard.press('Home');await expect(page.locator('#c-future-chart + .chart-detail')).toBeVisible();await expect(page.locator('#c-future-chart + .chart-detail')).toContainText('现在');
  const valueBox=await page.locator('#c-f-value').boundingBox(),chartBox=await page.locator('#c-future-chart').boundingBox();expect(valueBox.y).toBeLessThan(chartBox.y);
  await page.locator('#c-tab-history').click();await expect(page.locator('[data-period=down]')).toBeVisible();await expect(page.locator('#c-panel-history .budget-note')).toBeVisible();await expect(page.locator('#c-h-detail')).not.toBeVisible();
+});
+
+test('Expanded price history adapts to phone landscape and preserves range, selection, focus and scroll when native fullscreen fails',async({page})=>{
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));await setup(page);
+ await page.setViewportSize({width:390,height:844});await page.locator('#c-tab-market').click();
+ await page.evaluate(()=>{document.getElementById('c-price-screen').requestFullscreen=()=>Promise.reject(new Error('Fullscreen unavailable'));});
+ await page.locator('[data-market="5"]').click();await page.locator('#c-market-chart').focus();await page.keyboard.press('Home');
+ const selected=await page.locator('#c-market-chart + .chart-detail').textContent();
+ await page.locator('#c-expand').scrollIntoViewIfNeeded();const scroll=await page.evaluate(()=>scrollY);
+ await page.locator('#c-expand').click();await expect(page.getByRole('dialog')).toBeVisible();await expect(page.locator('#c-collapse')).toBeFocused();
+ await expect(page.locator('#c-market-chart + .chart-detail')).toHaveText(selected);await expect(page.locator('[data-market="5"]')).toHaveAttribute('aria-pressed','true');
+ expect((await page.locator('#c-market-chart').boundingBox()).height).toBeGreaterThan(400);
+ // The modal traps focus and keeps the original tab controls inert.
+ await page.keyboard.press('Shift+Tab');await expect(page.locator('#c-tab-market')).not.toBeFocused();
+ await page.setViewportSize({width:844,height:390});await page.locator('[data-market="0"]').click();
+ await expect(page.locator('#c-market-range')).toContainText('2010-07-18');await expect(page.locator('#c-price-dialog .panel-context')).toContainText('对数刻度');
+ await expect.poll(async()=>Number((await page.locator('#c-market-chart').getAttribute('viewBox')).split(' ')[2])).toBeGreaterThan(780);
+ const chart=page.locator('#c-market-chart'),box=await chart.boundingBox();expect(box.height).toBeGreaterThan(170);
+ const tickBoxes=await chart.locator('[data-year-tick]').evaluateAll(nodes=>nodes.map(n=>{const b=n.getBoundingClientRect();return {left:b.left,right:b.right};}));
+ expect(tickBoxes.length).toBeGreaterThanOrEqual(7);for(let i=1;i<tickBoxes.length;i++)expect(tickBoxes[i].left-tickBoxes[i-1].right).toBeGreaterThan(8);
+ await chart.click({position:{x:52,y:30}});await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('2010-07-18 · 价格 0.08584 USD/BTC');
+ await chart.click({position:{x:box.width-13,y:30}});await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('2026-10-07');
+ const inspected=await page.locator('#c-market-chart + .chart-detail').textContent();
+ await page.evaluate(()=>document.body.setAttribute('theme','dark'));await expect(page.locator('#c-market-chart + .chart-detail')).toHaveText(inspected);
+ const before=await page.locator('#c-market-chart').getAttribute('viewBox');await page.clock.fastForward(60001);await expect(page.locator('#c-market-chart + .chart-detail')).toHaveText(inspected);expect(await chart.getAttribute('viewBox')).toBe(before);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
+ await page.setViewportSize({width:390,height:844});await expect.poll(async()=>Number((await chart.getAttribute('viewBox')).split(' ')[2])).toBeLessThan(400);
+ await page.locator('#c-collapse').click();await expect(page.getByRole('dialog')).not.toBeVisible();await expect(page.locator('#c-expand')).toBeFocused();
+ await expect(page.locator('#c-market-chart + .chart-detail')).toHaveText(inspected);await expect(page.locator('[data-market="0"]')).toHaveAttribute('aria-pressed','true');
+ expect(await page.evaluate(()=>scrollY)).toBeCloseTo(scroll,0);expect(await page.evaluate(()=>document.documentElement.style.overflow)).toBe('');
+ await page.locator('#c-expand').click();await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).not.toBeVisible();await expect(page.locator('#c-expand')).toBeFocused();
+ await page.locator('#c-tab-future').click();await expect(page.locator('[data-compound-frequency=weekly]')).toHaveAttribute('aria-pressed','true');await expect(page.locator('#c-add')).toHaveValue('100');
+ expect(errors).toEqual([]);
+});
+
+test('Browser fullscreen exit restores the same price chart and normal page controls',async({page})=>{
+ await setup(page);await page.locator('#c-tab-market').click();await page.locator('[data-market="1"]').click();await page.locator('#c-expand').click();
+ await expect.poll(()=>page.evaluate(()=>document.fullscreenElement?.id)).toBe('c-price-screen');
+ await page.evaluate(()=>document.exitFullscreen());await expect(page.getByRole('dialog')).not.toBeVisible();await expect(page.locator('#c-expand')).toBeFocused();
+ await expect(page.locator('[data-market="1"]')).toHaveAttribute('aria-pressed','true');await expect(page.locator('#c-market-home #c-market-chart')).toBeVisible();
+ await page.locator('#c-expand').click();await expect.poll(()=>page.evaluate(()=>document.fullscreenElement?.id)).toBe('c-price-screen');
+ await page.locator('#c-collapse').click();await expect.poll(()=>page.evaluate(()=>document.fullscreenElement)).toBeNull();await expect(page.getByRole('dialog')).not.toBeVisible();
+ await page.locator('#c-tab-history').click();await expect(page.locator('[data-frequency=weekly]')).toHaveAttribute('aria-pressed','true');
+});
+
+test('A late fullscreen grant after closing cannot leave an empty fullscreen view',async({page})=>{
+ await setup(page);await page.locator('#c-tab-market').click();
+ await page.evaluate(()=>{
+  let element=null;window.lateFullscreenExitCount=0;
+  Object.defineProperty(document,'fullscreenElement',{configurable:true,get:()=>element});
+  document.exitFullscreen=async()=>{element=null;window.lateFullscreenExitCount++;document.dispatchEvent(new Event('fullscreenchange'));};
+  document.getElementById('c-price-screen').requestFullscreen=()=>new Promise(resolve=>{window.grantLateFullscreen=()=>{element=document.getElementById('c-price-screen');document.dispatchEvent(new Event('fullscreenchange'));resolve();};});
+ });
+ await page.locator('#c-expand').click();await page.locator('#c-collapse').click();await expect(page.getByRole('dialog')).not.toBeVisible();
+ await page.evaluate(()=>window.grantLateFullscreen());await expect.poll(()=>page.evaluate(()=>window.lateFullscreenExitCount)).toBe(1);
+ await expect(page.locator('#c-market-home #c-market-chart')).toBeVisible();await expect(page.locator('#c-expand')).toBeFocused();
+ expect(await page.evaluate(()=>document.fullscreenElement)).toBeNull();
 });
