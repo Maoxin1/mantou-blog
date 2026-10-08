@@ -322,6 +322,44 @@ test('Downturn history supports exact valuation dates, touch and keyboard, retai
  await page.locator('#c-point-date').fill('2020-01-01');await expect(page.locator('#c-point-error')).toContainText('当前回测区间');await expect(detail).toBeHidden();
 });
 
+test('Downturn is an editable range with visible dates, independent recalculation and separate weekly/monthly custom spans',async({page})=>{
+ await page.setViewportSize({width:390,height:844});await setup(page);await page.locator('[data-period=down]').click();
+ const start=page.locator('#c-start'),end=page.locator('#c-end'),custom=page.locator('#c-range-custom'),detail=page.locator('#c-history-chart + .chart-detail');
+ await expect(page.locator('#c-options')).not.toHaveAttribute('open','');await expect(start).toBeVisible();await expect(end).toBeVisible();await expect(custom).toBeHidden();
+ const assertRange=async(kind,from,to)=>{
+  const rows=periods(kind).filter(r=>r.period>=from&&r.period<=to),balance=rows.reduce((qty,r)=>qty+99.9/r.buyPrice,0)*rows.at(-1).valuePrice;
+  expect(await value(page,'c-h-value')).toBeCloseTo(balance,2);expect(await value(page,'c-h-invest')).toBe(rows.length*100);expect(await value(page,'c-h-profit')).toBeCloseTo(balance-rows.length*100,2);
+  await expect(page.locator('#c-trades tr')).toHaveCount(rows.length);
+  await expect(page.locator('#c-h-period')).toHaveText(`${new Date(rows[0].time).toISOString().slice(0,10)} — ${new Date(rows.at(-1).end).toISOString().slice(0,10)} UTC · ${rows.length} 次投入`);
+  await expect(page.locator('#c-history-chart')).toContainText(new Date(rows.at(-1).end).toISOString().slice(0,10));
+ };
+ const initialCurve=await page.locator('#c-history-chart path').last().getAttribute('d');await page.locator('#c-point-date').fill('2022-12-25');
+ await start.fill('2022-05-04');await end.fill('2022-05-26');await expect(start).toHaveValue('2022-05-02');await expect(end).toHaveValue('2022-05-23');await assertRange('weekly','2022-05-02','2022-05-23');
+ await expect(custom).toBeVisible();await expect(page.locator('[data-period=down]')).toHaveAttribute('aria-pressed','false');await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','false');
+ expect(await page.locator('#c-history-chart path').last().getAttribute('d')).not.toBe(initialCurve);await expect(detail).toBeHidden();await expect(page.locator('#c-point-date')).toHaveValue('');
+ await start.fill('2019-05-06');await end.fill('2019-05-20');await assertRange('weekly','2019-05-06','2019-05-20');
+ await page.locator('[data-frequency=monthly]').click();await page.locator('[data-period=down]').click();await expect(start).toHaveAttribute('type','month');await expect(start).toBeVisible();await expect(end).toBeVisible();
+ await start.fill('2022-05');await end.fill('2022-07');await assertRange('monthly','2022-05','2022-07');await expect(custom).toBeVisible();
+ await page.locator('[data-frequency=weekly]').click();await expect(start).toHaveValue('2019-05-06');await expect(end).toHaveValue('2019-05-20');await assertRange('weekly','2019-05-06','2019-05-20');
+ await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await page.locator('#c-tab-history').click();await expect(start).toHaveValue('2019-05-06');await expect(end).toHaveValue('2019-05-20');
+ await page.locator('[data-frequency=monthly]').click();await expect(start).toHaveValue('2022-05');await expect(end).toHaveValue('2022-07');await assertRange('monthly','2022-05','2022-07');
+ await page.locator('[data-period=all]').click();await expect(custom).toBeHidden();await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','true');await assertRange('monthly',periods('monthly')[0].period,periods('monthly').at(-1).period);
+});
+
+test('Invalid custom downturn spans clear results, point readings and preset selection for both frequencies',async({page})=>{
+ await setup(page);
+ for(const kind of ['weekly','monthly']){
+  await page.locator(`[data-frequency=${kind}]`).click();
+  const invalid=kind==='weekly'?[['c-start',''],['c-end',''],['c-start','2023-01-02'],['c-start','2010-07-12'],['c-end','2026-10-12']]:[['c-start',''],['c-end',''],['c-start','2023-01'],['c-start','2010-07'],['c-end','2026-10']];
+  for(const [id,date] of invalid){
+   await page.locator('[data-period=down]').click();await page.locator('#c-point-date').fill('2022-05-18');await expect(page.locator('#c-history-chart + .chart-detail')).toBeVisible();await page.locator('#'+id).fill(date);
+   await expect(page.locator('#c-h-error')).not.toBeEmpty();await expect(page.locator('#c-h-value')).toHaveText('—');await expect(page.locator('#c-h-invest')).toHaveText('—');await expect(page.locator('#c-h-profit')).toHaveText('—');
+   await expect(page.locator('#c-trades tr')).toHaveCount(0);await expect(page.locator('#c-history-chart path')).toHaveCount(0);await expect(page.locator('#c-history-chart + .chart-detail')).toBeHidden();await expect(page.locator('#c-point-date')).toBeDisabled();
+   await expect(page.locator('[data-period=down]')).toHaveAttribute('aria-pressed','false');await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','false');await expect(page.locator('#c-range-custom')).toBeVisible();
+  }
+ }
+});
+
 test('History validates a new UTC day automatically and extends only an end following the latest full week',async({page})=>{
  const state=await setup(page);await expect(page.locator('#c-price-status')).toBeHidden();await openOptions(page);await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01');await page.locator('#c-end').fill('2021-02');await page.locator('[data-frequency=weekly]').click();
  state.priceMode='extended';await page.clock.fastForward(4*DAY);await expect.poll(()=>state.priceRequests).toBe(2);await expect(page.locator('#c-end')).toHaveValue('2026-10-05');expect(await value(page,'c-h-invest')).toBe(84700);
@@ -337,9 +375,15 @@ test('Online recovery during an active quote queues the shared history instead o
 
 test('A slow valid history survives the old eight-second limit, and a publication lag stays visibly pending',async({page})=>{
  const state=await setup(page,{mode:'ok',requests:0,holdPrices:true});await expect.poll(()=>typeof state.releasePrices).toBe('function');await page.clock.fastForward(19000);state.releasePrices();await expect(page.locator('#c-refresh')).toBeEnabled();await expect(page.locator('#c-price-status')).toBeHidden();
- await page.clock.fastForward(DAY);await expect(page.locator('#c-history-status')).toContainText('尚未到最新日期');await expect(page.locator('#c-price-status')).toContainText('尚未到最新日期');expect(await value(page,'c-h-invest')).toBe(84600);
+ await page.clock.fastForward(DAY);await expect(page.locator('#c-history-status')).toContainText('尚未到最新日期');await expect(page.locator('#c-price-status')).toContainText('尚未到最新日期');await expect(page.locator('#c-history-method-range')).toContainText('现有连续日历史已核对');await expect(page.locator('#c-history-method-range')).not.toContainText('初始价格快照');expect(await value(page,'c-h-invest')).toBe(84600);
  await page.clock.fastForward(600001);await expect.poll(()=>state.priceRequests).toBe(3);await expect(page.locator('#c-refresh')).toBeEnabled();await page.clock.fastForward(600001);expect(state.priceRequests).toBe(3);
  state.priceMode='next-day';await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-price-status')).toBeHidden();await expect(page.locator('#c-market-range')).toContainText('2026-10-08');
+});
+
+test('History provenance follows the derived stale state before its next source check',async({page})=>{
+ await setup(page);await expect(page.locator('#c-history-status')).toBeHidden();await expect(page.locator('#c-history-method-range')).toContainText('已核对最新完整日历史');
+ await page.clock.setSystemTime(new Date(NOW+DAY));await page.locator('[data-frequency=monthly]').click();
+ await expect(page.locator('#c-history-status')).toContainText('参考价格待更新');await expect(page.locator('#c-history-method-range')).toContainText('参考日期待更新');await expect(page.locator('#c-history-method-range')).not.toContainText('已核对最新');await expect(page.locator('#c-history-method-range')).toContainText('2026-10-07');
 });
 
 test('Native historical dates align to Monday, validate blanks and show readable trade figures',async({page})=>{

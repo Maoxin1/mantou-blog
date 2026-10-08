@@ -81,14 +81,16 @@ function clearHistory(message){q('c-h-error').textContent=message;['c-h-invest',
 function history(){
  const amount=Number(q('c-monthly').value),fee=Number(q('c-fee').value)/100,start=q('c-start').value,end=q('c-end').value;
  remember();
+ const downturn=periods().filter(d=>d.period>='2021-11'&&d.period<'2023-01');
+ const presets={all:start===firstPeriod()&&end===lastPeriod(),down:start===downturn[0]?.period&&end===downturn.at(-1)?.period};
+ root.querySelectorAll('[data-period]').forEach(el=>el.setAttribute('aria-pressed',String(presets[el.dataset.period])));
+ q('c-range-custom').hidden=presets.all||presets.down;
  const validPeriod=value=>frequency==='monthly'?/^\d{4}-(0[1-9]|1[0-2])$/.test(value):/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T00:00:00Z'))&&new Date(value+'T00:00:00Z').getUTCDay()===1;
  if(!q('c-monthly').value||!q('c-fee').value||!Number.isFinite(amount)||amount<1||amount>100000||!Number.isFinite(fee)||fee<0||fee>.05){clearHistory('请输入有效金额（1—100,000 USD）和费率（0—5%）。');return;}
  if(!validPeriod(start)||!validPeriod(end)||start<firstPeriod()||end>lastPeriod()){clearHistory('请选择可用历史范围内的起止日期。');return;}
  if(start>end){clearHistory('开始周期不能晚于结束周期。');return;}
  const rows=periods().filter(d=>d.period>=start&&d.period<=end);
  if(!rows.length){clearHistory('所选区间没有可用历史数据。');return;}
- const downturn=periods().filter(d=>d.period>='2021-11'&&d.period<'2023-01');
- root.querySelectorAll('[data-period]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.period==='all'?start===firstPeriod()&&end===lastPeriod():start===downturn[0].period&&end===downturn.at(-1).period)));
  q('c-h-error').textContent='';let qty=0,under=0;const a=[],b=[],labels=[];q('c-trades').replaceChildren();
  rows.forEach((row,i)=>{const added=amount*(1-fee)/row.buyPrice;qty+=added;const invested=amount*(i+1),value=qty*row.valuePrice;a.push(invested);b.push(value);labels.push(date(row.end));if(value<invested)under++;
  const tr=document.createElement('tr');[date(row.time),priceNumber(row.buyPrice),added.toFixed(8),number(invested),number(value)].forEach(text=>{const td=document.createElement('td');td.textContent=text;tr.appendChild(td);});q('c-trades').appendChild(tr);});
@@ -141,7 +143,8 @@ function historyStatus(){
  const state=historyState();q('c-history-status').hidden=state==='fresh';
  q('c-history-status').textContent=state==='fresh'?`已核对最新完整${name}，截至 ${end} UTC 日末。`:`${updateReason()}，使用截至 ${end} UTC 日末的完整周期。可到“比特币”页重试。`;
  q('c-history-range').textContent=`Coin Metrics · BTC/USD · ${name} · ${firstPeriod()} — ${lastPeriod()}，共 ${periods().length} 个完整周期。`;
- q('c-history-method-range').textContent=priceState==='fresh'?'价格图与定投使用同一组已核对的日参考价格。':`初始价格快照读取于 ${prices.readAt.slice(0,10)}；更新失败时保留已注明截止日期的数据。`;
+ const method={fresh:'已核对最新完整日历史。',checking:'正在核对更新，保留现有数据。',pending:'来源日期待更新；现有连续日历史已核对。',stale:'参考日期待更新，保留现有数据。',snapshot:`初始价格快照读取于 ${prices.readAt.slice(0,10)}。`};
+ q('c-history-method-range').textContent=`价格图与定投共用截至 ${prices.daily.at(-1)[0]} 的日参考价格。${method[state]||`${updateReason()}，保留现有数据。`}`;
 }
 function populate(){
  const saved=ranges[frequency]||{start:firstPeriod(),end:lastPeriod()};
