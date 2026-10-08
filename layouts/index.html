@@ -43,6 +43,11 @@
     {{- with .Params.preview_image -}}<a class="mantou-tool-preview" href="{{ $work.RelPermalink }}" tabindex="-1" aria-hidden="true"><img src="{{ . }}" alt="" width="388" height="624" loading="lazy" decoding="async"></a>{{- end -}}
     {{- else -}}{{ errorf "Missing home featured work" }}{{- end -}}
   </section>
+  <section class="mantou-card mantou-note-row" data-home-dca aria-labelledby="home-dca-title">
+    <div class="mantou-note-meta"><h2 id="home-dca-title">{{ if eq .Site.Language.Lang "en" }}DCA{{ else }}定投{{ end }}</h2></div>
+    <div class="mantou-note-copy"><h3><a href="{{ "/dca/" | relLangURL }}">{{ if eq .Site.Language.Lang "en" }}A long-term notebook{{ else }}把一点点，交给时间。{{ end }}</a></h3><p>{{ if eq .Site.Language.Lang "en" }}Explore monthly Bitcoin investing and compound-return scenarios. Interactive tool in Chinese.{{ else }}用历史回测和复利模拟，看看持续投入的过程与起伏。{{ end }}</p></div>
+    <a class="home-action" href="{{ "/dca/" | relLangURL }}" aria-label="{{ if eq .Site.Language.Lang "en" }}Explore the DCA notebook{{ else }}开始体验定投手记{{ end }}">→</a>
+  </section>
   <section class="editorial-home__latest mantou-latest" id="latest" aria-labelledby="latest-title" data-home-latest><div class="editorial-home__section-heading"><h2 id="latest-title">{{ T "gardenNotes" }}</h2></div><ol class="editorial-home__latest-list">{{- range first 5 $posts -}}<li><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "01.02" }}</time><div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3></div></li>{{- end -}}</ol></section>
   <section class="editorial-home__selected" id="selected" aria-labelledby="selected-title" data-home-selected>
     <div class="editorial-home__section-heading"><h2 id="selected-title">{{ T "startHere" }}</h2></div>

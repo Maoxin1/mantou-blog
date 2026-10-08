@@ -33,6 +33,11 @@ buildFuture = false
     url = "/works/"
     weight = 2
   [[languages.en.menu.main]]
+    identifier = "dca"
+    name = "DCA"
+    url = "/dca/"
+    weight = 2
+  [[languages.en.menu.main]]
     identifier = "now"
     name = "Now"
     url = "/now/"
@@ -163,6 +168,11 @@ buildFuture = false
     identifier = "portfolio"
     name = "作品"
     url = "/works/"
+    weight = 2
+  [[menu.main]]
+    identifier = "dca"
+    name = "定投"
+    url = "/dca/"
     weight = 2
   [[menu.main]]
     identifier = "now"
