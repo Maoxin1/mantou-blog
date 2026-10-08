@@ -1,10 +1,19 @@
 const {test,expect}=require('@playwright/test');
 const fixture=require('../../data/dca.json');
+const priceFixture=require('../../data/btcprices.json');
+const priceResponse=()=>({data:priceFixture.daily.map(([date,price])=>({asset:'btc',time:date+'T00:00:00.000000000Z',PriceUSD:String(price)}))});
 const NOW=Date.UTC(2026,9,8,10);
 const periods=kind=>fixture[kind].filter(r=>!r.partial);
 const candles=kind=>fixture[kind].map(r=>[r.time,r.open,0,0,r.close,0,r.end]);
 async function setup(page,state={mode:'ok',requests:0}) {
  await page.clock.install({time:new Date(NOW)});
+ await page.route('https://community-api.coinmetrics.io/**',async route=>{
+  state.priceRequests=(state.priceRequests||0)+1;
+  const mode=state.priceMode||state.mode;
+  if(mode==='fail')return route.abort();
+  const raw=priceResponse();if(mode==='gap')raw.data.splice(10,1);
+  return route.fulfill({json:raw});
+ });
  await page.route('https://data-api.binance.vision/**',async route=>{
   const url=route.request().url();
   if(state.mode==='fail')return route.abort();
@@ -47,14 +56,26 @@ test('Monthly calculation and independent compound zero/negative scenarios remai
  await page.locator('#c-principal').fill('0');await page.locator('#c-add').fill('0');await expect(page.locator('#c-f-composition')).toContainText('尚未投入');
 });
 
-test('Maximum price history starts at the earliest trading day and range controls change the series',async({page})=>{
+test('Maximum dollar price history starts in 2010 and retains early precision on a logarithmic chart',async({page})=>{
  await setup(page);await page.locator('#c-tab-market').click();
- await expect(page.locator('#c-market-range')).toContainText('2017-08-17');await expect(page.locator('[data-market="0"]')).toHaveAttribute('aria-pressed','true');
- await expect(page.locator('#c-market-chart')).toContainText('2017-08-17');
+ await expect(page.locator('#c-market-range')).toContainText('2010-07-18');await expect(page.locator('#c-market-range')).toContainText('2026-10-07');await expect(page.locator('[data-market="0"]')).toHaveAttribute('aria-pressed','true');
+ await expect(page.locator('#c-market-chart')).toContainText('2010-07-18');await expect(page.locator('#c-market-chart')).toContainText('USD/BTC');await expect(page.locator('#c-market-chart')).toContainText('0.01');await expect(page.locator('#c-panel-market .panel-context').first()).toContainText('对数刻度');
  const full=await page.locator('#c-market-chart path').last().getAttribute('d');
  await page.locator('[data-market="1"]').click();await expect(page.locator('#c-market-range')).toContainText('近 1 年');expect(await page.locator('#c-market-chart path').last().getAttribute('d')).not.toBe(full);
  await page.locator('[data-market="0"]').click();expect(await page.locator('#c-market-chart path').last().getAttribute('d')).toBe(full);
- await page.locator('#c-market-chart').focus();await page.keyboard.press('Home');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('2017-08-17');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('4,261.48');
+ expect(full).not.toMatch(/NaN|Infinity/);
+ await page.locator('#c-market-chart').focus();await page.keyboard.press('Home');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('2010-07-18');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('0.08584 USD/BTC');
+ await page.keyboard.press('ArrowRight');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('2010-07-19');await page.keyboard.press('End');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('83,273.72 USD/BTC');
+});
+
+test('Dollar price history failure and missing days preserve the snapshot independently of USDT quotes and DCA',async({page})=>{
+ const state=await setup(page,{mode:'ok',priceMode:'fail',requests:0});await page.locator('#c-tab-market').click();
+ await expect(page.locator('#c-price-status')).toContainText('更新未成功');await expect(page.locator('#c-quote-status')).toContainText('行情已更新');
+ const original=await page.locator('#c-market-chart path').last().getAttribute('d');
+ state.priceMode='gap';await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await expect(page.locator('#c-price-status')).toContainText('更新未成功');expect(await page.locator('#c-market-chart path').last().getAttribute('d')).toBe(original);
+ state.priceMode='ok';await page.locator('#c-refresh').click();await expect(page.locator('#c-price-status')).toBeHidden();
+ const requests=state.priceRequests;await page.clock.fastForward(60001);await expect.poll(()=>state.requests).toBeGreaterThan(2);expect(state.priceRequests).toBe(requests);
+ await page.locator('#c-tab-history').click();await openOptions(page);await expect(page.locator('#c-start option').first()).toHaveValue('2017-08-21');expect(await value(page,'c-h-invest')).toBe(periods('weekly').length*100);
 });
 
 test('DCA quote failure, stale response and recovery preserve honest states',async({page})=>{
