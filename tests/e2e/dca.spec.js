@@ -19,15 +19,15 @@ async function setup(page,state={mode:'ok',requests:0}) {
   state.priceRequests=(state.priceRequests||0)+1;
   const mode=state.priceMode||state.mode;
   if(mode==='fail')return route.abort();
-  const raw=priceResponse();if(mode==='extended')for(let day=8;day<=11;day++)raw.data.push({asset:'btc',time:`2026-10-${day.toString().padStart(2,'0')}T00:00:00.000000000Z`,PriceUSD:'90000'});if(mode==='revised')raw.data.forEach(row=>{if(['2026-10-04','2026-10-07'].includes(row.time.slice(0,10)))row.PriceUSD=String(Number(row.PriceUSD)*1.1);});if(mode==='gap')raw.data.splice(10,1);
+  const raw=priceResponse();if(mode==='next-day')raw.data.push({asset:'btc',time:'2026-10-08T00:00:00Z',PriceUSD:'90000'});if(mode==='lag')raw.data.pop();if(mode==='extended')for(let day=8;day<=11;day++)raw.data.push({asset:'btc',time:`2026-10-${day.toString().padStart(2,'0')}T00:00:00.000000000Z`,PriceUSD:'90000'});if(mode==='revised')raw.data.forEach(row=>{if(['2026-10-04','2026-10-07'].includes(row.time.slice(0,10)))row.PriceUSD=String(Number(row.PriceUSD)*1.1);});if(mode==='gap')raw.data.splice(10,1);
   if(mode==='narrow')raw.data.forEach((row,index)=>{row.PriceUSD=String(60000+20000*index/(raw.data.length-1));});
-  return route.fulfill({json:raw});
+  if(state.holdPrices){state.holdPrices=false;await new Promise(resolve=>state.releasePrices=resolve);}return route.fulfill({json:raw});
  });
  await page.route('https://data-api.binance.vision/**',async route=>{
   const url=route.request().url();
   if(state.mode==='fail')return route.abort();
   if(url.includes('klines'))throw new Error('USD DCA must not request Binance candles');
-  state.requests++;return route.fulfill({json:{...fixture.quote,lastPrice:'84000',closeTime:state.mode==='stale'?NOW-180000:await page.evaluate(()=>Date.now())}});
+  state.requests++;if(state.holdQuote){state.holdQuote=false;await new Promise(resolve=>state.releaseQuote=resolve);}return route.fulfill({json:{...fixture.quote,lastPrice:'84000',closeTime:state.mode==='stale'?NOW-180000:await page.evaluate(()=>Date.now())}});
  });
  await page.goto('/dca/');await expect(page.locator('#c-tab-future')).toHaveAttribute('aria-selected','true');await page.locator('#c-tab-history').click();await expect(page.locator('#c-h-invest')).toHaveText((periods('weekly').length*100).toLocaleString('en-US',{minimumFractionDigits:2}));return state;
 }
@@ -41,18 +41,18 @@ test('Weekly DCA uses known Sunday close references, fees, complete weeks and pr
  await expect(page.locator('#c-schedule')).toContainText('每周一 08:00');
  await expect(page.locator('#c-history-range')).toContainText('BTC/USD');await expect(page.locator('#c-trades tr').first()).toContainText('0.08584');
  await expect(page.locator('#c-trades tr')).toHaveCount(weekly.length);
- await openOptions(page);await expect(page.locator('#c-start option').first()).toHaveValue('2010-07-19');
- await page.locator('#c-start').selectOption('2020-12-28');await page.locator('#c-end').selectOption('2021-01-04');
+ await openOptions(page);await expect(page.locator('#c-start')).toHaveAttribute('min','2010-07-19');
+ await page.locator('#c-start').fill('2020-12-28');await page.locator('#c-end').fill('2021-01-04');
  await page.locator('#c-fee').fill('1');
  const two=weekly.filter(r=>['2020-12-28','2021-01-04'].includes(r.period));
  expect(await value(page,'c-h-value')).toBeCloseTo(two.reduce((sum,r)=>sum+99/r.buyPrice,0)*two.at(-1).valuePrice,2);
  expect(await value(page,'c-h-invest')).toBe(200);await expect(page.locator('#c-trades tr')).toHaveCount(2);
  await page.locator('[data-frequency=monthly]').click();await expect(page.locator('#c-schedule')).toContainText('每月 1 日');
  await expect(page.locator('#c-monthly')).toHaveValue('100');expect(await value(page,'c-h-invest')).toBe(periods('monthly').length*100);
- await page.locator('#c-start').selectOption('2021-01');await page.locator('#c-end').selectOption('2021-02');
+ await page.locator('#c-start').fill('2021-01');await page.locator('#c-end').fill('2021-02');
  await page.locator('[data-frequency=weekly]').click();await expect(page.locator('#c-start')).toHaveValue('2020-12-28');await expect(page.locator('#c-end')).toHaveValue('2021-01-04');
- await page.locator('#c-start').selectOption('2021-01-11');await expect(page.locator('#c-h-error')).toContainText('不能');await expect(page.locator('#c-h-value')).toHaveText('—');
- await page.locator('#c-start').selectOption('2021-01-04');expect(await value(page,'c-h-value')).toBeCloseTo(99/two[1].buyPrice*two[1].valuePrice,2);
+ await page.locator('#c-start').fill('2021-01-11');await expect(page.locator('#c-h-error')).toContainText('不能');await expect(page.locator('#c-h-value')).toHaveText('—');
+ await page.locator('#c-start').fill('2021-01-04');expect(await value(page,'c-h-value')).toBeCloseTo(99/two[1].buyPrice*two[1].valuePrice,2);
  await page.locator('#c-monthly').fill('');await expect(page.locator('#c-h-value')).toHaveText('—');await expect(page.locator('#c-history-chart')).not.toHaveAttribute('tabindex','0');await expect(page.locator('#c-history-chart + .chart-detail')).not.toBeVisible();
 });
 
@@ -84,16 +84,16 @@ test('Dollar price history failure and missing days preserve the snapshot for bo
  const state=await setup(page,{mode:'ok',priceMode:'fail',requests:0});await page.locator('#c-tab-market').click();
  await expect(page.locator('#c-price-status')).toContainText('更新未成功');await expect(page.locator('#c-history-status')).toContainText('历史更新未成功');await expect(page.locator('#c-quote-status')).toContainText('行情已更新');
  const original=await page.locator('#c-market-chart path').last().getAttribute('d');
- state.priceMode='gap';await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await expect(page.locator('#c-price-status')).toContainText('更新未成功');expect(await page.locator('#c-market-chart path').last().getAttribute('d')).toBe(original);
+ state.priceMode='gap';await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await expect(page.locator('#c-price-status')).toContainText('完整性异常');expect(await page.locator('#c-market-chart path').last().getAttribute('d')).toBe(original);
  state.priceMode='ok';await page.locator('#c-refresh').click();await expect(page.locator('#c-price-status')).toBeHidden();await expect(page.locator('#c-history-status')).toBeHidden();
  const requests=state.priceRequests;await page.clock.fastForward(60001);await expect.poll(()=>state.requests).toBeGreaterThan(2);expect(state.priceRequests).toBe(requests);
- await page.locator('#c-tab-history').click();await openOptions(page);await expect(page.locator('#c-start option').first()).toHaveValue('2010-07-19');expect(await value(page,'c-h-invest')).toBe(periods('weekly').length*100);
+ await page.locator('#c-tab-history').click();await openOptions(page);await expect(page.locator('#c-start')).toHaveAttribute('min','2010-07-19');expect(await value(page,'c-h-invest')).toBe(periods('weekly').length*100);
 });
 
 
 test('Shared daily price revisions update USD DCA results and the chart while keeping period selections and the USDT quote',async({page})=>{
  const state=await setup(page);const initial=await value(page,'c-h-value');await openOptions(page);
- await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').selectOption('2021-01');await page.locator('#c-end').selectOption('2021-02');
+ await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01');await page.locator('#c-end').fill('2021-02');
  const monthly=await value(page,'c-h-value');await page.locator('[data-frequency=weekly]').click();
  state.priceMode='revised';await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-price-status')).toBeHidden();
  await page.locator('#c-market-chart').focus();await page.keyboard.press('End');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('91,601.10 USD/BTC');await expect(page.locator('#c-quote')).toHaveText('84,000.00 USDT');
@@ -102,7 +102,7 @@ test('Shared daily price revisions update USD DCA results and the chart while ke
 });
 
 test('A newly completed week extends the full-history end without changing a custom monthly range',async({page})=>{
- const state=await setup(page);await openOptions(page);await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').selectOption('2021-01');await page.locator('#c-end').selectOption('2021-02');
+ const state=await setup(page);await openOptions(page);await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01');await page.locator('#c-end').fill('2021-02');
  await page.locator('[data-frequency=weekly]').click();await expect(page.locator('#c-end')).toHaveValue('2026-09-28');
  await page.clock.fastForward(4*DAY);state.priceMode='extended';await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await expect(page.locator('#c-price-status')).toBeHidden();
  await page.locator('#c-tab-history').click();await expect(page.locator('#c-start')).toHaveValue('2010-07-19');await expect(page.locator('#c-end')).toHaveValue('2026-10-05');expect(await value(page,'c-h-invest')).toBe(84700);
@@ -144,8 +144,8 @@ for (const initial of ['offline','hidden']) {
   const state=await setup(page);
   expect(state.priceRequests||0).toBe(0);
   if(initial==='offline'){
-   await expect(page.locator('#c-history-status')).toContainText('历史更新未成功');
-   await page.locator('#c-tab-market').click();await expect(page.locator('#c-price-status')).toContainText('价格历史更新未成功');
+   await expect(page.locator('#c-history-status')).toContainText('当前离线');
+   await page.locator('#c-tab-market').click();await expect(page.locator('#c-price-status')).toContainText('当前离线');
   }
   await page.evaluate(initial=>{
    if(initial==='offline'){Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>true});dispatchEvent(new Event('online'));}
@@ -297,4 +297,53 @@ test('A late fullscreen grant after closing cannot leave an empty fullscreen vie
  await page.evaluate(()=>window.grantLateFullscreen());await expect.poll(()=>page.evaluate(()=>window.lateFullscreenExitCount)).toBe(1);
  await expect(page.locator('#c-market-home #c-market-chart')).toBeVisible();await expect(page.locator('#c-expand')).toBeFocused();
  expect(await page.evaluate(()=>document.fullscreenElement)).toBeNull();
+});
+
+
+test('Downturn history supports exact valuation dates, touch and keyboard, retaining its selection on redraw',async({page,context})=>{
+ await setup(page);await page.locator('[data-period=down]').click();
+ const chart=page.locator('#c-history-chart'),detail=page.locator('#c-history-chart + .chart-detail');
+ await page.locator('#c-point-date').fill('2022-05-18');await expect(page.locator('#c-point-date')).toHaveValue('2022-05-22');await expect(detail).toContainText('2022-05-22');
+ const rows=periods('weekly').filter(r=>r.period>='2021-11'&&r.period<'2023-01'),through=rows.filter(r=>r.end<=Date.parse('2022-05-23T00:00:00Z'));
+ const expected=through.reduce((qty,r)=>qty+99.9/r.buyPrice,0)*through.at(-1).valuePrice;
+ await expect(detail).toContainText(expected.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})+' USD');
+ await page.locator('#c-point-next').click();await expect(detail).toContainText('2022-05-29');await page.locator('#c-point-prev').click();await expect(detail).toContainText('2022-05-22');
+ const selected=await detail.textContent();await page.evaluate(()=>document.body.setAttribute('theme','dark'));await page.setViewportSize({width:320,height:844});await expect(detail).toHaveText(selected);
+ await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await page.locator('#c-tab-history').click();await expect(detail).toHaveText(selected);
+ await chart.focus();await page.keyboard.press('Home');await expect(detail).toContainText('2021-11-07');await expect(page.locator('#c-point-prev')).toBeDisabled();
+ await chart.scrollIntoViewIfNeeded();
+ const point=await chart.evaluate(svg=>{const p=svg.createSVGPoint();p.x=51+(svg.viewBox.baseVal.width-63)*5/(61-1);p.y=svg.viewBox.baseVal.height-8;const screen=p.matrixTransform(svg.getScreenCTM());return {x:screen.x,y:screen.y};});
+ await page.mouse.click(point.x,point.y);await expect(detail).toContainText('2021-12-12');
+ const phone=await context.browser().newContext({hasTouch:true,viewport:{width:390,height:844}});const touch=await phone.newPage();await setup(touch);await touch.locator('[data-period=down]').click();
+ await touch.locator('#c-history-chart').scrollIntoViewIfNeeded();
+ const tap=await touch.locator('#c-history-chart').evaluate(svg=>{const p=svg.createSVGPoint();p.x=52;p.y=svg.viewBox.baseVal.height/2;const s=p.matrixTransform(svg.getScreenCTM());return {x:s.x,y:s.y};});await touch.touchscreen.tap(tap.x,tap.y);await expect(touch.locator('#c-history-chart + .chart-detail')).toContainText('2021-11-07');await phone.close();
+ await page.locator('[data-frequency=monthly]').click();await page.locator('[data-period=down]').click();await page.locator('#c-point-date').fill('2022-05-18');await expect(detail).toContainText('2022-05-31');
+ await page.locator('[data-frequency=weekly]').click();await expect(detail).toContainText('2021-12-12');
+ await page.locator('#c-point-date').fill('2020-01-01');await expect(page.locator('#c-point-error')).toContainText('当前回测区间');await expect(detail).toBeHidden();
+});
+
+test('History validates a new UTC day automatically and extends only an end following the latest full week',async({page})=>{
+ const state=await setup(page);await expect(page.locator('#c-price-status')).toBeHidden();await openOptions(page);await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01');await page.locator('#c-end').fill('2021-02');await page.locator('[data-frequency=weekly]').click();
+ state.priceMode='extended';await page.clock.fastForward(4*DAY);await expect.poll(()=>state.priceRequests).toBe(2);await expect(page.locator('#c-end')).toHaveValue('2026-10-05');expect(await value(page,'c-h-invest')).toBe(84700);
+ await page.locator('[data-frequency=monthly]').click();await expect(page.locator('#c-start')).toHaveValue('2021-01');await expect(page.locator('#c-end')).toHaveValue('2021-02');
+});
+
+test('Online recovery during an active quote queues the shared history instead of losing it',async({page})=>{
+ const state=await setup(page);await expect(page.locator('#c-price-status')).toBeHidden();await expect(page.locator('#c-refresh')).toBeEnabled();state.holdQuote=true;
+ await page.clock.fastForward(60001);await expect.poll(()=>typeof state.releaseQuote).toBe('function');
+ await page.evaluate(()=>{Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>false});dispatchEvent(new Event('offline'));Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>true});dispatchEvent(new Event('online'));});
+ expect(state.priceRequests).toBe(1);state.releaseQuote();await expect.poll(()=>state.priceRequests).toBe(2);await expect(page.locator('#c-refresh')).toBeEnabled();await expect(page.locator('#c-history-status')).toBeHidden();
+});
+
+test('A slow valid history survives the old eight-second limit, and a publication lag stays visibly pending',async({page})=>{
+ const state=await setup(page,{mode:'ok',requests:0,holdPrices:true});await expect.poll(()=>typeof state.releasePrices).toBe('function');await page.clock.fastForward(19000);state.releasePrices();await expect(page.locator('#c-refresh')).toBeEnabled();await expect(page.locator('#c-price-status')).toBeHidden();
+ await page.clock.fastForward(DAY);await expect(page.locator('#c-history-status')).toContainText('尚未到最新日期');await expect(page.locator('#c-price-status')).toContainText('尚未到最新日期');expect(await value(page,'c-h-invest')).toBe(84600);
+ await page.clock.fastForward(600001);await expect.poll(()=>state.priceRequests).toBe(3);await expect(page.locator('#c-refresh')).toBeEnabled();await page.clock.fastForward(600001);expect(state.priceRequests).toBe(3);
+ state.priceMode='next-day';await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-price-status')).toBeHidden();await expect(page.locator('#c-market-range')).toContainText('2026-10-08');
+});
+
+test('Native historical dates align to Monday, validate blanks and show readable trade figures',async({page})=>{
+ await setup(page);await openOptions(page);await page.locator('#c-start').fill('2021-01-07');await expect(page.locator('#c-start')).toHaveValue('2021-01-04');await page.locator('#c-end').fill('2021-01-13');await expect(page.locator('#c-end')).toHaveValue('2021-01-11');expect(await value(page,'c-h-invest')).toBe(200);
+ expect(await page.locator('#c-trades td').first().evaluate(e=>parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(14);
+ await expect(page.locator('#c-panel-history .result-label')).toContainText('参考模拟');await page.locator('#c-start').fill('');await expect(page.locator('#c-h-value')).toHaveText('—');await expect(page.locator('#c-point-date')).toBeDisabled();
 });

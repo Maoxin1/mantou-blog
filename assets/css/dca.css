@@ -136,6 +136,12 @@ body[theme=dark] #mantou-dca-c .error{color:#ffb5a6}
 #mantou-dca-c summary{font-size:15px}
 #mantou-dca-c .chart-detail{font-size:14px}
 #mantou-dca-c .history-scenarios{margin-top:24px}
+#mantou-dca-c .history-inspector{margin-top:16px}
+#mantou-dca-c .point-controls{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;margin-top:8px}
+#mantou-dca-c .point-controls button{font-size:14px;padding:8px}
+#mantou-dca-c .point-controls button:disabled{cursor:default}
+#mantou-dca-c th,#mantou-dca-c td{font-size:14px}
+@media(max-width:370px){#mantou-dca-c .point-controls{grid-template-columns:1fr 1fr}#mantou-dca-c .point-controls input{grid-column:1/-1}}
 #mantou-dca-c .amount-control .input-hint{margin-bottom:0}
 @media(max-width:580px){
   #mantou-dca-c .hero{padding:4px 0 16px}

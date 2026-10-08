@@ -31,3 +31,18 @@ test('BTC dollar history rejects invalid prices, assets and non-daily timestamps
     assert.throws(() => parsePriceHistory(raw, now));
   }
 });
+
+test('a one-day publication lag can be used explicitly without marking old data current or allowing gaps', async () => {
+  const { parsePriceHistory, isCurrentPriceHistory } = await modulePromise;
+  const raw = response(); raw.data.pop();
+  assert.throws(() => parsePriceHistory(raw, now), error => error.code === 'pending');
+  const rows = parsePriceHistory(raw, now, {allowPublicationLag:true});
+  assert.equal(rows.at(-1)[0], '2026-10-06');
+  assert.equal(isCurrentPriceHistory(rows, now), false);
+  assert.equal(isCurrentPriceHistory(fixture.daily, now), true);
+  assert.equal(isCurrentPriceHistory(fixture.daily, now + 86400000), false);
+  raw.data.splice(10,1);
+  assert.throws(() => parsePriceHistory(raw, now, {allowPublicationLag:true}), error => error.code === 'invalid');
+  const older = response(); older.data.splice(-2);
+  assert.throws(() => parsePriceHistory(older, now, {allowPublicationLag:true}), error => error.code === 'pending');
+});
