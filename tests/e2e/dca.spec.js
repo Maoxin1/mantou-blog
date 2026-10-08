@@ -11,7 +11,7 @@ async function setup(page,state={mode:'ok',requests:0}) {
   if(url.includes('klines'))return route.fulfill({json:candles(url.includes('interval=1w')?'weekly':'monthly')});
   state.requests++;return route.fulfill({json:{...fixture.quote,lastPrice:'84000',closeTime:state.mode==='stale'?NOW-180000:await page.evaluate(()=>Date.now())}});
  });
- await page.goto('/dca/');await expect(page.locator('#c-h-invest')).toHaveText((periods('weekly').length*100).toLocaleString('en-US',{minimumFractionDigits:2}));return state;
+ await page.goto('/dca/');await expect(page.locator('#c-tab-future')).toHaveAttribute('aria-selected','true');await page.locator('#c-tab-history').click();await expect(page.locator('#c-h-invest')).toHaveText((periods('weekly').length*100).toLocaleString('en-US',{minimumFractionDigits:2}));return state;
 }
 const value=async(page,id)=>Number((await page.locator('#'+id).textContent()).replace(/[$,]/g,''));
 const openOptions=async page=>{if(!await page.locator('#c-options').getAttribute('open'))await page.locator('#c-options>summary').click();};
@@ -34,14 +34,14 @@ test('Weekly DCA uses Monday opens, fees, complete weeks and preserves separate 
  await page.locator('[data-frequency=weekly]').click();await expect(page.locator('#c-start')).toHaveValue('2020-12-28');await expect(page.locator('#c-end')).toHaveValue('2021-01-04');
  await page.locator('#c-start').selectOption('2021-01-11');await expect(page.locator('#c-h-error')).toContainText('不能');await expect(page.locator('#c-h-value')).toHaveText('—');
  await page.locator('#c-start').selectOption('2021-01-04');expect(await value(page,'c-h-value')).toBeCloseTo(99/two[1].open*two[1].close,2);
- await page.locator('#c-monthly').fill('');await expect(page.locator('#c-h-value')).toHaveText('—');
+ await page.locator('#c-monthly').fill('');await expect(page.locator('#c-h-value')).toHaveText('—');await expect(page.locator('#c-history-chart')).not.toHaveAttribute('tabindex','0');await expect(page.locator('#c-history-chart + .chart-detail')).not.toBeVisible();
 });
 
 test('Monthly calculation and independent compound zero/negative scenarios remain correct',async({page})=>{
  await setup(page);await page.locator('[data-frequency=monthly]').click();await openOptions(page);
  const rows=periods('monthly');expect(await value(page,'c-h-value')).toBeCloseTo(rows.reduce((sum,r)=>sum+99.9/r.open,0)*rows.at(-1).close,2);
  await page.locator('[data-period=down]').click();expect(await value(page,'c-h-profit')).toBeLessThan(0);await expect(page.locator('#c-trades tr')).toHaveCount(14);
- await page.locator('#c-tab-future').click();await page.locator('[data-rate="0"]').click();expect(await value(page,'c-f-value')).toBe(13000);
+ await page.locator('#c-tab-future').click();await page.locator('[data-compound-frequency=monthly]').click();await page.locator('[data-rate="0"]').click();expect(await value(page,'c-f-value')).toBe(13000);
  await page.locator('[data-rate="-5"]').click();expect(await value(page,'c-f-profit')).toBeLessThan(0);await expect(page.locator('#c-f-composition')).toContainText('模拟损失');
  await page.locator('[data-rate="5"]').click();const rate=Math.pow(1.05,1/12)-1;expect(await value(page,'c-f-value')).toBeCloseTo(1000*Math.pow(1+rate,120)+100*(Math.pow(1+rate,120)-1)/rate,2);
  await page.locator('#c-principal').fill('0');await page.locator('#c-add').fill('0');await expect(page.locator('#c-f-composition')).toContainText('尚未投入');
@@ -82,6 +82,32 @@ test('Result-first mobile layout, all tabs, keyboard navigation and themes',asyn
   }
  }
  await page.setViewportSize({width:390,height:1000});await page.locator('#c-tab-history').click();const result=await page.locator('#c-h-value').boundingBox(),chart=await page.locator('#c-history-chart').boundingBox();expect(result.y).toBeLessThan(chart.y);
- await page.locator('#c-tab-history').focus();await page.keyboard.press('ArrowRight');await expect(page.locator('#c-tab-future')).toBeFocused();await expect(page.locator('#c-panel-future')).toBeVisible();
+ await page.locator('#c-tab-history').focus();await page.keyboard.press('ArrowLeft');await expect(page.locator('#c-tab-future')).toBeFocused();await expect(page.locator('#c-panel-future')).toBeVisible();
  await page.goto('/');await expect(page.locator('[data-home-dca] a').first()).toHaveAttribute('href','/dca/');await page.goto('/en/dca/');await expect(page.getByRole('link',{name:'Open the interactive notebook (中文)'})).toHaveAttribute('href','/dca/');expect(errors).toEqual([]);
+});
+
+
+test('Compound weekly/monthly frequency uses effective annual return and independent inputs',async({page})=>{
+ await setup(page);await page.locator('#c-tab-future').click();
+ await expect(page.locator('[data-compound-frequency=weekly]')).toHaveAttribute('aria-pressed','true');
+ await page.locator('#c-years').fill('1');await page.locator('[data-rate="0"]').click();
+ expect(await value(page,'c-f-invest')).toBe(6200);expect(await value(page,'c-f-value')).toBe(6200);
+ await expect(page.locator('#c-f-period')).toContainText('52 次');
+ await page.locator('[data-compound-frequency=monthly]').click();expect(await value(page,'c-f-value')).toBe(2200);await expect(page.locator('#c-add')).toHaveValue('100');
+ await page.locator('#c-add').fill('0');await page.locator('[data-rate="5"]').click();expect(await value(page,'c-f-value')).toBeCloseTo(1050,2);
+ await page.locator('[data-compound-frequency=weekly]').click();expect(await value(page,'c-f-value')).toBeCloseTo(1050,2);
+ await page.locator('#c-add').fill('100');await page.locator('[data-rate="-5"]').click();expect(await value(page,'c-f-profit')).toBeLessThan(0);
+ await page.locator('#c-tab-history').click();await page.locator('[data-frequency=monthly]').click();await page.locator('#c-tab-future').click();await expect(page.locator('[data-compound-frequency=weekly]')).toHaveAttribute('aria-pressed','true');
+ await page.locator('#c-principal').fill('');await expect(page.locator('#c-f-value')).toHaveText('—');await expect(page.locator('#c-f-error')).toContainText('每次投入');await page.locator('#c-future-chart').dispatchEvent('focus');await page.locator('#c-future-chart').dispatchEvent('keydown',{key:'Home'});await expect(page.locator('#c-future-chart + .chart-detail')).not.toBeVisible();await expect(page.locator('#c-future-chart')).not.toHaveAttribute('tabindex','0');
+});
+
+test('Quiet default presentation preserves important context and reveals graph details on demand',async({page})=>{
+ await setup(page);await page.setViewportSize({width:390,height:844});await page.locator('#c-tab-future').click();
+ await expect(page.locator('[role=tab]').first()).toHaveText('复利模拟');
+ await expect(page.locator('#c-panel-future .panel-context')).toContainText('非收益预测');
+ await expect(page.locator('#c-f-schedule')).toContainText('52 次');
+ await expect(page.locator('#c-f-composition')).not.toBeVisible();await expect(page.locator('#c-future-chart + .chart-detail')).not.toBeVisible();
+ await page.locator('#c-future-chart').focus();await page.keyboard.press('Home');await expect(page.locator('#c-future-chart + .chart-detail')).toBeVisible();await expect(page.locator('#c-future-chart + .chart-detail')).toContainText('现在');
+ const valueBox=await page.locator('#c-f-value').boundingBox(),chartBox=await page.locator('#c-future-chart').boundingBox();expect(valueBox.y).toBeLessThan(chartBox.y);
+ await page.locator('#c-tab-history').click();await expect(page.locator('[data-period=down]')).toBeVisible();await expect(page.locator('#c-panel-history .budget-note')).toBeVisible();await expect(page.locator('#c-h-detail')).not.toBeVisible();
 });
