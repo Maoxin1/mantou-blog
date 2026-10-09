@@ -1,6 +1,14 @@
 name: Production smoke
 
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "tests/smoke/**"
+      - "tests/helpers/production-resource.cjs"
+      - "tests/helpers/normal-profile.js"
+      - "playwright.smoke.config.js"
+      - ".github/workflows/smoke-production.yml"
   workflow_run:
     workflows: ["Deploy Pages"]
     types: [completed]
@@ -15,7 +23,7 @@ permissions:
 
 concurrency:
   # A skipped preview completion must not cancel a production check.
-  group: production-smoke-${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || github.event_name }}
+  group: production-smoke-${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || github.event.pull_request.number || github.event_name }}
   cancel-in-progress: true
 
 jobs:

@@ -1,6 +1,6 @@
 # TEST-MATRIX-OVW-001
 
-当前独立应用修正：已实现不同origin的安装入口，Pages项目与四项私有绑定已准备，本地检查通过，正在按PR门禁发布；新增Access目的地及安卓独立图标启动/刷新仍待实际验证。旧博客应用打开统计页不等于独立统计应用已安装。见[修复记录](implementation/analytics-app-20261009/README.md)。
+当前独立应用状态（2026-10-09）：PR #146 已合并并发布为 `53cf91cc25c7558600742cc13e3c709c63170980`。新主机的统计页面和数据接口已通过匿名 Access 挑战/no-store 复查；首次生产 smoke 的 `401 UNAUTHORIZED` 失败保留在发布记录，当前复查不等于真实本人登录或真机安装已验收。TM-OVW-009/012 保持阻塞，010 的原网址有限通过范围不扩大。见[修复记录](implementation/analytics-app-20261009/README.md)。
 
 
 2026-10-09，v0.7；功能 ANL-OVW，依据 [SPEC-OVW-001](specs/analytics-overview-v1.md)。当前 10 项有限范围通过、2 项阻塞，整体待验收。代码已上线，桌面和安卓 Chrome 真实查看已观察；安卓独立应用安装尚未成功。受控响应不代替真实读取；作品点击方向已因用户澄清取消。

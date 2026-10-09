@@ -31,7 +31,7 @@ npm run test:e2e
 
 ## 生产部署冒烟
 
-正式域名和外部成品不进入每次PR的快速门禁。`Deploy Pages` 自动正式发布成功后立即运行一次，GitHub Actions 仍每天运行一次，也可在 Actions 页面手动触发；手动预览部署不会触发正式站检查：
+修改生产冒烟测试、相关辅助代码或该工作流的 PR 会在无生产凭据的 GitHub 托管环境检查当前线上站点，便于合并前验证检查本身。普通内容 PR 不运行外部成品检查。`Deploy Pages` 自动正式发布成功后立即运行一次，GitHub Actions 仍每天运行一次，也可在 Actions 页面手动触发；手动预览部署不会触发正式站检查：
 
 ```powershell
 npm run test:smoke
