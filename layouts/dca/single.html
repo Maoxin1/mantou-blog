@@ -11,6 +11,7 @@
   <div class="dca-tabs" role="tablist" aria-label="定投手记内容" hidden>
     <button type="button" id="c-tab-future" role="tab" aria-controls="c-panel-future" aria-selected="true" data-panel="future">复利模拟</button>
     <button type="button" id="c-tab-history" role="tab" aria-controls="c-panel-history" aria-selected="false" tabindex="-1" data-panel="history">历史定投</button>
+    <button type="button" id="c-tab-market" role="tab" aria-controls="c-panel-market" aria-selected="false" tabindex="-1" data-panel="market">比特币行情</button>
   </div>
   <section id="c-panel-future" role="tabpanel" aria-labelledby="c-tab-future">
     <h2 class="sr-only">复利模拟</h2><p class="panel-context">假设情景 · 非收益预测</p>
@@ -67,29 +68,6 @@
     <div id="c-h-error" class="error" role="alert"></div>
     <div class="legend"><span class="key">累计投入</span><span class="key growth">持仓价值</span></div>
     <svg id="c-history-chart" class="chart" role="img" aria-label="定投累计投入与期末持仓价值，单位 USD；点按、方向键或日期输入可查看周期详情"></svg>
-    <details id="c-market-context"><summary>比特币价格 · 2010 起</summary>
-    <div id="c-panel-market">
-    <h2 class="sr-only">比特币行情</h2><p class="tag" id="c-quote-status" role="status">正在获取行情</p>
-    <div class="market"><div><div class="result-label">BTC / USDT · Binance</div><div id="c-quote" class="market-price"></div></div><div class="market-status"><div id="c-quote-change"></div><div id="c-quote-time"></div></div></div>
-    <div id="c-market-home"><div id="c-market-view">
-      <div class="market-chart-head">
-        <h2>比特币价格历史</h2>
-        <button type="button" id="c-expand" aria-haspopup="dialog" aria-controls="c-price-dialog" hidden>横屏查看</button>
-      </div>
-      <p class="panel-context">Coin Metrics · UTC 日收盘 · 对数刻度</p>
-      <div id="c-market-controls" class="market-tools">
-        <div id="c-market-ranges" class="scenario market-ranges" aria-label="价格走势范围"><button data-market="1" aria-pressed="false" type="button">近 1 年</button><button data-market="5" aria-pressed="false" type="button">近 5 年</button><button data-market="0" aria-pressed="true" type="button">最大</button></div>
-      </div>
-      <p class="result-caption" id="c-market-range"></p>
-      <div class="result-pair market-performance" aria-live="polite"><div><small>累计收益率</small><strong id="c-m-return">—</strong></div></div>
-      <svg id="c-market-chart" class="chart" role="img" aria-label="比特币美元日价格历史，对数刻度，点按图表或用方向键查看详情"></svg>
-      <p id="c-price-status" class="data-status" role="status">正在核对价格历史…</p>
-    </div></div>
-    <button type="button" id="c-refresh">刷新行情</button>
-    <p class="panel-context">仅供参考，非可成交报价。</p>
-    <details><summary>数据与更新说明</summary><p>累计收益率＝区间末价 ÷ 区间初价 − 1，按所选价格区间计算一次买入并持有的参考回报，未计交易费用。使用 BTC/USD 日参考价格，与上方独立 USDT 报价的 24 小时变动不同；不代表定投回报。</p><p>历史曲线：<a href="https://coinmetrics.io/community-network-data/" target="_blank" rel="noopener noreferrer">Coin Metrics Community</a> · BTC PriceUSD，美元日价格参考值。日期表示该 UTC 日的收盘，实际收盘时点为次日 00:00 UTC；对数刻度中，相同距离表示相同倍数变化。历史定投共用此日参考价格；上方 Binance BTC/USDT 报价独立显示，USD 与 USDT 不视为同一单位。</p><p>数据按 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 使用；本页选取 BTC PriceUSD 并绘图。初始价格快照读取于 {{ .Site.Data.btcprices.readAt | time.Format "2006-01-02" }}，数据截止日期见图下。</p><p>页面可见时每 60 秒尝试更新报价；打开页面、手动刷新、恢复联网和跨 UTC 日时核对完整价格历史。历史连接限时 30 秒；临时失败或日期待更新时，10 分钟后最多自动重试一次，仍可手动重试。失败时保留已有数据并注明截止日期。</p></details>
-    </div></details>
-
     <details id="c-inspection"><summary>按日期查看图表</summary>
     <div class="history-inspector"><label for="c-point-date">查看某一期</label><div class="point-controls"><input id="c-point-date" type="date"><button id="c-point-prev" type="button" disabled>上一期</button><button id="c-point-next" type="button" disabled>下一期</button></div><p id="c-point-error" class="error" role="status"></p></div>
     </details>
@@ -105,10 +83,41 @@
     </details>
     <p id="c-history-status" class="data-status" role="status">已加载历史快照，正在检查更新。</p>
   </section>
+  <section id="c-panel-market" class="bitcoin-panel" role="tabpanel" aria-labelledby="c-tab-market" hidden>
+    <div class="bitcoin-heading">
+      <h2>比特币行情</h2>
+      <img class="bitcoin-icon" src="/images/identity/bitcoin-drip.png" alt="黑白滴落比特币图标" width="1120" height="1405" loading="lazy" decoding="async">
+    </div>
+    <div id="c-market-summary" class="bitcoin-summary">
+      <div class="market">
+        <p class="quote-source"><span id="c-quote-label">上次报价</span> · BTC / USDT · Binance</p>
+        <div id="c-quote" class="market-price"><strong id="c-quote-value">—</strong> <span class="market-unit">USDT</span></div>
+        <div class="market-status"><span id="c-quote-change"></span><span id="c-quote-time"></span></div>
+        <div class="quote-update"><p id="c-quote-status" class="data-status" role="status">正在获取行情</p><button type="button" id="c-refresh" title="刷新报价与价格历史">刷新</button></div>
+      </div>
+      <div id="c-market-performance-home"><div class="market-performance" aria-live="polite"><div><small>累计收益率</small><span id="c-market-selection" class="selection-name">所选区间 · 最大</span><strong id="c-m-return">—</strong></div></div></div>
+    </div>
+    <div id="c-market-home"><div id="c-market-view">
+      <div class="market-chart-head"><h3>价格历史</h3><button type="button" id="c-expand" aria-haspopup="dialog" aria-controls="c-price-dialog" hidden>横屏查看 ↗</button></div>
+      <div id="c-market-controls" class="market-tools"><div id="c-market-ranges" class="scenario market-ranges" aria-label="价格走势范围"><button data-market="1" aria-pressed="false" type="button">近 1 年</button><button data-market="5" aria-pressed="false" type="button">近 5 年</button><button data-market="0" aria-pressed="true" type="button">最大</button></div></div>
+      <div class="market-reference"><p class="result-caption" id="c-market-range"></p><p class="panel-context">Coin Metrics · BTC/USD · UTC 日收盘 · 对数刻度</p></div>
+      <div class="history-update"><p id="c-price-status" class="data-status" role="status">正在核对价格历史…</p><button type="button" id="c-price-retry" hidden>重试</button></div>
+      <div class="market-chart-area"><svg id="c-market-chart" class="chart" role="img" aria-label="比特币美元日参考价格历史，对数刻度，悬停、点按或用方向键查看日期与价格"></svg></div>
+    </div></div>
+    <p class="market-note"><span>悬停或点按图表，查看对应日期与参考价格。</span>区间累计收益率为一次买入并持有的参考回报，非定投收益率。</p>
+    <details><summary>数据与计算说明</summary>
+      <p>当前报价来自 Binance BTC/USDT，仅供参考，非可成交报价。报价更新时间、24 小时涨跌与价格区间累计收益率分别展示；USDT 与 USD 不作为同一单位。</p>
+      <p>累计收益率＝区间末价 ÷ 区间初价 − 1，按所选价格区间计算一次买入并持有的参考回报，未计交易费用，不代表定投回报。</p>
+      <p>历史曲线：<a href="https://coinmetrics.io/community-network-data/" target="_blank" rel="noopener noreferrer">Coin Metrics Community</a> · BTC PriceUSD，美元日参考价格。日期表示该 UTC 日的收盘，实际收盘时点为次日 00:00 UTC；对数刻度中，相同距离表示相同倍数变化。历史定投共用此日参考价格，不拼接上方独立的 USDT 报价。</p>
+      <p>数据按 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 使用；本页选取 BTC PriceUSD 并绘图。初始历史快照读取于 {{ .Site.Data.btcprices.readAt | time.Format "2006-01-02" }}，截止日期见图表区间。</p>
+      <p>页面可见时每 60 秒尝试更新报价；打开页面、手动刷新、恢复联网和跨 UTC 日时核对完整价格历史。报价连接限时 8 秒，历史连接限时 30 秒。临时失败或日期待更新时，10 分钟后最多自动重试一次；仍可手动重试。失败时保留已有报价、时间及历史截止日期。</p>
+    </details>
+  </section>
   <dialog id="c-price-dialog" aria-labelledby="c-price-title">
     <div id="c-price-viewport" class="price-viewport">
     <div id="c-price-screen" class="price-screen">
       <div class="price-screen-head"><h2 id="c-price-title">比特币价格历史</h2><div id="c-price-controls"></div><button type="button" id="c-collapse" autofocus>退出横屏</button></div>
+      <div id="c-price-performance"></div>
       <div id="c-price-body" class="price-screen-body"></div>
     </div>
     </div>

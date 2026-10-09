@@ -34,8 +34,7 @@ async function setup(page,state={mode:'ok',requests:0}) {
 const value=async(page,id)=>Number((await page.locator('#'+id).textContent()).replace(/[$,]/g,''));
 const percentValue=async(page,id)=>Number((await page.locator('#'+id).textContent()).replace(/[%,]/g,''));
 const openMarket=async page=>{
- await page.locator('#c-tab-history').click();
- if(await page.locator('#c-market-context').getAttribute('open')===null)await page.locator('#c-market-context>summary').click();
+ await page.locator('#c-tab-market').click();
  await expect(page.locator('#c-panel-market')).toBeVisible();await expect(page.locator('#c-market-chart')).toHaveAttribute('viewBox',/\d/);
 };
 const openInspection=async page=>{if(await page.locator('#c-inspection').getAttribute('open')===null)await page.locator('#c-inspection>summary').click();};
@@ -86,7 +85,7 @@ test('Maximum dollar price history starts in 2010 and retains early precision on
  await expect(page.locator('#c-market-range')).toContainText('2010-07-18');await expect(page.locator('#c-market-range')).toContainText('2026-10-07');await expect(page.locator('[data-market="0"]')).toHaveAttribute('aria-pressed','true');
  await expect(page.locator('#c-market-chart [data-year-tick]').first()).toHaveText('2010');await expect(page.locator('#c-market-chart [data-year-tick]').last()).toHaveText('2026');await expect(page.locator('#c-market-chart')).toContainText('USD/BTC');await expect(page.locator('#c-market-chart')).toContainText('0.1');await expect(page.locator('#c-panel-market .panel-context').first()).toContainText('对数刻度');
  const full=await page.locator('#c-market-chart path').last().getAttribute('d');
- await page.locator('[data-market="1"]').click();await expect(page.locator('#c-market-range')).toContainText('近 1 年');expect(await page.locator('#c-market-chart path').last().getAttribute('d')).not.toBe(full);
+ await page.locator('[data-market="1"]').click();await expect(page.locator('#c-market-selection')).toContainText('近 1 年');expect(await page.locator('#c-market-chart path').last().getAttribute('d')).not.toBe(full);
  const recentSpan=await page.locator('#c-market-chart path').last().evaluate(path=>{const ys=[...path.getAttribute('d').matchAll(/[ML](-?[\d.]+),(-?[\d.]+)/g)].map(match=>Number(match[2]));return {span:Math.max(...ys)-Math.min(...ys),plotHeight:path.ownerSVGElement.viewBox.baseVal.height-61};});
  expect(recentSpan.span).toBeGreaterThan(.6*recentSpan.plotHeight);
  await page.locator('[data-market="0"]').click();expect(await page.locator('#c-market-chart path').last().getAttribute('d')).toBe(full);
@@ -106,7 +105,9 @@ test('Bitcoin cumulative return follows its own selected USD price range without
   await expect(page.locator('#c-m-annual')).toHaveCount(0);await expect(page.locator('#c-m-annual-hint')).toHaveCount(0);await expect(page.locator('.market-performance strong')).toHaveCount(1);
  }
  const original=await page.locator('#c-m-return').textContent();
+ await page.locator('#c-tab-history').click();
  await page.locator('#c-start').fill('2022-05-18');await page.locator('#c-end').fill('2022-06-01');
+ await openMarket(page);
  await expect(page.locator('#c-m-return')).toHaveText(original);await expect(page.locator('[data-market="5"]')).toHaveAttribute('aria-pressed','true');
 });
 
@@ -142,7 +143,7 @@ test('A newly completed week extends the full-history end without changing a cus
 
 test('A narrow logarithmic price range retains readable numeric ticks, chart height and exact day prices',async({page})=>{
  await setup(page,{mode:'ok',priceMode:'narrow',requests:0});await openMarket(page);await expect(page.locator('#c-price-status')).toBeHidden();
- await page.locator('[data-market="1"]').click();await expect(page.locator('#c-market-range')).toContainText('近 1 年');
+ await page.locator('[data-market="1"]').click();await expect(page.locator('#c-market-selection')).toContainText('近 1 年');
  const chart=page.locator('#c-market-chart'),ticks=chart.locator('[data-value-tick]'),count=await ticks.count();
  expect(count).toBeGreaterThanOrEqual(2);expect(count).toBeLessThanOrEqual(4);
  expect(new Set(await ticks.allTextContents()).size).toBe(count);
@@ -159,8 +160,8 @@ test('A narrow logarithmic price range retains readable numeric ticks, chart hei
 
 test('DCA quote failure, stale response and recovery preserve honest states',async({page})=>{
  const state=await setup(page,{mode:'fail',requests:0});await expect(page.locator('#c-history-status')).toContainText('历史更新未成功');await openMarket(page);
- await expect(page.locator('#c-quote-status')).toContainText('更新失败');state.mode='stale';await page.locator('#c-refresh').click();await expect(page.locator('#c-quote-status')).toContainText('已过期');
- state.mode='ok';await page.locator('#c-refresh').click();await expect(page.locator('#c-quote-status')).toContainText('行情已更新');await expect(page.locator('#c-quote')).toHaveText('84,000.00 USDT');
+ await expect(page.locator('#c-quote-status')).toContainText('更新失败');await expect(page.locator('#c-quote-label')).toHaveText('上次报价');await expect(page.locator('#c-quote-time')).toContainText('北京时间');state.mode='stale';await page.locator('#c-refresh').click();await expect(page.locator('#c-quote-status')).toContainText('已过期');await expect(page.locator('#c-quote-label')).toHaveText('上次报价');
+ state.mode='ok';await page.locator('#c-refresh').click();await expect(page.locator('#c-quote-status')).toContainText('行情已更新');await expect(page.locator('#c-quote')).toHaveText('84,000.00 USDT');await expect(page.locator('#c-quote-label')).toHaveText('当前报价');
  await page.evaluate(()=>{Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>false});dispatchEvent(new Event('offline'));});await expect(page.locator('#c-quote-status')).toContainText('离线');
  await page.evaluate(()=>{Object.defineProperty(navigator,'onLine',{configurable:true,get:()=>true});dispatchEvent(new Event('online'));});await expect(page.locator('#c-quote-status')).toContainText('行情已更新');
 });
@@ -198,8 +199,9 @@ test('DCA polls every minute and pauses while hidden',async({page})=>{
  await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,get:()=>false});document.dispatchEvent(new Event('visibilitychange'));});await expect.poll(()=>state.requests).toBeGreaterThan(paused);
 });
 
-test('Result-first layout keeps responsive four-metric rows, two tabs and inline price context across widths and themes',async({page})=>{
- const errors=[];page.on('pageerror',e=>errors.push(e.message));await setup(page);
+test('Result-first tools and the separate C market panel retain three tabs across widths and themes',async({page})=>{
+ const errors=[],iconRequests=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',request=>{if(new URL(request.url()).pathname==='/images/identity/bitcoin-drip.png')iconRequests.push(request.url());});await setup(page);
+ expect(iconRequests).toEqual([]);
  for(const width of [320,390,820,1440]){
   await page.setViewportSize({width,height:1000});
   for(const theme of ['light','dark']){
@@ -218,12 +220,13 @@ test('Result-first layout keeps responsive four-metric rows, two tabs and inline
     }
     for(const box of boxes)expect(box.overflow).toBeLessThanOrEqual(1);
    }
-   await openMarket(page);expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
+   await openMarket(page);await expect.poll(()=>page.locator('.bitcoin-icon').evaluate(image=>image.complete&&image.naturalWidth===1120)).toBe(true);expect(iconRequests).toHaveLength(1);expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
   }
  }
  await page.setViewportSize({width:390,height:1000});await page.locator('#c-tab-history').click();const result=await page.locator('#c-h-value').boundingBox(),chart=await page.locator('#c-history-chart').boundingBox();expect(result.y).toBeLessThan(chart.y);
- await expect(page.locator('#mantou-dca-c [role=tab]')).toHaveCount(2);await page.locator('#c-tab-history').focus();await page.keyboard.press('ArrowRight');await expect(page.locator('#c-tab-future')).toBeFocused();await expect(page.locator('#c-panel-future')).toBeVisible();
- await page.keyboard.press('ArrowLeft');await expect(page.locator('#c-tab-history')).toBeFocused();await expect(page.locator('#c-panel-history')).toBeVisible();
+ await expect(page.locator('#mantou-dca-c [role=tab]')).toHaveCount(3);await page.locator('#c-tab-history').focus();await page.keyboard.press('ArrowRight');await expect(page.locator('#c-tab-market')).toBeFocused();await expect(page.locator('#c-panel-market')).toBeVisible();
+ await page.keyboard.press('ArrowRight');await expect(page.locator('#c-tab-future')).toBeFocused();await expect(page.locator('#c-panel-future')).toBeVisible();
+ await page.keyboard.press('ArrowLeft');await expect(page.locator('#c-tab-market')).toBeFocused();await page.keyboard.press('ArrowLeft');await expect(page.locator('#c-tab-history')).toBeFocused();await expect(page.locator('#c-panel-history')).toBeVisible();
  await page.goto('/');await expect(page.locator('[data-home-dca] a').first()).toHaveAttribute('href','/dca/');await page.goto('/en/dca/');await expect(page.getByRole('link',{name:'Open the interactive notebook (中文)'})).toHaveAttribute('href','/dca/');expect(errors).toEqual([]);
 });
 
@@ -261,7 +264,16 @@ test('Quiet default presentation preserves important context and reveals graph d
  await page.locator('#c-future-chart').focus();await page.keyboard.press('Home');await expect(page.locator('#c-future-chart + .chart-detail')).toBeVisible();await expect(page.locator('#c-future-chart + .chart-detail')).toContainText('现在');
  const valueBox=await page.locator('#c-f-value').boundingBox(),chartBox=await page.locator('#c-future-chart').boundingBox();expect(valueBox.y).toBeLessThan(chartBox.y);
  await page.locator('#c-tab-history').click();await expect(page.locator('[data-period=down]')).toHaveCount(0);await expect(page.locator('[data-period=all]')).toBeVisible();await expect(page.locator('#c-panel-history .budget-note')).toBeVisible();await expect(page.locator('#c-h-detail')).not.toBeVisible();
- await expect(page.locator('#c-tab-market')).toHaveCount(0);await expect(page.locator('#c-market-context')).not.toHaveAttribute('open','');await expect(page.locator('#c-market-context>summary')).toHaveText('比特币价格 · 2010 起');await expect(page.locator('#c-panel-market')).not.toBeVisible();
+ await expect(page.locator('#c-tab-market')).toBeVisible();await expect(page.locator('#c-tab-market')).toHaveAttribute('aria-selected','false');await expect(page.locator('#c-market-context')).toHaveCount(0);await expect(page.locator('#c-panel-market')).not.toBeVisible();
+ await openMarket(page);await expect(page.locator('#c-panel-market')).toHaveAttribute('aria-labelledby','c-tab-market');await expect(page.locator('.bitcoin-heading h2')).toHaveText('比特币行情');await expect(page.locator('.bitcoin-icon')).toBeVisible();await expect(page.locator('.bitcoin-icon')).toHaveAttribute('src','/images/identity/bitcoin-drip.png');await expect(page.locator('#c-history-chart')).not.toBeVisible();await expect(page.locator('#c-future-chart')).not.toBeVisible();
+});
+
+test('Phone market tap reveals its date and USD price inside the visible chart',async({browser})=>{
+ const context=await browser.newContext({baseURL:'http://127.0.0.1:4174',viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+ try{const page=await context.newPage();await setup(page);await openMarket(page);const chart=page.locator('#c-market-chart'),detail=page.locator('#c-market-chart + .chart-detail');
+ await chart.scrollIntoViewIfNeeded();const box=await chart.boundingBox();await page.touchscreen.tap(box.x+box.width*.55,box.y+box.height*.4);
+ await expect(detail).toBeVisible();await expect(detail).toContainText('USD/BTC');const reading=await detail.boundingBox();expect(reading.y).toBeGreaterThan(box.y);expect(reading.y+reading.height).toBeLessThanOrEqual(844);expect(reading.x+reading.width).toBeLessThanOrEqual(390);
+ }finally{await context.close();}
 });
 
 test('Expanded price history immediately rotates portrait phones and preserves range, pointer selection, focus and scroll',async({page})=>{
@@ -288,11 +300,11 @@ test('Expanded price history immediately rotates portrait phones and preserves r
  for(const width of [320,390]){
   await page.setViewportSize({width,height:844});
   const normal=await chart.boundingBox(),panel=await page.locator('#c-panel-market').boundingBox();
-  expect(normal.width).toBeGreaterThan(panel.width+15);expect(normal.height).toBeGreaterThanOrEqual(280);
+  expect(normal.width).toBeGreaterThanOrEqual(panel.width-1);expect(normal.height).toBeGreaterThanOrEqual(280);
   await page.locator('[data-market="5"]').click();await chart.focus();await page.keyboard.press('Home');
-  const selected=await detail.textContent(),reading=await detail.boundingBox(),controls=await page.locator('#c-market-ranges').boundingBox();
-  expect(controls.y+controls.height).toBeLessThan(normal.y+1);
-  expect(reading.y).toBeGreaterThan(normal.y);
+  const selected=await detail.textContent(),reading=await detail.boundingBox(),controls=await page.locator('#c-market-ranges').boundingBox(),focusedChart=await chart.boundingBox();
+  expect(controls.y+controls.height).toBeLessThan(focusedChart.y+1);
+  expect(reading.y).toBeGreaterThan(focusedChart.y);expect(reading.y+reading.height).toBeLessThan(focusedChart.y+focusedChart.height);
   await expect(page.locator('#c-market-controls #c-market-ranges')).toBeVisible();
   await page.locator('#c-expand').scrollIntoViewIfNeeded();const scroll=await page.evaluate(()=>scrollY);
   await page.locator('#c-expand').click();await expect(page.getByRole('dialog')).toBeVisible();await expect(page.locator('#c-collapse')).toBeFocused();
