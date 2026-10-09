@@ -1,0 +1,32 @@
+Start building sites … 
+hugo v0.154.5-a6f99cca223a29cad1d4cdaa6a1a90508ac1da71+extended windows/amd64 BuildDate=2026-01-11T20:53:23Z VendorInfo=gohugoio
+
+
+                  │ ZH - CN │ EN  
+──────────────────┼─────────┼─────
+ Pages            │     254 │ 253 
+ Paginator pages  │      27 │  27 
+ Non-page files   │       0 │   0 
+ Static files     │     104 │ 104 
+ Processed images │      37 │   0 
+ Aliases          │     286 │  15 
+ Cleaned          │       0 │   0 
+
+Total in 8692 ms
+
+Running 9 tests using 1 worker
+
+
+
+(node:23352) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/9] [chromium] › tests\e2e\analytics.spec.js:7:1 › TM-ANL-001 explains visits without promising UV or conversions
+[2/9] [chromium] › tests\e2e\analytics.spec.js:20:3 › TM-ANL-009 host boundary: mantou-blog.pages.dev
+[3/9] [chromium] › tests\e2e\analytics.spec.js:20:3 › TM-ANL-009 host boundary: manual-preview.mantou-blog.pages.dev
+[4/9] [chromium] › tests\e2e\analytics.spec.js:20:3 › TM-ANL-009 host boundary: mantou-blog.pages.dev.attacker.invalid
+[5/9] [chromium] › tests\e2e\analytics.spec.js:30:1 › TM-ANL-009 content backends do not include the public analytics integration
+[6/9] [chromium] › tests\e2e\analytics.spec.js:41:1 › TM-ANL-013 a normal new document retries loading without promising historic replay
+[7/9] [chromium] › tests\e2e\analytics.spec.js:54:1 › TM-ANL-029 public page layouts retain the approved-host integration opportunity
+[8/9] [chromium] › tests\e2e\bilingual.spec.js:98:1 › 统计入口指向需要登录的 Cloudflare 后台
+[9/9] [chromium] › tests\e2e\portfolio.spec.js:371:1 › 非生产域名不会加载 Cloudflare 统计脚本
+  9 passed (7.4s)

@@ -1,0 +1,112 @@
+{
+  "recordedAtUtc": "2026-10-09T03:47:48.0922946Z",
+  "sourceBase": "e05bde17d7c43a7cae5d9cf382276ace662c29de",
+  "featureId": "ANL-OVW",
+  "requirements": [
+    "OVW-010",
+    "OVW-011",
+    "OVW-012"
+  ],
+  "state": "local PWA configuration verified; actual data Access deployment and Android acceptance blocked",
+  "executionBoundary": "Node 15/15 and Node regression 88/88 before final chart-only change; final affected browser 5/5 after chart fix; source/artifact hashes below describe final reviewable state; full historical suites not rerun",
+  "files": [
+    {
+      "file": "static/analytics-app.webmanifest",
+      "sha256": "1ed9a0faf2f8bc514dbd935dec1eee913099f5ff5ad71e1eb629feee80fcd5a2"
+    },
+    {
+      "file": "static/admin/analytics/index.html",
+      "sha256": "37ba92eec2c9dd1432677062f1bf69e846d23df0a8047b3d17ad7a47445fa054"
+    },
+    {
+      "file": "static/admin/analytics/overview.js",
+      "sha256": "18287fabff100e8cf426d68aab7e46180a47826b205088ce183cf171b5f5425a"
+    },
+    {
+      "file": "tests/overview/pwa.test.mjs",
+      "sha256": "675171a7f1b5cbb5e84fce2060f7487e6bb1eb452df5ec16d5ac355f463040a5"
+    },
+    {
+      "file": "tests/overview/overview.spec.cjs",
+      "sha256": "d91699ee41d9e9f6cd6f928c9b929ffa1a40635e3fa016eb3e4e926d8fc2cad7"
+    },
+    {
+      "file": "docs/specs/analytics-overview-v1.md",
+      "sha256": "21bc15735753004645c4db9e2706ff32c27cef859a6d7232edb59e7baab67aad"
+    },
+    {
+      "file": "docs/test-matrix-analytics-overview.md",
+      "sha256": "946236f9484f6d3b36d751b62f0c5514ddcee3869c65246a608d8aca89b91bc1"
+    },
+    {
+      "file": "public/analytics-app.webmanifest",
+      "sha256": "1ed9a0faf2f8bc514dbd935dec1eee913099f5ff5ad71e1eb629feee80fcd5a2"
+    },
+    {
+      "file": "public/_worker.js/index.js",
+      "sha256": "5e4c6fae4b3125f0499aa5aac3bd6135d5b3b873e28e5caefa935f36394c205d"
+    }
+  ],
+  "logs": [
+    {
+      "file": ".local-evidence/analytics-overview/pwa-red.log",
+      "sha256": "59546acedd2d14b0ed836a3eecb79b99d2daded246e9152d26008576d729803d"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-green.log",
+      "sha256": "d775ba4ee4b7b3f14c1a990981b1dc56b70495f7d2c1389f7f1138408245c78f"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-unit-final.log",
+      "sha256": "8f5444de4727a49af58d4393973c03b6041473d01400fa9276c9cf1c8fd930d1"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-ui.log",
+      "sha256": "29ba438439bb58a6c4e1e21fe8c905db91df03d14e0492a79362dbf1b94f519a"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-ui-final.log",
+      "sha256": "63f9ad4d8da02976bf4d42a851979376e3467d171d88a3209dfd3a4b60e58a57"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-mobile-chart-red.log",
+      "sha256": "6fb2db12935421b8669a7c8a9c0d77f8f2c151488ab2282f6b6af5870d665fca"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-ui-final-2.log",
+      "sha256": "54cffaec61d883168b44b418fbdb06697e1fa4991b209d6ae0025b685bbde178"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-node-regression.log",
+      "sha256": "addd07866b5b59a8a413dd5484a654c67377560a96cf91adddc6953e80ebbdde"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-sw-regression.log",
+      "sha256": "44095908ea9350f09061ba8f7bc59b5d7551ed2ecd3981f4e751815484244cff"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-build-final.log",
+      "sha256": "20364525d05d020843da21ba2be952021333da49374fa253d4d83f70beee0903"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-functions-build-final.log",
+      "sha256": "552cf8715210909c288a284472779a0b2c9a00c5fc4b0cc390705a6344603ce2"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-pagefind.log",
+      "sha256": "a2b1b2f6791a9e3e5c5f7a11a11fa69deba886e164dc9ff5538505c96948cc65"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-runtime-boundaries.json",
+      "sha256": "430fa40db7b8d698b33bf8903cd42222c9228d029f7322a542a53c244ddb7d6b"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-assets.log",
+      "sha256": "a250b77787d3e9d7c02534c60eee5c2f2855b1b9d9da4bc59ab98ee78cb80a16"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/pwa-links.log",
+      "sha256": "59cf0c6c3a7988431a3d910dfbb0a95e79a068c018ca80bef1e7d6ea74272c10"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "recordedAtUtc": "2026-10-09T01:03:35.387Z",
+  "runtime": "Wrangler 4.146.0, compatibility date 2026-10-01",
+  "configuration": "Access identity settings absent; private paths must fail closed, public blog must work",
+  "rows": [
+    {
+      "path": "/",
+      "status": 200,
+      "cacheControl": "public, max-age=0, must-revalidate",
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/admin/analytics/",
+      "status": 503,
+      "cacheControl": "private, no-store",
+      "contentType": "application/json; charset=utf-8"
+    },
+    {
+      "path": "/admin/analytics/data",
+      "status": 503,
+      "cacheControl": "private, no-store",
+      "contentType": "application/json; charset=utf-8"
+    }
+  ]
+}

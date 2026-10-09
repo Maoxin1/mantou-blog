@@ -1,0 +1,20 @@
+{
+  "name": "mantou-blog",
+  "pages_build_output_dir": "./public",
+  "compatibility_date": "2026-10-01",
+  "vars": {
+    "ANALYTICS_ACCOUNT_ID": "60fce3c87fe0af3ac0a66d4b03594598",
+    "ANALYTICS_SITE_TAG": "da1fce7c25cd43fd9d21a2c90104337c",
+    "ANALYTICS_HOST": "mantou-blog.pages.dev"
+  },
+  "env": {
+    "production": {
+      "vars": {
+        "HUGO_ENV": "production",
+        "ANALYTICS_ACCOUNT_ID": "60fce3c87fe0af3ac0a66d4b03594598",
+        "ANALYTICS_SITE_TAG": "da1fce7c25cd43fd9d21a2c90104337c",
+        "ANALYTICS_HOST": "mantou-blog.pages.dev"
+      }
+    }
+  }
+}

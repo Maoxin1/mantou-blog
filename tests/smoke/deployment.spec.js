@@ -1,5 +1,6 @@
 const { test, expect, chromium } = require('@playwright/test');
 const { withNormalProfile } = require('../helpers/normal-profile');
+const { checkUncachedResource } = require('../helpers/production-resource.cjs');
 
 const productionRoutes = [
   { path: '/', marker: '[data-portfolio-home]' },
@@ -11,6 +12,12 @@ const productionRoutes = [
   { path: '/en/works/', marker: '[data-works-index]' },
   { path: '/en/p/20260803/', marker: '#content' },
 ];
+
+test('私有统计父路径和接口对未登录请求发起本站 Access 挑战', async ({ request }, testInfo) => {
+  for (const resourcePath of ['/admin/analytics', '/admin/analytics/', '/admin/analytics/data']) {
+    await checkUncachedResource(request, resourcePath, testInfo.project.use.baseURL);
+  }
+});
 
 test('正式域名的关键路径与资源可以访问', async ({ page }) => {
   for (const route of productionRoutes) {
@@ -154,9 +161,7 @@ test('正式 Sveltia 灰度后台可安装且所有后台资源禁止缓存', as
       '/admin/sveltia/',
       '/admin/sveltia/config.yml?production-cache-check=1',
     ]) {
-      const resource = await request.get(resourcePath);
-      expect(resource.ok(), `${resourcePath} 应能从生产环境读取`).toBeTruthy();
-      expect(resource.headers()['cache-control'], `${resourcePath} 必须禁止缓存`).toContain('no-store');
+      await checkUncachedResource(request, resourcePath, testInfo.project.use.baseURL);
     }
   });
 });

@@ -1,0 +1,24 @@
+[
+  {
+    "script": "scripts/validate_posts.py",
+    "arguments": [],
+    "exit_code": 0
+  },
+  {
+    "script": "scripts/validate_admin_config.py",
+    "arguments": [],
+    "exit_code": 0
+  },
+  {
+    "script": "scripts/validate_translations.py",
+    "arguments": [
+      "--allow-pending"
+    ],
+    "exit_code": 0
+  },
+  {
+    "script": "scripts/validate_portfolio.py",
+    "arguments": [],
+    "exit_code": 0
+  }
+]

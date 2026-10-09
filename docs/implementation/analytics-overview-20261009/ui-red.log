@@ -1,0 +1,40 @@
+
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 08:54:23] "GET / HTTP/1.1" 200 -
+
+Running 1 test using 1 worker
+
+(node:18724) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/1] tests\overview\overview.spec.cjs:19:1 › TM-OVW-005 one-screen overview shows real-format metrics, complete dates and daily trend
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 08:54:24] "GET /admin/analytics/ HTTP/1.1" 200 -
+
+  1) tests\overview\overview.spec.cjs:19:1 › TM-OVW-005 one-screen overview shows real-format metrics, complete dates and daily trend 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: '网站数据', exact: true })
+    Expected: visible
+    Timeout: 4000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 4000ms
+      - waiting for getByRole('heading', { name: '网站数据', exact: true })
+
+
+      20 |   await page.route('**/admin/analytics/data', route => route.fulfill({ json: fixture }));
+      21 |   await page.goto('/admin/analytics/');
+    > 22 |   await expect(page.getByRole('heading', { name: '网站数据', exact: true })).toBeVisible({ timeout: 4000 });
+         |                                                                          ^
+      23 |   await expect(page.locator('#pv')).toHaveText('26');
+      24 |   await expect(page.locator('#pv-change')).toContainText('100');
+      25 |   await expect(page.locator('#visits-change')).toContainText('上期为 0');
+        at D:\mx\github\Maoxin1\mantou-blog-analytics-overview\tests\overview\overview.spec.cjs:22:74
+
+    Error Context: test-results\overview-TM-OVW-005-one-sc-2ff48-plete-dates-and-daily-trend\error-context.md
+
+
+  1 failed
+    tests\overview\overview.spec.cjs:19:1 › TM-OVW-005 one-screen overview shows real-format metrics, complete dates and daily trend 

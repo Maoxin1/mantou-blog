@@ -1,0 +1,57 @@
+{
+  "evidenceId": "E-ANL-11-HTTP",
+  "recordedAtUtc": "2026-10-08T07:37:19.0027811+00:00",
+  "method": "Read-only HTTP GET; JavaScript not executed",
+  "observations": [
+    {
+      "url": "https://mantou-blog.pages.dev/works/mantou-checklist-pwa/",
+      "httpStatus": 200,
+      "analyticsLoaderCount": 1,
+      "directBeaconScriptTags": 0,
+      "containsExpectedPublicSiteIdentifier": true,
+      "containsApprovedHost": true,
+      "containsModuleSetting": true,
+      "htmlSha256": "ea900477d6ce17e8ffb7d9d97500a3ccb4781f02fba54677c14e0956add67a69",
+      "cacheControl": "public, must-revalidate, max-age=0",
+      "contentSecurityPolicy": "",
+      "loaderCode": [
+        "(()=>{const t=new Set([\"mantou-blog.pages.dev\"]);if(!t.has(window.location.hostname))return;const e=document.createElement(\"script\");e.type=\"module\",e.src=\"https://static.cloudflareinsights.com/beacon.min.js\",e.dataset.cfBeacon=JSON.stringify({token:\"0d8c083becee43c0a1cb14ad2a2c2216\"}),document.head.appendChild(e)})()"
+      ]
+    },
+    {
+      "url": "https://mantou-blog.pages.dev/p/20260803/",
+      "httpStatus": 200,
+      "analyticsLoaderCount": 1,
+      "directBeaconScriptTags": 0,
+      "containsExpectedPublicSiteIdentifier": true,
+      "containsApprovedHost": true,
+      "containsModuleSetting": true,
+      "htmlSha256": "f411a1fb54ff0881fdf6dc09c449da4a2c99027ded3bc686e3aa17c858a503f5",
+      "cacheControl": "public, must-revalidate, max-age=0",
+      "contentSecurityPolicy": "",
+      "loaderCode": [
+        "(()=>{const t=new Set([\"mantou-blog.pages.dev\"]);if(!t.has(window.location.hostname))return;const e=document.createElement(\"script\");e.type=\"module\",e.src=\"https://static.cloudflareinsights.com/beacon.min.js\",e.dataset.cfBeacon=JSON.stringify({token:\"0d8c083becee43c0a1cb14ad2a2c2216\"}),document.head.appendChild(e)})()"
+      ]
+    },
+    {
+      "url": "https://mantou-blog.pages.dev/en/p/20260803/",
+      "httpStatus": 200,
+      "analyticsLoaderCount": 1,
+      "directBeaconScriptTags": 0,
+      "containsExpectedPublicSiteIdentifier": true,
+      "containsApprovedHost": true,
+      "containsModuleSetting": true,
+      "htmlSha256": "0ce3974d8dca091be52e3ceb8e2579ac62dbc7af777a89d66b5cf11936fa9537",
+      "cacheControl": "public, must-revalidate, max-age=0",
+      "contentSecurityPolicy": "",
+      "loaderCode": [
+        "(()=>{const t=new Set([\"mantou-blog.pages.dev\"]);if(!t.has(window.location.hostname))return;const e=document.createElement(\"script\");e.type=\"module\",e.src=\"https://static.cloudflareinsights.com/beacon.min.js\",e.dataset.cfBeacon=JSON.stringify({token:\"0d8c083becee43c0a1cb14ad2a2c2216\"}),document.head.appendChild(e)})()"
+      ]
+    }
+  ],
+  "limitations": [
+    "Does not prove browser script execution, RUM transmission or dashboard ingestion.",
+    "Does not assign zero views to an absent path.",
+    "Remote deployment commit not verified by these HTML observations."
+  ]
+}

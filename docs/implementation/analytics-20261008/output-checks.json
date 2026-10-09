@@ -1,0 +1,26 @@
+[
+  {
+    "script": "scripts/check_runtime_assets.py",
+    "exit_code": 0
+  },
+  {
+    "script": "scripts/check_internal_links.py",
+    "exit_code": 0
+  },
+  {
+    "script": "scripts/check_short_post_urls.py",
+    "exit_code": 0
+  },
+  {
+    "script": "scripts/check_portfolio_output.py",
+    "exit_code": 0
+  },
+  {
+    "script": "scripts/check_seo_output.py",
+    "exit_code": 0
+  },
+  {
+    "script": "scripts/check_garden_output.py",
+    "exit_code": 0
+  }
+]

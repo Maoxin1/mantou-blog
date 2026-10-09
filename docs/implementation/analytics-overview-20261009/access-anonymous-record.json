@@ -1,0 +1,81 @@
+{
+  "featureId": "ANL-OVW",
+  "requirements": [
+    "OVW-004",
+    "OVW-005",
+    "OVW-011"
+  ],
+  "matrixId": "TM-OVW-010",
+  "checkedAtUtc": "2026-10-09T05:23:21.689Z",
+  "evidenceStatus": "B: actually executed anonymous HEAD requests",
+  "method": "HEAD without authentication; no redirects followed; no Cookies or tokens",
+  "rows": [
+    {
+      "path": "/",
+      "status": 200,
+      "redirect": null,
+      "accessChallenge": false
+    },
+    {
+      "path": "/p/20260803/",
+      "status": 200,
+      "redirect": null,
+      "accessChallenge": false
+    },
+    {
+      "path": "/en/p/20260803/",
+      "status": 200,
+      "redirect": null,
+      "accessChallenge": false
+    },
+    {
+      "path": "/works/mantou-checklist-pwa/",
+      "status": 200,
+      "redirect": null,
+      "accessChallenge": false
+    },
+    {
+      "path": "/admin/analytics",
+      "status": 302,
+      "redirect": {
+        "host": "frosty-fire-be92.cloudflareaccess.com",
+        "path": "/cdn-cgi/access/login/mantou-blog.pages.dev"
+      },
+      "accessChallenge": true
+    },
+    {
+      "path": "/admin/analytics/",
+      "status": 302,
+      "redirect": {
+        "host": "frosty-fire-be92.cloudflareaccess.com",
+        "path": "/cdn-cgi/access/login/mantou-blog.pages.dev"
+      },
+      "accessChallenge": true
+    },
+    {
+      "path": "/admin/analytics/data",
+      "status": 302,
+      "redirect": {
+        "host": "frosty-fire-be92.cloudflareaccess.com",
+        "path": "/cdn-cgi/access/login/mantou-blog.pages.dev"
+      },
+      "accessChallenge": true
+    },
+    {
+      "path": "/admin/analytics-other/",
+      "status": 404,
+      "redirect": null,
+      "accessChallenge": false
+    }
+  ],
+  "privateEvidence": ".local-evidence/analytics-overview/access-anonymous-1791523401689.json",
+  "sha256": "84e00433981a67ae04a396a367e0bc925c861f864280646c8133ea9e6a92852f",
+  "configuration": "API token/team/AUD/owner present in Git-ignored local file; values not included",
+  "limitations": [
+    "Owner login and real private HTTP data flow not verified",
+    "Overview implementation not deployed; these requests verify platform challenge only",
+    "HEAD does not verify protected response body or mobile installation",
+    "Preview protection after application destination change not verified"
+  ],
+  "overallState": "pending acceptance"
+}

@@ -9,3 +9,8 @@ playwright-report-smoke/
 test-results/
 __pycache__/
 *.py[cod]
+.local-evidence/
+.dev.vars
+.dev.vars.*
+
+/assets/jsconfig.json

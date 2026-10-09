@@ -1,0 +1,135 @@
+✖ TM-ANL-028 listing tests retains the last execution report (3708.0136ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3867.6794
+
+✖ failing tests:
+
+test at tests\analytics\analytics-runner.test.cjs:73:1
+✖ TM-ANL-028 listing tests retains the last execution report (3708.0136ms)
+  AssertionError [ERR_ASSERTION]: Discovery must not overwrite actual execution evidence.
+  + actual - expected
+  
+  + '{\n' +
+  +   '  "config": {\n' +
+  +   '    "argv": [\n' +
+  +   '      "C:\\\\Program Files\\\\nodejs\\\\node.exe",\n' +
+  +   '      "D:\\\\mx\\\\github\\\\Maoxin1\\\\mantou-blog-monitoring-plan\\\\node_modules\\\\@playwright\\\\test\\\\cli.js",\n' +
+  +   '      "test",\n' +
+  +   '      "--config",\n' +
+  +   '      "C:\\\\Users\\\\mx\\\\AppData\\\\Local\\\\Temp\\\\anl-runner-qfkOXs\\\\tests\\\\analytics\\\\playwright.analytics.config.cjs",\n' +
+  +   '      "--list"\n' +
+  +   '    ],\n' +
+  +   '    "configFile": "C:\\\\Users\\\\mx\\\\AppData\\\\Local\\\\Temp\\\\anl-runner-qfkOXs\\\\tests\\\\analytics\\\\playwright.analytics.config.cjs",\n' +
+  +   '    "rootDir": "C:/Users/mx/AppData/Local/Temp/anl-runner-qfkOXs/tests/analytics",\n' +
+  +   '    "failOnFlakyTests": false,\n' +
+  +   '    "forbidOnly": false,\n' +
+  +   '    "fullyParallel": false,\n' +
+  +   '    "globalSetup": null,\n' +
+  +   '    "globalTeardown": null,\n' +
+  +   '    "globalTimeout": 0,\n' +
+  +   '    "grep": {},\n' +
+  +   '    "grepInvert": null,\n' +
+  +   '    "maxFailures": 0,\n' +
+  +   '    "metadata": {},\n' +
+  +   '    "preserveOutput": "always",\n' +
+  +   '    "projects": [\n' +
+  +   '      {\n' +
+  +   '        "outputDir": "C:/Users/mx/AppData/Local/Temp/anl-runner-qfkOXs/test-results",\n' +
+  +   '        "repeatEach": 1,\n' +
+  +   '        "retries": 0,\n' +
+  +   '        "metadata": {},\n' +
+  +   '        "id": "",\n' +
+  +   '        "name": "",\n' +
+  +   '        "testDir": "C:/Users/mx/AppData/Local/Temp/anl-runner-qfkOXs/tests/analytics",\n' +
+  +   '        "testIgnore": [],\n' +
+  +   '        "testMatch": [\n' +
+  +   '          "discovery.spec.cjs"\n' +
+  +   '        ],\n' +
+  +   '        "timeout": 30000\n' +
+  +   '      }\n' +
+  +   '    ],\n' +
+  +   '    "quiet": false,\n' +
+  +   '    "reporter": [\n' +
+  +   '      [\n' +
+  +   '        "line",\n' +
+  +   '        null\n' +
+  +   '      ],\n' +
+  +   '      [\n' +
+  +   '        "json",\n' +
+  +   '        {\n' +
+  +   '          "outputFile": "C:\\\\Users\\\\mx\\\\AppData\\\\Local\\\\Temp\\\\anl-runner-qfkOXs\\\\execution.json"\n' +
+  +   '        }\n' +
+  +   '      ]\n' +
+  +   '    ],\n' +
+  +   '    "reportSlowTests": {\n' +
+  +   '      "max": 5,\n' +
+  +   '      "threshold": 300000\n' +
+  +   '    },\n' +
+  +   '    "shard": null,\n' +
+  +   '    "tags": [],\n' +
+  +   '    "updateSnapshots": "missing",\n' +
+  +   '    "updateSourceMethod": "patch",\n' +
+  +   '    "version": "1.62.1",\n' +
+  +   '    "workers": 6,\n' +
+  +   '    "webServer": null\n' +
+  +   '  },\n' +
+  +   '  "suites": [\n' +
+  +   '    {\n' +
+  +   '      "title": "discovery.spec.cjs",\n' +
+  +   '      "file": "discovery.spec.cjs",\n' +
+  +   '      "column": 0,\n' +
+  +   '      "line": 0,\n' +
+  +   '      "specs": [\n' +
+  +   '        {\n' +
+  +   '          "title": "fixture discovery only",\n' +
+  +   '          "ok": true,\n' +
+  +   '          "tags": [],\n' +
+  +   '          "tests": [\n' +
+  +   '            {\n' +
+  +   '              "timeout": 30000,\n' +
+  +   '              "annotations": [],\n' +
+  +   '              "expectedStatus": "passed",\n' +
+  +   '              "projectId": "",\n' +
+  +   '              "projectName": "",\n' +
+  +   '              "results": [],\n' +
+  +   '              "status": "skipped"\n' +
+  +   '            }\n' +
+  +   '          ],\n' +
+  +   '          "id": "521ba2e4d180c9f72ac0-d858a76cc5b4d5448147",\n' +
+  +   '          "file": "discovery.spec.cjs",\n' +
+  +   '          "line": 2,\n' +
+  +   '          "column": 7\n' +
+  +   '        }\n' +
+  +   '      ]\n' +
+  +   '    }\n' +
+  +   '  ],\n' +
+  +   '  "errors": [],\n' +
+  +   '  "stats": {\n' +
+  +   '    "startTime": "2026-10-08T03:23:23.473Z",\n' +
+  +   '    "duration": 84.85000000000002,\n' +
+  +   '    "expected": 0,\n' +
+  +   '    "skipped": 1,\n' +
+  +   '    "unexpected": 0,\n' +
+  +   '    "flaky": 0\n' +
+  +   '  }\n' +
+  +   '}'
+  - '{"note":"existing execution evidence must remain intact"}'
+  
+      at TestContext.<anonymous> (D:\mx\github\Maoxin1\mantou-blog-monitoring-plan\tests\analytics\analytics-runner.test.cjs:98:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{\n  "config": {\n    "argv": [\n      "C:\\\\Program Files\\\\nodejs\\\\node.exe",\n      "D:\\\\mx\\\\github\\\\Maoxin1\\\\mantou-blog-monitoring-plan\\\\node_modules\\\\@playwright\\\\test\\\\cli.js",\n      "test",\n      "--config",\n      "C:\\\\Users\\\\mx\\\\AppData\\\\Local\\\\Temp\\\\anl-runner-qfkOXs\\\\tests\\\\analytics\\\\playwright.analytics.config.cjs",\n      "--list"\n    ],\n    "configFile": "C:\\\\Users\\\\mx\\\\AppData\\\\Local\\\\Temp\\\\anl-runner-qfkOXs\\\\tests\\\\analytics\\\\playwright.analytics.config.cjs",\n    "rootDir": "C:/Users/mx/AppData/Local/Temp/anl-runner-qfkOXs/tests/analytics",\n    "failOnFlakyTests": false,\n    "forbidOnly": false,\n    "fullyParallel": false,\n    "globalSetup": null,\n    "globalTeardown": null,\n    "globalTimeout": 0,\n    "grep": {},\n    "grepInvert": null,\n    "maxFailures": 0,\n    "metadata": {},\n    "preserveOutput": "always",\n    "projects": [\n      {\n        "outputDir": "C:/Users/mx/AppData/Local/Temp/anl-runner-qfkOXs/test-results",\n        "repeatEach": 1,\n        "retries": 0,\n        "metadata": {},\n        "id": "",\n        "name": "",\n        "testDir": "C:/Users/mx/AppData/Local/Temp/anl-runner-qfkOXs/tests/analytics",\n        "testIgnore": [],\n        "testMatch": [\n          "discovery.spec.cjs"\n        ],\n        "timeout": 30000\n      }\n    ],\n    "quiet": false,\n    "reporter": [\n      [\n        "line",\n        null\n      ],\n      [\n        "json",\n        {\n          "outputFile": "C:\\\\Users\\\\mx\\\\AppData\\\\Local\\\\Temp\\\\anl-runner-qfkOXs\\\\execution.json"\n        }\n      ]\n    ],\n    "reportSlowTests": {\n      "max": 5,\n      "threshold": 300000\n    },\n    "shard": null,\n    "tags": [],\n    "updateSnapshots": "missing",\n    "updateSourceMethod": "patch",\n    "version": "1.62.1",\n    "workers": 6,\n    "webServer": null\n  },\n  "suites": [\n    {\n      "title": "discovery.spec.cjs",\n      "file": "discovery.spec.cjs",\n      "column": 0,\n      "line": 0,\n      "specs": [\n        {\n          "title": "fixture discovery only",\n          "ok": true,\n          "tags": [],\n          "tests": [\n            {\n              "timeout": 30000,\n              "annotations": [],\n              "expectedStatus": "passed",\n              "projectId": "",\n              "projectName": "",\n              "results": [],\n              "status": "skipped"\n            }\n          ],\n          "id": "521ba2e4d180c9f72ac0-d858a76cc5b4d5448147",\n          "file": "discovery.spec.cjs",\n          "line": 2,\n          "column": 7\n        }\n      ]\n    }\n  ],\n  "errors": [],\n  "stats": {\n    "startTime": "2026-10-08T03:23:23.473Z",\n    "duration": 84.85000000000002,\n    "expected": 0,\n    "skipped": 1,\n    "unexpected": 0,\n    "flaky": 0\n  }\n}',
+    expected: '{"note":"existing execution evidence must remain intact"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

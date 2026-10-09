@@ -1,0 +1,46 @@
+{
+  "baseCommit": "39b51748776c4f723007b60c3c77893d16c8faf2",
+  "recordedAt": "2026-10-08T03:05:49.768Z",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "d5cb5335a4c1ccf38afeef7193862b63d07faac31edf863ef0a0075dce2eb7ef"
+    },
+    {
+      "path": ".github/workflows/validate.yml",
+      "sha256": "fc1abdd1f70d99d750f852762f366f7da8e7ba18b29b1ef59f740f099f639f36"
+    },
+    {
+      "path": "package.json",
+      "sha256": "48e838391568a63fcfd457a1d63adfe9dc88229626b83c0041b58bc197857d68"
+    },
+    {
+      "path": "tests/e2e/analytics.spec.js",
+      "sha256": "2076b94f64e5d7d75362bd756d396445523452f88d2961ecc4a542ac9963512c"
+    },
+    {
+      "path": "tests/helpers/analytics-loader-harness.cjs",
+      "sha256": "bac6d9b547fd2bb38fa711de4bf642bdf332c2deb854ae4426dbf362aa65824a"
+    },
+    {
+      "path": "tests/helpers/analytics-site.js",
+      "sha256": "6bb8b9ae57fa85d24385358f1e98778bd0a3cdecad9b0ec4d0d9192496edfb1f"
+    },
+    {
+      "path": "tests/analytics/analytics-loader.test.cjs",
+      "sha256": "6389a99fa696553071d7a8dfc1047b93cb112b1f4244e8351ae9ce321e84a1c1"
+    },
+    {
+      "path": "tests/analytics/analytics-scope.test.cjs",
+      "sha256": "84b9a4fe4250bd4da2599f5a47ecc6af53ab4b61adf3ab9675e4d007a16dcf86"
+    },
+    {
+      "path": "tests/analytics/run-local.ps1",
+      "sha256": "0955f532e210786f6efe771c8e73ea8cd6057d995b0c9306f3589db55d3f6f99"
+    },
+    {
+      "path": "tests/analytics/playwright.analytics.config.cjs",
+      "sha256": "940836a165ce3d8afbc606ab8d6e524b7c4072dd7fd95f1de8347bb887e9a48e"
+    }
+  ]
+}

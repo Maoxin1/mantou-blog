@@ -1,15 +1,39 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>网站流量 · mantou</title>
-<style>:root{color-scheme:light dark}body{font-family:system-ui,sans-serif;max-width:42rem;margin:8vh auto;padding:1.5rem;line-height:1.8}a{color:inherit}nav{display:flex;gap:1rem}h1{font-size:1.7rem}.action{display:inline-block;padding:.6rem 1rem;background:#1f6b43;color:white;border-radius:.3rem;text-decoration:none}small{display:block;margin:1rem 0}</style></head>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><title>网站数据 · mantou</title>
+  <meta name="theme-color" content="#286445">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="网站数据">
+  <link rel="manifest" href="/analytics-app.webmanifest">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="./overview.css"><script type="module" src="./overview.js"></script>
+</head>
 <body>
-<nav><a href="/admin/">内容后台 / Content manager</a><a href="/">博客 / Blog</a></nav>
-<h1>网站流量 / Website analytics</h1>
-<p>访问量和性能数据保存在 Cloudflare 后台，需要登录拥有此站点权限的账户。博客页面不会展示统计数据。</p>
-<p lang="en">Traffic and performance data are available in your private Cloudflare dashboard. Sign in with the account that owns this site.</p>
-<a class="action" href="https://dash.cloudflare.com/60fce3c87fe0af3ac0a66d4b03594598/web-analytics">打开统计后台 / Open analytics →</a>
-<small>选择 mantou-blog.pages.dev。页面路径以 /en/ 开头的是英文内容；/p/ 是中文文章，/works/ 是中文作品。</small>
-<small lang="en">Select mantou-blog.pages.dev. English pages start with /en/. Chinese articles use /p/ and projects use /works/.</small>
-<p>建议查看：浏览量、访问次数、热门页面、来源、设备和加载性能。访问次数不等于去重访客人数；当前统计不包含按钮点击或订阅转化。</p>
-<p lang="en">Review page views, visits, popular pages, referrers, devices, and loading performance. Visits are not unique visitors. Button clicks and subscription conversions are not tracked.</p>
-</body></html>
+  <main>
+    <nav><a href="/admin/">内容后台</a><a href="/">博客首页</a><a href="#install-help">手机安装</a><a href="https://dash.cloudflare.com/60fce3c87fe0af3ac0a66d4b03594598/web-analytics">打开统计后台 / Open analytics →</a></nav>
+    <header><div><p class="eyebrow">MANTOU · PRIVATE ANALYTICS</p><h1>网站数据</h1><p class="intro">最近 7 个完整日，与此前 7 个完整日对比。</p></div><button id="refresh" type="button">刷新数据</button></header>
+    <p id="periods" class="period">北京时间 · 不包含今天</p>
+    <p id="status" role="status" aria-live="polite">正在读取数据…</p>
+    <section class="metrics" aria-label="访问概况">
+      <article class="metric"><h2>浏览量 <small>PV</small></h2><strong id="pv">—</strong><p id="pv-change">等待数据</p><small>页面被浏览的次数</small></article>
+      <article class="metric"><h2>访问次数 <small>Visits</small></h2><strong id="visits">—</strong><p id="visits-change">等待数据</p><small>访问次数不等于去重访客人数</small></article>
+    </section>
+    <section class="panel"><div class="section-title"><h2>每日变化</h2><span>浏览量 · PV</span></div><div id="trend" aria-hidden="true"></div>
+      <details><summary>查看每日数值</summary><table id="trend-table"><thead><tr><th scope="col">日期</th><th scope="col">PV</th><th scope="col">Visits</th></tr></thead><tbody></tbody></table></details>
+    </section>
+    <div class="rankings">
+      <section class="panel"><h2>被浏览的页面</h2><p class="muted">最多显示 15 项，保留实际路径。</p><ol id="paths" class="ranking"></ol></section>
+      <section class="panel"><h2>访问来源</h2><p class="muted">来源缺失不等于访客手动输入了网址。</p><ol id="sources" class="ranking"></ol></section>
+    </div>
+    <footer><p id="freshness">数据来源：Cloudflare Web Analytics · 仅本人可读取</p><p id="scope" class="muted"></p>
+      <details id="install-help"><summary>添加到安卓手机桌面</summary><p>用手机 Chrome 打开本页并完成本人登录。在浏览器菜单中选择“安装应用”或“添加到主屏幕”，再从桌面的“网站数据”图标进入。安装方式取决于手机和浏览器；没有安装选项时，可以继续在浏览器查看。</p><p>查看数据需要联网；登录过期时需重新登录。添加到桌面不会授予报表访问权限。</p></details>
+      <details><summary>指标与数据说明</summary><p>Website analytics。访问量保存在 Cloudflare 后台。Visits 不是独立访客人数；当前统计不包含按钮点击或订阅转化。</p>
+      <p lang="en">Visits are not unique visitors. Button clicks and subscription conversions are not tracked.</p>
+      <p>客户端统计可能漏计，列表和服务商抽样可能影响结果；不承诺每次访问精确入库。上期为 0 时，展示增减次数，不计算百分比。</p></details>
+    </footer>
+    <noscript><p>请启用 JavaScript 查看概览，或使用上方 Cloudflare 后台入口。</p></noscript>
+  </main>
+</body>
+</html>

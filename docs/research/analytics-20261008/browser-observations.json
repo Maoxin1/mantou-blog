@@ -1,0 +1,98 @@
+{
+  "recordedAt": "2026-10-08T01:57:41.104Z",
+  "commit": "39b51748776c4f723007b60c3c77893d16c8faf2",
+  "platform": "win32",
+  "node": "v24.18.0",
+  "playwright": "1.62.1",
+  "browser": "151.0.7922.34",
+  "loaderSha256": "b0f45ba725a16691944a1fcd7357ae50f6ad5e1ce159b804bbeface3937f701a",
+  "externalNetwork": "All requests intercepted; provider beacon not executed; service workers blocked.",
+  "observations": [
+    {
+      "hostname": "mantou-blog.pages.dev",
+      "pathname": "/",
+      "initialMode": "blocked",
+      "first": {
+        "loaders": 1,
+        "scripts": [
+          {
+            "type": "module",
+            "hasSiteToken": true
+          }
+        ],
+        "standInLoads": 0
+      },
+      "beaconRequests": [
+        {
+          "mode": "blocked",
+          "resourceType": "script"
+        },
+        {
+          "mode": "blocked",
+          "resourceType": "script"
+        }
+      ],
+      "errors": [],
+      "navigation": "/works/"
+    },
+    {
+      "hostname": "mantou-blog.pages.dev",
+      "pathname": "/",
+      "initialMode": "blocked",
+      "first": {
+        "loaders": 1,
+        "scripts": [
+          {
+            "type": "module",
+            "hasSiteToken": true
+          }
+        ],
+        "standInLoads": 0
+      },
+      "beaconRequests": [
+        {
+          "mode": "blocked",
+          "resourceType": "script"
+        },
+        {
+          "mode": "stand-in",
+          "resourceType": "script"
+        }
+      ],
+      "errors": [],
+      "afterReload": {
+        "standInLoads": 1,
+        "scripts": 1
+      }
+    },
+    {
+      "hostname": "manual-preview.mantou-blog.pages.dev",
+      "pathname": "/",
+      "initialMode": "stand-in",
+      "first": {
+        "loaders": 1,
+        "scripts": [],
+        "standInLoads": 0
+      },
+      "beaconRequests": [],
+      "errors": []
+    },
+    {
+      "hostname": "mantou-blog.pages.dev",
+      "pathname": "/admin/analytics/",
+      "initialMode": "stand-in",
+      "first": {
+        "loaders": 0,
+        "scripts": [],
+        "standInLoads": 0
+      },
+      "beaconRequests": [],
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Does not verify ingestion, private dashboards, counts, referrers or provider compatibility.",
+    "Script success and recovery use a stand-in, not the provider script.",
+    "Does not exercise search indexing, comments, offline service workers or other browser engines."
+  ]
+}

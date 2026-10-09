@@ -1,0 +1,39 @@
+
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 09:14:48] "GET / HTTP/1.1" 200 -
+
+Running 1 test using 1 worker
+
+
+(node:15624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/1] tests\overview\overview.spec.cjs:19:1 › TM-OVW-005 one-screen overview shows real-format metrics, complete dates and daily trend
+
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 09:14:49] "GET /admin/analytics/ HTTP/1.1" 200 -
+
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 09:14:49] "GET /admin/analytics/overview.css HTTP/1.1" 200 -
+
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 09:14:49] "GET /admin/analytics/overview.js HTTP/1.1" 200 -
+  1) tests\overview\overview.spec.cjs:19:1 › TM-OVW-005 one-screen overview shows real-format metrics, complete dates and daily trend 
+
+    Error: #paths li:first-child should be readable in the desktop first screen
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 900
+    Received:    1074.8125
+
+      30 |   for (const selector of ['#paths li:first-child', '#sources li:first-child']) {
+      31 |     const box = await page.locator(selector).boundingBox();
+    > 32 |     expect(box.y + box.height, `${selector} should be readable in the desktop first screen`).toBeLessThanOrEqual(900);
+         |                                                                                              ^
+      33 |   }
+      34 |   await page.evaluate(() => {
+      35 |     const banner = document.createElement('p');
+        at D:\mx\github\Maoxin1\mantou-blog-analytics-overview\tests\overview\overview.spec.cjs:32:94
+
+    Error Context: test-results\overview-TM-OVW-005-one-sc-2ff48-plete-dates-and-daily-trend\error-context.md
+
+
+  1 failed
+    tests\overview\overview.spec.cjs:19:1 › TM-OVW-005 one-screen overview shows real-format metrics, complete dates and daily trend 

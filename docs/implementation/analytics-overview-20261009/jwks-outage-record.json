@@ -1,0 +1,56 @@
+{
+  "recordedAtUtc": "2026-10-09T06:05:06.453942+00:00",
+  "featureId": "ANL-OVW",
+  "requirements": [
+    "OVW-004",
+    "OVW-005",
+    "OVW-006"
+  ],
+  "matrixIds": [
+    "TM-OVW-003",
+    "TM-OVW-006",
+    "TM-OVW-007"
+  ],
+  "issue": "https://github.com/Maoxin1/mantou-blog/pull/145#discussion_r4227085810",
+  "bugId": "BUG-OVW-QA-004",
+  "sourceBase": "1e7784a03ced70e02327b742cb27df6f396f0545",
+  "method": "Actual jose6.2.12 createRemoteJWKSet with customFetch; no outside network involved",
+  "red": "3 new regression tests fail on UNAUTHORIZED/401 instead of outage/503; 3 previous tests pass",
+  "green": "6 auth tests pass; final all overview25/25 and Worker build pass",
+  "failureModes": [
+    "DNS fetch TypeError",
+    "TLS fetch TypeError",
+    "non-200 HTTP",
+    "malformed JSON",
+    "invalid JWKS shape",
+    "timeout"
+  ],
+  "recovery": "Same resolver succeeds after valid JWKS restored; unknown kid and wrong real RSA signature remain401; failure does not read analytics and response no-store",
+  "state": "Local fix verified; requires PR revalidation and deployment",
+  "files": [
+    {
+      "file": "functions/_lib/access.mjs",
+      "sha256": "7a0f7f9a31f40557b16d21faa3151589afb64f92234e7ad426948f810c982e73"
+    },
+    {
+      "file": "tests/overview/access.test.mjs",
+      "sha256": "140926a94129581158c827c689b760f7650b7a14fc92fb7f1b722b58e60e99f4"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/jwks-outage-red.log",
+      "sha256": "d594930d74840217e53aa9440548b88932fe8f1e0609c9dff03c902f592f8749"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/jwks-outage-green.log",
+      "sha256": "0d14f3e89e153fd17389c2803e6d9bfa75e956c8879645a8822f3fad5f0afd68"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/publish-jwks-overview-final.log",
+      "sha256": "06667abc30eff491e192b782dfa2cd9d8afecc42bebd00f9bde48349b3cca225"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/publish-jwks-build.log",
+      "sha256": "552cf8715210909c288a284472779a0b2c9a00c5fc4b0cc390705a6344603ce2"
+    }
+  ]
+}

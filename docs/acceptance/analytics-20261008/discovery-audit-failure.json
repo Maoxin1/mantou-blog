@@ -1,0 +1,168 @@
+{
+  "evidenceId": "E-ANL-03",
+  "featureId": "ANL",
+  "recordedAtUtc": "2026-10-08T03:22:08.413Z",
+  "baseline": "39b51748776c4f723007b60c3c77893d16c8faf2",
+  "actualHead": "39b51748776c4f723007b60c3c77893d16c8faf2",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.18.0",
+    "hugo": "hugo v0.154.5-a6f99cca223a29cad1d4cdaa6a1a90508ac1da71+extended windows/amd64 BuildDate=2026-01-11T20:53:23Z VendorInfo=gohugoio",
+    "playwright": "1.62.1"
+  },
+  "unchangedApplicationAndExistingUnitChecks": true,
+  "reviewedArtifacts": [
+    {
+      "evidence": "public-artifact-review.json",
+      "path": "static/admin/analytics/index.html",
+      "expected": "d18fddd7a22ce45c0d873fb67e94c4d8aa00556ed7f7fa1395f5b1dffbec615d",
+      "actual": "d18fddd7a22ce45c0d873fb67e94c4d8aa00556ed7f7fa1395f5b1dffbec615d",
+      "matches": true
+    },
+    {
+      "evidence": "public-artifact-review.json",
+      "path": "public/admin/analytics/index.html",
+      "expected": "d18fddd7a22ce45c0d873fb67e94c4d8aa00556ed7f7fa1395f5b1dffbec615d",
+      "actual": "d18fddd7a22ce45c0d873fb67e94c4d8aa00556ed7f7fa1395f5b1dffbec615d",
+      "matches": true
+    },
+    {
+      "evidence": "public-artifact-review.json",
+      "path": "layouts/partials/analytics.html",
+      "expected": "b0f45ba725a16691944a1fcd7357ae50f6ad5e1ce159b804bbeface3937f701a",
+      "actual": "b0f45ba725a16691944a1fcd7357ae50f6ad5e1ce159b804bbeface3937f701a",
+      "matches": true
+    },
+    {
+      "evidence": "public-artifact-review.json",
+      "path": "static/admin/index.html",
+      "expected": "4c1918949945ada4e7876f4e7eba9b6568dad575ea9ff5aa054b6f07dab6cce9",
+      "actual": "4c1918949945ada4e7876f4e7eba9b6568dad575ea9ff5aa054b6f07dab6cce9",
+      "matches": true
+    },
+    {
+      "evidence": "public-artifact-review.json",
+      "path": "static/admin/sveltia/index.html",
+      "expected": "8d46ea067e735dacb22d0606fe037fa1d06eb73542652605479e16f195076fc5",
+      "actual": "8d46ea067e735dacb22d0606fe037fa1d06eb73542652605479e16f195076fc5",
+      "matches": true
+    },
+    {
+      "evidence": "semantics-review.json",
+      "path": "static/admin/analytics/index.html",
+      "expected": "d18fddd7a22ce45c0d873fb67e94c4d8aa00556ed7f7fa1395f5b1dffbec615d",
+      "actual": "d18fddd7a22ce45c0d873fb67e94c4d8aa00556ed7f7fa1395f5b1dffbec615d",
+      "matches": true
+    },
+    {
+      "evidence": "semantics-review.json",
+      "path": "docs/bilingual-site.md",
+      "expected": "c5cdc689dcf82a575c01f35dbd9e1b0670563e8856365efa3f45337cbf299139",
+      "actual": "c5cdc689dcf82a575c01f35dbd9e1b0670563e8856365efa3f45337cbf299139",
+      "matches": true
+    },
+    {
+      "evidence": "semantics-review.json",
+      "path": "layouts/partials/analytics.html",
+      "expected": "b0f45ba725a16691944a1fcd7357ae50f6ad5e1ce159b804bbeface3937f701a",
+      "actual": "b0f45ba725a16691944a1fcd7357ae50f6ad5e1ce159b804bbeface3937f701a",
+      "matches": true
+    }
+  ],
+  "vendorByteCheck": {
+    "expectedGitBlob": "8e13ef18bb269cd6ff83015ada143bd87329ceef",
+    "actualGitBlob": "8e13ef18bb269cd6ff83015ada143bd87329ceef",
+    "textAttribute": "static/lib/waline/3.15.2/waline.js: text: unset"
+  },
+  "previousFullBrowserRegression": {
+    "evidence": "docs/implementation/analytics-20261008/browser-regression.json",
+    "stats": {
+      "startTime": "2026-10-08T02:47:34.062Z",
+      "duration": 201478.207,
+      "expected": 123,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "note": "Prior recorded version, not rerun as a full suite during acceptance. Existing application and original tests unchanged; new cases have separate fresh execution."
+  },
+  "currentScopedBrowser": {
+    "startTime": "2026-10-08T03:21:27.638Z",
+    "duration": 75.34500000000003,
+    "expected": 0,
+    "skipped": 9,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "currentProperty": {
+    "matrixId": "TM-ANL-009",
+    "propertyId": "GP-ANL-01",
+    "recordedAt": "2026-10-08T03:14:10.002Z",
+    "sourceSha256": "b0f45ba725a16691944a1fcd7357ae50f6ad5e1ce159b804bbeface3937f701a",
+    "node": "v24.18.0",
+    "coverage": [
+      {
+        "seed": 20261008,
+        "samples": 64
+      },
+      {
+        "seed": 20261009,
+        "samples": 64
+      },
+      {
+        "seed": 20261010,
+        "samples": 64
+      }
+    ],
+    "totalSamples": 192,
+    "elapsedMs": 494.38699999999994,
+    "providerRequestsSent": false
+  },
+  "changedTestFiles": [
+    {
+      "path": "tests/analytics/run-local.ps1",
+      "sha256": "3f16eb9d3dc8692ee059acff4a659ea0f6b8cefb4cb12f94eb8c7a77b776670e"
+    },
+    {
+      "path": "tests/analytics/analytics-runner.test.cjs",
+      "sha256": "c5960bd3578a8bbdba054337f9a90af169c4413cf1bc7ca5eb8e762b6006d612"
+    },
+    {
+      "path": "tests/analytics/analytics-loader.test.cjs",
+      "sha256": "946acb620b32b5ebce5697ed1a959d23f7e5b7087359761ccf4a22790fed5c29"
+    },
+    {
+      "path": "tests/e2e/analytics.spec.js",
+      "sha256": "92f8c457d13e66ba7b7e77bae40f125be9ea9d7f90ef1222dc17bc18aacc56bf"
+    }
+  ],
+  "matrixCheck": {
+    "rows": 29,
+    "uniqueIds": 29,
+    "nineColumns": true,
+    "counts": {
+      "通过": 14,
+      "阻塞": 12,
+      "不适用": 2,
+      "延期": 1
+    }
+  },
+  "documentCheck": {
+    "files": [
+      "docs/feature-ledger.md",
+      "docs/test-matrix-analytics.md",
+      "docs/edge-case-register.md",
+      "tests/README.md",
+      "docs/acceptance/analytics-20261008/README.md",
+      "docs/acceptance/analytics-20261008/learning-review.md"
+    ],
+    "checkedLocalLinks": 117,
+    "missingLinks": []
+  },
+  "manualDashboard": {
+    "state": "not-checked",
+    "source": "mantou explicitly replied 未核对 during acceptance",
+    "providerRequestsSentByNewTests": false,
+    "authenticatedDashboardChecked": false
+  }
+}

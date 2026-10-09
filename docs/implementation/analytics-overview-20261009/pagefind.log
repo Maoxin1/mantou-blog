@@ -1,0 +1,39 @@
+
+Running Pagefind v1.5.2 (Extended)
+Running from: "D:\\mx\\github\\Maoxin1\\mantou-blog-analytics-overview"
+Source:       "public"
+Output:       "public\\pagefind"
+
+[Walking source directory]
+Found 828 files matching **/*.{html}
+
+[Parsing files]
+Found a data-pagefind-body element on the site.
+↳ Ignoring pages without this tag.
+
+[Reading languages]
+Discovered 2 languages: zh-cn, en
+
+[Building search indexes]
+Total: 
+  Indexed 2 languages
+  Indexed 421 pages
+  Indexed 14363 words
+  Indexed 0 filters
+  Indexed 0 sorts
+Note: Pagefind doesn't support stemming for the language zh-cn. 
+Search will still work, but will not match across root words.
+Note: Pagefind doesn't support stemming for the language zh-cn. 
+Search will still work, but will not match across root words.
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Pagefind found references to the Default UI (pagefind-ui.js)           │
+│  on your site. The Default UI is supported and will continue            │
+│  to work.                                                               │
+│                                                                         │
+│  As of 1.5.0, if you are setting up a new integration, use the          │
+│  Component UI instead. It includes a search modal, better               │
+│  accessibility and customization: https://pagefind.app/docs/search-ui/  │
+└─────────────────────────────────────────────────────────────────────────┘
+
+Finished in 2.025 seconds

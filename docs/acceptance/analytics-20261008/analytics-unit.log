@@ -1,0 +1,19 @@
+
+> mantou-blog@1.0.0 test:analytics
+> node --test tests/analytics/*.test.cjs
+
+GP-ANL-01: 192 generated cases passed with seeds 20261008, 20261009, 20261010.
+✔ TM-ANL-009: fixed approved and non-approved host controls execute the real loader (17.3403ms)
+✔ TM-ANL-009: canonical URL hosts distinguish approved spelling from Unicode lookalikes (12.3866ms)
+✔ TM-ANL-009 / GP-ANL-01: generated non-approved hosts cannot append analytics (497.599ms)
+✔ TM-ANL-028 manual E2E rebuilds stale output before launching browser checks (3417.851ms)
+✔ TM-ANL-028 failed rebuild stops E2E rather than testing the old artifact (3157.5638ms)
+✔ TM-ANL-012: the selected analytics integration does not activate a second provider (9.0912ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6831.373

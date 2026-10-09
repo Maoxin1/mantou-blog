@@ -1,0 +1,39 @@
+{
+  "matrix_id": "TM-ANL-007",
+  "recorded_at_utc": "2026-10-08T02:36:38.0233202+00:00",
+  "reviewer": "Codex",
+  "method": "Manual source and built-entry inspection",
+  "source_commit": "39b51748776c4f723007b60c3c77893d16c8faf2",
+  "reviewed_files": [
+    {
+      "path": "static/admin/analytics/index.html",
+      "sha256": "d18fddd7a22ce45c0d873fb67e94c4d8aa00556ed7f7fa1395f5b1dffbec615d"
+    },
+    {
+      "path": "public/admin/analytics/index.html",
+      "sha256": "d18fddd7a22ce45c0d873fb67e94c4d8aa00556ed7f7fa1395f5b1dffbec615d"
+    },
+    {
+      "path": "layouts/partials/analytics.html",
+      "sha256": "b0f45ba725a16691944a1fcd7357ae50f6ad5e1ce159b804bbeface3937f701a"
+    },
+    {
+      "path": "static/admin/index.html",
+      "sha256": "4c1918949945ada4e7876f4e7eba9b6568dad575ea9ff5aa054b6f07dab6cce9"
+    },
+    {
+      "path": "static/admin/sveltia/index.html",
+      "sha256": "8d46ea067e735dacb22d0606fe037fa1d06eb73542652605479e16f195076fc5"
+    }
+  ],
+  "result": "pass",
+  "checks": [
+    "Public analytics entry is explanatory text and dashboard links, without private reports or visitor records.",
+    "The loader contains a public collection identifier, without management credentials.",
+    "CMS entries link to the analytics jump page rather than embedding private dashboard data."
+  ],
+  "limits": [
+    "Only the listed artifacts were reviewed.",
+    "Cloudflare login, account permission, sharing settings and production injection were not verified."
+  ]
+}

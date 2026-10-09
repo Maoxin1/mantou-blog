@@ -1,0 +1,130 @@
+
+> mantou-blog@1.0.0 test:feedback
+> node --experimental-vm-modules --test tests/node/*.test.cjs
+
+✔ BTC dollar history covers every UTC day from July 2010 through the latest closed day (70.0219ms)
+✔ BTC dollar history rejects gaps, duplicates, shortened coverage, pagination and current-day prices (77.0699ms)
+✔ BTC dollar history rejects invalid prices, assets and non-daily timestamps (55.3523ms)
+✔ a one-day publication lag can be used explicitly without marking old data current or allowing gaps (68.4635ms)
+✔ compound monthly: zero returns preserve all contributions (3.8717ms)
+✔ compound monthly: effective annual returns remain 5% without additions (0.8405ms)
+✔ compound monthly: positive and negative returns match an ordinary annuity (4.645ms)
+✔ compound weekly: zero returns preserve all contributions (0.3467ms)
+✔ compound weekly: effective annual returns remain 5% without additions (0.2239ms)
+✔ compound weekly: positive and negative returns match an ordinary annuity (2.8752ms)
+✔ compound accepts boundary inputs and preserves a zero balance (4.1481ms)
+✔ compound rejects out-of-range, fractional-year, nonnumeric and invalid-frequency inputs (3.6411ms)
+✔ USD reference DCA covers the earliest complete 2010 week/month through the last complete periods (66.248ms)
+✔ DCA buys only the previously known close and values at the end of each full period (2.2765ms)
+✔ Reference calendar handles leap February, year rollover and incomplete first/last periods (6.3937ms)
+✔ Invalid, missing, duplicate or reordered daily prices cannot enter a reference backtest (2.8252ms)
+✔ DCA monthly history covers the source maximum and rejects gaps or incomplete coverage (13.2186ms)
+✔ DCA weekly history covers the source maximum and rejects gaps or incomplete coverage (18.0261ms)
+✔ DCA quote validates symbol, time, price and freshness (1.1089ms)
+✔ initial offline visit labels both USD snapshots and validates once after online recovery (16.439ms)
+✔ initial hidden visit completes deferred histories when visible, including online while hidden (4.3467ms)
+✔ ordinary failures finish the initial attempt and do not refetch histories every minute (6.5187ms)
+✔ repeated recovery events cannot overlap requests or create duplicate polling intervals (8.586ms)
+✔ online recovery during a quote-only request queues exactly one history validation (4.9175ms)
+✔ a new UTC day validates history once when visible and when returning from background (3.9374ms)
+✔ failed history has one bounded automatic retry, then needs a new day or an explicit request (6.5841ms)
+✔ TM-002 characterization: empty serverURL builds article and mail without Waline entry points (11286.7373ms)
+(node:19068) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ comments-only Chinese: no reaction dependency or writer, guest nickname only required (139.16ms)
+✔ comments-only English: no reaction dependency or writer, guest nickname only required (49.1727ms)
+✔ comments-only: failed comment load remains retryable without trying counters (43.7933ms)
+(node:20064) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ TM-003 characterization: unconfigured feedback never loads assets or requests a service (68.5541ms)
+✔ TM-003 characterization: repeated opening during resource and API loading or after success initializes once (130.7257ms)
+✔ TM-024 positive control: a non-empty valid page still initializes with the configured article and language (38.5899ms)
+✔ TM-024 HTTP positive control: native Response 200 with errno 0 initializes once (41.6543ms)
+✔ TM-024 HTTP regression: native Response 503 with errno 0 from /api/comment fails and recovers explicitly (49.7426ms)
+✔ TM-024 HTTP regression: native Response 503 with errno 0 from /api/article fails and recovers explicitly (59.2337ms)
+✔ TM-024 characterization: explicit CSS failure preserves article/mail and supports explicit recovery (60.2333ms)
+✔ TM-024 characterization: explicit JS failure preserves article/mail and supports explicit recovery (49.3177ms)
+✔ TM-024 characterization: zh errno 503 reports failure and recovers explicitly (37.4813ms)
+✔ TM-024 characterization: zh rejected fetch (DNS/CORS-shaped) reports failure and recovers explicitly (56.6574ms)
+✔ TM-024 characterization: zh invalid JSON reports failure and recovers explicitly (56.4665ms)
+✔ TM-024 characterization: zh missing response envelope data reports failure and recovers explicitly (55.7539ms)
+✔ TM-024 characterization: zh missing comment data reports failure and recovers explicitly (84.4098ms)
+✔ TM-024 characterization: zh non-array comment data reports failure and recovers explicitly (80.1411ms)
+✔ TM-024 characterization: zh string comment count reports failure and recovers explicitly (66.5519ms)
+✔ TM-024 characterization: zh invalid counter shape reports failure and recovers explicitly (51.3131ms)
+✔ TM-024 characterization: en errno 503 reports failure and recovers explicitly (57.7576ms)
+✔ TM-024 characterization: en rejected fetch (DNS/CORS-shaped) reports failure and recovers explicitly (58.7631ms)
+✔ TM-024 characterization: en invalid JSON reports failure and recovers explicitly (53.6955ms)
+✔ TM-024 characterization: en missing response envelope data reports failure and recovers explicitly (49.8896ms)
+✔ TM-024 characterization: en missing comment data reports failure and recovers explicitly (48.3364ms)
+✔ TM-024 characterization: en non-array comment data reports failure and recovers explicitly (50.6168ms)
+✔ TM-024 characterization: en string comment count reports failure and recovers explicitly (52.3253ms)
+✔ TM-024 characterization: en invalid counter shape reports failure and recovers explicitly (33.6838ms)
+✔ TM-024 schema regression: negative count must fail before initialization and recover explicitly (44.8368ms)
+✔ TM-024 schema regression: fractional count must fail before initialization and recover explicitly (57.5415ms)
+✔ TM-024 schema regression: missing page must fail before initialization and recover explicitly (49.5792ms)
+✔ TM-024 schema regression: missing pageSize must fail before initialization and recover explicitly (49.5645ms)
+✔ TM-024 schema regression: missing totalPages must fail before initialization and recover explicitly (52.2639ms)
+✔ TM-024 schema regression: invalid page must fail before initialization and recover explicitly (87.4623ms)
+✔ TM-024 schema regression: invalid pageSize must fail before initialization and recover explicitly (66.8656ms)
+✔ TM-024 schema regression: invalid totalPages must fail before initialization and recover explicitly (56.817ms)
+✔ TM-003/TM-024 generated short open/fail/retry sequences preserve independent content and initialize at most once (12143.0326ms)
+ℹ Generator v1 seed=20261005; samples=100; maximum attempts=4; maximum repeated opens=4; elapsed_ms=4919; stopped at sample cap; no counterexample
+ℹ Generator v1 seed=20261006; samples=100; maximum attempts=4; maximum repeated opens=4; elapsed_ms=4317; stopped at sample cap; no counterexample
+ℹ Generator v1 seed=20261007; samples=100; maximum attempts=4; maximum repeated opens=4; elapsed_ms=2906; stopped at sample cap; no counterexample
+✔ TM-024 browser-counterexample replay: failed module URL needs a new explicit import key (54.6399ms)
+✔ TM-024: API failure after a successful import reuses the successful module key (60.8261ms)
+✔ TM-005 characterization: definite mock rejection retains draft and shows exact response (14.4549ms)
+✔ TM-019: double click plus Ctrl/Meta+Enter during userAgent preparation sends once (6.879ms)
+✔ TM-019: missing nickname releases the lock without POST (5.6333ms)
+✔ TM-019: invalid email releases the lock without POST (9.16ms)
+✔ TM-019: empty draft releases the lock without POST (5.2769ms)
+✔ TM-019: invalid word count releases the lock without POST (5.7546ms)
+✔ TM-019: forced login without a token releases the lock without POST (5.3233ms)
+✔ TM-019: userAgent rejection releases the operation and preserves draft (7.7771ms)
+✔ TM-019: known mock response holds the lock through completion and then allows next operation (5.8912ms)
+✔ TM-019/TM-005 deterministic sequence property: seed=20261005, cases=100 (538.2307ms)
+✔ TM-019/TM-005 deterministic sequence property: seed=20261006, cases=100 (542.2943ms)
+✔ TM-019/TM-005 deterministic sequence property: seed=20261007, cases=100 (563.5885ms)
+✔ TM-005 adversarial: missing errmsg, zh-CN, preserves rejected draft without a success event (5.5953ms)
+✔ TM-005 adversarial: missing errmsg, en-US, preserves rejected draft without a success event (5.6939ms)
+✔ TM-005 adversarial: empty errmsg, zh-CN, preserves rejected draft without a success event (7.719ms)
+✔ TM-005 adversarial: empty errmsg, en-US, preserves rejected draft without a success event (5.247ms)
+✔ TM-019 adversarial UA non-Error rejection: null, zh-CN (5.017ms)
+✔ TM-019 adversarial UA non-Error rejection: null, en-US (4.5524ms)
+✔ TM-019 adversarial UA non-Error rejection: undefined, zh-CN (4.136ms)
+✔ TM-019 adversarial UA non-Error rejection: undefined, en-US (8.0004ms)
+✔ TM-019 adversarial UA non-Error rejection: UA preparation unavailable, zh-CN (6.2454ms)
+✔ TM-019 adversarial UA non-Error rejection: UA preparation unavailable, en-US (5.9167ms)
+✖ Waline patch reproduces exactly from the hash-locked official 3.15.2 bundle (20.7024ms)
+ℹ tests 88
+ℹ suites 0
+ℹ pass 87
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14886.9593
+
+✖ failing tests:
+
+test at tests\node\waline-vendor-patch.test.cjs:8:1
+✖ Waline patch reproduces exactly from the hash-locked official 3.15.2 bundle (20.7024ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'ed464c2270c455c3cb071019c480bfda1266fff1f49a239b48dd51ea2e08ecee'
+  - 'e724ca392e46cea5a4b038a023607d15a01e1aae4693982a3684c18b932f47dc'
+  
+      at TestContext.<anonymous> (D:\mx\github\Maoxin1\mantou-blog-analytics-overview\tests\node\waline-vendor-patch.test.cjs:15:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ed464c2270c455c3cb071019c480bfda1266fff1f49a239b48dd51ea2e08ecee',
+    expected: 'e724ca392e46cea5a4b038a023607d15a01e1aae4693982a3684c18b932f47dc',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

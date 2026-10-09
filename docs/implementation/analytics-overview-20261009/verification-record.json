@@ -1,0 +1,105 @@
+{
+  "recordedAtUtc": "2026-10-09T01:28:18.376Z",
+  "featureId": "ANL-OVW",
+  "sourceBase": "e05bde17d7c43a7cae5d9cf382276ace662c29de",
+  "state": "local-implementation-verified; real-data-and-access-blocked",
+  "files": [
+    {
+      "file": "functions/_lib/access.mjs",
+      "sha256": "123d82c9ecff435758a72ef5cff6bcb10e6f0bf0d04658b64dd302193b6b41a7"
+    },
+    {
+      "file": "functions/_lib/analytics-domain.mjs",
+      "sha256": "68ff6e44a45aa52cc3cfc7eca3e59363852351af8f01f13b1e42132251e3b003"
+    },
+    {
+      "file": "functions/_lib/provider.mjs",
+      "sha256": "2a1cfae248ed3a6a8e76baeb7ef95aa08301ddee8b7f614a20ab674218ff202b"
+    },
+    {
+      "file": "functions/_lib/handler.mjs",
+      "sha256": "3acd20672ccac73e410b857dd182e772e9fc7f45493be72fd78dcd3084922e17"
+    },
+    {
+      "file": "functions/admin/analytics/_middleware.js",
+      "sha256": "e3ab94bcddb497b4a423c7b13e2ffbac04596dba98e19ca140c1505c89e48432"
+    },
+    {
+      "file": "functions/admin/analytics/data.js",
+      "sha256": "3c70528ecf67ec107c7c346e7b3ce49f386a44014d40d938213ba02202e90d96"
+    },
+    {
+      "file": "static/admin/analytics/index.html",
+      "sha256": "09c28b757bb6aa91560e660507db9b996dc4874efa68fe090ac455ce1f1bea07"
+    },
+    {
+      "file": "static/admin/analytics/overview.js",
+      "sha256": "1a3a4d873213498c4b6ed397b6a17961ca40f05bee7744a5eb12b347bb6819e1"
+    },
+    {
+      "file": "static/admin/analytics/overview.css",
+      "sha256": "923cb0965bb26e48aae897d8bc2e84a03468f87ae2aeea710b4712865387be67"
+    },
+    {
+      "file": "scripts/build_analytics.mjs",
+      "sha256": "da976a4f3a53302a31e3c23fa342bf4ce51778b406ed998d5f63447a562cfb16"
+    },
+    {
+      "file": "package.json",
+      "sha256": "8c075e993a6636aac9160ef9b45b96a229d52ca361bcbd8e27c49b0a786fdfd0"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "3a6e459a9b9d7ddf02024656c0ad0d485b1096cb7b9c5ba4ce5b65149dbb9a5d"
+    },
+    {
+      "file": "wrangler.jsonc",
+      "sha256": "718aadd74e04473534a64a7c0ca50404385b6ed1675182b15dc14fd852d9103f"
+    },
+    {
+      "file": "public/_worker.js/index.js",
+      "sha256": "5e4c6fae4b3125f0499aa5aac3bd6135d5b3b873e28e5caefa935f36394c205d"
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "file": "unit-final.log",
+      "sha256": "5afd388331fbd1ce0a8323f7487a1f2398794335a4e75de581a548a10d6fc885"
+    },
+    {
+      "file": "ui-final.log",
+      "sha256": "6c21877477f5e710f7d0576f43d416115a91ba3433518551081e668923619228"
+    },
+    {
+      "file": "python-regression.log",
+      "sha256": "cea415961f03b6933b841d7c1b0ca7920f14ac3aa98ce55d660cd92ce578c21d"
+    },
+    {
+      "file": "node-regression-final.log",
+      "sha256": "4b2711a609cacc430e2b0e5c716b9b215ca4604ff20e2c1b6411326ce7c61a7c"
+    },
+    {
+      "file": "browser-regression.log",
+      "sha256": "f6e1bab80f134dbaa3b66982122043428f63f46a6f13cd2ff17966fea190da4d"
+    },
+    {
+      "file": "runtime-boundaries.json",
+      "sha256": "5cf00b807a8439bd87b60950906d541a1f0c4d64827d470c145da6beeb5094ab"
+    }
+  ],
+  "actualResults": {
+    "overviewNode": 14,
+    "overviewBrowser": 3,
+    "python": 123,
+    "existingNode": 88,
+    "existingBrowser": 144
+  },
+  "published": false,
+  "realCloudflareReadVerified": false,
+  "realAccessPolicyVerified": false,
+  "notes": [
+    "Full browser 144 ran before private CSS/SVG readability refinements; scoped overview 3 rerun afterwards.",
+    "Dependencies: jose 6.2.12 MIT; full copyright/license preserved in distributed worker via build helper.",
+    "No actual-token artifact scan claimed while token absent."
+  ]
+}

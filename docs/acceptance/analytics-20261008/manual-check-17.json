@@ -1,0 +1,15 @@
+{
+  "evidenceId": "E-ANL-24",
+  "featureId": "ANL",
+  "source": "Actual user reply to the pending full CMS entry question",
+  "executor": "mantou",
+  "contextDate": "2026-10-09",
+  "exactExecutionTime": null,
+  "entry": "https://mantou-blog.pages.dev/admin/",
+  "steps": ["Click 网站流量 / Analytics", "Click 打开统计后台", "Use existing authorized Cloudflare account", "View report for mantou-blog.pages.dev"],
+  "answerVerbatim": "已按上述入口走通，能查看正确站点报表",
+  "matrixId": "TM-ANL-002",
+  "status": "通过",
+  "automatedPrivateDashboardLogin": false,
+  "limits": ["User-reported actual execution, not independently repeated by Codex.", "Not a fresh sign-in or different-account permission test.", "Metrics and fixed-range context are supported by separate retained E-ANL-17/19 evidence."]
+}
