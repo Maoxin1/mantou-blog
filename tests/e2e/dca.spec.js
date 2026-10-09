@@ -33,6 +33,12 @@ async function setup(page,state={mode:'ok',requests:0}) {
 }
 const value=async(page,id)=>Number((await page.locator('#'+id).textContent()).replace(/[$,]/g,''));
 const openOptions=async page=>{if(!await page.locator('#c-options').getAttribute('open'))await page.locator('#c-options>summary').click();};
+const setCustomRange=async page=>{
+ const kind=await page.locator('#c-start').getAttribute('type')==='month'?'monthly':'weekly';
+ const rows=periods(kind).filter(row=>row.period>='2021-11'&&row.period<'2023-01');
+ await page.locator('[data-period=all]').click();
+ await page.locator('#c-start').fill(rows[0].period);await page.locator('#c-end').fill(rows.at(-1).period);
+};
 
 test('Weekly DCA uses known Sunday close references, fees, complete weeks and preserves separate monthly ranges',async({page})=>{
  await setup(page);const weekly=periods('weekly');
@@ -59,7 +65,7 @@ test('Weekly DCA uses known Sunday close references, fees, complete weeks and pr
 test('Monthly calculation and independent compound zero/negative scenarios remain correct',async({page})=>{
  await setup(page);await page.locator('[data-frequency=monthly]').click();await openOptions(page);
  const rows=periods('monthly');expect(await value(page,'c-h-value')).toBeCloseTo(rows.reduce((sum,r)=>sum+99.9/r.buyPrice,0)*rows.at(-1).valuePrice,2);
- await page.locator('[data-period=down]').click();expect(await value(page,'c-h-profit')).toBeLessThan(0);await expect(page.locator('#c-trades tr')).toHaveCount(14);
+ await setCustomRange(page);expect(await value(page,'c-h-profit')).toBeLessThan(0);await expect(page.locator('#c-trades tr')).toHaveCount(14);
  await page.locator('#c-tab-future').click();await page.locator('[data-compound-frequency=monthly]').click();await page.locator('[data-rate="0"]').click();expect(await value(page,'c-f-value')).toBe(13000);
  await page.locator('[data-rate="-5"]').click();expect(await value(page,'c-f-profit')).toBeLessThan(0);await expect(page.locator('#c-f-composition')).toContainText('模拟损失');
  await page.locator('[data-rate="5"]').click();const rate=Math.pow(1.05,1/12)-1;expect(await value(page,'c-f-value')).toBeCloseTo(1000*Math.pow(1+rate,120)+100*(Math.pow(1+rate,120)-1)/rate,2);
@@ -205,7 +211,7 @@ test('Quiet default presentation preserves important context and reveals graph d
  await expect(page.locator('#c-f-composition')).not.toBeVisible();await expect(page.locator('#c-future-chart + .chart-detail')).not.toBeVisible();
  await page.locator('#c-future-chart').focus();await page.keyboard.press('Home');await expect(page.locator('#c-future-chart + .chart-detail')).toBeVisible();await expect(page.locator('#c-future-chart + .chart-detail')).toContainText('现在');
  const valueBox=await page.locator('#c-f-value').boundingBox(),chartBox=await page.locator('#c-future-chart').boundingBox();expect(valueBox.y).toBeLessThan(chartBox.y);
- await page.locator('#c-tab-history').click();await expect(page.locator('[data-period=down]')).toBeVisible();await expect(page.locator('#c-panel-history .budget-note')).toBeVisible();await expect(page.locator('#c-h-detail')).not.toBeVisible();
+ await page.locator('#c-tab-history').click();await expect(page.locator('[data-period=down]')).toHaveCount(0);await expect(page.locator('[data-period=all]')).toBeVisible();await expect(page.locator('#c-panel-history .budget-note')).toBeVisible();await expect(page.locator('#c-h-detail')).not.toBeVisible();
 });
 
 test('Expanded price history immediately rotates portrait phones and preserves range, pointer selection, focus and scroll',async({page})=>{
@@ -300,8 +306,8 @@ test('A late fullscreen grant after closing cannot leave an empty fullscreen vie
 });
 
 
-test('Downturn history supports exact valuation dates, touch and keyboard, retaining its selection on redraw',async({page,context})=>{
- await setup(page);await page.locator('[data-period=down]').click();
+test('Custom history ranges support exact valuation dates, touch and keyboard, retaining its selection on redraw',async({page,context})=>{
+ await setup(page);await setCustomRange(page);
  const chart=page.locator('#c-history-chart'),detail=page.locator('#c-history-chart + .chart-detail');
  await page.locator('#c-point-date').fill('2022-05-18');await expect(page.locator('#c-point-date')).toHaveValue('2022-05-22');await expect(detail).toContainText('2022-05-22');
  const rows=periods('weekly').filter(r=>r.period>='2021-11'&&r.period<'2023-01'),through=rows.filter(r=>r.end<=Date.parse('2022-05-23T00:00:00Z'));
@@ -314,18 +320,18 @@ test('Downturn history supports exact valuation dates, touch and keyboard, retai
  await chart.scrollIntoViewIfNeeded();
  const point=await chart.evaluate(svg=>{const p=svg.createSVGPoint();p.x=51+(svg.viewBox.baseVal.width-63)*5/(61-1);p.y=svg.viewBox.baseVal.height-8;const screen=p.matrixTransform(svg.getScreenCTM());return {x:screen.x,y:screen.y};});
  await page.mouse.click(point.x,point.y);await expect(detail).toContainText('2021-12-12');
- const phone=await context.browser().newContext({hasTouch:true,viewport:{width:390,height:844}});const touch=await phone.newPage();await setup(touch);await touch.locator('[data-period=down]').click();
+ const phone=await context.browser().newContext({hasTouch:true,viewport:{width:390,height:844}});const touch=await phone.newPage();await setup(touch);await setCustomRange(touch);
  await touch.locator('#c-history-chart').scrollIntoViewIfNeeded();
  const tap=await touch.locator('#c-history-chart').evaluate(svg=>{const p=svg.createSVGPoint();p.x=52;p.y=svg.viewBox.baseVal.height/2;const s=p.matrixTransform(svg.getScreenCTM());return {x:s.x,y:s.y};});await touch.touchscreen.tap(tap.x,tap.y);await expect(touch.locator('#c-history-chart + .chart-detail')).toContainText('2021-11-07');await phone.close();
- await page.locator('[data-frequency=monthly]').click();await page.locator('[data-period=down]').click();await page.locator('#c-point-date').fill('2022-05-18');await expect(detail).toContainText('2022-05-31');
+ await page.locator('[data-frequency=monthly]').click();await setCustomRange(page);await page.locator('#c-point-date').fill('2022-05-18');await expect(detail).toContainText('2022-05-31');
  await page.locator('[data-frequency=weekly]').click();await expect(detail).toContainText('2021-12-12');
  await page.locator('#c-point-date').fill('2020-01-01');await expect(page.locator('#c-point-error')).toContainText('当前回测区间');await expect(detail).toBeHidden();
 });
 
-test('Downturn is an editable range with visible dates, independent recalculation and separate weekly/monthly custom spans',async({page})=>{
- await page.setViewportSize({width:390,height:844});await setup(page);await page.locator('[data-period=down]').click();
+test('Custom history uses an editable range with visible dates, independent recalculation and separate weekly/monthly custom spans',async({page})=>{
+ await page.setViewportSize({width:390,height:844});await setup(page);await setCustomRange(page);
  const start=page.locator('#c-start'),end=page.locator('#c-end'),custom=page.locator('#c-range-custom'),detail=page.locator('#c-history-chart + .chart-detail');
- await expect(page.locator('#c-options')).not.toHaveAttribute('open','');await expect(start).toBeVisible();await expect(end).toBeVisible();await expect(custom).toBeHidden();
+ await expect(page.locator('#c-options')).not.toHaveAttribute('open','');await expect(start).toBeVisible();await expect(end).toBeVisible();await expect(custom).toBeVisible();
  const assertRange=async(kind,from,to)=>{
   const rows=periods(kind).filter(r=>r.period>=from&&r.period<=to),balance=rows.reduce((qty,r)=>qty+99.9/r.buyPrice,0)*rows.at(-1).valuePrice;
   expect(await value(page,'c-h-value')).toBeCloseTo(balance,2);expect(await value(page,'c-h-invest')).toBe(rows.length*100);expect(await value(page,'c-h-profit')).toBeCloseTo(balance-rows.length*100,2);
@@ -335,10 +341,10 @@ test('Downturn is an editable range with visible dates, independent recalculatio
  };
  const initialCurve=await page.locator('#c-history-chart path').last().getAttribute('d');await page.locator('#c-point-date').fill('2022-12-25');
  await start.fill('2022-05-04');await end.fill('2022-05-26');await expect(start).toHaveValue('2022-05-02');await expect(end).toHaveValue('2022-05-23');await assertRange('weekly','2022-05-02','2022-05-23');
- await expect(custom).toBeVisible();await expect(page.locator('[data-period=down]')).toHaveAttribute('aria-pressed','false');await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','false');
+ await expect(custom).toBeVisible();await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','false');
  expect(await page.locator('#c-history-chart path').last().getAttribute('d')).not.toBe(initialCurve);await expect(detail).toBeHidden();await expect(page.locator('#c-point-date')).toHaveValue('');
  await start.fill('2019-05-06');await end.fill('2019-05-20');await assertRange('weekly','2019-05-06','2019-05-20');
- await page.locator('[data-frequency=monthly]').click();await page.locator('[data-period=down]').click();await expect(start).toHaveAttribute('type','month');await expect(start).toBeVisible();await expect(end).toBeVisible();
+ await page.locator('[data-frequency=monthly]').click();await setCustomRange(page);await expect(start).toHaveAttribute('type','month');await expect(start).toBeVisible();await expect(end).toBeVisible();
  await start.fill('2022-05');await end.fill('2022-07');await assertRange('monthly','2022-05','2022-07');await expect(custom).toBeVisible();
  await page.locator('[data-frequency=weekly]').click();await expect(start).toHaveValue('2019-05-06');await expect(end).toHaveValue('2019-05-20');await assertRange('weekly','2019-05-06','2019-05-20');
  await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await page.locator('#c-tab-history').click();await expect(start).toHaveValue('2019-05-06');await expect(end).toHaveValue('2019-05-20');
@@ -346,16 +352,16 @@ test('Downturn is an editable range with visible dates, independent recalculatio
  await page.locator('[data-period=all]').click();await expect(custom).toBeHidden();await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','true');await assertRange('monthly',periods('monthly')[0].period,periods('monthly').at(-1).period);
 });
 
-test('Invalid custom downturn spans clear results, point readings and preset selection for both frequencies',async({page})=>{
+test('Invalid custom history spans clear results, point readings and preset selection for both frequencies',async({page})=>{
  await setup(page);
  for(const kind of ['weekly','monthly']){
   await page.locator(`[data-frequency=${kind}]`).click();
   const invalid=kind==='weekly'?[['c-start',''],['c-end',''],['c-start','2023-01-02'],['c-start','2010-07-12'],['c-end','2026-10-12']]:[['c-start',''],['c-end',''],['c-start','2023-01'],['c-start','2010-07'],['c-end','2026-10']];
   for(const [id,date] of invalid){
-   await page.locator('[data-period=down]').click();await page.locator('#c-point-date').fill('2022-05-18');await expect(page.locator('#c-history-chart + .chart-detail')).toBeVisible();await page.locator('#'+id).fill(date);
+   await setCustomRange(page);await page.locator('#c-point-date').fill('2022-05-18');await expect(page.locator('#c-history-chart + .chart-detail')).toBeVisible();await page.locator('#'+id).fill(date);
    await expect(page.locator('#c-h-error')).not.toBeEmpty();await expect(page.locator('#c-h-value')).toHaveText('—');await expect(page.locator('#c-h-invest')).toHaveText('—');await expect(page.locator('#c-h-profit')).toHaveText('—');
    await expect(page.locator('#c-trades tr')).toHaveCount(0);await expect(page.locator('#c-history-chart path')).toHaveCount(0);await expect(page.locator('#c-history-chart + .chart-detail')).toBeHidden();await expect(page.locator('#c-point-date')).toBeDisabled();
-   await expect(page.locator('[data-period=down]')).toHaveAttribute('aria-pressed','false');await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','false');await expect(page.locator('#c-range-custom')).toBeVisible();
+   await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','false');await expect(page.locator('#c-range-custom')).toBeVisible();
   }
  }
 });

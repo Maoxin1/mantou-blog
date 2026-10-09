@@ -81,10 +81,9 @@ function clearHistory(message){q('c-h-error').textContent=message;['c-h-invest',
 function history(){
  const amount=Number(q('c-monthly').value),fee=Number(q('c-fee').value)/100,start=q('c-start').value,end=q('c-end').value;
  remember();
- const downturn=periods().filter(d=>d.period>='2021-11'&&d.period<'2023-01');
- const presets={all:start===firstPeriod()&&end===lastPeriod(),down:start===downturn[0]?.period&&end===downturn.at(-1)?.period};
+ const presets={all:start===firstPeriod()&&end===lastPeriod()};
  root.querySelectorAll('[data-period]').forEach(el=>el.setAttribute('aria-pressed',String(presets[el.dataset.period])));
- q('c-range-custom').hidden=presets.all||presets.down;
+ q('c-range-custom').hidden=presets.all;
  const validPeriod=value=>frequency==='monthly'?/^\d{4}-(0[1-9]|1[0-2])$/.test(value):/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T00:00:00Z'))&&new Date(value+'T00:00:00Z').getUTCDay()===1;
  if(!q('c-monthly').value||!q('c-fee').value||!Number.isFinite(amount)||amount<1||amount>100000||!Number.isFinite(fee)||fee<0||fee>.05){clearHistory('请输入有效金额（1—100,000 USD）和费率（0—5%）。');return;}
  if(!validPeriod(start)||!validPeriod(end)||start<firstPeriod()||end>lastPeriod()){clearHistory('请选择可用历史范围内的起止日期。');return;}
@@ -192,7 +191,7 @@ q('c-point-date').addEventListener('input',()=>{const value=q('c-point-date').va
 ['prev','next'].forEach(direction=>q('c-point-'+direction).addEventListener('click',()=>{const index=inspectedRows.findIndex(row=>date(row.end)===historySelections[frequency].label),next=index+(direction==='prev'?-1:1);if(index>=0&&next>=0&&next<inspectedRows.length){historySelections[frequency].label=date(inspectedRows[next].end);history();}}));
 ['c-principal','c-add','c-years','c-rate'].forEach(id=>q(id).addEventListener('input',future));
 root.querySelectorAll('[data-rate]').forEach(el=>el.addEventListener('click',()=>{q('c-rate').value=el.dataset.rate;future();}));
-root.querySelectorAll('[data-period]').forEach(el=>el.addEventListener('click',()=>{const rows=el.dataset.period==='all'?periods():periods().filter(r=>r.period>='2021-11'&&r.period<'2023-01');q('c-start').value=rows[0].period;q('c-end').value=rows.at(-1).period;history();}));
+root.querySelectorAll('[data-period]').forEach(el=>el.addEventListener('click',()=>{const rows=periods();q('c-start').value=rows[0].period;q('c-end').value=rows.at(-1).period;history();}));
 root.querySelectorAll('[data-market]').forEach(el=>el.addEventListener('click',()=>{marketLength=+el.dataset.market;market();}));
 if(typeof priceDialog.showModal==='function'){
  const layoutPriceScreen=()=>{
