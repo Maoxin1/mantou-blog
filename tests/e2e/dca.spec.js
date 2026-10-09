@@ -207,7 +207,7 @@ test('Result-first layout keeps responsive four-metric rows, two tabs and inline
    for(const panel of ['history','future']){
     await page.locator('#c-tab-'+panel).click();expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);await expect(page.locator('#c-panel-'+panel)).toBeVisible();
     const result=await page.locator('#c-panel-'+panel+' .history-results').boundingBox(),settings=await page.locator('#c-panel-'+panel+' fieldset').boundingBox();expect(result.y+result.height).toBeLessThan(settings.y);
-    const metrics=page.locator('#c-panel-'+panel+' .result-pair > div');await expect(metrics).toHaveCount(4);
+    const metrics=page.locator('#c-panel-'+panel+' .history-results .result-pair > div');await expect(metrics).toHaveCount(4);
     const boxes=await metrics.evaluateAll(nodes=>nodes.map(node=>{const box=node.getBoundingClientRect();return {left:box.left,top:box.top,right:box.right,overflow:node.scrollWidth-node.clientWidth};}));
     if(width>=800){
      for(const box of boxes)expect(box.top).toBeCloseTo(boxes[0].top,0);
