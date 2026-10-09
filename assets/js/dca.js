@@ -139,11 +139,8 @@ function market(){
  const all=prices.daily.map(([date,price])=>({date,time:Date.parse(date+'T00:00:00Z'),price}));
  const cutoff=new Date(all.at(-1).time);cutoff.setUTCFullYear(cutoff.getUTCFullYear()-marketLength);
  const rows=marketLength?all.filter(r=>r.time>=cutoff.getTime()):all;
- const first=rows[0],last=rows.at(-1),days=(last.time-first.time)/DAY;
+ const first=rows[0],last=rows.at(-1);
  q('c-m-return').textContent=percent(cumulativeReturn(last.price,first.price));
- q('c-m-annual').textContent=percent(xirr([{amount:-first.price,time:first.time+DAY},{amount:last.price,time:last.time+DAY}]));
- q('c-m-annual-hint').hidden=days>=365;
- q('c-m-annual-hint').textContent=days===0?'仅一个价格日期，无法计算年化回报。':'不足一年，年化为数学折算。';
  chart(q('c-market-chart'),null,rows.map(r=>r.price),rows.map(r=>r.date),'USD/BTC',['','价格'],rows.map(r=>r.time),true,marketSelection);
  root.querySelectorAll('[data-market]').forEach(el=>el.setAttribute('aria-pressed',String(+el.dataset.market===marketLength)));
  q('c-market-range').textContent=`${marketLength?'近 '+marketLength+' 年':'最大范围'}：${rows[0].date} — ${rows.at(-1).date}`;

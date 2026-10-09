@@ -81,14 +81,13 @@
         <div id="c-market-ranges" class="scenario market-ranges" aria-label="价格走势范围"><button data-market="1" aria-pressed="false" type="button">近 1 年</button><button data-market="5" aria-pressed="false" type="button">近 5 年</button><button data-market="0" aria-pressed="true" type="button">最大</button></div>
       </div>
       <p class="result-caption" id="c-market-range"></p>
-      <div class="result-pair market-performance" aria-live="polite"><div><small>累计收益率</small><strong id="c-m-return">—</strong></div><div><small>年化复合回报率</small><strong id="c-m-annual">—</strong></div></div>
-      <p id="c-m-annual-hint" class="result-caption" hidden></p>
+      <div class="result-pair market-performance" aria-live="polite"><div><small>累计收益率</small><strong id="c-m-return">—</strong></div></div>
       <svg id="c-market-chart" class="chart" role="img" aria-label="比特币美元日价格历史，对数刻度，点按图表或用方向键查看详情"></svg>
       <p id="c-price-status" class="data-status" role="status">正在核对价格历史…</p>
     </div></div>
     <button type="button" id="c-refresh">刷新行情</button>
     <p class="panel-context">仅供参考，非可成交报价。</p>
-    <details><summary>数据与更新说明</summary><p>累计收益率＝区间末价 ÷ 区间初价 − 1。年化复合回报率（CAGR）＝（末价 ÷ 初价）的 365 ÷ 相隔天数 次方 − 1，按所选价格区间计算一次买入并持有的参考回报，未计交易费用。两项均使用 BTC/USD 日参考价格，与上方独立 USDT 报价的 24 小时变动不同；不代表定投回报。</p><p>历史曲线：<a href="https://coinmetrics.io/community-network-data/" target="_blank" rel="noopener noreferrer">Coin Metrics Community</a> · BTC PriceUSD，美元日价格参考值。日期表示该 UTC 日的收盘，实际收盘时点为次日 00:00 UTC；对数刻度中，相同距离表示相同倍数变化。历史定投共用此日参考价格；上方 Binance BTC/USDT 报价独立显示，USD 与 USDT 不视为同一单位。</p><p>数据按 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 使用；本页选取 BTC PriceUSD 并绘图。初始价格快照读取于 {{ .Site.Data.btcprices.readAt | time.Format "2006-01-02" }}，数据截止日期见图下。</p><p>页面可见时每 60 秒尝试更新报价；打开页面、手动刷新、恢复联网和跨 UTC 日时核对完整价格历史。历史连接限时 30 秒；临时失败或日期待更新时，10 分钟后最多自动重试一次，仍可手动重试。失败时保留已有数据并注明截止日期。</p></details>
+    <details><summary>数据与更新说明</summary><p>累计收益率＝区间末价 ÷ 区间初价 − 1，按所选价格区间计算一次买入并持有的参考回报，未计交易费用。使用 BTC/USD 日参考价格，与上方独立 USDT 报价的 24 小时变动不同；不代表定投回报。</p><p>历史曲线：<a href="https://coinmetrics.io/community-network-data/" target="_blank" rel="noopener noreferrer">Coin Metrics Community</a> · BTC PriceUSD，美元日价格参考值。日期表示该 UTC 日的收盘，实际收盘时点为次日 00:00 UTC；对数刻度中，相同距离表示相同倍数变化。历史定投共用此日参考价格；上方 Binance BTC/USDT 报价独立显示，USD 与 USDT 不视为同一单位。</p><p>数据按 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 使用；本页选取 BTC PriceUSD 并绘图。初始价格快照读取于 {{ .Site.Data.btcprices.readAt | time.Format "2006-01-02" }}，数据截止日期见图下。</p><p>页面可见时每 60 秒尝试更新报价；打开页面、手动刷新、恢复联网和跨 UTC 日时核对完整价格历史。历史连接限时 30 秒；临时失败或日期待更新时，10 分钟后最多自动重试一次，仍可手动重试。失败时保留已有数据并注明截止日期。</p></details>
     </div></details>
 
     <details id="c-inspection"><summary>按日期查看图表</summary>
