@@ -52,7 +52,9 @@ USDT 不等同于美元法币。费率是假设，未计期末卖出费、税费
 
 复利模拟采用每期 `i/p` 的模拟年分数，不人为生成交易日历；末期追加与期末价值在同一时点合并。固定有效年率假设下，资金加权年化等于输入假设，标为“假设年化回报率”。无有效持有时间、无正末值、异常现金流或不可表示的结果显示“—”，不得转为零或 Infinity；仅极大百分比采用科学记数。
 
-定义参考：https://support.microsoft.com/en-us/excel/functions/xirr-function
+比特币价格区域另外展示所选近 1 年／近 5 年／最大区间的累计收益率与年化复合回报率（CAGR）。累计为末价÷初价−1，年化为（末价÷初价）的 365÷相隔 UTC 天数 次方−1，代表一次买入并持有的参考价格回报，未计交易费用；只使用 BTC/USD 日历史，不混用实时 USDT 报价，不跟随定投日期。短于一年标明数学折算，单日无年化值。区间按钮先于结果和曲线；横屏保留两项结果。
+
+定义参考：https://support.microsoft.com/en-us/excel/functions/xirr-function 与 https://learn.microsoft.com/en-us/dax/rri-function-dax
 
 ## 验证记录
 

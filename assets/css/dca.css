@@ -149,6 +149,12 @@ body[theme=dark] #mantou-dca-c .error{color:#ffb5a6}
 #mantou-dca-c .result-pair>div{min-width:0}
 #mantou-dca-c .result-pair small{display:block;margin:0 0 5px}
 #mantou-dca-c .result-pair strong{font-size:21px;letter-spacing:-.4px}
+#mantou-dca-c .result-pair.market-performance{grid-template-columns:repeat(2,minmax(0,1fr));margin:16px 0 20px}
+#mantou-dca-c .market-performance strong{color:var(--ink)}
+#mantou-dca-c .price-screen .market-performance{display:flex;flex-wrap:wrap;gap:8px 24px;border:0;padding:0;margin:4px 0 6px;flex-shrink:0}
+#mantou-dca-c .price-screen .market-performance>div{display:flex;align-items:baseline;gap:8px}
+#mantou-dca-c .price-screen .market-performance small{font-size:14px;margin:0}
+#mantou-dca-c .price-screen .market-performance strong{font-size:17px}
 #mantou-dca-c #c-h-profit{font-size:clamp(16px,4.6vw,23px)}
 #mantou-dca-c .result-main>strong{font-weight:500;font-size:clamp(27px,6.8vw,44px)}
 #mantou-dca-c #c-market-context{margin-top:24px}

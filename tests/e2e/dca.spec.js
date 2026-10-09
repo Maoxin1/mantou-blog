@@ -95,6 +95,22 @@ test('Maximum dollar price history starts in 2010 and retains early precision on
  await page.keyboard.press('ArrowRight');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('2010-07-19');await page.keyboard.press('End');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('83,273.72 USD/BTC');
 });
 
+test('Bitcoin price return and CAGR follow their own selected USD price range',async({page})=>{
+ await setup(page);await openMarket(page);
+ for(const years of [0,1,5]){
+  await page.locator(`[data-market="${years}"]`).click();
+  const cutoff=new Date(priceFixture.daily.at(-1)[0]+'T00:00:00Z');cutoff.setUTCFullYear(cutoff.getUTCFullYear()-years);
+  const rows=years?priceFixture.daily.filter(([day])=>Date.parse(day+'T00:00:00Z')>=cutoff.getTime()):priceFixture.daily;
+  const first=rows[0],last=rows.at(-1),days=(Date.parse(last[0])-Date.parse(first[0]))/DAY;
+  expect(await percentValue(page,'c-m-return')).toBeCloseTo((last[1]/first[1]-1)*100,2);
+  expect(await percentValue(page,'c-m-annual')).toBeCloseTo((Math.pow(last[1]/first[1],365/days)-1)*100,2);
+  await expect(page.locator('#c-m-annual-hint')).toBeHidden();
+ }
+ const original=await page.locator('#c-m-return').textContent();
+ await page.locator('#c-start').fill('2022-05-18');await page.locator('#c-end').fill('2022-06-01');
+ await expect(page.locator('#c-m-return')).toHaveText(original);await expect(page.locator('[data-market="5"]')).toHaveAttribute('aria-pressed','true');
+});
+
 test('Dollar price history failure and missing days preserve the snapshot for both USD views independently of USDT quotes',async({page})=>{
  const state=await setup(page,{mode:'ok',priceMode:'fail',requests:0});await openMarket(page);
  await expect(page.locator('#c-price-status')).toContainText('更新未成功');await expect(page.locator('#c-history-status')).toContainText('历史更新未成功');await expect(page.locator('#c-quote-status')).toContainText('行情已更新');
@@ -276,7 +292,8 @@ test('Expanded price history immediately rotates portrait phones and preserves r
   expect(normal.width).toBeGreaterThan(panel.width+15);expect(normal.height).toBeGreaterThanOrEqual(280);
   await page.locator('[data-market="5"]').click();await chart.focus();await page.keyboard.press('Home');
   const selected=await detail.textContent(),reading=await detail.boundingBox(),controls=await page.locator('#c-market-ranges').boundingBox();
-  expect(controls.y).toBeGreaterThan(reading.y+reading.height-1);
+  expect(controls.y+controls.height).toBeLessThan(normal.y+1);
+  expect(reading.y).toBeGreaterThan(normal.y);
   await expect(page.locator('#c-market-controls #c-market-ranges')).toBeVisible();
   await page.locator('#c-expand').scrollIntoViewIfNeeded();const scroll=await page.evaluate(()=>scrollY);
   await page.locator('#c-expand').click();await expect(page.getByRole('dialog')).toBeVisible();await expect(page.locator('#c-collapse')).toBeFocused();
@@ -288,6 +305,7 @@ test('Expanded price history immediately rotates portrait phones and preserves r
   expect(dimensions.viewWidth).toBe(dimensions.width);expect(dimensions.viewHeight).toBe(dimensions.height);expect(dimensions.width).toBeGreaterThan(dimensions.height);
   await expect(detail).toHaveText(selected);await expect(page.locator('[data-market="5"]')).toHaveAttribute('aria-pressed','true');
   await expect(page.locator('#c-price-controls #c-market-ranges')).toBeVisible();
+  await expect(page.locator('#c-price-dialog #c-m-return')).toBeVisible();await expect(page.locator('#c-price-dialog #c-m-annual')).toBeVisible();
   // The modal traps focus and keeps the original tab controls inert.
   await page.keyboard.press('Shift+Tab');await expect(page.locator('#c-tab-history')).not.toBeFocused();
   await page.locator('[data-market="0"]').click();await expect(page.locator('#c-market-range')).toContainText('2010-07-18');
@@ -308,7 +326,7 @@ test('Expanded price history immediately rotates portrait phones and preserves r
   await page.locator('#c-collapse').click();await expect(page.getByRole('dialog')).not.toBeVisible();await expect(page.locator('#c-expand')).toBeFocused();
   await expect(detail).toHaveText(inspected);await expect(page.locator('[data-market="0"]')).toHaveAttribute('aria-pressed','true');
   await expect(page.locator('#c-market-controls #c-market-ranges')).toBeVisible();await expect(page.locator('#c-market-home #c-market-chart')).toBeVisible();
-  const restoredReading=await detail.boundingBox(),restoredControls=await page.locator('#c-market-ranges').boundingBox();expect(restoredControls.y).toBeGreaterThan(restoredReading.y+restoredReading.height-1);
+  const restoredReading=await detail.boundingBox(),restoredControls=await page.locator('#c-market-ranges').boundingBox(),restoredChart=await chart.boundingBox();expect(restoredControls.y+restoredControls.height).toBeLessThan(restoredChart.y+1);expect(restoredReading.y).toBeGreaterThan(restoredChart.y);
   expect(await page.evaluate(()=>scrollY)).toBeCloseTo(scroll,0);expect(await page.evaluate(()=>document.documentElement.style.overflow)).toBe('');
  }
  await page.locator('#c-expand').click();await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).not.toBeVisible();await expect(page.locator('#c-expand')).toBeFocused();
