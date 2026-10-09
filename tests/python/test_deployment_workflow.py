@@ -1,5 +1,9 @@
 import re
 import json
+import os
+import shutil
+import subprocess
+import tempfile
 import unittest
 
 import yaml
@@ -13,6 +17,31 @@ SMOKE_WORKFLOW = ROOT / ".github" / "workflows" / "smoke-production.yml"
 
 
 class DeploymentWorkflowSecurityTests(unittest.TestCase):
+    def test_pinned_pages_cli_loads_independent_production_config_without_credentials(self) -> None:
+        node = shutil.which('node')
+        self.assertIsNotNone(node)
+        with tempfile.TemporaryDirectory(prefix='analytics-cli-test-') as temporary:
+            fixture = Path(temporary).resolve()
+            self.assertEqual(fixture.parent, Path(tempfile.gettempdir()).resolve())
+            output = fixture / 'config.json'
+            # build-env uses the real Pages config reader without authenticating or deploying.
+            env = {key: value for key, value in os.environ.items()
+                   if key.upper() in ('PATH', 'SYSTEMROOT', 'WINDIR', 'TEMP', 'TMP')}
+            env.update(WRANGLER_SEND_METRICS='false', PAGES_ENVIRONMENT='production',
+                       XDG_CONFIG_HOME=str(fixture / 'config'), CI='true')
+            result = subprocess.run([
+                node, str(ROOT / 'node_modules/wrangler/bin/wrangler.js'),
+                'pages', 'functions', 'build-env', '.', '--cwd', 'deploy/analytics',
+                '--outfile', str(output),
+            ], cwd=ROOT, env=env, capture_output=True, text=True, encoding='utf-8', timeout=60)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            config = json.loads(output.read_text(encoding='utf-8'))
+            self.assertEqual((ROOT / 'deploy/analytics' / config['pages_build_output_dir']).resolve(),
+                             ROOT / 'analytics-public')
+            self.assertEqual(config['vars']['ANALYTICS_HOST'], 'mantou-blog.pages.dev')
+            self.assertEqual(set(config['vars']),
+                             {'ANALYTICS_HOST', 'ANALYTICS_SITE_TAG', 'ANALYTICS_ACCOUNT_ID'})
+
     def test_independent_analytics_uses_verified_artifact_and_only_automatic_production_deploy(self) -> None:
         workflow = yaml.safe_load(DEPLOY_WORKFLOW.read_text(encoding='utf-8'))
         build = workflow['jobs']['build']['steps']
@@ -28,15 +57,17 @@ class DeploymentWorkflowSecurityTests(unittest.TestCase):
         marker = next(s for s in steps if 'deployment_metadata.py write' in s.get('run', ''))
         self.assertIn('deployment_metadata.py write analytics-public/version.json', marker['run'])
         deploy = next(s for s in steps if 'wrangler pages deploy' in s.get('run', ''))
-        before, app_command = deploy['run'].split('npx wrangler pages deploy analytics-public', 1)
+        before, app_command = deploy['run'].split('npx wrangler pages deploy ../../analytics-public', 1)
         self.assertIn('if [ "$DEPLOY_BRANCH" = main ]; then', before)
-        self.assertIn('--config=wrangler.analytics.jsonc', app_command)
+        self.assertIn('--cwd deploy/analytics', app_command)
+        self.assertNotIn('--config', app_command, 'Pages deploy rejects custom configuration paths')
         self.assertIn('--project-name=mantou-blog-data', app_command)
         self.assertIn('--commit-hash="$DEPLOY_COMMIT"', app_command)
         self.assertEqual(deploy['env']['DEPLOY_COMMIT'], '${{ needs.build.outputs.commit_sha }}')
-        config = json.loads((ROOT / 'wrangler.analytics.jsonc').read_text(encoding='utf-8'))
+        config_dir = ROOT / 'deploy' / 'analytics'
+        config = json.loads((config_dir / 'wrangler.jsonc').read_text(encoding='utf-8'))
         self.assertEqual(config['name'], 'mantou-blog-data')
-        self.assertEqual(config['pages_build_output_dir'], './analytics-public')
+        self.assertEqual((config_dir / config['pages_build_output_dir']).resolve(), ROOT / 'analytics-public')
         self.assertEqual(config['env']['production']['vars']['ANALYTICS_HOST'], 'mantou-blog.pages.dev')
         for key in ('ANALYTICS_API_TOKEN', 'ACCESS_AUD', 'ACCESS_OWNER_EMAIL', 'ACCESS_TEAM_DOMAIN'):
             self.assertNotIn(key, config.get('vars', {}))

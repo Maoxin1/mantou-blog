@@ -67,5 +67,15 @@
   ],
   "rawStatisticsIncluded": false,
   "androidActualIndependentInstallationPassed": false,
-  "productionDeployed": false
+  "productionDeployed": false,
+  "deploymentCliReviewFix": {
+    "checkedAtUtc": "2026-10-09T08:41:01.687838+00:00",
+    "review": "https://github.com/Maoxin1/mantou-blog/pull/146#discussion_r4227999520",
+    "fixed": "Standard deploy/analytics/wrangler.jsonc discovered with --cwd; unsupported --config removed",
+    "deploymentTestsPassed": 14,
+    "actualPinnedPagesConfigReaderPassed": true,
+    "privateLog": ".local-evidence/analytics-app/deployment-cli-fix.log",
+    "sha256": "18eeb89cede5ef7eb94dd0b0c2c430b6949a245c5fd2f57fc4155e5c723a14e4",
+    "remoteWriteDuringValidation": false
+  }
 }

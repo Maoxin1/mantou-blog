@@ -226,8 +226,8 @@ jobs:
             --branch="$DEPLOY_BRANCH" \
             --commit-hash="$DEPLOY_COMMIT"
           if [ "$DEPLOY_BRANCH" = main ]; then
-            npx wrangler pages deploy analytics-public \
-              --config=wrangler.analytics.jsonc \
+            npx wrangler pages deploy ../../analytics-public \
+              --cwd deploy/analytics \
               --project-name=mantou-blog-data \
               --branch=main \
               --commit-hash="$DEPLOY_COMMIT"

@@ -13,7 +13,7 @@
 
 独立统计应用由`build_analytics_app.mjs`在无凭据阶段从已构建产物按白名单打包为`analytics-public/`，独立artifact传递到受保护deploy阶段。仅自动main发布更新`mantou-blog-data`，手动preview仍只更新博客预览。两项目写入同一源码/分支/部署运行与批次的version.json；任一发布失败保留失败状态，生产smoke继续只跟随实际成功的正式deploy任务。
 
-`mantou-blog-data`的生产配置由`wrangler.analytics.jsonc`管理三项公开数据源变量，四项统计/Access Secret由云端保存。新增安装域名需在现有Access应用增加`mantou-blog-data.pages.dev/admin/analytics`，沿用本人Allow；安装清单与图标公开，页面/接口保持登录和no-store。生产smoke会核对新应用版本、图标与真实登录挑战，安装结果仍由安卓真机验收。
+`mantou-blog-data`的生产配置由`deploy/analytics/wrangler.jsonc`管理三项公开数据源变量，四项统计/Access Secret由云端保存。Pages发布使用`--cwd deploy/analytics`读取标准文件名配置，输出目录相对该目录解析；Pages不支持自定义`--config`路径。新增安装域名需在现有Access应用增加`mantou-blog-data.pages.dev/admin/analytics`，沿用本人Allow；安装清单与图标公开，页面/接口保持登录和no-store。生产smoke会核对新应用版本、图标与真实登录挑战，安装结果仍由安卓真机验收。
 
 ## 按需在线预览
 

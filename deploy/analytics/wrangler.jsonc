@@ -1,6 +1,6 @@
 {
   "name": "mantou-blog-data",
-  "pages_build_output_dir": "./analytics-public",
+  "pages_build_output_dir": "../../analytics-public",
   "compatibility_date": "2026-10-01",
   "vars": {
     "ANALYTICS_ACCOUNT_ID": "60fce3c87fe0af3ac0a66d4b03594598",
