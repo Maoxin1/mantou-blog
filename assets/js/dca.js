@@ -2,6 +2,7 @@ import { simulateCompound } from './dca-compound.mjs';
 import { parseQuote, marketJSON, QUOTE_MAX_AGE } from './dca-market.mjs';
 import { DAY, parsePriceHistory, priceHistoryJSON, isCurrentPriceHistory } from './btc-prices.mjs';
 import { referencePeriods } from './dca-history.mjs';
+import { cumulativeReturn, annualizedReturn, xirr } from './dca-returns.mjs';
 (()=>{
 const root=document.getElementById('mantou-dca-c');
 const q=id=>root.querySelector('#'+id);
@@ -10,6 +11,8 @@ const prices=JSON.parse(q('c-price-data').textContent);
 const number=v=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}).format(v);
 const priceNumber=v=>new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:v<1?6:2}).format(v);
 const money=v=>'$'+number(v);
+const percent=v=>{if(typeof v!=='number'||!Number.isFinite(v))return '—';if(Math.abs(v)>Number.MAX_VALUE/100){const [mantissa,exponent]=v.toExponential(2).split('e');return `${mantissa}E${Number(exponent)+2}%`;}const p=Math.abs(v)<.00005?0:v*100;return new Intl.NumberFormat('en-US',{minimumFractionDigits:2,maximumFractionDigits:2,notation:Math.abs(p)>=1e12?'scientific':'standard'}).format(p)+'%';};
+const budget=(amount,weekly,action)=>Number.isFinite(amount)&&amount>=0?`年预算${weekly?'约 ': ' '}${number(amount*(weekly?52:12))} USD · 按 ${weekly?52:12} 次${action}`:'年预算 —';
 const ns='http://www.w3.org/2000/svg';
 const marketSelection={label:null};
 const historySelections={weekly:{label:null},monthly:{label:null}};
@@ -77,9 +80,10 @@ function pointControls(label=null){
  q('c-point-prev').disabled=index<=0;q('c-point-next').disabled=index<0||index===inspectedRows.length-1;
  q('c-point-error').textContent='';
 }
-function clearHistory(message){q('c-h-error').textContent=message;['c-h-invest','c-h-value','c-h-profit'].forEach(id=>q(id).textContent='—');clearChart(q('c-history-chart')); q('c-h-note').textContent='';q('c-h-detail').textContent='';q('c-h-period').textContent='';q('c-trades').replaceChildren();inspectedRows=[];q('c-point-date').disabled=true;pointControls();}
+function clearHistory(message){q('c-h-error').textContent=message;['c-h-invest','c-h-value','c-h-profit','c-h-return','c-h-annual'].forEach(id=>q(id).textContent='—');q('c-h-annual-hint').hidden=true;q('c-h-annual-label').textContent='年化回报率 · XIRR';clearChart(q('c-history-chart')); q('c-h-note').textContent='';q('c-h-detail').textContent='';q('c-h-period').textContent='';q('c-trades').replaceChildren();inspectedRows=[];q('c-point-date').disabled=true;pointControls();}
 function history(){
  const amount=Number(q('c-monthly').value),fee=Number(q('c-fee').value)/100,start=q('c-start').value,end=q('c-end').value;
+ q('c-h-budget').textContent=budget(q('c-monthly').value&&amount>=1&&amount<=100000?amount:NaN,frequency==='weekly','买入');
  remember();
  const presets={all:start===firstPeriod()&&end===lastPeriod()};
  root.querySelectorAll('[data-period]').forEach(el=>el.setAttribute('aria-pressed',String(presets[el.dataset.period])));
@@ -95,6 +99,10 @@ function history(){
  rows.forEach((row,i)=>{const added=amount*(1-fee)/row.buyPrice;qty+=added;const invested=amount*(i+1),value=qty*row.valuePrice;a.push(invested);b.push(value);labels.push(date(row.end));if(value<invested)under++;
  const tr=document.createElement('tr');[date(row.time),priceNumber(row.buyPrice),added.toFixed(8),number(invested),number(value)].forEach(text=>{const td=document.createElement('td');td.textContent=text;tr.appendChild(td);});q('c-trades').appendChild(tr);});
  q('c-h-invest').textContent=number(a.at(-1));q('c-h-value').textContent=number(b.at(-1));q('c-h-profit').textContent=number(b.at(-1)-a.at(-1));
+ q('c-h-return').textContent=percent(cumulativeReturn(b.at(-1),a.at(-1)));
+ q('c-h-annual').textContent=percent(xirr([...rows.map(row=>({amount:-amount,time:row.time})),{amount:b.at(-1),time:rows.at(-1).valuationTime}]));
+ const shortHistory=rows.at(-1).valuationTime-rows[0].time<365*DAY;
+ q('c-h-annual-label').textContent=shortHistory?'折算年化回报率':'年化回报率 · XIRR';q('c-h-annual-hint').hidden=!shortHistory;
  const endName=frequency==='weekly'?'周末':'月末';
  q('c-h-period').textContent=`有效回测 ${date(rows[0].time)} — ${date(rows.at(-1).end)} UTC · ${rows.length} 次投入`;
  q('c-h-note').textContent=`曾有 ${under} 个${endName}的持仓价值低于本金。`;
@@ -108,15 +116,17 @@ function future(){
  const initial=Number(q('c-principal').value),add=Number(q('c-add').value),years=Number(q('c-years').value),annual=Number(q('c-rate').value);
  q('c-years-label').textContent=years+' 年';q('c-rate-label').textContent=annual+'%';root.querySelectorAll('[data-rate]').forEach(el=>el.setAttribute('aria-pressed',String(+el.dataset.rate===annual)));
  root.querySelectorAll('[data-compound-frequency]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.compoundFrequency===compoundFrequency)));
- q('c-f-schedule').textContent=`每年按 ${compoundFrequency==='weekly'?52:12} 次追加；切换频率会改变总投入。`;
+ q('c-f-schedule').textContent=budget(q('c-add').value&&add>=0&&add<=100000?add:NaN,compoundFrequency==='weekly','追加');
  let result;
  try{if(!q('c-principal').value||!q('c-add').value)throw new Error('Missing amount');result=simulateCompound({initial,contribution:add,years,annualRate:annual,frequency:compoundFrequency});}
- catch{q('c-f-error').textContent='本金范围 0—10,000,000 USD；每次投入范围 0—100,000 USD。';['c-f-invest','c-f-value','c-f-profit'].forEach(id=>q(id).textContent='—');clearChart(q('c-future-chart')); q('c-f-composition').textContent='';q('c-f-period').textContent='';q('c-capital-bar').style.width='0%';q('c-return-bar').style.width='0%';return;}
+ catch{q('c-f-error').textContent='本金范围 0—10,000,000 USD；每次投入范围 0—100,000 USD。';['c-f-invest','c-f-value','c-f-profit','c-f-return','c-f-annual'].forEach(id=>q(id).textContent='—');clearChart(q('c-future-chart')); q('c-f-composition').textContent='';q('c-f-period').textContent='';q('c-capital-bar').style.width='0%';q('c-return-bar').style.width='0%';return;}
  q('c-f-error').textContent='';
  const {invested:principal,value,gain,contributions:a,balances:b,periodsPerYear:p}=result;
  const labels=b.map((_,i)=>i===0?'现在':i%p===0?(i/p)+' 年':`${Math.floor(i/p)} 年 ${i%p} ${p===52?'周':'个月'}`);
  q('c-f-period').textContent=`${compoundFrequency==='weekly'?'每周':'每月'} ${number(add)} USD · ${years} 年 · 假设年收益 ${annual}%`;
  q('c-f-invest').textContent=number(principal);q('c-f-value').textContent=number(value);q('c-f-profit').textContent=number(gain);
+ q('c-f-return').textContent=percent(cumulativeReturn(value,principal));
+ q('c-f-annual').textContent=percent(annualizedReturn([{amount:-initial,years:0},...b.slice(1).map((_,i)=>({amount:-add,years:(i+1)/p})),{amount:value,years}]));
  if(principal===0){q('c-f-composition').textContent='尚未投入本金，模拟资产价值为 $0.00。';q('c-capital-bar').style.width='0%';q('c-return-bar').style.width='0%';}
  else if(gain>=0){q('c-f-composition').textContent=`期末每 100 美元中，${(principal/value*100).toFixed(1)} 美元来自投入，${(gain/value*100).toFixed(1)} 美元来自模拟收益。`;q('c-capital-bar').style.width=(principal/value*100)+'%';q('c-return-bar').style.width=(gain/value*100)+'%';}
  else{q('c-f-composition').textContent=`累计投入 ${money(principal)}，模拟损失 ${money(-gain)}，期末剩余 ${money(value)}。`;q('c-capital-bar').style.width=(value/principal*100)+'%';q('c-return-bar').style.width=(-gain/principal*100)+'%';}
@@ -129,6 +139,8 @@ function market(){
  const all=prices.daily.map(([date,price])=>({date,time:Date.parse(date+'T00:00:00Z'),price}));
  const cutoff=new Date(all.at(-1).time);cutoff.setUTCFullYear(cutoff.getUTCFullYear()-marketLength);
  const rows=marketLength?all.filter(r=>r.time>=cutoff.getTime()):all;
+ const first=rows[0],last=rows.at(-1);
+ q('c-m-return').textContent=percent(cumulativeReturn(last.price,first.price));
  chart(q('c-market-chart'),null,rows.map(r=>r.price),rows.map(r=>r.date),'USD/BTC',['','价格'],rows.map(r=>r.time),true,marketSelection);
  root.querySelectorAll('[data-market]').forEach(el=>el.setAttribute('aria-pressed',String(+el.dataset.market===marketLength)));
  q('c-market-range').textContent=`${marketLength?'近 '+marketLength+' 年':'最大范围'}：${rows[0].date} — ${rows.at(-1).date}`;
@@ -141,7 +153,7 @@ function priceStatus(){const state=historyState();q('c-price-status').hidden=sta
 function historyStatus(){
  const name=frequency==='weekly'?'周定投':'月定投',end=date(periods().at(-1).end);
  const state=historyState();q('c-history-status').hidden=state==='fresh';
- q('c-history-status').textContent=state==='fresh'?`已核对最新完整${name}，截至 ${end} UTC 日末。`:`${updateReason()}，使用截至 ${end} UTC 日末的完整周期。可到“比特币”页重试。`;
+ q('c-history-status').textContent=state==='fresh'?`已核对最新完整${name}，截至 ${end} UTC 日末。`:`${updateReason()}，使用截至 ${end} UTC 日末的完整周期。可展开“比特币价格”重试。`;
  q('c-history-range').textContent=`Coin Metrics · BTC/USD · ${name} · ${firstPeriod()} — ${lastPeriod()}，共 ${periods().length} 个完整周期。`;
  const method={fresh:'已核对最新完整日历史。',checking:'正在核对更新，保留现有数据。',pending:'来源日期待更新；现有连续日历史已核对。',stale:'参考日期待更新，保留现有数据。',snapshot:`初始价格快照读取于 ${prices.readAt.slice(0,10)}。`};
  q('c-history-method-range').textContent=`价格图与定投共用截至 ${prices.daily.at(-1)[0]} 的日参考价格。${method[state]||`${updateReason()}，保留现有数据。`}`;
@@ -195,6 +207,7 @@ q('c-point-date').addEventListener('input',()=>{const value=q('c-point-date').va
 root.querySelectorAll('[data-rate]').forEach(el=>el.addEventListener('click',()=>{q('c-rate').value=el.dataset.rate;future();}));
 root.querySelectorAll('[data-period]').forEach(el=>el.addEventListener('click',()=>{const rows=periods();q('c-start').value=date(rows[0].time);q('c-end').value=date(rows.at(-1).end);history();}));
 root.querySelectorAll('[data-market]').forEach(el=>el.addEventListener('click',()=>{marketLength=+el.dataset.market;market();}));
+q('c-market-context').addEventListener('toggle',()=>{if(q('c-market-context').open)market();});
 if(typeof priceDialog.showModal==='function'){
  const layoutPriceScreen=()=>{
   if(!priceDialog.open)return;

@@ -121,7 +121,7 @@ body[theme=dark] #mantou-dca-c .error{color:#ffb5a6}
 }
 @media(max-width:370px){#mantou-dca-c .controls{grid-template-columns:1fr}}
 
-/* Three results first, then settings, chart and optional detail. */
+/* One primary value, four supporting results, then settings and the chart. */
 #mantou-dca-c .hero{padding:8px 0 18px}
 #mantou-dca-c .hero h1{margin:6px 0}
 #mantou-dca-c .hero-picture{width:150px}
@@ -145,6 +145,32 @@ body[theme=dark] #mantou-dca-c .error{color:#ffb5a6}
 #mantou-dca-c th,#mantou-dca-c td{font-size:14px}
 @media(max-width:370px){#mantou-dca-c .date-range{grid-template-columns:1fr}#mantou-dca-c .point-controls{grid-template-columns:1fr 1fr}#mantou-dca-c .point-controls input{grid-column:1/-1}}
 #mantou-dca-c .amount-control .input-hint{margin-bottom:0}
+#mantou-dca-c .result-pair{gap:20px 16px}
+#mantou-dca-c .result-pair>div{min-width:0}
+#mantou-dca-c .result-pair small{display:block;margin:0 0 5px}
+#mantou-dca-c .result-pair strong{font-size:21px;letter-spacing:-.4px}
+#mantou-dca-c .result-pair.market-performance{grid-template-columns:1fr;margin:16px 0 20px}
+#mantou-dca-c .market-performance strong{color:var(--ink)}
+#mantou-dca-c .price-screen .market-performance{display:flex;flex-wrap:wrap;gap:8px 24px;border:0;padding:0;margin:4px 0 6px;flex-shrink:0}
+#mantou-dca-c .price-screen .market-performance>div{display:flex;align-items:baseline;gap:8px}
+#mantou-dca-c .price-screen .market-performance small{font-size:14px;margin:0}
+#mantou-dca-c .price-screen .market-performance strong{font-size:17px}
+#mantou-dca-c #c-h-profit{font-size:clamp(16px,4.6vw,23px)}
+#mantou-dca-c .result-main>strong{font-weight:500;font-size:clamp(27px,6.8vw,44px)}
+#mantou-dca-c #c-market-context{margin-top:24px}
+#mantou-dca-c #c-market-context>summary{font-size:16px;color:var(--ink)}
+#mantou-dca-c #c-market-context #c-panel-market{padding:12px 0 4px}
+@media(min-width:800px){
+  #mantou-dca-c .result-pair{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+  #mantou-dca-c .chart{height:330px}
+  #mantou-dca-c .controls{gap:22px;padding:22px}
+  #mantou-dca-c .result-pair strong{font-size:23px}
+  #mantou-dca-c .history-results{margin:24px 0 30px}
+}
+@media(max-width:370px){
+  #mantou-dca-c .result-pair{gap:18px 10px}
+  #mantou-dca-c .result-pair strong{font-size:16px;letter-spacing:-.5px}
+}
 @media(max-width:580px){
   #mantou-dca-c .hero{padding:4px 0 16px}
   #mantou-dca-c .hero-picture{width:90px}
