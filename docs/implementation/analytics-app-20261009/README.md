@@ -21,6 +21,21 @@
 
 ## 验证和限制
 
+### 当前发布核查（2026-10-09）
+
+[PR #146](https://github.com/Maoxin1/mantou-blog/pull/146) 已合并为 `53cf91cc25c7558600742cc13e3c709c63170980`；[Validate](https://github.com/Maoxin1/mantou-blog/actions/runs/37907162835) 与 [Deploy Pages](https://github.com/Maoxin1/mantou-blog/actions/runs/37907664483) 成功。博客和独立统计站点 `/version.json` 均指向该提交及同一部署批次。
+
+[首次 Production smoke](https://github.com/Maoxin1/mantou-blog/actions/runs/37907805688) 为 7 通过、2 失败，原记录保留：
+
+- 独立统计入口两次实际返回 `401`、`{"error":{"code":"UNAUTHORIZED"}}` 和 `private, no-store`，未满足预期 Access 登录挑战。该结果证明当时请求被拒绝，不证明本人登录可用，也不应当作通过。
+- 清单 PR #17 已将页面标题改为“mantou 定投清单”，博客仍断言旧标题；下载文件名也保留了旧断言，需一起更新并执行填写、保存、重新打开和下载流程。
+
+后续匿名复查中，新主机 `/admin/analytics/` 和 `/admin/analytics/data` 均返回 `302`，重定向到正确 Access 团队的本站登录路径，并带有 `no-store`。这只关闭当前匿名挑战检查，不推断此前 `401` 的配置根因或传播时序。完整线上浏览器复验仍须另有结果。
+
+本轮的停止条件：现有生产检查通过，当前状态与发布证据一致。TM-OVW-009 同窗口后台比对，以及 TM-OVW-012 安卓独立图标启动、本人授权、真实数据与刷新继续保留，等待实际使用证据；不新增采集指标或统计服务。
+
+### 发布前历史记录
+
 原源码对独立安装入口回归有效失败：没有独立origin入口；相同回归在修复后通过。实际手机失败保留在[安卓观察元数据](../analytics-overview-20261009/android-live-record.json)，不是通过增加无效SW或更名manifest宣称修复。
 
 已执行：概览28/28、界面7/7（含受控独立HTTPS页面及浏览器manifest解析）、部署安全契约13/13、完整既有Python/Node回归、Hugo与后端/独立产物构建。具体计数、日志哈希与后续发布检查保存在执行记录。界面数据为fixtures，不替代新网址本人登录或安卓实际安装。

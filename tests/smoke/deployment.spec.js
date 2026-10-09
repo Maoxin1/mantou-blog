@@ -68,7 +68,7 @@ test('公开案例链接指向的清单工作区仍可进入填写与下载流�
 
   expect(response, '清单编辑器应返回响应').not.toBeNull();
   expect(response.status(), '清单编辑器应成功加载').toBeLessThan(400);
-  await expect(page).toHaveTitle(/个人定投清单/);
+  await expect(page).toHaveTitle('mantou 定投清单');
   const formTab = page.getByRole('tab', { name: /填写/ });
   const previewTab = page.getByRole('tab', { name: /预览/ });
   await expect(formTab).toHaveAttribute('aria-selected', 'true');
@@ -103,7 +103,7 @@ test('公开案例链接指向的清单工作区仍可进入填写与下载流�
   const downloadEvent = page.waitForEvent('download');
   await page.locator('#download-button').click();
   const download = await downloadEvent;
-  expect(download.suggestedFilename()).toMatch(/^个人定投-.*\.png$/);
+  expect(download.suggestedFilename()).toMatch(/^mantou 定投清单-\d{4}-\d{2}-\d{2}\.png$/);
   expect(await download.failure()).toBeNull();
 });
 

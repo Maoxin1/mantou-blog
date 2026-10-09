@@ -94,6 +94,18 @@ class DeploymentWorkflowSecurityTests(unittest.TestCase):
         self.assertEqual(workflow['permissions'], {'contents': 'read', 'actions': 'read'})
         self.assertNotIn('CLOUDFLARE_API_TOKEN', SMOKE_WORKFLOW.read_text(encoding='utf-8'))
 
+    def test_smoke_changes_are_checked_on_prs_without_deployment_credentials(self) -> None:
+        workflow = yaml.safe_load(SMOKE_WORKFLOW.read_text(encoding='utf-8'))
+        trigger = workflow[True]['pull_request']
+        self.assertEqual(trigger['branches'], ['main'])
+        self.assertIn('tests/smoke/**', trigger['paths'])
+        self.assertNotIn('content/**', trigger['paths'])
+        self.assertIn('github.event.pull_request.number', workflow['concurrency']['group'])
+        self.assertIn("github.event_name == 'workflow_run'", workflow['jobs']['deployment']['if'])
+        self.assertIn("github.event_name != 'workflow_run'", workflow['jobs']['smoke']['if'])
+        self.assertEqual(workflow['permissions'], {'contents': 'read', 'actions': 'read'})
+        self.assertNotIn('secrets.', SMOKE_WORKFLOW.read_text(encoding='utf-8'))
+
     def test_successful_but_skipped_deployment_does_not_start_smoke(self) -> None:
         workflow = yaml.safe_load(SMOKE_WORKFLOW.read_text(encoding='utf-8'))
         job = workflow['jobs']['deployment']
