@@ -15,6 +15,10 @@
   </div>
   <section id="c-panel-future" role="tabpanel" aria-labelledby="c-tab-future">
     <h2 class="sr-only">复利模拟</h2><p class="panel-context">假设情景 · 非收益预测</p>
+    <div class="history-results" aria-live="polite">
+      <div class="result-main"><span class="result-label">模拟期末价值 · USD</span><strong id="c-f-value">—</strong><p class="result-caption" id="c-f-period"></p></div>
+      <div class="result-pair"><div><small>累计投入</small><strong id="c-f-invest">—</strong></div><div><small>模拟收益 / 损失</small><strong id="c-f-profit">—</strong></div></div>
+    </div>
     <fieldset disabled><legend class="sr-only">复利情景设定</legend>
       <div class="frequency" aria-label="复利投入频率"><button type="button" data-compound-frequency="monthly" aria-pressed="false">每月</button><button type="button" data-compound-frequency="weekly" aria-pressed="true">每周</button></div>
       <div class="controls">
@@ -27,10 +31,6 @@
     </fieldset>
     <div class="scenario" aria-label="年收益率情景"><button type="button" data-rate="-5" aria-pressed="false">−5%</button><button type="button" data-rate="0" aria-pressed="false">0%</button><button type="button" data-rate="5" aria-pressed="true">5%</button></div>
     <div id="c-f-error" class="error" role="alert"></div>
-    <div class="history-results" aria-live="polite">
-      <div class="result-main"><span class="result-label">模拟期末价值 · USD</span><strong id="c-f-value">—</strong><p class="result-caption" id="c-f-period"></p></div>
-      <div class="result-pair"><div><small>累计投入</small><strong id="c-f-invest">—</strong></div><div><small>模拟收益 / 损失</small><strong id="c-f-profit">—</strong></div></div>
-    </div>
     <div class="legend"><span class="key">累计投入</span><span class="key growth">模拟价值</span></div><svg id="c-future-chart" class="chart" role="img" aria-label="累计投入与模拟价值，点按图表或用方向键查看详情"></svg>
     <details><summary>计算说明与收益构成</summary>
       <p id="c-f-composition" aria-live="polite"></p><div class="composition" aria-hidden="true"><span id="c-capital-bar"></span><span id="c-return-bar"></span></div>
@@ -40,27 +40,35 @@
   </section>
   <section id="c-panel-history" role="tabpanel" aria-labelledby="c-tab-history">
     <h2 class="sr-only">历史里的定投</h2><p class="panel-context">BTC/USD 参考价回测 · 定投不保证盈利</p>
+    <div class="history-results" aria-live="polite">
+      <div class="result-main"><span class="result-label">参考模拟期末价值 · USD</span><strong id="c-h-value">—</strong><p class="result-caption" id="c-h-period"></p><p class="result-caption">按参考价估算，未模拟实际成交限制。</p></div>
+      <div class="result-pair"><div><small>累计投入</small><strong id="c-h-invest">—</strong></div><div><small>浮动盈亏</small><strong id="c-h-profit">—</strong></div></div>
+    </div>
     <fieldset disabled>
-      <legend class="sr-only">定投频率与每次投入</legend>
+      <legend class="sr-only">定投频率、每次投入与回测区间</legend>
       <div class="frequency" aria-label="定投频率"><button type="button" data-frequency="monthly" aria-pressed="false">每月</button><button type="button" data-frequency="weekly" aria-pressed="true">每周</button></div>
       <div class="amount-control"><label for="c-monthly">每次投入（含买入费用）</label><div class="amount-row"><input id="c-monthly" type="number" min="1" max="100000" value="100" step="any"><span>USD / 次</span></div><p class="input-hint" id="c-schedule">每周一 08:00 买入（北京时间）</p></div>
       <p class="budget-note">切换频率会改变总投入。</p>
-      <details id="c-options"><summary>日期与费率</summary>
+      <div class="history-range">
+        <div class="scenario history-scenarios"><button type="button" data-period="all" aria-pressed="true">完整历史</button><span id="c-range-custom" class="range-state" hidden>自选区间</span></div>
+        <div class="date-range">
+          <label><span id="c-start-label">开始日期</span><input id="c-start" type="date" aria-describedby="c-date-hint"></label>
+          <label><span id="c-end-label">结束日期</span><input id="c-end" type="date" aria-describedby="c-date-hint"></label>
+        </div>
+        <p class="input-hint" id="c-date-hint">仅计所选区间内完整的周周期。</p>
+      </div>
+      <details id="c-options"><summary>买入费率</summary>
         <div class="controls">
-          <label><span id="c-start-label">开始周（含）</span><select id="c-start"></select></label>
-          <label><span id="c-end-label">结束周（含）</span><select id="c-end"></select></label>
           <label><span>单次买入费率假设（%）</span><input id="c-fee" type="number" min="0" max="5" value="0.1" step="any"></label>
         </div>
       </details>
     </fieldset>
     <div id="c-h-error" class="error" role="alert"></div>
-    <div class="history-results" aria-live="polite">
-      <div class="result-main"><span class="result-label">期末持仓价值 · USD</span><strong id="c-h-value">—</strong><p class="result-caption" id="c-h-period"></p></div>
-      <div class="result-pair"><div><small>累计投入</small><strong id="c-h-invest">—</strong></div><div><small>浮动盈亏</small><strong id="c-h-profit">—</strong></div></div>
-    </div>
-    <div class="scenario history-scenarios"><button type="button" data-period="all" aria-pressed="true">完整历史</button><button type="button" data-period="down" aria-pressed="false" aria-label="查看下跌阶段：2021年11月至2022年12月">经历下跌</button></div>
     <div class="legend"><span class="key">累计投入</span><span class="key growth">持仓价值</span></div>
-    <svg id="c-history-chart" class="chart" role="img" aria-label="定投累计投入与期末持仓价值，单位 USD"></svg>
+    <svg id="c-history-chart" class="chart" role="img" aria-label="定投累计投入与期末持仓价值，单位 USD；点按、方向键或日期输入可查看周期详情"></svg>
+    <details id="c-inspection"><summary>按日期查看图表</summary>
+    <div class="history-inspector"><label for="c-point-date">查看某一期</label><div class="point-controls"><input id="c-point-date" type="date"><button id="c-point-prev" type="button" disabled>上一期</button><button id="c-point-next" type="button" disabled>下一期</button></div><p id="c-point-error" class="error" role="status"></p></div>
+    </details>
     <p id="c-h-note" class="note"></p>
     <details><summary>投入明细</summary><p id="c-h-detail"></p><div class="trade-scroll"><table><thead><tr><th id="c-trade-date">买入日期</th><th>买入参考价<br>USD/BTC</th><th>新增 BTC</th><th>累计投入<br>USD</th><th>期末价值<br>USD</th></tr></thead><tbody id="c-trades"></tbody></table></div></details>
     <details><summary>数据与计算说明</summary>
@@ -89,7 +97,7 @@
     </div></div>
     <button type="button" id="c-refresh">刷新行情</button>
     <p class="panel-context">仅供参考，非可成交报价。</p>
-    <details><summary>数据与更新说明</summary><p>历史曲线：<a href="https://coinmetrics.io/community-network-data/" target="_blank" rel="noopener noreferrer">Coin Metrics Community</a> · BTC PriceUSD，美元日价格参考值。日期表示该 UTC 日的收盘，实际收盘时点为次日 00:00 UTC；对数刻度中，相同距离表示相同倍数变化。历史定投共用此日参考价格；上方 Binance BTC/USDT 报价独立显示，USD 与 USDT 不视为同一单位。</p><p>数据按 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 使用；本页选取 BTC PriceUSD 并绘图。初始价格快照读取于 {{ .Site.Data.btcprices.readAt | time.Format "2006-01-02" }}，数据截止日期见图下。</p><p>页面可见时每 60 秒尝试更新报价；打开页面及手动刷新时核对完整价格历史。失败时保留已有数据并注明时间，可手动重试。</p></details>
+    <details><summary>数据与更新说明</summary><p>历史曲线：<a href="https://coinmetrics.io/community-network-data/" target="_blank" rel="noopener noreferrer">Coin Metrics Community</a> · BTC PriceUSD，美元日价格参考值。日期表示该 UTC 日的收盘，实际收盘时点为次日 00:00 UTC；对数刻度中，相同距离表示相同倍数变化。历史定投共用此日参考价格；上方 Binance BTC/USDT 报价独立显示，USD 与 USDT 不视为同一单位。</p><p>数据按 <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC 4.0</a> 使用；本页选取 BTC PriceUSD 并绘图。初始价格快照读取于 {{ .Site.Data.btcprices.readAt | time.Format "2006-01-02" }}，数据截止日期见图下。</p><p>页面可见时每 60 秒尝试更新报价；打开页面、手动刷新、恢复联网和跨 UTC 日时核对完整价格历史。历史连接限时 30 秒；临时失败或日期待更新时，10 分钟后最多自动重试一次，仍可手动重试。失败时保留已有数据并注明截止日期。</p></details>
   </section>
   <dialog id="c-price-dialog" aria-labelledby="c-price-title">
     <div id="c-price-viewport" class="price-viewport">

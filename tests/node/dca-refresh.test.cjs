@@ -12,15 +12,17 @@ const settle = () => new Promise(resolve => setImmediate(resolve));
 function harness({ offline = false, hidden = false, fail = false, deferred = false } = {}) {
   const events = {}, intervals = new Map(), calls = [], pending = [];
   const button = { addEventListener(name, fn) { events[name] = fn; } };
-  let timer = 0;
-  const rows = [{ period: '2026-09' }];
+  let timer = 0, now = Date.UTC(2026,9,8,10);
+  class Clock extends Date { static now() { return now; } }
+  const rows = [{ period: '2026-09', time: Date.UTC(2026, 8, 1), end: Date.UTC(2026, 9, 1) - 1 }];
   const respond = value => {
     if (fail) return Promise.reject(new Error('Unavailable'));
     if (deferred) return new Promise(resolve => pending.push(() => resolve(value)));
     return Promise.resolve(value);
   };
   const context = vm.createContext({
-    navigator: { onLine: !offline },
+    navigator: { onLine: !offline }, DAY: 86400000, Date: Clock, isCurrentPriceHistory: () => true,
+    date: time => new Date(time).toISOString().slice(0, 10),
     document: { hidden, addEventListener(name, fn) { events[name] = fn; } },
     window: { addEventListener(name, fn) { events[name] = fn; } },
     q: () => button,
@@ -39,8 +41,8 @@ function harness({ offline = false, hidden = false, fail = false, deferred = fal
 ${source.match(/let quoteState=.*?;/)[0]}
 ${refresh}
 ${lifecycle}
-globalThis.state=()=>({priceState,quoteState,busy,initialHistoryPending});`, context);
-  return { context, calls, button, intervals, events, pending,
+globalThis.state=()=>({priceState,quoteState,busy,historyQueued});`, context);
+  return { context, calls, button, intervals, events, pending, advance: ms => now += ms,
     tick: () => [...intervals.values()].forEach(fn => fn()),
     state: () => context.state(),
     histories: () => calls.filter(url => url === 'prices').length,
@@ -49,8 +51,8 @@ globalThis.state=()=>({priceState,quoteState,busy,initialHistoryPending});`, con
 
 test('initial offline visit labels both USD snapshots and validates once after online recovery', async () => {
   const h = harness({ offline: true });
-  assert.equal(h.state().priceState, 'failed');
-  assert.equal(h.state().initialHistoryPending, true);
+  assert.equal(h.state().priceState, 'offline');
+  assert.equal(h.state().historyQueued, true);
   assert.equal(h.calls.length, 0);
   h.context.navigator.onLine = true; h.events.online(); await settle();
   assert.equal(h.state().priceState, 'fresh');
@@ -62,7 +64,7 @@ test('initial hidden visit completes deferred histories when visible, including 
   const h = harness({ hidden: true, offline: true });
   assert.equal(h.calls.length, 0); assert.equal(h.intervals.size, 0);
   h.context.navigator.onLine = true; h.events.online();
-  assert.equal(h.calls.length, 0); assert.equal(h.state().initialHistoryPending, true);
+  assert.equal(h.calls.length, 0); assert.equal(h.state().historyQueued, true);
   h.context.document.hidden = false; h.events.visibilitychange(); await settle();
   assert.equal(h.histories(), 1);
   assert.equal(h.state().priceState, 'fresh');
@@ -74,7 +76,7 @@ test('initial hidden visit completes deferred histories when visible, including 
 test('ordinary failures finish the initial attempt and do not refetch histories every minute', async () => {
   const h = harness({ fail: true }); await settle();
   assert.equal(h.state().priceState, 'failed');
-  assert.equal(h.state().initialHistoryPending, false); assert.equal(h.button.disabled, false);
+  assert.equal(h.state().historyQueued, false); assert.equal(h.button.disabled, false);
   h.tick(); await settle(); assert.equal(h.histories(), 1);
   h.events.click(); await settle(); assert.equal(h.histories(), 2);
 });
@@ -85,8 +87,39 @@ test('repeated recovery events cannot overlap requests or create duplicate polli
   assert.equal(h.calls.length, 2); assert.equal(h.intervals.size, 1);
   assert.equal(h.state().busy, true);
   h.pending.splice(0).forEach(resolve => resolve()); await settle();
+  assert.equal(h.calls.length, 4); // Recovery requests coalesce into one subsequent validation.
+  h.pending.splice(0).forEach(resolve => resolve()); await settle();
   assert.equal(h.state().busy, false); assert.equal(h.button.disabled, false);
   h.context.document.hidden = true; h.events.visibilitychange(); assert.equal(h.intervals.size, 0);
   h.context.document.hidden = false; h.events.visibilitychange();
-  assert.equal(h.histories(), 1); assert.equal(h.intervals.size, 1);
+  assert.equal(h.histories(), 2); assert.equal(h.intervals.size, 1);
+});
+
+
+test('online recovery during a quote-only request queues exactly one history validation', async () => {
+  const h = harness({ deferred: true });
+  h.pending.splice(0).forEach(resolve => resolve()); await settle();
+  h.tick(); assert.equal(h.histories(), 1);
+  h.context.navigator.onLine = false; h.events.offline();
+  h.context.navigator.onLine = true; h.events.online(); h.events.online();
+  assert.equal(h.histories(), 1);
+  h.pending.splice(0).forEach(resolve => resolve()); await settle();
+  assert.equal(h.histories(), 2); assert.equal(h.state().busy, true);
+  h.pending.splice(0).forEach(resolve => resolve()); await settle();
+  assert.equal(h.state().busy, false); assert.equal(h.intervals.size, 1);
+});
+
+test('a new UTC day validates history once when visible and when returning from background', async () => {
+  const h = harness(); await settle();
+  h.advance(86400000); h.tick(); await settle(); assert.equal(h.histories(), 2);
+  h.tick(); await settle(); assert.equal(h.histories(), 2);
+  h.context.document.hidden = true; h.events.visibilitychange(); h.advance(86400000);
+  h.context.document.hidden = false; h.events.visibilitychange(); await settle(); assert.equal(h.histories(), 3);
+});
+
+test('failed history has one bounded automatic retry, then needs a new day or an explicit request', async () => {
+  const h = harness({ fail: true }); await settle();
+  h.advance(600000); h.tick(); await settle(); assert.equal(h.histories(), 2);
+  h.advance(600000); h.tick(); await settle(); assert.equal(h.histories(), 2);
+  h.events.click(); await settle(); assert.equal(h.histories(), 3);
 });
