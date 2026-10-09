@@ -1,4 +1,5 @@
 import re
+import json
 import unittest
 
 import yaml
@@ -12,6 +13,35 @@ SMOKE_WORKFLOW = ROOT / ".github" / "workflows" / "smoke-production.yml"
 
 
 class DeploymentWorkflowSecurityTests(unittest.TestCase):
+    def test_independent_analytics_uses_verified_artifact_and_only_automatic_production_deploy(self) -> None:
+        workflow = yaml.safe_load(DEPLOY_WORKFLOW.read_text(encoding='utf-8'))
+        build = workflow['jobs']['build']['steps']
+        compile_index = next(i for i, s in enumerate(build) if 'npm run build:analytics' in s.get('run', ''))
+        package_index = next(i for i, s in enumerate(build) if 'node scripts/build_analytics_app.mjs' in s.get('run', ''))
+        self.assertLess(compile_index, package_index)
+        app_upload = next(s for s in build if s.get('with', {}).get('path') == 'analytics-public/')
+        self.assertEqual(app_upload['with']['name'], 'analytics-app-${{ github.run_id }}')
+        steps = workflow['jobs']['deploy']['steps']
+        app_download = next(s for s in steps if s.get('with', {}).get('path') == 'analytics-public/')
+        self.assertEqual(app_download['if'], "github.event_name == 'workflow_run'")
+        self.assertEqual(app_download['with']['name'], app_upload['with']['name'])
+        marker = next(s for s in steps if 'deployment_metadata.py write' in s.get('run', ''))
+        self.assertIn('deployment_metadata.py write analytics-public/version.json', marker['run'])
+        deploy = next(s for s in steps if 'wrangler pages deploy' in s.get('run', ''))
+        before, app_command = deploy['run'].split('npx wrangler pages deploy analytics-public', 1)
+        self.assertIn('if [ "$DEPLOY_BRANCH" = main ]; then', before)
+        self.assertIn('--config=wrangler.analytics.jsonc', app_command)
+        self.assertIn('--project-name=mantou-blog-data', app_command)
+        self.assertIn('--commit-hash="$DEPLOY_COMMIT"', app_command)
+        self.assertEqual(deploy['env']['DEPLOY_COMMIT'], '${{ needs.build.outputs.commit_sha }}')
+        config = json.loads((ROOT / 'wrangler.analytics.jsonc').read_text(encoding='utf-8'))
+        self.assertEqual(config['name'], 'mantou-blog-data')
+        self.assertEqual(config['pages_build_output_dir'], './analytics-public')
+        self.assertEqual(config['env']['production']['vars']['ANALYTICS_HOST'], 'mantou-blog.pages.dev')
+        for key in ('ANALYTICS_API_TOKEN', 'ACCESS_AUD', 'ACCESS_OWNER_EMAIL', 'ACCESS_TEAM_DOMAIN'):
+            self.assertNotIn(key, config.get('vars', {}))
+            self.assertNotIn(key, config['env']['production']['vars'])
+
     def test_smoke_follows_only_successful_production_deployments(self) -> None:
         workflow = yaml.safe_load(SMOKE_WORKFLOW.read_text(encoding="utf-8"))
         # PyYAML's YAML 1.1 loader treats the unquoted Actions `on` key as True.

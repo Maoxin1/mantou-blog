@@ -1,0 +1,40 @@
+{
+  "recordedAtUtc": "2026-10-09T06:24:44.435226+00:00",
+  "featureId": "ANL-OVW",
+  "matrixId": "TM-OVW-010",
+  "source": "User image path sent in response to new published overview check",
+  "observations": {
+    "newPrivateOverviewVisible": true,
+    "positivePvAndVisitsDisplayed": true,
+    "samplingApproximationVisible": true,
+    "comparisonMetricsAndDailyTrendVisible": true,
+    "currentDates": "2026-10-02 through 2026-10-08",
+    "previousDates": "2026-09-25 through 2026-10-01",
+    "beijingTimezoneAndTodayExclusionVisible": true
+  },
+  "privateScreenshot": ".local-evidence/analytics-overview/desktop-live-overview-20261009.png",
+  "sha256": "4cc431b36c28eee37f2bf948fa86ffdc7508f4621d84de957eec6771db87e214",
+  "rawStatisticalCountsSaved": false,
+  "cmsEntryEvidenceReused": "E-ANL-24, supported by unchanged entry HTML blobs and current production CMS smoke",
+  "cmsSourceComparison": [
+    {
+      "file": "static/admin/index.html",
+      "previousAcceptedBlob": "677ef9883543c60e5c827d4bfbc6dd9e062cb158",
+      "publishedBlob": "677ef9883543c60e5c827d4bfbc6dd9e062cb158",
+      "unchanged": true
+    },
+    {
+      "file": "static/admin/sveltia/index.html",
+      "previousAcceptedBlob": "52539baef76db3c8abd9213b4587a5c49a597b5f",
+      "publishedBlob": "52539baef76db3c8abd9213b4587a5c49a597b5f",
+      "unchanged": true
+    }
+  ],
+  "limitations": [
+    "Screenshot viewport does not include full page/source lists or read timestamp",
+    "Separate real refresh action not shown",
+    "No same-window dashboard comparison",
+    "No actual Android installation result yet"
+  ],
+  "state": "New desktop authorized view and data display observed; full mobile feature acceptance pending"
+}

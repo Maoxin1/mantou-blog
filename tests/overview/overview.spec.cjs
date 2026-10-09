@@ -1,4 +1,6 @@
 const { test, expect } = require('@playwright/test');
+const fs = require('node:fs');
+const path = require('node:path');
 const fixture = {
   site: 'mantou-blog.pages.dev',
   periods: { current: { from: '2026-10-01T16:00:00Z', to: '2026-10-08T16:00:00Z' },
@@ -27,6 +29,7 @@ test('TM-OVW-005 one-screen overview shows real-format metrics, complete dates a
   await expect(page.locator('#periods')).toContainText('2026-10-08');
   await expect(page.locator('#trend-table tbody tr')).toHaveCount(7);
   await expect(page.locator('#paths')).toContainText('/p/20260803/');
+  await expect(page.locator('#paths a')).toHaveAttribute('href', 'https://mantou-blog.pages.dev/p/20260803/');
   await expect(page.locator('#scope')).toContainText('已排除服务商标记的机器人');
   for (const selector of ['#paths li:first-child', '#sources li:first-child']) {
     const box = await page.locator(selector).boundingBox();
@@ -83,6 +86,7 @@ test('TM-OVW-011 Android instructions and browser-parsed manifest target the ana
   await page.goto('/admin/analytics/');
   await expect(page.locator('#pv')).toHaveText('26');
   await expect(page.getByRole('link', { name: '手机安装', exact: true })).toHaveAttribute('href', '#install-help');
+  await expect(page.getByRole('link', { name: '独立应用入口', exact: true })).toHaveAttribute('href', 'https://mantou-blog-data.pages.dev/admin/analytics/');
   await page.getByText('添加到安卓手机桌面', { exact: true }).click();
   await expect(page.locator('#install-help')).toContainText('Chrome');
   await expect(page.locator('#install-help')).toContainText('添加到主屏幕');
@@ -107,6 +111,34 @@ test('TM-OVW-011 Android instructions and browser-parsed manifest target the ana
     await session.detach();
   }
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});
+
+test('BUG-OVW-QA-005 independent app launch keeps data and article navigation on the correct sites', async ({ page, context }) => {
+  const origin = 'https://mantou-blog-data.pages.dev';
+  const output = path.resolve(__dirname, '../../analytics-public');
+  await page.route(origin + '/**', async route => {
+    const url = new URL(route.request().url());
+    if (url.pathname === '/admin/analytics/data') return route.fulfill({ json: fixture, headers: { 'cache-control': 'no-store' } });
+    const file = path.resolve(output, '.' + url.pathname + (url.pathname.endsWith('/') ? 'index.html' : ''));
+    if (!file.startsWith(output + path.sep) || !fs.existsSync(file)) return route.abort();
+    return route.fulfill({ path: file, ...(url.pathname.endsWith('.webmanifest') && { contentType: 'application/manifest+json' }) });
+  });
+  await page.goto(origin + '/admin/analytics/');
+  await expect(page.locator('#pv')).toHaveText('26');
+  await expect(page.locator('#app-entry')).toBeHidden();
+  await expect(page.getByRole('link', { name: '博客首页', exact: true })).toHaveAttribute('href', 'https://mantou-blog.pages.dev/');
+  await expect(page.locator('#paths a')).toHaveAttribute('href', 'https://mantou-blog.pages.dev/p/20260803/');
+  await page.getByText('添加到安卓手机桌面', { exact: true }).click();
+  await expect(page.locator('#app-instructions')).toContainText('安装并创建快捷方式');
+  const session = await context.newCDPSession(page);
+  try {
+    const parsed = await session.send('Page.getAppManifest');
+    expect(parsed.errors.filter(error => error.critical)).toEqual([]);
+    const manifest = JSON.parse(parsed.data);
+    const start = new URL(manifest.start_url, parsed.url);
+    expect(start.href).toBe(origin + '/admin/analytics/');
+    expect(start.origin).not.toBe('https://mantou-blog.pages.dev');
+  } finally { await session.detach(); }
 });
 
 test('TM-OVW-006 offline refresh clears previous metrics and reconnect can recover', async ({ page, context }) => {

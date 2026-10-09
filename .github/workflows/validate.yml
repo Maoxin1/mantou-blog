@@ -94,7 +94,9 @@ jobs:
         run: hugo --minify --panicOnWarning --cleanDestinationDir
 
       - name: Compile the private analytics backend
-        run: npm run build:analytics
+        run: |
+          npm run build:analytics
+          node scripts/build_analytics_app.mjs
 
       - name: Validate the comments production registry build
         env:

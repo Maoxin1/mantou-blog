@@ -1,0 +1,71 @@
+{
+  "recordedAtUtc": "2026-10-09T07:56:46.053973+00:00",
+  "featureId": "ANL-OVW",
+  "bugId": "BUG-OVW-QA-005",
+  "baselineCommit": "8cb905279406a2f30a44522d00d92d641d540d74",
+  "appOrigin": "https://mantou-blog-data.pages.dev",
+  "sourceSite": "mantou-blog.pages.dev",
+  "checks": {
+    "overview": {
+      "passed": 28,
+      "failed": 0
+    },
+    "controlledBrowser": {
+      "passed": 7,
+      "failed": 0
+    },
+    "deploymentSecurity": {
+      "passed": 13,
+      "failed": 0
+    },
+    "existingPython": {
+      "passed": 124,
+      "success": true
+    },
+    "existingNode": {
+      "passed": 94,
+      "success": true
+    }
+  },
+  "logs": [
+    {
+      "privateLog": ".local-evidence/analytics-app/entry-red.log",
+      "sha256": "f87e7b41bcb647a786745b4986031c54870b67bf8c1255cbb7eb34eb569cf786"
+    },
+    {
+      "privateLog": ".local-evidence/analytics-app/overview-green.log",
+      "sha256": "2a1f21301989e9925f11b1e9245700a448b6f7bf55b7027aeb8778a76b33b3de"
+    },
+    {
+      "privateLog": ".local-evidence/analytics-app/deployment-contract.log",
+      "sha256": "c8c1ad829cb263f0dd1005e9be25a9c59af358055c0593242bffeb50629f0103"
+    },
+    {
+      "privateLog": ".local-evidence/analytics-app/ui.log",
+      "sha256": "0c4057fe03483d15dc3783d8951d8ad3f90f79ec796d4524b048fd9bd6b5b8d4"
+    },
+    {
+      "privateLog": ".local-evidence/analytics-app/python.log",
+      "sha256": "93539c7a9f8853433cf9f7e32fc48fe6ddf3d071a638c11906fab68262059ccd"
+    },
+    {
+      "privateLog": ".local-evidence/analytics-app/existing-node.log",
+      "sha256": "3b0dd402aeeaad53344478bfdd31f21f11cd7703e12e047507635992f269a183"
+    },
+    {
+      "privateLog": ".local-evidence/analytics-app/build.log",
+      "sha256": "54b61806102c9519b1b61e784acb852fb9e518e94b40b8b2ffb1a16375220d96"
+    },
+    {
+      "privateLog": ".local-evidence/analytics-app/backend-build.log",
+      "sha256": "09fb95da04463cf662f185e67c4889e904dd6332ff8655aea8478b89501788d9"
+    },
+    {
+      "privateLog": ".local-evidence/analytics-app/app-build.log",
+      "sha256": "0a99ef60c6f4ae130df5e9e000e21c9f0f37bdec622dbd15156edf6b05c034e3"
+    }
+  ],
+  "rawStatisticsIncluded": false,
+  "androidActualIndependentInstallationPassed": false,
+  "productionDeployed": false
+}

@@ -1,0 +1,187 @@
+{
+  "recordedAtUtc": "2026-10-09T07:05:48.563323+00:00",
+  "featureId": "ANL-OVW",
+  "productionCommit": "8cb905279406a2f30a44522d00d92d641d540d74",
+  "pullRequest": "https://github.com/Maoxin1/mantou-blog/pull/145",
+  "ciRuns": [
+    {
+      "name": "main Validate",
+      "runId": "37892221800",
+      "conclusion": "success",
+      "url": "https://github.com/Maoxin1/mantou-blog/actions/runs/37892221800"
+    },
+    {
+      "name": "Deploy Pages",
+      "runId": "37892522545",
+      "conclusion": "success",
+      "url": "https://github.com/Maoxin1/mantou-blog/actions/runs/37892522545"
+    },
+    {
+      "name": "Production smoke",
+      "runId": "37892642895",
+      "conclusion": "success",
+      "url": "https://github.com/Maoxin1/mantou-blog/actions/runs/37892642895"
+    }
+  ],
+  "automaticVerification": {
+    "checkedAtUtc": "2026-10-09T06:20:55.355Z",
+    "featureId": "ANL-OVW",
+    "checks": [
+      {
+        "path": "/",
+        "kind": "public",
+        "status": 200,
+        "passed": true
+      },
+      {
+        "path": "/p/20260803/",
+        "kind": "public",
+        "status": 200,
+        "passed": true
+      },
+      {
+        "path": "/en/p/20260803/",
+        "kind": "public",
+        "status": 200,
+        "passed": true
+      },
+      {
+        "path": "/works/mantou-checklist-pwa/",
+        "kind": "public",
+        "status": 200,
+        "passed": true
+      },
+      {
+        "path": "/admin/analytics",
+        "kind": "protected",
+        "status": 302,
+        "teamChallenge": true,
+        "noStore": true,
+        "passed": true
+      },
+      {
+        "path": "/admin/analytics/",
+        "kind": "protected",
+        "status": 302,
+        "teamChallenge": true,
+        "noStore": true,
+        "passed": true
+      },
+      {
+        "path": "/admin/analytics/data",
+        "kind": "protected",
+        "status": 302,
+        "teamChallenge": true,
+        "noStore": true,
+        "passed": true
+      },
+      {
+        "path": "/admin/analytics/overview.js",
+        "kind": "protected",
+        "status": 302,
+        "teamChallenge": true,
+        "noStore": true,
+        "passed": true
+      },
+      {
+        "path": "/admin/analytics/overview.css",
+        "kind": "protected",
+        "status": 302,
+        "teamChallenge": true,
+        "noStore": true,
+        "passed": true
+      }
+    ],
+    "version": {
+      "httpStatus": 200,
+      "expectedCommit": "8cb905279406a2f30a44522d00d92d641d540d74",
+      "actualCommit": "8cb905279406a2f30a44522d00d92d641d540d74",
+      "branch": "main",
+      "runId": "37892522545",
+      "runAttempt": "1",
+      "noStore": true,
+      "passed": true
+    },
+    "installManifest": {
+      "status": 200,
+      "id": "/admin/analytics/",
+      "startUrl": "/admin/analytics/",
+      "scope": "/admin/analytics/",
+      "display": "standalone",
+      "passed": true
+    },
+    "icons": [
+      {
+        "path": "/android-chrome-192x192.png",
+        "status": 200,
+        "width": 192,
+        "height": 192,
+        "passed": true
+      },
+      {
+        "path": "/android-chrome-512x512.png",
+        "status": 200,
+        "width": 512,
+        "height": 512,
+        "passed": true
+      }
+    ],
+    "productionConfig": {
+      "httpStatus": 200,
+      "targetCorrect": true,
+      "secretTypes": [
+        {
+          "name": "ANALYTICS_API_TOKEN",
+          "type": "secret_text",
+          "passed": true
+        },
+        {
+          "name": "ACCESS_TEAM_DOMAIN",
+          "type": "secret_text",
+          "passed": true
+        },
+        {
+          "name": "ACCESS_AUD",
+          "type": "secret_text",
+          "passed": true
+        },
+        {
+          "name": "ACCESS_OWNER_EMAIL",
+          "type": "secret_text",
+          "passed": true
+        }
+      ],
+      "plainVarsCorrect": true,
+      "previewVariableMetadataUnchanged": true,
+      "valuesSaved": false,
+      "passed": true
+    },
+    "allAutomaticChecksPassed": true,
+    "limitations": [
+      "No authenticated new data API response obtained",
+      "No dashboard same-window comparison",
+      "No actual Android install or independent app login flow"
+    ]
+  },
+  "historicalAttempts": [
+    {
+      "privateRecord": ".local-evidence/analytics-overview/published-verification-1791526619689.json",
+      "sha256": "022611aeb40a271e0f312b7a01fd412298ffa6c6205bf09c34f6d6ec1afab5da",
+      "note": "Initial run contained two TypeError request failures; cause not established"
+    },
+    {
+      "privateRecord": ".local-evidence/analytics-overview/published-network-recheck-1791526733131.json",
+      "sha256": "e3ba2e87eaf839f1707c14f900800f5a37e93b0e72ed84fb5750374ee3fa9d47",
+      "note": "Sequential recheck of the two affected paths returned expected statuses"
+    },
+    {
+      "privateRecord": ".local-evidence/analytics-overview/published-verification-1791526855357.json",
+      "sha256": "b5f15f6cb938e343816a4bbfe2ddf28e4ec2f2c3db4447a0a54ba145740370fe",
+      "note": "Full sequential instrument rerun passed all automatic checks"
+    }
+  ],
+  "ownerViewEvidence": "desktop-live-record.json",
+  "mobileEvidence": "android-live-record.json",
+  "rawPrivateStatisticsIncluded": false,
+  "wholeFeatureAccepted": false
+}
