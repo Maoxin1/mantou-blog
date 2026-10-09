@@ -2,6 +2,11 @@ import { createRemoteJWKSet, jwtVerify } from 'jose';
 import { OverviewError } from './errors.mjs';
 
 const resolvers = new Map();
+const invalidTokenErrors = new Set([
+  'UNAUTHORIZED', 'ERR_JWS_INVALID', 'ERR_JWT_INVALID', 'ERR_JWS_SIGNATURE_VERIFICATION_FAILED',
+  'ERR_JWT_CLAIM_VALIDATION_FAILED', 'ERR_JWT_EXPIRED', 'ERR_JOSE_ALG_NOT_ALLOWED',
+  'ERR_JOSE_NOT_SUPPORTED', 'ERR_JWKS_NO_MATCHING_KEY', 'ERR_JWKS_MULTIPLE_MATCHING_KEYS',
+]);
 
 export async function authorize(request, env, options = {}) {
   const domain = env.ACCESS_TEAM_DOMAIN || '';
@@ -25,7 +30,7 @@ export async function authorize(request, env, options = {}) {
     if (typeof payload.email !== 'string' || payload.email.toLowerCase() !== owner) throw new OverviewError('UNAUTHORIZED', 401);
     return { email: payload.email.toLowerCase() };
   } catch (error) {
-    if (error.code === 'ERR_JWKS_TIMEOUT') throw new OverviewError('AUTH_UNAVAILABLE', 503);
-    throw new OverviewError('UNAUTHORIZED', 401);
+    if (invalidTokenErrors.has(error?.code)) throw new OverviewError('UNAUTHORIZED', 401);
+    throw new OverviewError('AUTH_UNAVAILABLE', 503);
   }
 }

@@ -1,6 +1,6 @@
 # TEST-MATRIX-OVW-001
 
-2026-10-09，v0.4；功能 ANL-OVW，依据 [SPEC-OVW-001](specs/analytics-overview-v1.md)。当前计划不等于验收。状态/来源沿用原矩阵；通过须实际证据，受控响应不代替真实 Cloudflare 读取。 安卓 PWA 入口已采纳，作品点击方向已因用户澄清取消。
+2026-10-09，v0.5；功能 ANL-OVW，依据 [SPEC-OVW-001](specs/analytics-overview-v1.md)。当前计划不等于验收。状态/来源沿用原矩阵；通过须实际证据，受控响应不代替真实 Cloudflare 读取。 安卓 PWA 入口已采纳，作品点击方向已因用户澄清取消。
 
 | ID | 需求ID | 场景（输入/前置状态/操作） | 预期结果 | 测试层级与方法 | 优先级 | 来源 | 状态 | 证据 |
 |---|---|---|---|---|---|---|---|---|
@@ -9,7 +9,7 @@
 | TM-OVW-003 | OVW-004/005 | 缺失/伪造/过期/错误受众或发行者/非本人 JWT | 拒绝，且不读统计；正确本人可继续 | 实际 jose 签名验证＋Node 集成 | P0 | Product Requirement：OVW-004/005 | 通过 | [access-red/auth-domain-green](implementation/analytics-overview-20261009/README.md)：实际 jose RS256 测试密钥验证，不代替线上 Access |
 | TM-OVW-004 | OVW-003/006 | 正常、空、缺字段、部分 GraphQL 错误、网络错误、超时 | 严格验证同站数据；未知不填 0；整组失败不冒充完整比较 | Node 上游受控集成 | P0 | Product Requirement：OVW-003/006 | 通过 | [provider-red/provider-green](implementation/analytics-overview-20261009/README.md)：受控响应/错误处理通过；[同口径 bot 查询回归](implementation/analytics-overview-20261009/real-data.md)已红→绿；真实字段/读取已确认，后台数值比对另在 009 阻塞 |
 | TM-OVW-005 | OVW-001/002/007/008 | 本人正常数据、上期为零、移动窄屏 | 一屏指标/趋势/排名可读，日期与增减解释准确 | 少量手动 E2E、真实 HTML/受控 API | P1 | Product Requirement：OVW-001/002/007；Historical Bug：BUG-OVW-QA-002 | 通过 | [ui-red/ui-green](implementation/analytics-overview-20261009/README.md)：桌面/390px、7 日数值/增减；fixtures 不是真实报表；[手机文字缩放回归](implementation/analytics-overview-20261009/pwa-entry.md)经 5px 红灯后通过；[最新 6/6](implementation/analytics-overview-20261009/real-data.md)补采样“约”、未知元数据回退及筛选说明 |
-| TM-OVW-006 | OVW-005/006 | 错误→重试成功、刷新失败、重复刷新/乱序响应 | 未知不填 0、不展示旧成功为当前；避免重叠刷新污染 | Node/UI 集成＋E2E 状态转换 | P1 | Product Requirement：OVW-005/006；Inferred Gap：乱序请求 | 通过 | [handler-green/ui-green](implementation/analytics-overview-20261009/README.md)：共享在途、错误→重试、刷新后不显示旧数字；不是外部故障恢复验收 |
+| TM-OVW-006 | OVW-005/006 | 错误→重试成功、刷新失败、重复刷新/乱序响应 | 未知不填 0、不展示旧成功为当前；避免重叠刷新污染 | Node/UI 集成＋E2E 状态转换 | P1 | Product Requirement：OVW-005/006；Inferred Gap：乱序请求 | 通过 | [handler-green/ui-green](implementation/analytics-overview-20261009/README.md)：共享在途、错误→重试、刷新后不显示旧数字；不是外部故障恢复验收；[真实jose受控JWKS服务失败与恢复](implementation/analytics-overview-20261009/jwks-outage.md)红→绿，故障503且不读数据 |
 | TM-OVW-007 | OVW-004/005 | 私有页面/API 与静态博客、SW/浏览器缓存 | 未认证拒绝数据，no-store，公开博客正常；凭据不进公共产物 | Node 集成、构建检查、Wrangler 本地路由及实际生产挑战 | P0 | Product Requirement：OVW-004/005；Historical Bug：BUG-OVW-QA-003 | 通过 | [Node 14/14 与 Pages 运行边界](implementation/analytics-overview-20261009/README.md)：模块格式回归、no-store/授权先行、缺配置私有页/API 503、公开博客 200；[新版生产巡检5项与实际2项](implementation/analytics-overview-20261009/release-verification.md)已通过；新版真实 Access 全流程在 010 |
 | TM-OVW-008 | OVW-009/005 | 来源/路径含 Unicode、HTML、外链/协议相对 URL | 文本安全展示；只有安全本站路径可链接 | E2E 异常输入/解析边界 | P1 | Inferred Gap：展示注入；Product Requirement：OVW-005/009 | 通过 | [ui-green](implementation/analytics-overview-20261009/README.md)：原始 HTML 文本及协议相对外链不执行/不链接；没有使用无崩溃作为判据 |
 | TM-OVW-009 | OVW-003/008 | 本账户真实 RUM schema、合法读取、与后台同窗口/筛选比对 | 实际字段/权限成立，数值与范围可解释 | 限时只读 spike → 正式人工集成验收 | P0 | Product Requirement：OVW-003；Inferred Gap：接口/筛选未知 | 阻塞 | [真实 Token/schema/正式 provider 读取已验证](implementation/analytics-overview-20261009/real-data.md)；仍缺同窗口后台比对及采样聚合差异核对，未把仪器读取当作正式结果验收 |
@@ -24,3 +24,5 @@
 当前 v0.4 为9项本地有限范围通过、3项真实外部验收阻塞，12个稳定ID与优先级不变。最新基线已同步到生产/远端441e075，见[发布前整合证据](implementation/analytics-overview-20261009/release-verification.md)：overview22/22、界面6/6、既有Node94/94、Python123/123、完整浏览器146/146（按需手动）、实际生产相关smoke2/2；构建/内容/产物校验及41,553条链接通过。保留BUG-OVW-QA-003回归与原失败；未降低规范或删除阻塞项。本人能看旧入口与匿名被挑战已有实际证据，仍不替代新版真实API网页流程、后台同窗口比对和安卓真机验收。原版本日志均保留历史含义。
 
 追加执行证据：用户授权自动填写后，四项Production Secret已保存，既有变量/预览/正式部署保留；010继续因新版尚未发布及实际数据流程未验而阻塞。此追加关闭“线上Secret尚缺”这一个条件，不把矩阵或整体状态改成通过。
+
+发布审查补充（v0.5）：BUG-OVW-QA-004来自PR145实际Issue并核对固定jose实现，补DNS/TLS/HTTP/坏JSON/JWKS/超时、恢复与安全拒绝测试，overview25/25。新增证据关联003/006/007，来源Issue、Product Requirement与Historical Bug；不增加需求、改变9/3验收状态或删除旧失败。新提交重新验证后才可合并。
