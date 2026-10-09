@@ -180,3 +180,95 @@ body[theme=dark] #mantou-dca-c .error{color:#ffb5a6}
   #mantou-dca-c .price-screen #c-market-chart{height:auto}
   #mantou-dca-c .price-screen .panel-context{margin:0}
 }
+
+/* The selected C layout stays inside the existing DCA page and blog shell. */
+#mantou-dca-c .hero h1{font-size:32px;letter-spacing:-.5px}
+#mantou-dca-c .hero h1 br{display:none}
+#mantou-dca-c .hero-picture{width:100px}
+#mantou-dca-c .dca-tabs button{white-space:nowrap;min-height:50px}
+#mantou-dca-c .bitcoin-panel{padding:22px 0 12px;border:0;border-top:2px solid var(--ink);border-radius:0;background:transparent}
+#mantou-dca-c .bitcoin-heading{position:relative;min-height:110px;padding:6px 100px 18px 0}
+#mantou-dca-c .bitcoin-heading h2{font-size:44px;line-height:1.25;letter-spacing:-1px}
+#mantou-dca-c .bitcoin-icon{position:absolute;top:-8px;right:6px;width:82px;height:103px;object-fit:contain}
+body[theme=dark] #mantou-dca-c .bitcoin-icon{filter:invert(1)}
+#mantou-dca-c .bitcoin-summary{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(300px,1fr);gap:20px}
+#mantou-dca-c .bitcoin-summary .market{display:block;padding:0 12px 22px 0;min-width:0}
+#mantou-dca-c .quote-source{font-size:14px;color:var(--muted);margin:0}
+#mantou-dca-c .market-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin:5px 0 7px;font-variant-numeric:tabular-nums}
+#mantou-dca-c .market-price strong{font-size:61px;font-weight:500;line-height:1.12;letter-spacing:-2px;min-width:0;overflow-wrap:anywhere}
+#mantou-dca-c .market-unit{font-size:16px;color:var(--muted)}
+#mantou-dca-c .market-status{display:flex;flex-wrap:wrap;gap:7px 16px;font-size:13px;color:var(--muted)}
+#mantou-dca-c #c-quote-change{color:var(--orange)}
+#mantou-dca-c .quote-update,#mantou-dca-c .history-update{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px}
+#mantou-dca-c .quote-update .data-status,#mantou-dca-c .history-update .data-status{margin:0;font-size:13px;line-height:1.65}
+#mantou-dca-c .quote-update button,#mantou-dca-c .history-update button{border:0;border-radius:0;background:transparent;color:var(--orange);padding:4px 0;font-size:13px;text-decoration:underline;text-underline-offset:4px}
+#mantou-dca-c .quote-update [data-state=failed],#mantou-dca-c .quote-update [data-state=stale],#mantou-dca-c .quote-update [data-state=offline]{color:var(--orange)}
+#mantou-dca-c .market-performance{border-left:1px solid var(--line);padding:6px 0 0 22px;margin:0;min-width:0}
+#mantou-dca-c .market-performance small{display:block;font-size:14px;color:var(--muted);margin:0}
+#mantou-dca-c .selection-name{display:block;font-size:13px;color:var(--muted)}
+#mantou-dca-c .market-performance strong{display:block;font-size:29px;font-weight:600;line-height:1.45;letter-spacing:-.8px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+#mantou-dca-c #c-market-home{margin:0}
+#mantou-dca-c .market-chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:2px solid var(--ink);padding-top:14px}
+#mantou-dca-c .market-chart-head h3{font-size:23px;font-weight:600;margin:0}
+#mantou-dca-c #c-expand{border:0;border-radius:0;background:transparent;font-size:14px;color:var(--orange);white-space:nowrap;padding:8px 0 8px 12px}
+#mantou-dca-c .market-tools{margin:8px 0 13px}
+#mantou-dca-c .market-ranges{display:flex;max-width:440px;gap:0;margin:0;border-bottom:1px solid var(--line)}
+#mantou-dca-c .market-ranges button{position:relative;flex:1;border:0;border-radius:0;background:transparent;padding:7px 14px;color:var(--muted);font-size:14px}
+#mantou-dca-c .market-ranges button[aria-pressed=true]{background:transparent;color:var(--orange);font-weight:600}
+#mantou-dca-c .market-ranges button[aria-pressed=true]:after{content:'';position:absolute;bottom:0;left:14px;right:14px;border-bottom:2px solid var(--orange)}
+#mantou-dca-c .market-reference{display:flex;align-items:center;gap:6px 18px;flex-wrap:wrap}
+#mantou-dca-c .market-reference .result-caption,#mantou-dca-c .market-reference .panel-context{margin:0;font-size:13px}
+#mantou-dca-c .market-reference .result-caption{font-size:14px;font-variant-numeric:tabular-nums}
+#mantou-dca-c .history-update:has(.data-status:not([hidden])){margin:8px 0 0}
+#mantou-dca-c #c-market-chart{height:360px;margin:10px 0 0}
+#mantou-dca-c .market-chart-area{position:relative;min-width:0}
+#mantou-dca-c .market-chart-area .chart-detail{position:absolute;left:54px;right:8px;top:34px;background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:8px 11px;margin:0;font-size:13px;line-height:1.65;pointer-events:none;box-shadow:0 2px 8px #2928240a}
+#mantou-dca-c .market-note{font-size:13px;color:var(--muted);margin:12px 0 3px;line-height:1.8}
+#mantou-dca-c .market-note span{display:block;margin-bottom:4px}
+#mantou-dca-c .bitcoin-panel details{font-size:13px}
+#mantou-dca-c .bitcoin-panel summary{font-size:14px}
+#mantou-dca-c .price-screen .market-performance{border:0;margin:4px 0 6px;padding:0}
+#mantou-dca-c .price-screen .market-performance strong{font-size:20px}
+#mantou-dca-c .price-screen .selection-name{display:none}
+#mantou-dca-c .price-screen #c-market-performance-home{display:none}
+#mantou-dca-c .price-screen #c-market-chart{height:auto;margin:5px 0 0}
+#mantou-dca-c .price-screen .market-chart-area{flex:1;min-height:120px}
+#mantou-dca-c .price-screen .market-chart-area #c-market-chart{height:calc(100% - 5px)}
+#mantou-dca-c .price-screen .market-reference{flex-shrink:0}
+#mantou-dca-c .price-screen .history-update{flex-shrink:0}
+@media(max-width:580px){
+  #mantou-dca-c .hero h1{font-size:25px;line-height:1.3}
+  #mantou-dca-c .hero h1 br{display:block}
+  #mantou-dca-c .hero-picture{width:90px}
+  #mantou-dca-c .dca-tabs{gap:8px;margin-bottom:14px}
+  #mantou-dca-c .dca-tabs button{font-size:14px;padding:10px 2px}
+  #mantou-dca-c .bitcoin-panel{padding:14px 0 8px}
+  #mantou-dca-c .bitcoin-heading{min-height:76px;padding:6px 64px 12px 0}
+  #mantou-dca-c .bitcoin-heading h2{font-size:32px;letter-spacing:-.8px}
+  #mantou-dca-c .bitcoin-icon{width:57px;height:73px;right:0;top:0}
+  #mantou-dca-c .bitcoin-summary{display:block}
+  #mantou-dca-c .bitcoin-summary .market{padding:0 0 14px}
+  #mantou-dca-c .market-price strong{font-size:40px;letter-spacing:-1px}
+  #mantou-dca-c .market-price{gap:8px;margin:6px 0 7px}
+  #mantou-dca-c .market-unit{font-size:13px}
+  #mantou-dca-c .market-status{display:block;font-size:12px}
+  #mantou-dca-c .market-status>span{display:block}
+  #mantou-dca-c #c-quote-time{margin-top:3px}
+  #mantou-dca-c .quote-source{font-size:13px}
+  #mantou-dca-c .quote-update{gap:4px 10px}
+  #mantou-dca-c .market-chart-head{padding-top:9px}
+  #mantou-dca-c .market-chart-head h3{font-size:21px}
+  #mantou-dca-c #c-expand{font-size:13px}
+  #mantou-dca-c .market-tools{margin:6px 0 10px}
+  #mantou-dca-c .market-reference{display:block}
+  #mantou-dca-c .market-reference .panel-context{font-size:12px;margin-top:5px}
+  #mantou-dca-c .market-reference .result-caption{font-size:13px}
+  #mantou-dca-c .market-performance{border:0;border-top:1px solid var(--line);padding:9px 0 0;margin:10px 0 0}
+  #mantou-dca-c .market-performance>div{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  #mantou-dca-c .market-performance small{font-size:13px;white-space:nowrap}
+  #mantou-dca-c .market-performance strong{font-size:24px;letter-spacing:-.6px;text-align:right}
+  #mantou-dca-c .market-performance .selection-name{display:none}
+  #mantou-dca-c #c-market-chart{height:300px}
+  #mantou-dca-c .price-screen .market-performance strong{font-size:20px}
+}
+@media(max-width:350px){#mantou-dca-c .market-performance strong{font-size:20px}}
