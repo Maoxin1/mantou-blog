@@ -1,0 +1,52 @@
+{
+  "recordedAtUtc": "2026-10-09T07:05:48.563323+00:00",
+  "featureId": "ANL-OVW",
+  "matrixId": "TM-OVW-012",
+  "source": "User Android screenshot visually inspected with view_image and subsequent text replies",
+  "observations": {
+    "browser": "Android Chrome (user selected)",
+    "browserToolbarVisible": true,
+    "newPrivateOverviewVisible": true,
+    "pvVisitsComparisonsAndTrendVisible": true,
+    "currentDates": "2026-10-02 through 2026-10-08",
+    "previousDates": "2026-09-25 through 2026-10-01",
+    "completeBeijingDatesAndTodayExclusionVisible": true
+  },
+  "userReported": {
+    "homeScreenIconOpensOrdinaryBrowser": true,
+    "installOptionAndAddToHomeScreenAvailable": true,
+    "installAppDoesNotComplete": true,
+    "alreadyInstalledMenuOpensWebsiteDataWithoutChromeAddressBar": true,
+    "appListContainsOnlyBlogAppAndItsIconStartsBlogHomepage": true
+  },
+  "screenshotArchived": false,
+  "archiveLimitation": "Original image was available through view_image, but the temporary source directory was unavailable to the shell during archive attempt",
+  "rawCountsIncludedInPublicRecord": false,
+  "limitations": [
+    "No independent analytics application icon or direct desktop launch verified",
+    "Actual refresh outcome not separately confirmed",
+    "Real phone session expiry not exercised",
+    "No same-window dashboard calibration",
+    "Installed app manifest ID not captured; observed blog-home launch and nested-scope official guidance support the hosting overlap diagnosis"
+  ],
+  "state": "Existing blog app can show analytics via menu, but actual app-list launch starts blog homepage; independent analytics icon not installed",
+  "additionalMenuScreenshotObservations": {
+    "chromeMenuLabel": "安装并创建快捷方式",
+    "firstRow": "已安装此应用 / 点击即可改为打开应用",
+    "secondRow": "创建快捷方式 / 快捷方式会在 Chrome 中打开",
+    "installedApplicationIdentityKnown": false,
+    "newInstallProgressOrErrorDialogShown": false,
+    "pageAndSourceRankingsVisible": true,
+    "dataReadTimestampVisible": "2026-10-09 15:05:24 Asia/Shanghai",
+    "rawCountsIncludedInRecord": false
+  },
+  "updatedAtUtc": "2026-10-09T07:13:48.044640+00:00",
+  "standaloneWindowEvidence": {
+    "source": "User answer after tapping Chrome already-installed app row",
+    "websiteDataVisible": true,
+    "chromeAddressBarAbsent": true,
+    "launchFromApplicationListOrDesktopVerified": false,
+    "installedManifestIdentityVerified": false,
+    "refreshVerified": false
+  }
+}

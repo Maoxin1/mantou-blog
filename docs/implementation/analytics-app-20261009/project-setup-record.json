@@ -1,0 +1,31 @@
+{
+  "recordedAtUtc": "2026-10-09T07:21:57.362Z",
+  "project": "mantou-blog-data",
+  "host": "mantou-blog-data.pages.dev",
+  "productionBranch": "main",
+  "created": true,
+  "sourceSite": "mantou-blog.pages.dev",
+  "secretTypes": [
+    {
+      "name": "ANALYTICS_API_TOKEN",
+      "type": "secret_text"
+    },
+    {
+      "name": "ACCESS_TEAM_DOMAIN",
+      "type": "secret_text"
+    },
+    {
+      "name": "ACCESS_AUD",
+      "type": "secret_text"
+    },
+    {
+      "name": "ACCESS_OWNER_EMAIL",
+      "type": "secret_text"
+    }
+  ],
+  "sourceVariablesVerified": true,
+  "accessDestinationConfigured": false,
+  "deployed": false,
+  "originalBlogProjectMutated": false,
+  "secretValuesIncluded": false
+}

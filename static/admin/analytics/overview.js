@@ -1,4 +1,6 @@
 const $ = selector => document.querySelector(selector);
+const BLOG_ORIGIN = 'https://mantou-blog.pages.dev';
+const APP_ORIGIN = 'https://mantou-blog-data.pages.dev';
 const number = new Intl.NumberFormat('zh-CN', { maximumFractionDigits: 1 });
 const date = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' });
 const stamp = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', dateStyle: 'short', timeStyle: 'medium', hour12: false });
@@ -27,7 +29,7 @@ function list(selector, rows, property) {
     const item = document.createElement('li');
     const label = document.createElement(property === 'path' && safePath(row.path) ? 'a' : 'span');
     label.textContent = row[property] || '未取得来源信息（direct）';
-    if (label.tagName === 'A') label.setAttribute('href', row.path);
+    if (label.tagName === 'A') label.setAttribute('href', new URL(row.path, BLOG_ORIGIN).href);
     const value = document.createElement('strong'); value.textContent = `${number.format(row.pv)} PV`;
     item.append(label, value); return item;
   });
@@ -92,5 +94,11 @@ async function refresh() {
   } finally { busy = false; $('#refresh').disabled = false; }
 }
 $('#refresh').addEventListener('click', refresh);
+if (location.origin === APP_ORIGIN) {
+  $('#app-entry').hidden = true;
+  $('#app-instructions').textContent = window.matchMedia('(display-mode: standalone)').matches ?
+    '当前已在“网站数据”应用窗口中。你可以从应用列表把图标放到桌面，下次直接打开。' :
+    '在 Chrome 菜单选择“安装并创建快捷方式”→“安装”（部分版本显示“安装应用”或“添加到主屏幕”）。安装后，从应用列表找到“网站数据”，把应用图标放到桌面。';
+}
 window.addEventListener('resize', () => { if (trendRows.length) chart(trendRows); });
 refresh();

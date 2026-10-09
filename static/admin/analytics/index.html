@@ -12,7 +12,7 @@
 </head>
 <body>
   <main>
-    <nav><a href="/admin/">内容后台</a><a href="/">博客首页</a><a href="#install-help">手机安装</a><a href="https://dash.cloudflare.com/60fce3c87fe0af3ac0a66d4b03594598/web-analytics">打开统计后台 / Open analytics →</a></nav>
+    <nav><a href="https://mantou-blog.pages.dev/admin/">内容后台</a><a href="https://mantou-blog.pages.dev/">博客首页</a><a href="#install-help">手机安装</a><a id="app-entry" href="https://mantou-blog-data.pages.dev/admin/analytics/" target="_blank" rel="noopener">独立应用入口</a><a href="https://dash.cloudflare.com/60fce3c87fe0af3ac0a66d4b03594598/web-analytics">打开统计后台 / Open analytics →</a></nav>
     <header><div><p class="eyebrow">MANTOU · PRIVATE ANALYTICS</p><h1>网站数据</h1><p class="intro">最近 7 个完整日，与此前 7 个完整日对比。</p></div><button id="refresh" type="button">刷新数据</button></header>
     <p id="periods" class="period">北京时间 · 不包含今天</p>
     <p id="status" role="status" aria-live="polite">正在读取数据…</p>
@@ -28,7 +28,7 @@
       <section class="panel"><h2>访问来源</h2><p class="muted">来源缺失不等于访客手动输入了网址。</p><ol id="sources" class="ranking"></ol></section>
     </div>
     <footer><p id="freshness">数据来源：Cloudflare Web Analytics · 仅本人可读取</p><p id="scope" class="muted"></p>
-      <details id="install-help"><summary>添加到安卓手机桌面</summary><p>用手机 Chrome 打开本页并完成本人登录。在浏览器菜单中选择“安装应用”或“添加到主屏幕”，再从桌面的“网站数据”图标进入。安装方式取决于手机和浏览器；没有安装选项时，可以继续在浏览器查看。</p><p>查看数据需要联网；登录过期时需重新登录。添加到桌面不会授予报表访问权限。</p></details>
+      <details id="install-help"><summary>添加到安卓手机桌面</summary><p id="app-instructions">先打开上方“独立应用入口”，用手机 Chrome 完成本人登录，再在浏览器菜单选择“安装并创建快捷方式”→“安装”（部分版本显示“安装应用”或“添加到主屏幕”）。安装后，从应用列表找到“网站数据”，把应用图标放到桌面；从它启动应直接进入数据概览。</p><p>“创建快捷方式”会在普通 Chrome 页面中打开。查看数据需要联网；登录过期时需重新登录。添加到桌面不会授予报表访问权限。</p></details>
       <details><summary>指标与数据说明</summary><p>Website analytics。访问量保存在 Cloudflare 后台。Visits 不是独立访客人数；当前统计不包含按钮点击或订阅转化。</p>
       <p lang="en">Visits are not unique visitors. Button clicks and subscription conversions are not tracked.</p>
       <p>客户端统计可能漏计，列表和服务商抽样可能影响结果；不承诺每次访问精确入库。上期为 0 时，展示增减次数，不计算百分比。</p></details>
