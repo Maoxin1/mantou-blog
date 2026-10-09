@@ -1,0 +1,24 @@
+{
+  "matrixId": "TM-ANL-009",
+  "propertyId": "GP-ANL-01",
+  "recordedAt": "2026-10-08T03:23:44.367Z",
+  "sourceSha256": "b0f45ba725a16691944a1fcd7357ae50f6ad5e1ce159b804bbeface3937f701a",
+  "node": "v24.18.0",
+  "coverage": [
+    {
+      "seed": 20261008,
+      "samples": 64
+    },
+    {
+      "seed": 20261009,
+      "samples": 64
+    },
+    {
+      "seed": 20261010,
+      "samples": 64
+    }
+  ],
+  "totalSamples": 192,
+  "elapsedMs": 379.5365,
+  "providerRequestsSent": false
+}

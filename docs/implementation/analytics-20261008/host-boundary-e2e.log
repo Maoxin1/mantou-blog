@@ -1,0 +1,12 @@
+
+Running 4 tests using 1 worker
+
+
+
+(node:15856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/4] [chromium] › tests\e2e\analytics.spec.js:19:3 › TM-ANL-009 host boundary: mantou-blog.pages.dev
+[2/4] [chromium] › tests\e2e\analytics.spec.js:19:3 › TM-ANL-009 host boundary: manual-preview.mantou-blog.pages.dev
+[3/4] [chromium] › tests\e2e\analytics.spec.js:19:3 › TM-ANL-009 host boundary: mantou-blog.pages.dev.attacker.invalid
+[4/4] [chromium] › tests\e2e\analytics.spec.js:29:1 › TM-ANL-009 content backends do not include the public analytics integration
+  4 passed (4.2s)

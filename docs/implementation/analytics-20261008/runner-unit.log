@@ -1,0 +1,12 @@
+GP-ANL-01: 192 generated cases passed with seeds 20261008, 20261009, 20261010.
+✔ TM-ANL-009: fixed approved and non-approved host controls execute the real loader (12.6469ms)
+✔ TM-ANL-009 / GP-ANL-01: generated non-approved hosts cannot append analytics (332.4702ms)
+✔ TM-ANL-012: the selected analytics integration does not activate a second provider (6.8304ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 529.5891

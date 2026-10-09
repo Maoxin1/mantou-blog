@@ -1,0 +1,15 @@
+✔ TM-OVW-003 rejects absent, forged, expired, wrong-audience/issuer and other-owner JWTs (71.456ms)
+✔ TM-OVW-003 verifies real RS256 signature and owner; ignores spoofed email header (8.5591ms)
+✔ TM-OVW-003 missing identity config fails closed before verification (7.9096ms)
+✔ TM-OVW-002 exposes absolute change and never divides by a zero baseline (2.7667ms)
+✔ TM-OVW-001 excludes today and returns adjacent complete Beijing 7-day periods (5.6232ms)
+✔ TM-OVW-001 Beijing midnight, leap day and year boundary use complete days (0.9782ms)
+✔ TM-OVW-001 seeded date property checks; seed=20261009, samples=256 (5.1426ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 468.7227

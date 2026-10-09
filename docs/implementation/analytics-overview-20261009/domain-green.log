@@ -1,0 +1,12 @@
+✔ TM-OVW-002 exposes absolute change and never divides by a zero baseline (3.2299ms)
+✔ TM-OVW-001 excludes today and returns adjacent complete Beijing 7-day periods (5.0973ms)
+✔ TM-OVW-001 Beijing midnight, leap day and year boundary use complete days (0.8626ms)
+✔ TM-OVW-001 seeded date property checks; seed=20261009, samples=256 (7.156ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 207.6763

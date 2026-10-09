@@ -1,0 +1,17 @@
+
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 09:04:56] "GET / HTTP/1.1" 200 -
+
+Running 1 test using 1 worker
+
+
+(node:132) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/1] tests\overview\overview.spec.cjs:19:1 › TM-OVW-005 one-screen overview shows real-format metrics, complete dates and daily trend
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 09:04:57] "GET /admin/analytics/ HTTP/1.1" 200 -
+
+
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 09:04:57] "GET /admin/analytics/overview.css HTTP/1.1" 200 -
+
+[WebServer] ::ffff:127.0.0.1 - - [09/Oct/2026 09:04:57] "GET /admin/analytics/overview.js HTTP/1.1" 200 -
+  1 passed (2.4s)

@@ -1,0 +1,11 @@
+✔ TM-OVW-001 excludes today and returns adjacent complete Beijing 7-day periods (3.0568ms)
+✔ TM-OVW-001 Beijing midnight, leap day and year boundary use complete days (1.9705ms)
+✔ TM-OVW-001 seeded date property checks; seed=20261009, samples=256 (3.1947ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 108.6042

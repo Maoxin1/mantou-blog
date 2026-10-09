@@ -1,0 +1,10 @@
+✔ TM-ANL-028 manual E2E rebuilds stale output before launching browser checks (2962.3456ms)
+✔ TM-ANL-028 failed rebuild stops E2E rather than testing the old artifact (3033.4934ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6164.5937

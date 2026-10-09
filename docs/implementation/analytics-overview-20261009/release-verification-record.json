@@ -1,0 +1,313 @@
+{
+  "recordedAtUtc": "2026-10-09T05:36:47.694650+00:00",
+  "featureId": "ANL-OVW",
+  "sourceBase": "441e0750372f4cf2f741288a0dc77e7e793ad5e3",
+  "sourceState": "Fast-forward updated production baseline plus uncommitted modifications indexed below",
+  "state": "release prepared; production secrets and publication/data/Android acceptance pending",
+  "checks": {
+    "overviewUnit": [
+      22,
+      22
+    ],
+    "existingNode": [
+      94,
+      94
+    ],
+    "pythonUtf8": [
+      123,
+      123
+    ],
+    "overviewControlledBrowser": [
+      6,
+      6
+    ],
+    "fullLocalBrowser": [
+      146,
+      146
+    ],
+    "actualProductionRelatedSmoke": [
+      2,
+      2
+    ],
+    "internalLinks": 41553,
+    "postPages": 206,
+    "secretScanFiles": 1681,
+    "actualCredentialFound": false
+  },
+  "bug": "BUG-OVW-QA-003 legacy redirect-following cache check inspected login page; 4 failing/1 passing regression then 5/5; assertions preserved on original responses",
+  "notVerified": [
+    "Four production Secret bindings",
+    "Deployed new private overview through real authenticated data API",
+    "Same-window Cloudflare dashboard comparison",
+    "Unauthorized identity and expired actual authorization flow",
+    "Android install and actual authorized data viewing",
+    "Current preview protection after app retargeting"
+  ],
+  "publication": "no commit/push/merge/deployment performed",
+  "files": [
+    {
+      "file": "functions/_lib/access-response.mjs",
+      "sha256": "4581b1599791acea08830e012d387e45e4ea8e120241888cb75f49ff3c25c008"
+    },
+    {
+      "file": "functions/_lib/access.mjs",
+      "sha256": "123d82c9ecff435758a72ef5cff6bcb10e6f0bf0d04658b64dd302193b6b41a7"
+    },
+    {
+      "file": "functions/_lib/analytics-domain.mjs",
+      "sha256": "68ff6e44a45aa52cc3cfc7eca3e59363852351af8f01f13b1e42132251e3b003"
+    },
+    {
+      "file": "functions/_lib/errors.mjs",
+      "sha256": "59737b8e753c0c0c14be5612f4bf209005e0abc96044b0cce0347ca2391e8c35"
+    },
+    {
+      "file": "functions/_lib/handler.mjs",
+      "sha256": "3acd20672ccac73e410b857dd182e772e9fc7f45493be72fd78dcd3084922e17"
+    },
+    {
+      "file": "functions/_lib/provider.mjs",
+      "sha256": "868ac0bc1649ac08098d9a774adad679e2b444ad9da42cbd9aa40f734b576010"
+    },
+    {
+      "file": "functions/admin/analytics/data.js",
+      "sha256": "3c70528ecf67ec107c7c346e7b3ce49f386a44014d40d938213ba02202e90d96"
+    },
+    {
+      "file": "functions/admin/analytics/_middleware.js",
+      "sha256": "e3ab94bcddb497b4a423c7b13e2ffbac04596dba98e19ca140c1505c89e48432"
+    },
+    {
+      "file": "tests/overview/access.test.mjs",
+      "sha256": "566430728cc33a3693f08b8f6e1f51374218edb8abd64e5f52fa13b55301057d"
+    },
+    {
+      "file": "tests/overview/bundle.test.mjs",
+      "sha256": "28cebee4e3e359505f422d079d2fbe6183bfaea3bd50cbfce8e7e806ba3a08ec"
+    },
+    {
+      "file": "tests/overview/change.test.mjs",
+      "sha256": "58aa4fcf0a24b9f957db2a724cca0ed02df53fa59303d8de8938da6fcc024dce"
+    },
+    {
+      "file": "tests/overview/deploy.test.mjs",
+      "sha256": "189395b01cb288a15ccca6f499ab579b3f58a924eec624fb6ebf672bbf135974"
+    },
+    {
+      "file": "tests/overview/handler.test.mjs",
+      "sha256": "e2ecb8d877ca79e1416babf740186c9416c09d7593fdc7021eb4ece3cce51738"
+    },
+    {
+      "file": "tests/overview/middleware.test.mjs",
+      "sha256": "5debd577112410a6efedb5e5a93899a7519d99da3d4b8ccc9e66e7e8ca3b12e5"
+    },
+    {
+      "file": "tests/overview/overview.spec.cjs",
+      "sha256": "95de13c6406ed4aa88cd06a660a4bb712cab7ea5caea2fa229079cd514613eff"
+    },
+    {
+      "file": "tests/overview/periods.test.mjs",
+      "sha256": "bf7755f8d3f8735724633c954ff18b7b9379e896f97f0d80e152f6ad2396e3cf"
+    },
+    {
+      "file": "tests/overview/playwright.config.cjs",
+      "sha256": "63e87ef336b4c061f3ab1aba62945623791f34b3e7904d22a8c74bb51ff5c65a"
+    },
+    {
+      "file": "tests/overview/production-resource.test.mjs",
+      "sha256": "f9c42b529548b85490c4ae4d2f71d422aabc1465b6a6e0b20ac9a39179a2679f"
+    },
+    {
+      "file": "tests/overview/provider.test.mjs",
+      "sha256": "02dbdf030fe1db0277b78668600c66eb3f120ce9dd4a6e9006afde53ef253630"
+    },
+    {
+      "file": "tests/overview/pwa.test.mjs",
+      "sha256": "675171a7f1b5cbb5e84fce2060f7487e6bb1eb452df5ec16d5ac355f463040a5"
+    },
+    {
+      "file": "tests/overview/playwright-report/overview/report.json",
+      "sha256": "52c46e39d789eb316147f18b81b2b55190b9ef4192244a3a642418616ad63797"
+    },
+    {
+      "file": "tests/helpers/production-resource.cjs",
+      "sha256": "2fb85859fdcab3674215d2647c9a693e251a2b4b5ccb00f14641457975e87730"
+    },
+    {
+      "file": "tests/smoke/deployment.spec.js",
+      "sha256": "d85379533661129bd4e551ab88c69384abed3c00a5150c515363e935b962ac81"
+    },
+    {
+      "file": "static/admin/analytics/index.html",
+      "sha256": "37ba92eec2c9dd1432677062f1bf69e846d23df0a8047b3d17ad7a47445fa054"
+    },
+    {
+      "file": "static/admin/analytics/overview.js",
+      "sha256": "65e7fb8415fc02d99df2665e9cb8c2d7fb5c6bb756ebfb2a0264821ffaa094b0"
+    },
+    {
+      "file": "static/admin/analytics/overview.css",
+      "sha256": "923cb0965bb26e48aae897d8bc2e84a03468f87ae2aeea710b4712865387be67"
+    },
+    {
+      "file": "static/analytics-app.webmanifest",
+      "sha256": "1ed9a0faf2f8bc514dbd935dec1eee913099f5ff5ad71e1eb629feee80fcd5a2"
+    },
+    {
+      "file": "static/_routes.json",
+      "sha256": "5b77a5e0ba0d0b9fc271caddc37bd6897be63ebc5c648e3329f9eae3274213b8"
+    },
+    {
+      "file": "wrangler.jsonc",
+      "sha256": "718aadd74e04473534a64a7c0ca50404385b6ed1675182b15dc14fd852d9103f"
+    },
+    {
+      "file": "package.json",
+      "sha256": "8c075e993a6636aac9160ef9b45b96a229d52ca361bcbd8e27c49b0a786fdfd0"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "3a6e459a9b9d7ddf02024656c0ad0d485b1096cb7b9c5ba4ce5b65149dbb9a5d"
+    },
+    {
+      "file": "scripts/build_analytics.mjs",
+      "sha256": "da976a4f3a53302a31e3c23fa342bf4ce51778b406ed998d5f63447a562cfb16"
+    },
+    {
+      "file": "scripts/probe_analytics_read.mjs",
+      "sha256": "b6d7c5f1e55d8d2116a27493884dd9be6a40395905eb4dbafae3efff3edb2bb8"
+    },
+    {
+      "file": ".github/workflows/deploy-pages.yml",
+      "sha256": "e02dc110e9a44b7519e57f81fc705edce12eaa8a761d7f54f338bb693c3362f5"
+    },
+    {
+      "file": ".github/workflows/validate.yml",
+      "sha256": "536e316cc1586f236d33f83ea30562cf28999c3aac86a99703b2a5d65c4886b6"
+    },
+    {
+      "file": "public/_worker.js/index.js",
+      "sha256": "2357aab6b5a11ba79a8b5b604f43bf00ec3f2afe501006d2bb9d053082549c5d"
+    },
+    {
+      "file": "public/admin/analytics/index.html",
+      "sha256": "37ba92eec2c9dd1432677062f1bf69e846d23df0a8047b3d17ad7a47445fa054"
+    },
+    {
+      "file": "public/admin/analytics/overview.js",
+      "sha256": "65e7fb8415fc02d99df2665e9cb8c2d7fb5c6bb756ebfb2a0264821ffaa094b0"
+    },
+    {
+      "file": "public/admin/analytics/overview.css",
+      "sha256": "923cb0965bb26e48aae897d8bc2e84a03468f87ae2aeea710b4712865387be67"
+    },
+    {
+      "file": "public/analytics-app.webmanifest",
+      "sha256": "1ed9a0faf2f8bc514dbd935dec1eee913099f5ff5ad71e1eb629feee80fcd5a2"
+    },
+    {
+      "file": "docs/test-matrix-analytics-overview.md",
+      "sha256": "7ec5231946f0ba97b91ddf7795bfed90cfdc6678fb515fb83a3bcda4aba2df8d"
+    },
+    {
+      "file": "docs/implementation/analytics-overview-20261009/release-verification.md",
+      "sha256": "6835647b67fe0c244df62bf800c88c4de9a69ff1b484a229434c18b09d38c33b"
+    },
+    {
+      "file": "docs/implementation/analytics-overview-20261009/release-preparation.md",
+      "sha256": "3b41298a7ccf98a25421aa2f80db1a93ed3b0cf75aaef11ac98a6a301a7b091f"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-overview-unit-final.log",
+      "sha256": "5622187ea308b6d6dce081bd56c2609f077eb6777365aca4d069c3f4c8ecc2f6"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-node-regression.log",
+      "sha256": "d7d1fa5a7afa29e2e0740681acce5d345c128de99c771690872fcff25ffe918d"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-python-regression.log",
+      "sha256": "7cb4be97b14fec8500ab40beb959f67e15322b9c255a3d5da0318b22b48aaf2c"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-overview-ui.log",
+      "sha256": "fae256238a8ec24df3ccf9b32d714972e23e04668e358313551a8ec6c0fcac04"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-browser-regression.log",
+      "sha256": "fb259ec076c2d9d3d85aff8db7e2499ccb2b8b94a046f9c22734fd9f744b91c5"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-live-access-smoke.log",
+      "sha256": "f70946a3f6c88df44ba3a6fc7dc7bcda74a2b8b78926126323b2681214f1f078"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-hugo.log",
+      "sha256": "2c28896a9d549df8dc21534df62abb395368f894555be90a9b5a6c8e39b17e0f"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-worker.log",
+      "sha256": "552cf8715210909c288a284472779a0b2c9a00c5fc4b0cc390705a6344603ce2"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-pagefind.log",
+      "sha256": "fd994128a1c3fcf6825717cf8680b71d5ee562c5355b6b388de27494a572511d"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/smoke-follow-legacy.json",
+      "sha256": "a98d5052e96fa14d9e4f2736245bb5fbf81ed34381b5d7db876cce7474237b46"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/smoke-boundary-red.log",
+      "sha256": "96fcb4daf969eaaaaee5973034576f8655aa6dc8af7b0ab0fb30bdda8eaccc4b"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/smoke-boundary-green.log",
+      "sha256": "f626c4e60ca504c7ee1287de2778afeba7d5ab46baf7243b80c5e7ed49374a14"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-secret-check-final.json",
+      "sha256": "81452bb4c946e76932f49a0d4c52b454ce6df8a3618ac1d4fbeeecea6d0f4bed"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-check_garden_output.py.log",
+      "sha256": "adf34e85428105446042120487302999fa333dcce012a7fc79dc33f9972fdc6a"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-check_internal_links.py.log",
+      "sha256": "e08a0952ea04b4f8336440f5735aca0aecda3852589cac40abe71cca8b2771b4"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-check_portfolio_output.py.log",
+      "sha256": "526650a07bb2e4a73aee52ffeed56f06b35a135167a6ee8ba059a24ab31ee87f"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-check_runtime_assets.py.log",
+      "sha256": "a250b77787d3e9d7c02534c60eee5c2f2855b1b9d9da4bc59ab98ee78cb80a16"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-check_seo_output.py.log",
+      "sha256": "30ff3b884e34170df5395004f482caee0321bf2be0e19a630e6fe602cd53519d"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-check_short_post_urls.py.log",
+      "sha256": "631a17940fde217851a8734151411e9ddf42b5c553def95aadacf6692eba9104"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-validate_admin_config.py.log",
+      "sha256": "8ed78756428857819803237bebcc53f3133fa16f1b25fcd8f87206d64462a429"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-validate_portfolio.py.log",
+      "sha256": "aa5f7d7685faccca579d3a5e01f2592b20e12b228b0bceda49b7fe29b6ffa5bf"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-validate_posts.py.log",
+      "sha256": "c5ca5ccb42ed1397a939ac5771aff3eee50e93c7a78f1522ef76c7cb7c751b75"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/release-validate_translations.py.log",
+      "sha256": "e226167d19f6014b94075489b1e5c0290c654c54e33bd42ff19c97a97d4f3525"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "matrix_id": "TM-ANL-014",
+  "recorded_at_utc": "2026-10-08T02:53:12.7211615+00:00",
+  "reviewer": "Codex",
+  "method": "Manual semantic review of current explanation and client initialization",
+  "source_commit": "39b51748776c4f723007b60c3c77893d16c8faf2",
+  "reviewed_files": [
+    {
+      "path": "static/admin/analytics/index.html",
+      "sha256": "d18fddd7a22ce45c0d873fb67e94c4d8aa00556ed7f7fa1395f5b1dffbec615d"
+    },
+    {
+      "path": "docs/bilingual-site.md",
+      "sha256": "c5cdc689dcf82a575c01f35dbd9e1b0670563e8856365efa3f45337cbf299139"
+    },
+    {
+      "path": "layouts/partials/analytics.html",
+      "sha256": "b0f45ba725a16691944a1fcd7357ae50f6ad5e1ce159b804bbeface3937f701a"
+    }
+  ],
+  "result": "pass",
+  "examples": [
+    {
+      "input": "A normal same-page refresh or back/forward navigation",
+      "conclusion": "No client counter or de-duplication is introduced; provider navigation semantics apply, not a fixed PV equality."
+    },
+    {
+      "input": "One person using two devices",
+      "conclusion": "The entry explains that Visits are not unique visitors; neither two people nor cross-device merging is promised."
+    },
+    {
+      "input": "Separate total/page queries under sampling or rolling intervals",
+      "conclusion": "No current output claims strict additivity, monotonic totals or one-request-one-view."
+    }
+  ],
+  "limits": [
+    "Examples are explanation inputs, not real production traffic or measured counts.",
+    "No provider count, visitor identity, ingestion or historical persistence was verified."
+  ]
+}

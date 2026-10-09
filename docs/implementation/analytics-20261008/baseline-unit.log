@@ -1,0 +1,6 @@
+test_admin_non_get_and_cross_origin_requests_are_not_intercepted (test_service_worker_reliability.ServiceWorkerReliabilityTests.test_admin_non_get_and_cross_origin_requests_are_not_intercepted) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.113s
+
+OK

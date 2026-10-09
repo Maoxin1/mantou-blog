@@ -1,0 +1,214 @@
+{
+  "recordedAtUtc": "2026-10-09T04:57:24.262979+00:00",
+  "featureId": "ANL-OVW",
+  "sourceBase": "e05bde17d7c43a7cae5d9cf382276ace662c29de",
+  "sourceState": "base plus uncommitted changes identified by hashes below",
+  "environment": {
+    "os": "Windows",
+    "node": "24.18.0",
+    "python": "3.12",
+    "playwright": "1.62.1",
+    "wrangler": "4.146.0",
+    "hugo": "0.154.5",
+    "pagefind": "1.5.2"
+  },
+  "state": "real provider reading verified; overall acceptance pending; not published",
+  "realRead": {
+    "instrument": "local direct call of formal provider, not authenticated HTTP UI flow",
+    "requests": 4,
+    "httpStatuses": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "graphqlErrors": false,
+    "timezone": "Asia/Shanghai",
+    "current": [
+      "2026-10-02T00:00:00+08:00",
+      "2026-10-09T00:00:00+08:00"
+    ],
+    "previous": [
+      "2026-09-25T00:00:00+08:00",
+      "2026-10-02T00:00:00+08:00"
+    ],
+    "endExclusive": true,
+    "botFilter": 0,
+    "dailyRows": 7,
+    "pathRows": 15,
+    "sourceRows": 4,
+    "bothPeriodsSampled": true,
+    "dailyPvSumEqualsAggregate": false,
+    "differenceExplanation": "sampling is plausible; same-window dashboard verification not completed; no tolerance assumed"
+  },
+  "checks": {
+    "overviewNode": [
+      17,
+      17
+    ],
+    "overviewBrowserControlledResponses": [
+      6,
+      6
+    ],
+    "existingNode": [
+      88,
+      88
+    ],
+    "pythonUtf8": [
+      123,
+      123
+    ],
+    "internalLinks": 41552,
+    "hugo": "passed",
+    "workerBuild": "passed",
+    "pagefind": "passed",
+    "runtimeAssets": "passed",
+    "actualSavedTokenInSelectedPublicArtifacts": false
+  },
+  "blocked": [
+    "TM-OVW-009 same-window dashboard comparison",
+    "TM-OVW-010 production Access and actual authenticated UI flow",
+    "TM-OVW-012 Android installed app to actual private data"
+  ],
+  "limitations": [
+    "Full historical 144 browser suite not rerun",
+    "Initial broad schema TypeError unresolved; bounded queries succeeded",
+    "Initial Python OK report had reader-thread GBK failures; clean scoped UTF-8 run supersedes it",
+    "Selected four public artifact credential check is not whole-machine scan",
+    "No token, request headers or raw private counts included"
+  ],
+  "files": [
+    {
+      "file": "functions/_lib/provider.mjs",
+      "sha256": "868ac0bc1649ac08098d9a774adad679e2b444ad9da42cbd9aa40f734b576010"
+    },
+    {
+      "file": "static/admin/analytics/overview.js",
+      "sha256": "65e7fb8415fc02d99df2665e9cb8c2d7fb5c6bb756ebfb2a0264821ffaa094b0"
+    },
+    {
+      "file": "tests/overview/provider.test.mjs",
+      "sha256": "02dbdf030fe1db0277b78668600c66eb3f120ce9dd4a6e9006afde53ef253630"
+    },
+    {
+      "file": "tests/overview/overview.spec.cjs",
+      "sha256": "95de13c6406ed4aa88cd06a660a4bb712cab7ea5caea2fa229079cd514613eff"
+    },
+    {
+      "file": "scripts/probe_analytics_read.mjs",
+      "sha256": "b6d7c5f1e55d8d2116a27493884dd9be6a40395905eb4dbafae3efff3edb2bb8"
+    },
+    {
+      "file": "static/analytics-app.webmanifest",
+      "sha256": "1ed9a0faf2f8bc514dbd935dec1eee913099f5ff5ad71e1eb629feee80fcd5a2"
+    },
+    {
+      "file": "public/_worker.js/index.js",
+      "sha256": "2357aab6b5a11ba79a8b5b604f43bf00ec3f2afe501006d2bb9d053082549c5d"
+    },
+    {
+      "file": "public/admin/analytics/overview.js",
+      "sha256": "65e7fb8415fc02d99df2665e9cb8c2d7fb5c6bb756ebfb2a0264821ffaa094b0"
+    },
+    {
+      "file": "docs/specs/analytics-overview-v1.md",
+      "sha256": "b1b5bcf71bedf949f5dba3978e09524e80070786aa65ee39cef29da6e525974a"
+    },
+    {
+      "file": "docs/test-matrix-analytics-overview.md",
+      "sha256": "59eccac28dd1c1fda477f03c16fc17b1421813d5188ad6af370a07a65cc5b843"
+    },
+    {
+      "file": "docs/implementation/analytics-overview-20261009/real-data.md",
+      "sha256": "8548b357d8b18d3a58371c7e287b11fa5f297789aa345bc3341858b1886a4486"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/token-verification.json",
+      "sha256": "19245c71f704476fc1eb3cef65d17c4ef64134f40489376c6f4d5360634f519b"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/schema-1791520013899.json",
+      "sha256": "aeb74a841aee00167dbb5a34fe090de770efb4235def9f5d510fe3e9f6b95add"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/schema-1791521045009.json",
+      "sha256": "83a8d7a7be1729c143420cd802f9594047a773ac6245e013e83db1668f4ac0ea"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/schema-bot-description.json",
+      "sha256": "dff0bcb8c06cddedcf3a2d2458087ceae2a7b6c117ed7d12c03c9ce83ddd912c"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-overview-1791520517547.json",
+      "sha256": "68e150509f65a53547d1c2ab41338834356efda65d64064446d2729c514fb4ea"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-read-run.log",
+      "sha256": "6c9d3f2b316d9620a98b9c37db04643b72783f618f5fa69e690f11b6c817d69e"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/schema-probe-verified.log",
+      "sha256": "d15b830552d3e223e917bbe7bee6935058afce991478909e1aa89083973e4a1b"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/secret-artifact-check.json",
+      "sha256": "144637c5e8ed99f01eefa7e7d2e9162fe19c496dc1750c64962dcf4741433b24"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/bot-filter-red.log",
+      "sha256": "c4d1d484595f6592f79e5d3c3eb93aec62ce146e6517038cf4d45635302d0375"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/bot-filter-green.log",
+      "sha256": "1effbc3c0523b25fb00d44c428dea9536edacfac1170ed8237bb21487e5a6aaa"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/bot-scope-ui-red.log",
+      "sha256": "eedb9c37c82c5b1eb335c7e180049ce0253366762296146ce5c2d299d3adf7f6"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/sampling-ui-red.log",
+      "sha256": "ea754ce30ab1a1101503dc58401e458ca3f2b78442ee359274cc26b9af063559"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-unit-final.log",
+      "sha256": "86eadb529bc5b61f3280f105fd84cbba05e36cdb07931f88907540127fbfc5b1"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-ui.log",
+      "sha256": "1de6499d6f6625a7594708975af4d27e70f76f22eef2d238d2cfecd91d28a7cf"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-node-regression.log",
+      "sha256": "93d67f2753eaf2b14936d2abb703e6621a946ae498fe5eff53daf81e022b043c"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-python-regression.log",
+      "sha256": "fc8a8b350ad675d0b8b39666bdd814589da8759c4a0f7b2b3e1135b6a16cb141"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-python-utf8.log",
+      "sha256": "f1d3e093dc837cb612857d31f30292e83fb657a8394ff5b52e6cd21d9749ae5c"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-build.log",
+      "sha256": "3d904260ff95f4df54459a070ba82ceae0507aac6eccb1285754e42cad6005a3"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-functions-build.log",
+      "sha256": "552cf8715210909c288a284472779a0b2c9a00c5fc4b0cc390705a6344603ce2"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-pagefind.log",
+      "sha256": "fa20f1d2813b1efd2b9889d9217e11eeca4de07ac54de8e2b0847b03719d94ab"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-assets.log",
+      "sha256": "a250b77787d3e9d7c02534c60eee5c2f2855b1b9d9da4bc59ab98ee78cb80a16"
+    },
+    {
+      "file": ".local-evidence/analytics-overview/real-data-links.log",
+      "sha256": "59cf0c6c3a7988431a3d910dfbb0a95e79a068c018ca80bef1e7d6ea74272c10"
+    }
+  ]
+}

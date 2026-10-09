@@ -1,0 +1,290 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\mx\\github\\Maoxin1\\mantou-blog-monitoring-plan\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--config",
+      "D:\\mx\\github\\Maoxin1\\mantou-blog-monitoring-plan\\tests\\analytics\\playwright.analytics.config.cjs",
+      "--list"
+    ],
+    "configFile": "D:\\mx\\github\\Maoxin1\\mantou-blog-monitoring-plan\\tests\\analytics\\playwright.analytics.config.cjs",
+    "rootDir": "D:/mx/github/Maoxin1/mantou-blog-monitoring-plan/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": true,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/mx/github/Maoxin1/mantou-blog-monitoring-plan/test-results/analytics",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/mx/github/Maoxin1/mantou-blog-monitoring-plan/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/bilingual.spec.js",
+          "**/portfolio.spec.js",
+          "**/analytics.spec.js"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "D:\\mx\\github\\Maoxin1\\mantou-blog-monitoring-plan\\playwright-report\\analytics\\report.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "py -3.12 -m http.server 4186 --directory public",
+      "url": "http://127.0.0.1:4186/",
+      "reuseExistingServer": false,
+      "timeout": 30000,
+      "stdout": "ignore",
+      "stderr": "ignore",
+      "cwd": "D:\\mx\\github\\Maoxin1\\mantou-blog-monitoring-plan"
+    }
+  },
+  "suites": [
+    {
+      "title": "analytics.spec.js",
+      "file": "analytics.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "TM-ANL-001 explains visits without promising UV or conversions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-4b85e43b2eeca2b2be06",
+          "file": "analytics.spec.js",
+          "line": 7,
+          "column": 1
+        },
+        {
+          "title": "TM-ANL-009 host boundary: mantou-blog.pages.dev",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-147b8a9c0a1b06dfbaf3",
+          "file": "analytics.spec.js",
+          "line": 20,
+          "column": 3
+        },
+        {
+          "title": "TM-ANL-009 host boundary: manual-preview.mantou-blog.pages.dev",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-155b8a869310e8a02ac2",
+          "file": "analytics.spec.js",
+          "line": 20,
+          "column": 3
+        },
+        {
+          "title": "TM-ANL-009 host boundary: mantou-blog.pages.dev.attacker.invalid",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-37a448bb98d471f25b02",
+          "file": "analytics.spec.js",
+          "line": 20,
+          "column": 3
+        },
+        {
+          "title": "TM-ANL-009 content backends do not include the public analytics integration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-3a186966b67fd3494dba",
+          "file": "analytics.spec.js",
+          "line": 30,
+          "column": 1
+        },
+        {
+          "title": "TM-ANL-013 a normal new document retries loading without promising historic replay",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-4d4d9d0db703a49d9a80",
+          "file": "analytics.spec.js",
+          "line": 41,
+          "column": 1
+        },
+        {
+          "title": "TM-ANL-029 public page layouts retain the approved-host integration opportunity",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-1ed8d2f76d8904002948",
+          "file": "analytics.spec.js",
+          "line": 54,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "bilingual.spec.js",
+      "file": "bilingual.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "统计入口指向需要登录的 Cloudflare 后台",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "df4db73db7703e26ab49-d24eb17d3bfb2574fc59",
+          "file": "bilingual.spec.js",
+          "line": 98,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "portfolio.spec.js",
+      "file": "portfolio.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "非生产域名不会加载 Cloudflare 统计脚本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-04c803d8ad9ff23afe66",
+          "file": "portfolio.spec.js",
+          "line": 371,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-08T03:21:27.638Z",
+    "duration": 75.34500000000003,
+    "expected": 0,
+    "skipped": 9,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

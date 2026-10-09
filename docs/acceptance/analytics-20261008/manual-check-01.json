@@ -1,0 +1,40 @@
+{
+  "evidenceId": "E-ANL-04",
+  "featureId": "ANL",
+  "source": "mantou's direct manual observation and clarification in this conversation",
+  "executor": "mantou",
+  "reviewer": "Codex",
+  "recordDate": "2026-10-08",
+  "recordClockUtc": "2026-10-08T06:05:51Z",
+  "executionDate": "2026-10-08",
+  "executionDateBasis": "User clarified today and just checked, resolved using the conversation's current date",
+  "executionTimeAsReported": "14:00",
+  "siteContext": "mantou-blog.pages.dev",
+  "rangeAsReported": "过去7天",
+  "absoluteStart": null,
+  "absoluteEnd": null,
+  "timezoneAsReported": "东八区",
+  "timezoneMeaning": "User's Beijing local time, not provider dashboard timezone",
+  "providerTimezone": null,
+  "providerTimezoneConfirmed": false,
+  "deploymentVersionObserved": null,
+  "permission": {
+    "matrixId": "TM-ANL-006",
+    "ownerSession": "可以查看报表",
+    "anonymousSession": "登录提示",
+    "status": "通过",
+    "scope": "Only the owner's authorized session and the reported unauthenticated session",
+    "limits": ["Other signed-in unauthorized users and sharing settings not checked", "Not independently repeated by Codex"]
+  },
+  "pages": [
+    { "url": "https://mantou-blog.pages.dev/p/20260803/", "reported": "正常", "clarified": "Blog page opens normally", "dashboardPathObserved": false },
+    { "url": "https://mantou-blog.pages.dev/en/p/20260803/", "reported": "正常", "clarified": "Blog page opens normally", "dashboardPathObserved": false },
+    { "url": "https://mantou-blog.pages.dev/works/mantou-checklist-pwa/", "reported": "正常", "clarified": "Blog page opens normally", "dashboardPathObserved": false }
+  ],
+  "pageViews": null,
+  "visits": null,
+  "referrerObservation": null,
+  "metricDisplayObservation": "User answered the PV/Visits/referrer question with 剩余数据可以正常显示; specific values and referrer entries were not supplied",
+  "overallStatus": "待验收",
+  "automatedDashboardAccess": false
+}

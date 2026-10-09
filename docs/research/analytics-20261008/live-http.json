@@ -1,0 +1,31 @@
+{
+  "recordedAt": "2026-10-08T01:58:50.9247249+00:00",
+  "method": "HTTP GET without JavaScript execution",
+  "observations": [
+    {
+      "url": "https://mantou-blog.pages.dev/",
+      "status": 200,
+      "loaderCount": 1,
+      "beaconUrlOccurrences": 1,
+      "directBeaconScriptTags": 0,
+      "cacheControl": "public, must-revalidate, max-age=0"
+    },
+    {
+      "url": "https://mantou-blog.pages.dev/en/",
+      "status": 200,
+      "loaderCount": 1,
+      "beaconUrlOccurrences": 1,
+      "directBeaconScriptTags": 0,
+      "cacheControl": "public, must-revalidate, max-age=0"
+    },
+    {
+      "url": "https://mantou-blog.pages.dev/admin/analytics/",
+      "status": 200,
+      "loaderCount": 0,
+      "beaconUrlOccurrences": 0,
+      "directBeaconScriptTags": 0,
+      "cacheControl": "no-store"
+    }
+  ],
+  "limitations": "Snapshot of returned HTML only; no dashboard configuration or ingestion verification."
+}

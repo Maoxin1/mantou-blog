@@ -1,0 +1,9 @@
+
+Running 1 test using 1 worker
+
+
+
+(node:16176) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/1] [chromium] › tests\e2e\analytics.spec.js:3:1 › TM-ANL-001 explains visits and source limits without promising UV or conversions
+  1 passed (2.8s)

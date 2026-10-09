@@ -1,0 +1,26 @@
+
+> mantou-blog@1.0.0 test:overview
+> node --test tests/overview/*.test.mjs
+
+✔ TM-OVW-003 rejects absent, forged, expired, wrong-audience/issuer and other-owner JWTs (47.8676ms)
+✔ TM-OVW-003 verifies real RS256 signature and owner; ignores spoofed email header (5.8182ms)
+✔ TM-OVW-003 missing identity config fails closed before verification (3.2651ms)
+✔ TM-OVW-007 actual Wrangler output is an advanced-mode module directory, not a multipart upload body (1425.4487ms)
+✔ TM-OVW-002 exposes absolute change and never divides by a zero baseline (3.8924ms)
+✔ TM-OVW-007 backend is compiled into the credential-free verified artifact before packaging (2.6947ms)
+✔ TM-OVW-007 authorization runs before data access or cache; private response is no-store (4.7112ms)
+✔ TM-OVW-006 repeated authorized reads share in-flight result; failure has no success/zero body (5.7196ms)
+✔ TM-OVW-007 authorization wrapper preserves HTML and status while replacing cache headers (41.8996ms)
+✔ TM-OVW-001 excludes today and returns adjacent complete Beijing 7-day periods (6.2754ms)
+✔ TM-OVW-001 Beijing midnight, leap day and year boundary use complete days (1.0394ms)
+✔ TM-OVW-001 seeded date property checks; seed=20261009, samples=256 (4.4367ms)
+✔ TM-OVW-004 reads both periods, daily counts and ranked paths/sources under fixed site filters (48.7408ms)
+✔ TM-OVW-004 valid empty aggregates are explicit zero, missing/partial/HTTP failures are not zero (6.8365ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1574.2107

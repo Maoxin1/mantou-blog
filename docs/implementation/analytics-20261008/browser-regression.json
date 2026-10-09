@@ -1,0 +1,4439 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "D:\\mx\\github\\Maoxin1\\mantou-blog-monitoring-plan\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--reporter=line,json"
+    ],
+    "configFile": "D:\\mx\\github\\Maoxin1\\mantou-blog-monitoring-plan\\playwright.config.js",
+    "rootDir": "D:/mx/github/Maoxin1/mantou-blog-monitoring-plan/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/mx/github/Maoxin1/mantou-blog-monitoring-plan/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "D:/mx/github/Maoxin1/mantou-blog-monitoring-plan/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line"
+      ],
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": {
+      "command": "py -3.12 -m http.server 4174 --directory public",
+      "url": "http://127.0.0.1:4174/",
+      "reuseExistingServer": true,
+      "timeout": 30000,
+      "stdout": "ignore",
+      "stderr": "ignore"
+    }
+  },
+  "suites": [
+    {
+      "title": "accessibility.spec.js",
+      "file": "accessibility.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "正文链接在浅色和深色主题中都达到常规文字对比度",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 768,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:36.336Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d316df4bad39fab891ed-52543ffc296d5a57b1b8",
+          "file": "accessibility.spec.js",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "文章辅助信息在浅色和深色主题中都保持可读",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 511,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:37.285Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d316df4bad39fab891ed-961f2c4b4225098ec233",
+          "file": "accessibility.spec.js",
+          "line": 50,
+          "column": 1
+        },
+        {
+          "title": "键盘焦点有清晰指示，关注对话框带有完整说明",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1862,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:37.812Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d316df4bad39fab891ed-5c1e74d088e76ef7ed5e",
+          "file": "accessibility.spec.js",
+          "line": 67,
+          "column": 1
+        },
+        {
+          "title": "减少动态效果偏好会降低交互动效",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 488,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:39.687Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d316df4bad39fab891ed-66870c2be3b0986648a6",
+          "file": "accessibility.spec.js",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "深色作品页的按钮与标签保持 AA 对比度",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 688,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:40.188Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d316df4bad39fab891ed-6a65e28f024ff67da2d0",
+          "file": "accessibility.spec.js",
+          "line": 110,
+          "column": 1
+        },
+        {
+          "title": "首页主题切换使用语义化按钮，不输出 javascript 链接",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 481,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:40.889Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d316df4bad39fab891ed-db045beb05992bd90232",
+          "file": "accessibility.spec.js",
+          "line": 130,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "admin-aliases.spec.js",
+      "file": "admin-aliases.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "/admin/ registers the shared alias hook with the real pinned CMS",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5615,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:41.390Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "36344274f916a584e318-f76ad524568fcd403491",
+          "file": "admin-aliases.spec.js",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "/admin/sveltia/ registers the shared alias hook with the real pinned CMS",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3485,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:47.019Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "36344274f916a584e318-c83179228a0ad7f0382e",
+          "file": "admin-aliases.spec.js",
+          "line": 4,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "admin-mobile.spec.js",
+      "file": "admin-mobile.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Decap 后台在真实移动设备参数下可触控且不横向溢出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5479,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:44.008Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "83b7609f23e07d5f0451-4150ae826fd880effced",
+          "file": "admin-mobile.spec.js",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Sveltia 后台在真实移动设备参数下可触控且不横向溢出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5266,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:49.757Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "83b7609f23e07d5f0451-4569fa6015ff816c64d1",
+          "file": "admin-mobile.spec.js",
+          "line": 9,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "admin.spec.js",
+      "file": "admin.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "内容后台加载并提供受保护的 GitHub 登录入口",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4539,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:50.530Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "73482573f1568b679d78-f67aa6135586bee7b3af",
+          "file": "admin.spec.js",
+          "line": 4,
+          "column": 1
+        },
+        {
+          "title": "公开的后台配置固定使用 PR 发布工作流",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 28,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:55.083Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "73482573f1568b679d78-4516398b2fbe0a591556",
+          "file": "admin.spec.js",
+          "line": 19,
+          "column": 1
+        },
+        {
+          "title": "Sveltia 灰度后台复用受保护配置并提供 GitHub 登录入口",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3112,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:55.122Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "73482573f1568b679d78-2993cd09514d54d8ab2e",
+          "file": "admin.spec.js",
+          "line": 29,
+          "column": 1
+        },
+        {
+          "title": "Sveltia 可以安装为品牌化的 mantou 桌面应用",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3205,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:47:58.249Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "73482573f1568b679d78-04224e290f525bc3438f",
+          "file": "admin.spec.js",
+          "line": 42,
+          "column": 1
+        },
+        {
+          "title": "Sveltia 主 CDN 失败后会改用固定版本的备用 CDN",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3479,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:01.464Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "73482573f1568b679d78-a7bf8a1dbfa22f5e2f3b",
+          "file": "admin.spec.js",
+          "line": 74,
+          "column": 1
+        },
+        {
+          "title": "Sveltia 两个 CDN 都失败时显示可恢复提示",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 242,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:04.955Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "73482573f1568b679d78-69d2fcbc87796b368135",
+          "file": "admin.spec.js",
+          "line": 86,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "analytics.spec.js",
+      "file": "analytics.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "TM-ANL-001 explains visits without promising UV or conversions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 211,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:05.226Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-4b85e43b2eeca2b2be06",
+          "file": "analytics.spec.js",
+          "line": 6,
+          "column": 1
+        },
+        {
+          "title": "TM-ANL-009 host boundary: mantou-blog.pages.dev",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 489,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:05.449Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-147b8a9c0a1b06dfbaf3",
+          "file": "analytics.spec.js",
+          "line": 19,
+          "column": 3
+        },
+        {
+          "title": "TM-ANL-009 host boundary: manual-preview.mantou-blog.pages.dev",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 454,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:05.948Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-155b8a869310e8a02ac2",
+          "file": "analytics.spec.js",
+          "line": 19,
+          "column": 3
+        },
+        {
+          "title": "TM-ANL-009 host boundary: mantou-blog.pages.dev.attacker.invalid",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 474,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:06.414Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-37a448bb98d471f25b02",
+          "file": "analytics.spec.js",
+          "line": 19,
+          "column": 3
+        },
+        {
+          "title": "TM-ANL-009 content backends do not include the public analytics integration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 356,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:06.901Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-3a186966b67fd3494dba",
+          "file": "analytics.spec.js",
+          "line": 29,
+          "column": 1
+        },
+        {
+          "title": "TM-ANL-013 a normal new document retries loading without promising historic replay",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 655,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:07.270Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0311e98a1a308e49cae4-4d4d9d0db703a49d9a80",
+          "file": "analytics.spec.js",
+          "line": 40,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "anchor-clearance.spec.js",
+      "file": "anchor-clearance.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "1440px sticky navigation clears all three home shortcuts and article headings",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1272,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:07.942Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "addadc3aa37c9d2be085-4932cab4c89beceb5d68",
+          "file": "anchor-clearance.spec.js",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "768px sticky navigation clears all three home shortcuts and article headings",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1438,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:09.226Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "addadc3aa37c9d2be085-c70d37229fa95889cff6",
+          "file": "anchor-clearance.spec.js",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "390px sticky navigation clears all three home shortcuts and article headings",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:10.679Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "addadc3aa37c9d2be085-e9e4cc6cf0c276fc4a2e",
+          "file": "anchor-clearance.spec.js",
+          "line": 4,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "article-archive.spec.js",
+      "file": "article-archive.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "文章页保留可读的上下文、正文索引和阅读路径",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 733,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:11.931Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6b8dc101a6473124eff0-c566ad9854e96062c0d9",
+          "file": "article-archive.spec.js",
+          "line": 16,
+          "column": 1
+        },
+        {
+          "title": "文章归档能按年份扫描并进入文章",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 396,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:12.675Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "6b8dc101a6473124eff0-d23aced55a529bd4e41d",
+          "file": "article-archive.spec.js",
+          "line": 29,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "bilingual.spec.js",
+      "file": "bilingual.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "语言切换在桌面与手机保留当前文章，中文地址不变",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1084,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:13.088Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "df4db73db7703e26ab49-91bcae986f2432aa9945",
+          "file": "bilingual.spec.js",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "英文搜索只返回英文内容，订阅使用英文 Feed",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 890,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:14.182Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "df4db73db7703e26ab49-5e777ae413f460bf62ff",
+          "file": "bilingual.spec.js",
+          "line": 18,
+          "column": 1
+        },
+        {
+          "title": "分页归档切换语言保留页码和 SEO 地址",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 521,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:15.083Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "df4db73db7703e26ab49-9b670e7044f2104e496b",
+          "file": "bilingual.spec.js",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "英文主要页面有正确语言与单一标题，移动布局不溢出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1327,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:15.614Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "df4db73db7703e26ab49-f7fadf77fd4f760db8d6",
+          "file": "bilingual.spec.js",
+          "line": 39,
+          "column": 1
+        },
+        {
+          "title": "归档标题完整显示，作品正文无需越过整张图表",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 730,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:16.951Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "df4db73db7703e26ab49-9f11955517a6c1d0288d",
+          "file": "bilingual.spec.js",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "两种语言的 RSS 都包含全部文章与作品",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 256,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:17.692Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "df4db73db7703e26ab49-68ef30ec0d4fcb8229a9",
+          "file": "bilingual.spec.js",
+          "line": 74,
+          "column": 1
+        },
+        {
+          "title": "统计入口指向需要登录的 Cloudflare 后台",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 215,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:17.956Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "df4db73db7703e26ab49-d24eb17d3bfb2574fc59",
+          "file": "bilingual.spec.js",
+          "line": 98,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "comic-reading.spec.js",
+      "file": "comic-reading.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "320px 首页首屏展示完整的推荐文章标题",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 445,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:18.185Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "455870e2c9c987a90bc4-5eca92d813e789051c25",
+          "file": "comic-reading.spec.js",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "390px 首页首屏展示完整的推荐文章标题",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 423,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:18.639Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "455870e2c9c987a90bc4-004c693b9cb21d52cc29",
+          "file": "comic-reading.spec.js",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "1366px 首页首屏展示完整的推荐文章标题",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 470,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:19.073Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "455870e2c9c987a90bc4-9722ca20e143cc6a8c6c",
+          "file": "comic-reading.spec.js",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "/ 精选分类可切换并进入真实文章",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1845,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:19.552Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "455870e2c9c987a90bc4-45f6b913255db763fadc",
+          "file": "comic-reading.spec.js",
+          "line": 13,
+          "column": 3
+        },
+        {
+          "title": "/en/ 精选分类可切换并进入真实文章",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1753,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:21.410Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "455870e2c9c987a90bc4-a20a7e7e8cf1f418e932",
+          "file": "comic-reading.spec.js",
+          "line": 13,
+          "column": 3
+        },
+        {
+          "title": "无 JavaScript 时所有精选文章仍可阅读",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 724,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:23.173Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "455870e2c9c987a90bc4-571ba0076a15d1254de9",
+          "file": "comic-reading.spec.js",
+          "line": 33,
+          "column": 1
+        },
+        {
+          "title": "桌面目录跳转后标题可见，手机保留可展开目录",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 841,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:23.907Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "455870e2c9c987a90bc4-11eeddc2ff268139d37c",
+          "file": "comic-reading.spec.js",
+          "line": 44,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "core-copy.spec.js",
+      "file": "core-copy.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "首页同时呈现最近更新、精选文章和实际工具",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 506,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:24.764Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "370828d2c566979068f1-e6cc56f7c1b5c34c90b9",
+          "file": "core-copy.spec.js",
+          "line": 9,
+          "column": 1
+        },
+        {
+          "title": "当前下注清单分别显示已完成复核与每周日复查计划",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 712,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:25.280Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "370828d2c566979068f1-a9efadb4efbf68c1efd0",
+          "file": "core-copy.spec.js",
+          "line": 22,
+          "column": 1
+        },
+        {
+          "title": "作品集使用作品自身摘要引导读者进入公开案例",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 695,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:26.001Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "370828d2c566979068f1-347a50f7b7b27ebef299",
+          "file": "core-copy.spec.js",
+          "line": 54,
+          "column": 1
+        },
+        {
+          "title": "关于页区分实践范围、公开证据和联系前提",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 504,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:26.706Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "370828d2c566979068f1-ddfedc8301a82bcec34d",
+          "file": "core-copy.spec.js",
+          "line": 69,
+          "column": 1
+        },
+        {
+          "title": "关注页准确说明两种送达方式及第三方边界",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 422,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:27.221Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "370828d2c566979068f1-1dd5330571ef4eef297d",
+          "file": "core-copy.spec.js",
+          "line": 88,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "garden-layout.spec.js",
+      "file": "garden-layout.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "1440px 顶部导航固定且不遮挡首页，跳转与深色主题可用",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1178,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:27.661Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3957d24fcd708b88333-d937ac7b4c1d9723e15d",
+          "file": "garden-layout.spec.js",
+          "line": 12,
+          "column": 1
+        },
+        {
+          "title": "390px 顶部导航滚动后仍可见，菜单可收起并保留搜索和语言入口",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1563,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:28.849Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3957d24fcd708b88333-652b16e34004ee41318d",
+          "file": "garden-layout.spec.js",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "390px 身份文章正文与导航无横向溢出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 607,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:30.425Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3957d24fcd708b88333-f71f8e592914c4549258",
+          "file": "garden-layout.spec.js",
+          "line": 92,
+          "column": 3
+        },
+        {
+          "title": "820px 身份文章正文与导航无横向溢出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 639,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:31.041Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3957d24fcd708b88333-5ea54c44a7149f35c0d6",
+          "file": "garden-layout.spec.js",
+          "line": 92,
+          "column": 3
+        },
+        {
+          "title": "1024px 身份文章正文与导航无横向溢出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 640,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:31.691Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3957d24fcd708b88333-64666e03c3606732e246",
+          "file": "garden-layout.spec.js",
+          "line": 92,
+          "column": 3
+        },
+        {
+          "title": "1025px 身份文章正文与导航无横向溢出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 759,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:32.340Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3957d24fcd708b88333-c0dc805395c0334105c6",
+          "file": "garden-layout.spec.js",
+          "line": 92,
+          "column": 3
+        },
+        {
+          "title": "1440px 身份文章正文与导航无横向溢出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 812,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:33.108Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3957d24fcd708b88333-097a5f7f719e66d0e28b",
+          "file": "garden-layout.spec.js",
+          "line": 92,
+          "column": 3
+        },
+        {
+          "title": "旧固定样式缓存不会覆盖新版身份样式",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 691,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:33.931Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e3957d24fcd708b88333-323d5ca4ad3d550e22c2",
+          "file": "garden-layout.spec.js",
+          "line": 132,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "homepage-display.spec.js",
+      "file": "homepage-display.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "首页在 1366px 同时提供文章与作品的实质入口",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1060,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:34.637Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9158bfa7d7508da44eaf-a7e273d28b2f125a8613",
+          "file": "homepage-display.spec.js",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "首页在 390px 同时提供文章与作品的实质入口",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 956,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:35.707Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9158bfa7d7508da44eaf-affee07fd31bd33186c4",
+          "file": "homepage-display.spec.js",
+          "line": 4,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "navigation.spec.js",
+      "file": "navigation.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "主导航提供文章、作品、近况与关于路径",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 512,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:36.677Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ce7c070a851ea64285fd-bbb5a7db979c2275a8b8",
+          "file": "navigation.spec.js",
+          "line": 16,
+          "column": 1
+        },
+        {
+          "title": "分类总览说明内容归属并提供当前公开状态入口",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 535,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:37.203Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ce7c070a851ea64285fd-0d2403fd4715ab1cdac1",
+          "file": "navigation.spec.js",
+          "line": 27,
+          "column": 1
+        },
+        {
+          "title": "移动端导航保留语义化主导航与当前页状态",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 471,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:37.752Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ce7c070a851ea64285fd-90000b67978e4e86ad7b",
+          "file": "navigation.spec.js",
+          "line": 39,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "offline-reliability.spec.js",
+      "file": "offline-reliability.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "已缓存正文经历 200 → 503 → 断网仍可阅读",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 828,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:38.240Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3e8799420c587cabca0f-d20a84f6df5361c4ecb5",
+          "file": "offline-reliability.spec.js",
+          "line": 119,
+          "column": 1
+        },
+        {
+          "title": "未缓存页面的 503 按语言回退，错误内容不入缓存",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 335,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:39.095Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3e8799420c587cabca0f-04b349062d8309be10d2",
+          "file": "offline-reliability.spec.js",
+          "line": 141,
+          "column": 1
+        },
+        {
+          "title": "网络挂起时在有界等待后回退正文或对应语言离线页",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 8774,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:39.441Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3e8799420c587cabca0f-eb73993519329ef94985",
+          "file": "offline-reliability.spec.js",
+          "line": 157,
+          "column": 1
+        },
+        {
+          "title": "静态资源后台刷新不以 503 覆盖成功版本，恢复后可更新",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 607,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:48.227Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3e8799420c587cabca0f-757934dd710573658c13",
+          "file": "offline-reliability.spec.js",
+          "line": 175,
+          "column": 1
+        },
+        {
+          "title": "激活只清理本站旧版本，保留同源其他应用缓存",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 217,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:48.846Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3e8799420c587cabca0f-be9d1ba91a40876549f5",
+          "file": "offline-reliability.spec.js",
+          "line": 192,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "portfolio.spec.js",
+      "file": "portfolio.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "访客能从首页进入工具、目录与证据",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1929,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:49.090Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-d7c9365aa2d4d159f659",
+          "file": "portfolio.spec.js",
+          "line": 27,
+          "column": 1
+        },
+        {
+          "title": "身体作品展示真实阶段证据与缺失周",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 548,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:51.030Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-557225c6d1fc01980ea4",
+          "file": "portfolio.spec.js",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "核心页面没有浏览器运行时错误",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1032,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:51.589Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-7ef202a35a585f6085d0",
+          "file": "portfolio.spec.js",
+          "line": 77,
+          "column": 1
+        },
+        {
+          "title": "作品集中的每个公开作品都能完成浏览器验收",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2165,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:52.633Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-4f7bf97646c8d87ee3dc",
+          "file": "portfolio.spec.js",
+          "line": 91,
+          "column": 1
+        },
+        {
+          "title": "核心页面在桌面、平板和手机宽度下不产生横向溢出",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2271,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:54.809Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-cbc46bb799ac0dc43391",
+          "file": "portfolio.spec.js",
+          "line": 129,
+          "column": 1
+        },
+        {
+          "title": "平板宽度下的长标题与说明保持分行且可读",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 505,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:57.090Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-18ac05477aad1eab3dc3",
+          "file": "portfolio.spec.js",
+          "line": 153,
+          "column": 1
+        },
+        {
+          "title": "核心页面保留基础语义与 SEO 信息",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1421,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:57.609Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-71893de776f643dc88d0",
+          "file": "portfolio.spec.js",
+          "line": 176,
+          "column": 1
+        },
+        {
+          "title": "主题切换会写入本地状态并在刷新后保留",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 708,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:59.043Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-891b8d85dbf8e806d82e",
+          "file": "portfolio.spec.js",
+          "line": 187,
+          "column": 1
+        },
+        {
+          "title": "手机导航可以展开并进入作品集",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 617,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:48:59.760Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-5c6230ebab6babb2e453",
+          "file": "portfolio.spec.js",
+          "line": 201,
+          "column": 1
+        },
+        {
+          "title": "手机导航向键盘与辅助技术暴露真实状态",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 561,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:00.387Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-4e060ebc6be5695edc9c",
+          "file": "portfolio.spec.js",
+          "line": 212,
+          "column": 1
+        },
+        {
+          "title": "作品卡入口完整可见，作品型页面跨主题断点保持连续宽度",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1117,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:00.958Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-b149d744168ccf606abe",
+          "file": "portfolio.spec.js",
+          "line": 234,
+          "column": 1
+        },
+        {
+          "title": "文章分享地址使用短英文路径且旧中文地址继续跳转",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1547,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:02.087Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-152c432158a0ee65ba9e",
+          "file": "portfolio.spec.js",
+          "line": 269,
+          "column": 1
+        },
+        {
+          "title": "访客可以从首页一键打开关注入口并继续使用 RSS",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 634,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:03.646Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-c37bc29bb9374b8babea",
+          "file": "portfolio.spec.js",
+          "line": 282,
+          "column": 1
+        },
+        {
+          "title": "关注页、文章和作品结尾都提供可发现的关注路径",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 804,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:04.289Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-70b8a7b1fd828893b065",
+          "file": "portfolio.spec.js",
+          "line": 308,
+          "column": 1
+        },
+        {
+          "title": "中文搜索可以找到并打开公开作品",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1594,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:05.104Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-314af1329c73585e5f1f",
+          "file": "portfolio.spec.js",
+          "line": 329,
+          "column": 1
+        },
+        {
+          "title": "搜索关键词能通过网址分享，并在返回搜索页时恢复",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1627,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:06.707Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-727ececee75eab5f266d",
+          "file": "portfolio.spec.js",
+          "line": 345,
+          "column": 1
+        },
+        {
+          "title": "非生产域名不会加载 Cloudflare 统计脚本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 703,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:08.344Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1e37615933ad85f00b37-04c803d8ad9ff23afe66",
+          "file": "portfolio.spec.js",
+          "line": 371,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "pwa-install.spec.js",
+      "file": "pwa-install.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Android Chrome has a visible mobile install entry and menu fallback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 599,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:09.064Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5f8919588e3140427589-9251ebc2c17e4df19c9d",
+          "file": "pwa-install.spec.js",
+          "line": 34,
+          "column": 1
+        },
+        {
+          "title": "an eligible Android click invokes only the captured native prompt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 746,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:09.673Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5f8919588e3140427589-157707aecf461f88548d",
+          "file": "pwa-install.spec.js",
+          "line": 52,
+          "column": 1
+        },
+        {
+          "title": "dismissal keeps a usable manual guide without replaying the consumed prompt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1067,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:10.436Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5f8919588e3140427589-88c766d19e3ebb319203",
+          "file": "pwa-install.spec.js",
+          "line": 63,
+          "column": 1
+        },
+        {
+          "title": "iPhone receives Safari instructions instead of an unavailable native prompt",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 779,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:11.523Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5f8919588e3140427589-b849de7894e7724f1a39",
+          "file": "pwa-install.spec.js",
+          "line": 76,
+          "column": 1
+        },
+        {
+          "title": "embedded browsers receive a clean public link and browser instructions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 760,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:12.328Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5f8919588e3140427589-db14f5df588f157e9d85",
+          "file": "pwa-install.spec.js",
+          "line": 85,
+          "column": 1
+        },
+        {
+          "title": "standalone apps do not display redundant install controls",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 690,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:13.110Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5f8919588e3140427589-e521f507dd78556d3d67",
+          "file": "pwa-install.spec.js",
+          "line": 98,
+          "column": 1
+        },
+        {
+          "title": "unsupported dialog elements stay closed and can open and close the fallback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 963,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:13.817Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5f8919588e3140427589-774f857193b8ef995109",
+          "file": "pwa-install.spec.js",
+          "line": 104,
+          "column": 1
+        },
+        {
+          "title": "actual HTTP redirects in cached offline pages still produce bilingual fallback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 777,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:14.798Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5f8919588e3140427589-50e7895fb1a297335648",
+          "file": "pwa-install.spec.js",
+          "line": 128,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "pwa.spec.js",
+      "file": "pwa.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "已访问作品断网可读，未访问路径显示离线说明",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1372,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:15.594Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0f8a11f6b134d8d9346-38d151dd1c1954ee833d",
+          "file": "pwa.spec.js",
+          "line": 13,
+          "column": 1
+        },
+        {
+          "title": "所有后台入口和配置都不进入 PWA 缓存",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 899,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:16.992Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "b0f8a11f6b134d8d9346-e8e15f4bc9987901d697",
+          "file": "pwa.spec.js",
+          "line": 38,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "reader-audit.spec.js",
+      "file": "reader-audit.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "订阅说明标题在两主题中清晰可见 /zh",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 693,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:17.933Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d6a3a37aa940614c7d1-87edeb45b944f50d65f0",
+          "file": "reader-audit.spec.js",
+          "line": 14,
+          "column": 3
+        },
+        {
+          "title": "文章锚点和反馈跳转后可明确回到文章列表 /zh",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2945,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:18.643Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d6a3a37aa940614c7d1-4c596972f574168ca03f",
+          "file": "reader-audit.spec.js",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "首页作品保留首发日期并显示真实更新 /zh",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 894,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:21.607Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d6a3a37aa940614c7d1-27306081afe21fae8d2b",
+          "file": "reader-audit.spec.js",
+          "line": 48,
+          "column": 3
+        },
+        {
+          "title": "搜索结果含类型和首发日期并保留章节链接 /zh",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1536,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:22.525Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d6a3a37aa940614c7d1-1f13c51063f79d730794",
+          "file": "reader-audit.spec.js",
+          "line": 62,
+          "column": 3
+        },
+        {
+          "title": "订阅说明标题在两主题中清晰可见 /en",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 731,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:24.086Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d6a3a37aa940614c7d1-9b17ba065e3bced2c6f3",
+          "file": "reader-audit.spec.js",
+          "line": 14,
+          "column": 3
+        },
+        {
+          "title": "文章锚点和反馈跳转后可明确回到文章列表 /en",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3387,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:24.841Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d6a3a37aa940614c7d1-ed22febc051b1820782a",
+          "file": "reader-audit.spec.js",
+          "line": 29,
+          "column": 3
+        },
+        {
+          "title": "首页作品保留首发日期并显示真实更新 /en",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 725,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:28.251Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d6a3a37aa940614c7d1-80bee9f72e7ca43b452f",
+          "file": "reader-audit.spec.js",
+          "line": 48,
+          "column": 3
+        },
+        {
+          "title": "搜索结果含类型和首发日期并保留章节链接 /en",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1321,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:29.001Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d6a3a37aa940614c7d1-213267c75e26f3be7503",
+          "file": "reader-audit.spec.js",
+          "line": 62,
+          "column": 3
+        },
+        {
+          "title": "旧文分类与作品集名称区分且原分类 URL 保持不变",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 806,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:30.348Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "3d6a3a37aa940614c7d1-4365971d618d2be7a6c9",
+          "file": "reader-audit.spec.js",
+          "line": 79,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "reader-entrypoints.spec.js",
+      "file": "reader-entrypoints.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "首页在 1366px 读完精选后能直达最近更新",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1595,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:31.178Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d1c9ebb148c489f010b5-f43c6b94da1c5efaf25c",
+          "file": "reader-entrypoints.spec.js",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "首页在 390px 读完精选后能直达最近更新",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1534,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:32.793Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d1c9ebb148c489f010b5-325f1dd17bc538d7a732",
+          "file": "reader-entrypoints.spec.js",
+          "line": 4,
+          "column": 3
+        },
+        {
+          "title": "英文关注页先展示可用的 RSS，中文页先展示邮箱",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 689,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:34.345Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d1c9ebb148c489f010b5-40b5f91a1bb80aa3a17d",
+          "file": "reader-entrypoints.spec.js",
+          "line": 20,
+          "column": 1
+        },
+        {
+          "title": "英文工具入口明确标注中文界面，短图文不显示零分钟",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1415,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:35.048Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d1c9ebb148c489f010b5-3baed087bca86ee1fa1d",
+          "file": "reader-entrypoints.spec.js",
+          "line": 30,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "reader-feedback.spec.js",
+      "file": "reader-feedback.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "真实照片在 1366px 加载并能进入来源文章",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2664,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:49:36.489Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ca7ad9cb1027cc9a35a7-5f3fc374fa2ad9f463d2",
+          "file": "reader-feedback.spec.js",
+          "line": 75,
+          "column": 3
+        },
+        {
+          "title": "真实照片在 390px 加载并能进入来源文章",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2464,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:09.193Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ca7ad9cb1027cc9a35a7-cb83527eff92331d8ce1",
+          "file": "reader-feedback.spec.js",
+          "line": 75,
+          "column": 3
+        },
+        {
+          "title": "未配置服务时提供真实邮件反馈，不展示点赞或评论计数",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1890,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:11.682Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ca7ad9cb1027cc9a35a7-c7c8b5c65edf68b39e21",
+          "file": "reader-feedback.spec.js",
+          "line": 97,
+          "column": 1
+        },
+        {
+          "title": "评论按需加载，键盘点赞与取消都读回服务端总数",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2320,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:13.600Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ca7ad9cb1027cc9a35a7-0187f3ec9d0e138c23f6",
+          "file": "reader-feedback.spec.js",
+          "line": 119,
+          "column": 1
+        },
+        {
+          "title": "服务故障可重试，点赞保存失败不显示成功",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1848,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:15.966Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ca7ad9cb1027cc9a35a7-8e3e29996a0ec03e9725",
+          "file": "reader-feedback.spec.js",
+          "line": 147,
+          "column": 1
+        },
+        {
+          "title": "无需登录和邮箱即可提交，服务拒绝时保留留言草稿",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1473,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:17.859Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ca7ad9cb1027cc9a35a7-8c557058ba4fb21d0ce7",
+          "file": "reader-feedback.spec.js",
+          "line": 170,
+          "column": 1
+        },
+        {
+          "title": "TM-019：异步 UA 准备、连续点击和快捷键共用一次提交锁",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1727,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:19.366Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ca7ad9cb1027cc9a35a7-bbc5c4f5dcb7df44c25c",
+          "file": "reader-feedback.spec.js",
+          "line": 188,
+          "column": 1
+        },
+        {
+          "title": "TM-024：CSS 明确加载失败后保留正文邮件，恢复后可显式重试",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1541,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:21.119Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ca7ad9cb1027cc9a35a7-1a9ef7f37b438f6a9ed8",
+          "file": "reader-feedback.spec.js",
+          "line": 236,
+          "column": 3
+        },
+        {
+          "title": "TM-024：JS 明确加载失败后保留正文邮件，恢复后可显式重试",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1989,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:22.691Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ca7ad9cb1027cc9a35a7-e0471f83bbffa16e61c4",
+          "file": "reader-feedback.spec.js",
+          "line": 236,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "release-audit.spec.js",
+      "file": "release-audit.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "移动导航按钮满足 WCAG 最低触控尺寸",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1060,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:28.559Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe80b148d99b6fe8a7fc-f89c779fb6dc37440213",
+          "file": "release-audit.spec.js",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "内容后台不会被搜索引擎索引",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 607,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:29.649Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe80b148d99b6fe8a7fc-4052a5ec4f7101f89720",
+          "file": "release-audit.spec.js",
+          "line": 22,
+          "column": 1
+        },
+        {
+          "title": "未启用的媒体运行时不会进入生产页面",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1405,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:30.289Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe80b148d99b6fe8a7fc-f15e8880f92fd837d163",
+          "file": "release-audit.spec.js",
+          "line": 31,
+          "column": 1
+        },
+        {
+          "title": "文章图片使用浏览器原生懒加载并保留固有尺寸",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1106,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:31.723Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe80b148d99b6fe8a7fc-17c399086f8e92602ef3",
+          "file": "release-audit.spec.js",
+          "line": 39,
+          "column": 1
+        },
+        {
+          "title": "文章视频使用可复用的响应式播放器",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 870,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:32.851Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "fe80b148d99b6fe8a7fc-3886ab79cc4a6b99680c",
+          "file": "release-audit.spec.js",
+          "line": 52,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "social-seo.spec.js",
+      "file": "social-seo.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "核心公开页输出唯一、绝对且可索引的社交与搜索元数据",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3908,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:33.747Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cde15cb0fcdc15224d0b-8bd39f633a2701b53a47",
+          "file": "social-seo.spec.js",
+          "line": 14,
+          "column": 1
+        },
+        {
+          "title": "未手写摘要的文章输出自身内容摘要，而非站点通用文案",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 687,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:37.672Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cde15cb0fcdc15224d0b-a98287c6c56d63b80b2b",
+          "file": "social-seo.spec.js",
+          "line": 65,
+          "column": 1
+        },
+        {
+          "title": "纯图片文章保留编辑摘要与有意义的替代文本",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 680,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:38.381Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cde15cb0fcdc15224d0b-c66d2532f947d0bfca51",
+          "file": "social-seo.spec.js",
+          "line": 72,
+          "column": 1
+        },
+        {
+          "title": "尚无页面特色图时，所有核心页回退到同一稳定站点预览图",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1999,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:39.091Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cde15cb0fcdc15224d0b-ca1aaf7df92bda9b0595",
+          "file": "social-seo.spec.js",
+          "line": 78,
+          "column": 1
+        },
+        {
+          "title": "归档分页使用自己的 canonical 和 Open Graph 地址",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 601,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-08T02:50:41.112Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "cde15cb0fcdc15224d0b-7978675508d6bddec6b0",
+          "file": "social-seo.spec.js",
+          "line": 90,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-08T02:47:34.062Z",
+    "duration": 201478.207,
+    "expected": 123,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

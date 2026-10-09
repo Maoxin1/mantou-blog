@@ -1,0 +1,133 @@
+{
+  "evidenceId": "E-ANL-23",
+  "recordedAtUtc": "2026-10-09T00:28:31.299Z",
+  "localBaseline": "39b51748776c4f723007b60c3c77893d16c8faf2",
+  "productionVersionObservation": {
+    "evidenceId": "E-ANL-22",
+    "recordedAtUtc": "2026-10-09T00:27:01.476Z",
+    "source": "Read-only production version.json fetch",
+    "status": 200,
+    "version": {
+      "commit_sha": "175ca52437f7c3067664bbd0719e8973a3ae1656",
+      "deploy_branch": "main",
+      "run_id": "37793973872",
+      "run_attempt": "1"
+    }
+  },
+  "sourceObjectsFetchedOnly": true,
+  "localHead": "39b51748776c4f723007b60c3c77893d16c8faf2",
+  "sourceComparison": [
+    {
+      "file": "layouts/partials/analytics.html",
+      "baselineBlob": "58b4cd4aace77a0de2d59d620e00f330a78bb8f9",
+      "productionBlob": "58b4cd4aace77a0de2d59d620e00f330a78bb8f9"
+    },
+    {
+      "file": "layouts/partials/head/custom.html",
+      "baselineBlob": "de0e83c8db88930ac703ac1078d8b1929fd9d6b1",
+      "productionBlob": "de0e83c8db88930ac703ac1078d8b1929fd9d6b1"
+    },
+    {
+      "file": "static/admin/index.html",
+      "baselineBlob": "677ef9883543c60e5c827d4bfbc6dd9e062cb158",
+      "productionBlob": "677ef9883543c60e5c827d4bfbc6dd9e062cb158"
+    },
+    {
+      "file": "static/admin/sveltia/index.html",
+      "baselineBlob": "52539baef76db3c8abd9213b4587a5c49a597b5f",
+      "productionBlob": "52539baef76db3c8abd9213b4587a5c49a597b5f"
+    },
+    {
+      "file": "static/admin/analytics/index.html",
+      "baselineBlob": "6e84f8c2befb951ddadb83c4fa67e44d44dac181",
+      "productionBlob": "6e84f8c2befb951ddadb83c4fa67e44d44dac181"
+    },
+    {
+      "file": "static/sw.js",
+      "baselineBlob": "afd593e30ff47cb97babcf0a874c704b030bf1a2",
+      "productionBlob": "afd593e30ff47cb97babcf0a874c704b030bf1a2"
+    },
+    {
+      "file": "package.json",
+      "baselineBlob": "7875d5c633b66d8dc76bb38756ede8bc5a7cc544",
+      "productionBlob": "7875d5c633b66d8dc76bb38756ede8bc5a7cc544"
+    },
+    {
+      "file": "package-lock.json",
+      "baselineBlob": "39305e16b218c90604bf5a83290a9429f7a41685",
+      "productionBlob": "39305e16b218c90604bf5a83290a9429f7a41685"
+    },
+    {
+      "file": "playwright.config.js",
+      "baselineBlob": "2ef558ef4909833aed03d7e9858b7a54a0c88d41",
+      "productionBlob": "2ef558ef4909833aed03d7e9858b7a54a0c88d41"
+    },
+    {
+      "file": "tests/e2e/bilingual.spec.js",
+      "baselineBlob": "775502c4fdbd2b21896f84bb38dffed2a51f3bff",
+      "productionBlob": "775502c4fdbd2b21896f84bb38dffed2a51f3bff"
+    },
+    {
+      "file": "tests/e2e/portfolio.spec.js",
+      "baselineBlob": "84f02c15f5c012c80ebcb9046817d4187081704c",
+      "productionBlob": "84f02c15f5c012c80ebcb9046817d4187081704c"
+    },
+    {
+      "file": "tests/e2e/pwa.spec.js",
+      "baselineBlob": "0672d5bd946c4e5fe9024cced21e3543e13137af",
+      "productionBlob": "0672d5bd946c4e5fe9024cced21e3543e13137af"
+    },
+    {
+      "file": "tests/e2e/pwa-install.spec.js",
+      "baselineBlob": "a68de8e52a53daab646d98eb21ee413a5c145b9e",
+      "productionBlob": "a68de8e52a53daab646d98eb21ee413a5c145b9e"
+    }
+  ],
+  "changedFiles": [
+    "A\tassets/css/dca.css",
+    "A\tassets/js/btc-prices.mjs",
+    "A\tassets/js/dca-compound.mjs",
+    "A\tassets/js/dca-history.mjs",
+    "A\tassets/js/dca-market.mjs",
+    "A\tassets/js/dca.js",
+    "A\tcontent/dca.md",
+    "M\tcontent/now.md",
+    "A\tcontent_en/dca.md",
+    "M\tcontent_en/now.md",
+    "A\tdata/btcprices.json",
+    "A\tdata/dca.json",
+    "M\tdata/home.yaml",
+    "A\tdocs/dca-acceptance.md",
+    "M\tdocs/edge-case-register.md",
+    "M\tdocs/visual-identity.md",
+    "M\thugo.toml",
+    "M\ti18n/en.json",
+    "M\ti18n/zh-cn.json",
+    "A\tlayouts/dca/single.html",
+    "M\tlayouts/index.html",
+    "M\tscripts/check_garden_output.py",
+    "M\ttests/e2e/comic-reading.spec.js",
+    "A\ttests/e2e/dca.spec.js",
+    "M\ttests/e2e/garden-layout.spec.js",
+    "M\ttests/e2e/homepage-display.spec.js",
+    "M\ttests/e2e/reader-entrypoints.spec.js",
+    "A\ttests/node/btc-prices.test.cjs",
+    "A\ttests/node/dca-compound.test.cjs",
+    "A\ttests/node/dca-history.test.cjs",
+    "A\ttests/node/dca-market.test.cjs",
+    "A\ttests/node/dca-refresh.test.cjs",
+    "M\ttests/python/test_garden_layout.py"
+  ],
+  "hugoConfigDiff": "diff --git a/hugo.toml b/hugo.toml\nindex 5a0fb9d..030dd4b 100644\n--- a/hugo.toml\n+++ b/hugo.toml\n@@ -32,6 +32,11 @@ buildFuture = false\n     name = \"Projects\"\n     url = \"/works/\"\n     weight = 2\n+  [[languages.en.menu.main]]\n+    identifier = \"dca\"\n+    name = \"DCA\"\n+    url = \"/dca/\"\n+    weight = 2\n   [[languages.en.menu.main]]\n     identifier = \"now\"\n     name = \"Now\"\n@@ -164,6 +169,11 @@ buildFuture = false\n     name = \"作品\"\n     url = \"/works/\"\n     weight = 2\n+  [[menu.main]]\n+    identifier = \"dca\"\n+    name = \"定投\"\n+    url = \"/dca/\"\n+    weight = 2\n   [[menu.main]]\n     identifier = \"now\"\n     name = \"近况\"",
+  "homepageDiff": "diff --git a/layouts/index.html b/layouts/index.html\nindex a1d79eb..22b341a 100644\n--- a/layouts/index.html\n+++ b/layouts/index.html\n@@ -13,21 +13,10 @@\n   <div class=\"mantou-section-heading\"><h2 id=\"notes-title\">{{ T \"identityNotes\" }}</h2><a href=\"{{ \"/posts/\" | relLangURL }}\">{{ T \"allWriting\" }} →</a></div>\n   <div class=\"mantou-filters\" role=\"group\" aria-label=\"{{ T \"identityFilterLabel\" }}\" data-home-filters hidden>\n     <button type=\"button\" data-home-filter=\"all\" aria-pressed=\"true\">{{ T \"identityFilterAll\" }}</button>\n-    <button type=\"button\" data-home-filter=\"investment\" aria-pressed=\"false\">{{ T \"identityInvestment\" }}</button>\n     <button type=\"button\" data-home-filter=\"reading\" aria-pressed=\"false\">{{ T \"identityReading\" }}</button>\n     <button type=\"button\" data-home-filter=\"practice\" aria-pressed=\"false\">{{ T \"identityPractice\" }}</button>\n   </div>\n   <div class=\"mantou-cards\" data-home-pair aria-labelledby=\"notes-title\">\n-    <section class=\"mantou-card mantou-card--feature\" aria-labelledby=\"writing-title\" data-home-featured-post data-home-topic=\"investment\">\n-      {{- with .Site.GetPage .Site.Data.home.featured_post -}}\n-      <div class=\"mantou-feature-copy\">\n-        <div class=\"mantou-card-label\"><h2 id=\"writing-title\">{{ T \"featuredArticle\" }} · {{ T \"identityInvestment\" }}</h2><time datetime=\"{{ .Date.Format \"2006-01-02\" }}\">{{ .Date.Format \"2006.01.02\" }}</time></div>\n-        <h3><a href=\"{{ .RelPermalink }}\">{{ .Title }}</a></h3><p>{{ T \"identityInvestmentSummary\" }}</p>\n-        <a class=\"home-action\" href=\"{{ .RelPermalink }}\">{{ T \"readArticle\" }} →</a>\n-      </div>\n-      <img class=\"mantou-feature-art\" src=\"{{ \"/images/identity/comic-investigation-v3-600.webp\" | relURL }}\" srcset=\"{{ \"/images/identity/comic-investigation-v3-300.webp\" | relURL }} 300w, {{ \"/images/identity/comic-investigation-v3-600.webp\" | relURL }} 600w\" sizes=\"(max-width: 760px) 104px, 280px\" alt=\"\" aria-hidden=\"true\" width=\"600\" height=\"400\" decoding=\"async\">\n-      {{- else -}}{{ errorf \"Missing home featured post\" }}{{- end -}}\n-    </section>\n     <section class=\"mantou-card mantou-card--reading mantou-note-row\" id=\"reading\" aria-labelledby=\"reading-title\" data-garden-reading data-home-topic=\"reading\">\n       {{- with .Site.GetPage .Site.Data.home.reading_post -}}\n       <div class=\"mantou-note-meta\"><h2 id=\"reading-title\">{{ T \"identityReading\" }}</h2><time datetime=\"{{ .Date.Format \"2006-01-02\" }}\">{{ .Date.Format \"2006.01.02\" }}</time></div>\n@@ -54,6 +43,11 @@\n     {{- with .Params.preview_image -}}<a class=\"mantou-tool-preview\" href=\"{{ $work.RelPermalink }}\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"{{ . }}\" alt=\"\" width=\"388\" height=\"624\" loading=\"lazy\" decoding=\"async\"></a>{{- end -}}\n     {{- else -}}{{ errorf \"Missing home featured work\" }}{{- end -}}\n   </section>\n+  <section class=\"mantou-card mantou-note-row\" data-home-dca aria-labelledby=\"home-dca-title\">\n+    <div class=\"mantou-note-meta\"><h2 id=\"home-dca-title\">{{ if eq .Site.Language.Lang \"en\" }}DCA{{ else }}定投{{ end }}</h2></div>\n+    <div class=\"mantou-note-copy\"><h3><a href=\"{{ \"/dca/\" | relLangURL }}\">{{ if eq .Site.Language.Lang \"en\" }}A long-term notebook{{ else }}把一点点，交给时间。{{ end }}</a></h3><p>{{ if eq .Site.Language.Lang \"en\" }}Explore monthly Bitcoin investing and compound-return scenarios. Interactive tool in Chinese.{{ else }}用历史回测和复利模拟，看看持续投入的过程与起伏。{{ end }}</p></div>\n+    <a class=\"home-action\" href=\"{{ \"/dca/\" | relLangURL }}\" aria-label=\"{{ if eq .Site.Language.Lang \"en\" }}Explore the DCA notebook{{ else }}开始体验定投手记{{ end }}\">→</a>\n+  </section>\n   <section class=\"editorial-home__latest mantou-latest\" id=\"latest\" aria-labelledby=\"latest-title\" data-home-latest><div class=\"editorial-home__section-heading\"><h2 id=\"latest-title\">{{ T \"gardenNotes\" }}</h2></div><ol class=\"editorial-home__latest-list\">{{- range first 5 $posts -}}<li><time datetime=\"{{ .Date.Format \"2006-01-02\" }}\">{{ .Date.Format \"01.02\" }}</time><div><h3><a href=\"{{ .RelPermalink }}\">{{ .Title }}</a></h3></div></li>{{- end -}}</ol></section>\n   <section class=\"editorial-home__selected\" id=\"selected\" aria-labelledby=\"selected-title\" data-home-selected>\n     <div class=\"editorial-home__section-heading\"><h2 id=\"selected-title\">{{ T \"startHere\" }}</h2></div>",
+  "evidenceCollectionCorrections": [
+    "First comparison command used nonexistent custom-head.html; corrected to actual call site layouts/partials/head/custom.html. Tool-path failure was not a behavior test or TDD red."
+  ],
+  "limits": [
+    "Production version is separately observed, not an atomic deployment/request snapshot.",
+    "Local full regression remains old baseline; no claim that current full DCA/homepage suite was executed.",
+    "Byte-identical target code supports reuse of its scoped tests; production E-ANL-20/21 supplement runtime evidence.",
+    "Only two shallow commits compared; not exhaustive intervening issues, release notes or history."
+  ],
+  "targetFilesByteIdentical": true
+}

@@ -87,8 +87,14 @@ jobs:
       - name: Test feedback failure and same-page submission behavior
         run: npm run test:feedback
 
+      - name: Test private analytics periods, authorization and failure behavior
+        run: npm run test:overview
+
       - name: Build production site
         run: hugo --minify --panicOnWarning --cleanDestinationDir
+
+      - name: Compile the private analytics backend
+        run: npm run build:analytics
 
       - name: Validate the comments production registry build
         env:

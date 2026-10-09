@@ -1,0 +1,19 @@
+{
+  "featureId": "ANL-OVW",
+  "requirements": [
+    "OVW-001",
+    "OVW-004"
+  ],
+  "matrixId": "TM-OVW-010",
+  "recordedAtUtc": "2026-10-09T05:29:39.679578+00:00",
+  "source": "user screenshot supplied in response to requested owner access flow",
+  "observation": "Original Website analytics entry visible to owner; combined with separate anonymous Access challenge evidence",
+  "privateImage": ".local-evidence/analytics-overview/owner-entry-20261009.png",
+  "sha256": "01a8327691dfe04dec53b50fea89dcd5ed1664e27e0a37d829f69e755a984148",
+  "limitations": [
+    "Screenshot does not show full authentication steps, current URL or JWT",
+    "New overview and real private data endpoint not deployed or accepted",
+    "Separate unauthorized-identity and expiry flow not verified"
+  ],
+  "state": "owner entry visibility supported; full new overview acceptance pending"
+}

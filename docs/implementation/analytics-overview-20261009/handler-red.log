@@ -1,0 +1,46 @@
+✖ TM-OVW-007 authorization runs before data access or cache; private response is no-store (4.9833ms)
+✖ TM-OVW-006 repeated authorized reads share in-flight result; failure has no success/zero body (6.0376ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 232.2946
+
+✖ failing tests:
+
+test at tests\overview\handler.test.mjs:7:1
+✖ TM-OVW-007 authorization runs before data access or cache; private response is no-store (4.9833ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  200 !== 401
+  
+      at TestContext.<anonymous> (file:///D:/mx/github/Maoxin1/mantou-blog-analytics-overview/tests/overview/handler.test.mjs:12:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 401,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\overview\handler.test.mjs:18:1
+✖ TM-OVW-006 repeated authorized reads share in-flight result; failure has no success/zero body (6.0376ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///D:/mx/github/Maoxin1/mantou-blog-analytics-overview/tests/overview/handler.test.mjs:27:84)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

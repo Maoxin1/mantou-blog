@@ -6,6 +6,9 @@
   "scripts": {
     "test:e2e": "playwright test",
     "test:smoke": "playwright test --config playwright.smoke.config.js",
+    "test:overview": "node --test tests/overview/*.test.mjs",
+    "test:overview:e2e": "playwright test --config tests/overview/playwright.config.cjs",
+    "build:analytics": "node scripts/build_analytics.mjs",
     "test:feedback": "node --experimental-vm-modules --test tests/node/*.test.cjs"
   },
   "devDependencies": {
@@ -18,5 +21,8 @@
   },
   "overrides": {
     "sharp": "0.35.5"
+  },
+  "dependencies": {
+    "jose": "6.2.12"
   }
 }

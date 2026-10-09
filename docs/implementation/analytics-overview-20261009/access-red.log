@@ -1,0 +1,58 @@
+✖ TM-OVW-003 rejects absent, forged, expired, wrong-audience/issuer and other-owner JWTs (55.8525ms)
+✖ TM-OVW-003 verifies real RS256 signature and owner; ignores spoofed email header (4.3318ms)
+✖ TM-OVW-003 missing identity config fails closed before verification (5.2933ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 0
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1601.4142
+
+✖ failing tests:
+
+test at tests\overview\access.test.mjs:19:1
+✖ TM-OVW-003 rejects absent, forged, expired, wrong-audience/issuer and other-owner JWTs (55.8525ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///D:/mx/github/Maoxin1/mantou-blog-analytics-overview/tests/overview/access.test.mjs:22:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests\overview\access.test.mjs:26:1
+✖ TM-OVW-003 verifies real RS256 signature and owner; ignores spoofed email header (4.3318ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'owner@example.invalid'
+  
+      at TestContext.<anonymous> (file:///D:/mx/github/Maoxin1/mantou-blog-analytics-overview/tests/overview/access.test.mjs:28:10)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'owner@example.invalid',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\overview\access.test.mjs:36:1
+✖ TM-OVW-003 missing identity config fails closed before verification (5.2933ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///D:/mx/github/Maoxin1/mantou-blog-analytics-overview/tests/overview/access.test.mjs:37:3)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }

@@ -1,2 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Keep the checksum-locked upstream bundle byte-identical on Windows checkout.
+static/lib/waline/3.15.2/waline.js -text
+
+# Preserve captured verification output, including whitespace, for its recorded hashes.
+docs/**/*.log -text -whitespace

@@ -1,0 +1,104 @@
+
+> mantou-blog@1.0.0 test:feedback
+> node --experimental-vm-modules --test tests/node/*.test.cjs
+
+✔ TM-002 characterization: empty serverURL builds article and mail without Waline entry points (9688.8198ms)
+(node:2396) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ comments-only Chinese: no reaction dependency or writer, guest nickname only required (90.2464ms)
+✔ comments-only English: no reaction dependency or writer, guest nickname only required (42.823ms)
+✔ comments-only: failed comment load remains retryable without trying counters (49.7368ms)
+(node:13368) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ TM-003 characterization: unconfigured feedback never loads assets or requests a service (48.4483ms)
+✔ TM-003 characterization: repeated opening during resource and API loading or after success initializes once (107.0315ms)
+✔ TM-024 positive control: a non-empty valid page still initializes with the configured article and language (35.7934ms)
+✔ TM-024 HTTP positive control: native Response 200 with errno 0 initializes once (36.2535ms)
+✔ TM-024 HTTP regression: native Response 503 with errno 0 from /api/comment fails and recovers explicitly (37.1078ms)
+✔ TM-024 HTTP regression: native Response 503 with errno 0 from /api/article fails and recovers explicitly (28.177ms)
+✔ TM-024 characterization: explicit CSS failure preserves article/mail and supports explicit recovery (24.3141ms)
+✔ TM-024 characterization: explicit JS failure preserves article/mail and supports explicit recovery (31.4886ms)
+✔ TM-024 characterization: zh errno 503 reports failure and recovers explicitly (33.785ms)
+✔ TM-024 characterization: zh rejected fetch (DNS/CORS-shaped) reports failure and recovers explicitly (39.7548ms)
+✔ TM-024 characterization: zh invalid JSON reports failure and recovers explicitly (56.7571ms)
+✔ TM-024 characterization: zh missing response envelope data reports failure and recovers explicitly (41.537ms)
+✔ TM-024 characterization: zh missing comment data reports failure and recovers explicitly (45.3631ms)
+✔ TM-024 characterization: zh non-array comment data reports failure and recovers explicitly (43.0599ms)
+✔ TM-024 characterization: zh string comment count reports failure and recovers explicitly (41.7152ms)
+✔ TM-024 characterization: zh invalid counter shape reports failure and recovers explicitly (48.782ms)
+✔ TM-024 characterization: en errno 503 reports failure and recovers explicitly (42.3137ms)
+✔ TM-024 characterization: en rejected fetch (DNS/CORS-shaped) reports failure and recovers explicitly (39.7639ms)
+✔ TM-024 characterization: en invalid JSON reports failure and recovers explicitly (27.8935ms)
+✔ TM-024 characterization: en missing response envelope data reports failure and recovers explicitly (23.4361ms)
+✔ TM-024 characterization: en missing comment data reports failure and recovers explicitly (26.3362ms)
+✔ TM-024 characterization: en non-array comment data reports failure and recovers explicitly (30.5753ms)
+✔ TM-024 characterization: en string comment count reports failure and recovers explicitly (49.7351ms)
+✔ TM-024 characterization: en invalid counter shape reports failure and recovers explicitly (34.0465ms)
+✔ TM-024 schema regression: negative count must fail before initialization and recover explicitly (32.0905ms)
+✔ TM-024 schema regression: fractional count must fail before initialization and recover explicitly (40.4385ms)
+✔ TM-024 schema regression: missing page must fail before initialization and recover explicitly (29.7624ms)
+✔ TM-024 schema regression: missing pageSize must fail before initialization and recover explicitly (25.151ms)
+✔ TM-024 schema regression: missing totalPages must fail before initialization and recover explicitly (28.8815ms)
+✔ TM-024 schema regression: invalid page must fail before initialization and recover explicitly (28.4902ms)
+✔ TM-024 schema regression: invalid pageSize must fail before initialization and recover explicitly (33.3254ms)
+✔ TM-024 schema regression: invalid totalPages must fail before initialization and recover explicitly (31.7106ms)
+✔ TM-003/TM-024 generated short open/fail/retry sequences preserve independent content and initialize at most once (9898.3108ms)
+ℹ Generator v1 seed=20261005; samples=100; maximum attempts=4; maximum repeated opens=4; elapsed_ms=3761; stopped at sample cap; no counterexample
+ℹ Generator v1 seed=20261006; samples=100; maximum attempts=4; maximum repeated opens=4; elapsed_ms=3901; stopped at sample cap; no counterexample
+ℹ Generator v1 seed=20261007; samples=100; maximum attempts=4; maximum repeated opens=4; elapsed_ms=2234; stopped at sample cap; no counterexample
+✔ TM-024 browser-counterexample replay: failed module URL needs a new explicit import key (18.8012ms)
+✔ TM-024: API failure after a successful import reuses the successful module key (19.233ms)
+✔ TM-005 characterization: definite mock rejection retains draft and shows exact response (7.6002ms)
+✔ TM-019: double click plus Ctrl/Meta+Enter during userAgent preparation sends once (5.2782ms)
+✔ TM-019: missing nickname releases the lock without POST (3.695ms)
+✔ TM-019: invalid email releases the lock without POST (6.0584ms)
+✔ TM-019: empty draft releases the lock without POST (4.9466ms)
+✔ TM-019: invalid word count releases the lock without POST (5.5684ms)
+✔ TM-019: forced login without a token releases the lock without POST (4.8164ms)
+✔ TM-019: userAgent rejection releases the operation and preserves draft (11.0773ms)
+✔ TM-019: known mock response holds the lock through completion and then allows next operation (6.5656ms)
+✔ TM-019/TM-005 deterministic sequence property: seed=20261005, cases=100 (441.7666ms)
+✔ TM-019/TM-005 deterministic sequence property: seed=20261006, cases=100 (441.5516ms)
+✔ TM-019/TM-005 deterministic sequence property: seed=20261007, cases=100 (363.8577ms)
+✔ TM-005 adversarial: missing errmsg, zh-CN, preserves rejected draft without a success event (3.7701ms)
+✔ TM-005 adversarial: missing errmsg, en-US, preserves rejected draft without a success event (3.2058ms)
+✔ TM-005 adversarial: empty errmsg, zh-CN, preserves rejected draft without a success event (3.1489ms)
+✔ TM-005 adversarial: empty errmsg, en-US, preserves rejected draft without a success event (3.0355ms)
+✔ TM-019 adversarial UA non-Error rejection: null, zh-CN (3.238ms)
+✔ TM-019 adversarial UA non-Error rejection: null, en-US (3.5071ms)
+✔ TM-019 adversarial UA non-Error rejection: undefined, zh-CN (3.0509ms)
+✔ TM-019 adversarial UA non-Error rejection: undefined, en-US (5.6545ms)
+✔ TM-019 adversarial UA non-Error rejection: UA preparation unavailable, zh-CN (2.9153ms)
+✔ TM-019 adversarial UA non-Error rejection: UA preparation unavailable, en-US (2.8353ms)
+✖ Waline patch reproduces exactly from the hash-locked official 3.15.2 bundle (15.8421ms)
+ℹ tests 62
+ℹ suites 0
+ℹ pass 61
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11470.8883
+
+✖ failing tests:
+
+test at tests\node\waline-vendor-patch.test.cjs:8:1
+✖ Waline patch reproduces exactly from the hash-locked official 3.15.2 bundle (15.8421ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'ed464c2270c455c3cb071019c480bfda1266fff1f49a239b48dd51ea2e08ecee'
+  - 'e724ca392e46cea5a4b038a023607d15a01e1aae4693982a3684c18b932f47dc'
+  
+      at TestContext.<anonymous> (D:\mx\github\Maoxin1\mantou-blog-monitoring-plan\tests\node\waline-vendor-patch.test.cjs:15:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'ed464c2270c455c3cb071019c480bfda1266fff1f49a239b48dd51ea2e08ecee',
+    expected: 'e724ca392e46cea5a4b038a023607d15a01e1aae4693982a3684c18b932f47dc',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

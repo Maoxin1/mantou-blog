@@ -1,0 +1,139 @@
+
+> mantou-blog@1.0.0 test:e2e
+> playwright test --reporter=line,json
+
+
+Running 123 tests using 1 worker
+
+
+
+(node:9672) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[1/123] [chromium] › tests\e2e\accessibility.spec.js:25:1 › 正文链接在浅色和深色主题中都达到常规文字对比度
+[2/123] [chromium] › tests\e2e\accessibility.spec.js:50:1 › 文章辅助信息在浅色和深色主题中都保持可读
+[3/123] [chromium] › tests\e2e\accessibility.spec.js:67:1 › 键盘焦点有清晰指示，关注对话框带有完整说明
+[4/123] [chromium] › tests\e2e\accessibility.spec.js:100:1 › 减少动态效果偏好会降低交互动效
+[5/123] [chromium] › tests\e2e\accessibility.spec.js:110:1 › 深色作品页的按钮与标签保持 AA 对比度
+[6/123] [chromium] › tests\e2e\accessibility.spec.js:130:1 › 首页主题切换使用语义化按钮，不输出 javascript 链接
+[7/123] [chromium] › tests\e2e\admin-aliases.spec.js:4:3 › /admin/ registers the shared alias hook with the real pinned CMS
+[8/123] [chromium] › tests\e2e\admin-aliases.spec.js:4:3 › /admin/sveltia/ registers the shared alias hook with the real pinned CMS
+[9/123] [chromium] › tests\e2e\admin.spec.js:4:1 › 内容后台加载并提供受保护的 GitHub 登录入口
+[10/123] [chromium] › tests\e2e\admin.spec.js:19:1 › 公开的后台配置固定使用 PR 发布工作流
+[11/123] [chromium] › tests\e2e\admin.spec.js:29:1 › Sveltia 灰度后台复用受保护配置并提供 GitHub 登录入口
+[12/123] [chromium] › tests\e2e\admin.spec.js:42:1 › Sveltia 可以安装为品牌化的 mantou 桌面应用
+[13/123] [chromium] › tests\e2e\admin.spec.js:74:1 › Sveltia 主 CDN 失败后会改用固定版本的备用 CDN
+[14/123] [chromium] › tests\e2e\admin.spec.js:86:1 › Sveltia 两个 CDN 都失败时显示可恢复提示
+[15/123] [chromium] › tests\e2e\analytics.spec.js:6:1 › TM-ANL-001 explains visits without promising UV or conversions
+[16/123] [chromium] › tests\e2e\analytics.spec.js:19:3 › TM-ANL-009 host boundary: mantou-blog.pages.dev
+[17/123] [chromium] › tests\e2e\analytics.spec.js:19:3 › TM-ANL-009 host boundary: manual-preview.mantou-blog.pages.dev
+[18/123] [chromium] › tests\e2e\analytics.spec.js:19:3 › TM-ANL-009 host boundary: mantou-blog.pages.dev.attacker.invalid
+[19/123] [chromium] › tests\e2e\analytics.spec.js:29:1 › TM-ANL-009 content backends do not include the public analytics integration
+[20/123] [chromium] › tests\e2e\analytics.spec.js:40:1 › TM-ANL-013 a normal new document retries loading without promising historic replay
+[21/123] [chromium] › tests\e2e\anchor-clearance.spec.js:4:3 › 1440px sticky navigation clears all three home shortcuts and article headings
+[22/123] [chromium] › tests\e2e\anchor-clearance.spec.js:4:3 › 768px sticky navigation clears all three home shortcuts and article headings
+[23/123] [chromium] › tests\e2e\anchor-clearance.spec.js:4:3 › 390px sticky navigation clears all three home shortcuts and article headings
+[24/123] [chromium] › tests\e2e\article-archive.spec.js:16:1 › 文章页保留可读的上下文、正文索引和阅读路径
+[25/123] [chromium] › tests\e2e\article-archive.spec.js:29:1 › 文章归档能按年份扫描并进入文章
+[26/123] [chromium] › tests\e2e\bilingual.spec.js:3:1 › 语言切换在桌面与手机保留当前文章，中文地址不变
+[27/123] [chromium] › tests\e2e\bilingual.spec.js:18:1 › 英文搜索只返回英文内容，订阅使用英文 Feed
+[28/123] [chromium] › tests\e2e\bilingual.spec.js:31:1 › 分页归档切换语言保留页码和 SEO 地址
+[29/123] [chromium] › tests\e2e\bilingual.spec.js:39:1 › 英文主要页面有正确语言与单一标题，移动布局不溢出
+[30/123] [chromium] › tests\e2e\bilingual.spec.js:61:1 › 归档标题完整显示，作品正文无需越过整张图表
+[31/123] [chromium] › tests\e2e\bilingual.spec.js:74:1 › 两种语言的 RSS 都包含全部文章与作品
+[32/123] [chromium] › tests\e2e\bilingual.spec.js:98:1 › 统计入口指向需要登录的 Cloudflare 后台
+[33/123] [chromium] › tests\e2e\comic-reading.spec.js:4:3 › 320px 首页首屏展示完整的推荐文章标题
+[34/123] [chromium] › tests\e2e\comic-reading.spec.js:4:3 › 390px 首页首屏展示完整的推荐文章标题
+[35/123] [chromium] › tests\e2e\comic-reading.spec.js:4:3 › 1366px 首页首屏展示完整的推荐文章标题
+[36/123] [chromium] › tests\e2e\comic-reading.spec.js:13:3 › / 精选分类可切换并进入真实文章
+[37/123] [chromium] › tests\e2e\comic-reading.spec.js:13:3 › /en/ 精选分类可切换并进入真实文章
+[38/123] [chromium] › tests\e2e\comic-reading.spec.js:33:1 › 无 JavaScript 时所有精选文章仍可阅读
+[39/123] [chromium] › tests\e2e\comic-reading.spec.js:44:1 › 桌面目录跳转后标题可见，手机保留可展开目录
+[40/123] [chromium] › tests\e2e\core-copy.spec.js:9:1 › 首页同时呈现最近更新、精选文章和实际工具
+[41/123] [chromium] › tests\e2e\core-copy.spec.js:22:1 › 当前下注清单分别显示已完成复核与每周日复查计划
+[42/123] [chromium] › tests\e2e\core-copy.spec.js:54:1 › 作品集使用作品自身摘要引导读者进入公开案例
+[43/123] [chromium] › tests\e2e\core-copy.spec.js:69:1 › 关于页区分实践范围、公开证据和联系前提
+[44/123] [chromium] › tests\e2e\core-copy.spec.js:88:1 › 关注页准确说明两种送达方式及第三方边界
+[45/123] [chromium] › tests\e2e\garden-layout.spec.js:12:1 › 1440px 顶部导航固定且不遮挡首页，跳转与深色主题可用
+[46/123] [chromium] › tests\e2e\garden-layout.spec.js:58:1 › 390px 顶部导航滚动后仍可见，菜单可收起并保留搜索和语言入口
+[47/123] [chromium] › tests\e2e\garden-layout.spec.js:92:3 › 390px 身份文章正文与导航无横向溢出
+[48/123] [chromium] › tests\e2e\garden-layout.spec.js:92:3 › 820px 身份文章正文与导航无横向溢出
+[49/123] [chromium] › tests\e2e\garden-layout.spec.js:92:3 › 1024px 身份文章正文与导航无横向溢出
+[50/123] [chromium] › tests\e2e\garden-layout.spec.js:92:3 › 1025px 身份文章正文与导航无横向溢出
+[51/123] [chromium] › tests\e2e\garden-layout.spec.js:92:3 › 1440px 身份文章正文与导航无横向溢出
+[52/123] [chromium] › tests\e2e\garden-layout.spec.js:132:1 › 旧固定样式缓存不会覆盖新版身份样式
+[53/123] [chromium] › tests\e2e\homepage-display.spec.js:4:3 › 首页在 1366px 同时提供文章与作品的实质入口
+[54/123] [chromium] › tests\e2e\homepage-display.spec.js:4:3 › 首页在 390px 同时提供文章与作品的实质入口
+[55/123] [chromium] › tests\e2e\navigation.spec.js:16:1 › 主导航提供文章、作品、近况与关于路径
+[56/123] [chromium] › tests\e2e\navigation.spec.js:27:1 › 分类总览说明内容归属并提供当前公开状态入口
+[57/123] [chromium] › tests\e2e\navigation.spec.js:39:1 › 移动端导航保留语义化主导航与当前页状态
+[58/123] [chromium] › tests\e2e\offline-reliability.spec.js:119:1 › 已缓存正文经历 200 → 503 → 断网仍可阅读
+[59/123] [chromium] › tests\e2e\offline-reliability.spec.js:141:1 › 未缓存页面的 503 按语言回退，错误内容不入缓存
+[60/123] [chromium] › tests\e2e\offline-reliability.spec.js:157:1 › 网络挂起时在有界等待后回退正文或对应语言离线页
+[61/123] [chromium] › tests\e2e\offline-reliability.spec.js:175:1 › 静态资源后台刷新不以 503 覆盖成功版本，恢复后可更新
+[62/123] [chromium] › tests\e2e\offline-reliability.spec.js:192:1 › 激活只清理本站旧版本，保留同源其他应用缓存
+[63/123] [chromium] › tests\e2e\portfolio.spec.js:27:1 › 访客能从首页进入工具、目录与证据
+[64/123] [chromium] › tests\e2e\portfolio.spec.js:52:1 › 身体作品展示真实阶段证据与缺失周
+[65/123] [chromium] › tests\e2e\portfolio.spec.js:77:1 › 核心页面没有浏览器运行时错误
+[66/123] [chromium] › tests\e2e\portfolio.spec.js:91:1 › 作品集中的每个公开作品都能完成浏览器验收
+[67/123] [chromium] › tests\e2e\portfolio.spec.js:129:1 › 核心页面在桌面、平板和手机宽度下不产生横向溢出
+[68/123] [chromium] › tests\e2e\portfolio.spec.js:153:1 › 平板宽度下的长标题与说明保持分行且可读
+[69/123] [chromium] › tests\e2e\portfolio.spec.js:176:1 › 核心页面保留基础语义与 SEO 信息
+[70/123] [chromium] › tests\e2e\portfolio.spec.js:187:1 › 主题切换会写入本地状态并在刷新后保留
+[71/123] [chromium] › tests\e2e\portfolio.spec.js:201:1 › 手机导航可以展开并进入作品集
+[72/123] [chromium] › tests\e2e\portfolio.spec.js:212:1 › 手机导航向键盘与辅助技术暴露真实状态
+[73/123] [chromium] › tests\e2e\portfolio.spec.js:234:1 › 作品卡入口完整可见，作品型页面跨主题断点保持连续宽度
+[74/123] [chromium] › tests\e2e\portfolio.spec.js:269:1 › 文章分享地址使用短英文路径且旧中文地址继续跳转
+[75/123] [chromium] › tests\e2e\portfolio.spec.js:282:1 › 访客可以从首页一键打开关注入口并继续使用 RSS
+[76/123] [chromium] › tests\e2e\portfolio.spec.js:308:1 › 关注页、文章和作品结尾都提供可发现的关注路径
+[77/123] [chromium] › tests\e2e\portfolio.spec.js:329:1 › 中文搜索可以找到并打开公开作品
+[78/123] [chromium] › tests\e2e\portfolio.spec.js:345:1 › 搜索关键词能通过网址分享，并在返回搜索页时恢复
+[79/123] [chromium] › tests\e2e\portfolio.spec.js:371:1 › 非生产域名不会加载 Cloudflare 统计脚本
+[80/123] [chromium] › tests\e2e\pwa-install.spec.js:34:1 › Android Chrome has a visible mobile install entry and menu fallback
+[81/123] [chromium] › tests\e2e\pwa-install.spec.js:52:1 › an eligible Android click invokes only the captured native prompt
+[82/123] [chromium] › tests\e2e\pwa-install.spec.js:63:1 › dismissal keeps a usable manual guide without replaying the consumed prompt
+[83/123] [chromium] › tests\e2e\pwa-install.spec.js:76:1 › iPhone receives Safari instructions instead of an unavailable native prompt
+[84/123] [chromium] › tests\e2e\pwa-install.spec.js:85:1 › embedded browsers receive a clean public link and browser instructions
+[85/123] [chromium] › tests\e2e\pwa-install.spec.js:98:1 › standalone apps do not display redundant install controls
+[86/123] [chromium] › tests\e2e\pwa-install.spec.js:104:1 › unsupported dialog elements stay closed and can open and close the fallback
+[87/123] [chromium] › tests\e2e\pwa-install.spec.js:128:1 › actual HTTP redirects in cached offline pages still produce bilingual fallback
+[88/123] [chromium] › tests\e2e\pwa.spec.js:13:1 › 已访问作品断网可读，未访问路径显示离线说明
+[89/123] [chromium] › tests\e2e\pwa.spec.js:38:1 › 所有后台入口和配置都不进入 PWA 缓存
+[90/123] [chromium] › tests\e2e\reader-audit.spec.js:14:3 › 订阅说明标题在两主题中清晰可见 /zh
+[91/123] [chromium] › tests\e2e\reader-audit.spec.js:29:3 › 文章锚点和反馈跳转后可明确回到文章列表 /zh
+[92/123] [chromium] › tests\e2e\reader-audit.spec.js:48:3 › 首页作品保留首发日期并显示真实更新 /zh
+[93/123] [chromium] › tests\e2e\reader-audit.spec.js:62:3 › 搜索结果含类型和首发日期并保留章节链接 /zh
+[94/123] [chromium] › tests\e2e\reader-audit.spec.js:14:3 › 订阅说明标题在两主题中清晰可见 /en
+[95/123] [chromium] › tests\e2e\reader-audit.spec.js:29:3 › 文章锚点和反馈跳转后可明确回到文章列表 /en
+[96/123] [chromium] › tests\e2e\reader-audit.spec.js:48:3 › 首页作品保留首发日期并显示真实更新 /en
+[97/123] [chromium] › tests\e2e\reader-audit.spec.js:62:3 › 搜索结果含类型和首发日期并保留章节链接 /en
+[98/123] [chromium] › tests\e2e\reader-audit.spec.js:79:1 › 旧文分类与作品集名称区分且原分类 URL 保持不变
+[99/123] [chromium] › tests\e2e\reader-entrypoints.spec.js:4:3 › 首页在 1366px 读完精选后能直达最近更新
+[100/123] [chromium] › tests\e2e\reader-entrypoints.spec.js:4:3 › 首页在 390px 读完精选后能直达最近更新
+[101/123] [chromium] › tests\e2e\reader-entrypoints.spec.js:20:1 › 英文关注页先展示可用的 RSS，中文页先展示邮箱
+[102/123] [chromium] › tests\e2e\reader-entrypoints.spec.js:30:1 › 英文工具入口明确标注中文界面，短图文不显示零分钟
+[103/123] [chromium] › tests\e2e\reader-feedback.spec.js:75:3 › 真实照片在 1366px 加载并能进入来源文章
+[104/123] [chromium] › tests\e2e\reader-feedback.spec.js:75:3 › 真实照片在 390px 加载并能进入来源文章
+[105/123] [chromium] › tests\e2e\reader-feedback.spec.js:97:1 › 未配置服务时提供真实邮件反馈，不展示点赞或评论计数
+[106/123] [chromium] › tests\e2e\reader-feedback.spec.js:119:1 › 评论按需加载，键盘点赞与取消都读回服务端总数
+[107/123] [chromium] › tests\e2e\reader-feedback.spec.js:147:1 › 服务故障可重试，点赞保存失败不显示成功
+[108/123] [chromium] › tests\e2e\reader-feedback.spec.js:170:1 › 无需登录和邮箱即可提交，服务拒绝时保留留言草稿
+[109/123] [chromium] › tests\e2e\reader-feedback.spec.js:188:1 › TM-019：异步 UA 准备、连续点击和快捷键共用一次提交锁
+[110/123] [chromium] › tests\e2e\reader-feedback.spec.js:236:3 › TM-024：CSS 明确加载失败后保留正文邮件，恢复后可显式重试
+[111/123] [chromium] › tests\e2e\reader-feedback.spec.js:236:3 › TM-024：JS 明确加载失败后保留正文邮件，恢复后可显式重试
+[112/123] [chromium] › tests\e2e\release-audit.spec.js:3:1 › 移动导航按钮满足 WCAG 最低触控尺寸
+[113/123] [chromium] › tests\e2e\release-audit.spec.js:22:1 › 内容后台不会被搜索引擎索引
+[114/123] [chromium] › tests\e2e\release-audit.spec.js:31:1 › 未启用的媒体运行时不会进入生产页面
+[115/123] [chromium] › tests\e2e\release-audit.spec.js:39:1 › 文章图片使用浏览器原生懒加载并保留固有尺寸
+[116/123] [chromium] › tests\e2e\release-audit.spec.js:52:1 › 文章视频使用可复用的响应式播放器
+[117/123] [chromium] › tests\e2e\social-seo.spec.js:14:1 › 核心公开页输出唯一、绝对且可索引的社交与搜索元数据
+[118/123] [chromium] › tests\e2e\social-seo.spec.js:65:1 › 未手写摘要的文章输出自身内容摘要，而非站点通用文案
+[119/123] [chromium] › tests\e2e\social-seo.spec.js:72:1 › 纯图片文章保留编辑摘要与有意义的替代文本
+[120/123] [chromium] › tests\e2e\social-seo.spec.js:78:1 › 尚无页面特色图时，所有核心页回退到同一稳定站点预览图
+[121/123] [chromium] › tests\e2e\social-seo.spec.js:90:1 › 归档分页使用自己的 canonical 和 Open Graph 地址
+
+
+(node:12476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[122/123] [chromium] › tests\e2e\admin-mobile.spec.js:9:3 › Decap 后台在真实移动设备参数下可触控且不横向溢出
+[123/123] [chromium] › tests\e2e\admin-mobile.spec.js:9:3 › Sveltia 后台在真实移动设备参数下可触控且不横向溢出
+  123 passed (3.4m)
