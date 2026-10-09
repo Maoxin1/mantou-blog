@@ -32,12 +32,13 @@ async function setup(page,state={mode:'ok',requests:0}) {
  await page.goto('/dca/');await expect(page.locator('#c-tab-future')).toHaveAttribute('aria-selected','true');await page.locator('#c-tab-history').click();await expect(page.locator('#c-h-invest')).toHaveText((periods('weekly').length*100).toLocaleString('en-US',{minimumFractionDigits:2}));return state;
 }
 const value=async(page,id)=>Number((await page.locator('#'+id).textContent()).replace(/[$,]/g,''));
+const openInspection=async page=>{if(await page.locator('#c-inspection').getAttribute('open')===null)await page.locator('#c-inspection>summary').click();};
 const openOptions=async page=>{if(!await page.locator('#c-options').getAttribute('open'))await page.locator('#c-options>summary').click();};
 const setCustomRange=async page=>{
- const kind=await page.locator('#c-start').getAttribute('type')==='month'?'monthly':'weekly';
+ const kind=await page.locator('[data-frequency=monthly]').getAttribute('aria-pressed')==='true'?'monthly':'weekly';
  const rows=periods(kind).filter(row=>row.period>='2021-11'&&row.period<'2023-01');
  await page.locator('[data-period=all]').click();
- await page.locator('#c-start').fill(rows[0].period);await page.locator('#c-end').fill(rows.at(-1).period);
+ await page.locator('#c-start').fill(new Date(rows[0].time).toISOString().slice(0,10));await page.locator('#c-end').fill(new Date(rows.at(-1).end).toISOString().slice(0,10));
 };
 
 test('Weekly DCA uses known Sunday close references, fees, complete weeks and preserves separate monthly ranges',async({page})=>{
@@ -47,16 +48,16 @@ test('Weekly DCA uses known Sunday close references, fees, complete weeks and pr
  await expect(page.locator('#c-schedule')).toContainText('每周一 08:00');
  await expect(page.locator('#c-history-range')).toContainText('BTC/USD');await expect(page.locator('#c-trades tr').first()).toContainText('0.08584');
  await expect(page.locator('#c-trades tr')).toHaveCount(weekly.length);
- await openOptions(page);await expect(page.locator('#c-start')).toHaveAttribute('min','2010-07-19');
- await page.locator('#c-start').fill('2020-12-28');await page.locator('#c-end').fill('2021-01-04');
+ await openOptions(page);await expect(page.locator('#c-start')).toHaveAttribute('min','2010-07-18');
+ await page.locator('#c-start').fill('2020-12-28');await page.locator('#c-end').fill('2021-01-10');
  await page.locator('#c-fee').fill('1');
  const two=weekly.filter(r=>['2020-12-28','2021-01-04'].includes(r.period));
  expect(await value(page,'c-h-value')).toBeCloseTo(two.reduce((sum,r)=>sum+99/r.buyPrice,0)*two.at(-1).valuePrice,2);
  expect(await value(page,'c-h-invest')).toBe(200);await expect(page.locator('#c-trades tr')).toHaveCount(2);
  await page.locator('[data-frequency=monthly]').click();await expect(page.locator('#c-schedule')).toContainText('每月 1 日');
  await expect(page.locator('#c-monthly')).toHaveValue('100');expect(await value(page,'c-h-invest')).toBe(periods('monthly').length*100);
- await page.locator('#c-start').fill('2021-01');await page.locator('#c-end').fill('2021-02');
- await page.locator('[data-frequency=weekly]').click();await expect(page.locator('#c-start')).toHaveValue('2020-12-28');await expect(page.locator('#c-end')).toHaveValue('2021-01-04');
+ await page.locator('#c-start').fill('2021-01-01');await page.locator('#c-end').fill('2021-02-28');
+ await page.locator('[data-frequency=weekly]').click();await expect(page.locator('#c-start')).toHaveValue('2020-12-28');await expect(page.locator('#c-end')).toHaveValue('2021-01-10');
  await page.locator('#c-start').fill('2021-01-11');await expect(page.locator('#c-h-error')).toContainText('不能');await expect(page.locator('#c-h-value')).toHaveText('—');
  await page.locator('#c-start').fill('2021-01-04');expect(await value(page,'c-h-value')).toBeCloseTo(99/two[1].buyPrice*two[1].valuePrice,2);
  await page.locator('#c-monthly').fill('');await expect(page.locator('#c-h-value')).toHaveText('—');await expect(page.locator('#c-history-chart')).not.toHaveAttribute('tabindex','0');await expect(page.locator('#c-history-chart + .chart-detail')).not.toBeVisible();
@@ -93,27 +94,27 @@ test('Dollar price history failure and missing days preserve the snapshot for bo
  state.priceMode='gap';await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await expect(page.locator('#c-price-status')).toContainText('完整性异常');expect(await page.locator('#c-market-chart path').last().getAttribute('d')).toBe(original);
  state.priceMode='ok';await page.locator('#c-refresh').click();await expect(page.locator('#c-price-status')).toBeHidden();await expect(page.locator('#c-history-status')).toBeHidden();
  const requests=state.priceRequests;await page.clock.fastForward(60001);await expect.poll(()=>state.requests).toBeGreaterThan(2);expect(state.priceRequests).toBe(requests);
- await page.locator('#c-tab-history').click();await openOptions(page);await expect(page.locator('#c-start')).toHaveAttribute('min','2010-07-19');expect(await value(page,'c-h-invest')).toBe(periods('weekly').length*100);
+ await page.locator('#c-tab-history').click();await openOptions(page);await expect(page.locator('#c-start')).toHaveAttribute('min','2010-07-18');expect(await value(page,'c-h-invest')).toBe(periods('weekly').length*100);
 });
 
 
 test('Shared daily price revisions update USD DCA results and the chart while keeping period selections and the USDT quote',async({page})=>{
  const state=await setup(page);const initial=await value(page,'c-h-value');await openOptions(page);
- await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01');await page.locator('#c-end').fill('2021-02');
+ await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01-01');await page.locator('#c-end').fill('2021-02-28');
  const monthly=await value(page,'c-h-value');await page.locator('[data-frequency=weekly]').click();
  state.priceMode='revised';await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-price-status')).toBeHidden();
  await page.locator('#c-market-chart').focus();await page.keyboard.press('End');await expect(page.locator('#c-market-chart + .chart-detail')).toContainText('91,601.10 USD/BTC');await expect(page.locator('#c-quote')).toHaveText('84,000.00 USDT');
  await page.locator('#c-tab-history').click();expect(await value(page,'c-h-value')).toBeCloseTo(initial*1.1,2);await expect(page.locator('#c-start')).toHaveValue('2010-07-19');
- await page.locator('[data-frequency=monthly]').click();await expect(page.locator('#c-start')).toHaveValue('2021-01');await expect(page.locator('#c-end')).toHaveValue('2021-02');expect(await value(page,'c-h-value')).toBe(monthly);
+ await page.locator('[data-frequency=monthly]').click();await expect(page.locator('#c-start')).toHaveValue('2021-01-01');await expect(page.locator('#c-end')).toHaveValue('2021-02-28');expect(await value(page,'c-h-value')).toBe(monthly);
 });
 
 test('A newly completed week extends the full-history end without changing a custom monthly range',async({page})=>{
- const state=await setup(page);await openOptions(page);await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01');await page.locator('#c-end').fill('2021-02');
- await page.locator('[data-frequency=weekly]').click();await expect(page.locator('#c-end')).toHaveValue('2026-09-28');
+ const state=await setup(page);await openOptions(page);await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01-01');await page.locator('#c-end').fill('2021-02-28');
+ await page.locator('[data-frequency=weekly]').click();await expect(page.locator('#c-end')).toHaveValue('2026-10-04');
  await page.clock.fastForward(4*DAY);state.priceMode='extended';await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await expect(page.locator('#c-price-status')).toBeHidden();
- await page.locator('#c-tab-history').click();await expect(page.locator('#c-start')).toHaveValue('2010-07-19');await expect(page.locator('#c-end')).toHaveValue('2026-10-05');expect(await value(page,'c-h-invest')).toBe(84700);
+ await page.locator('#c-tab-history').click();await expect(page.locator('#c-start')).toHaveValue('2010-07-19');await expect(page.locator('#c-end')).toHaveValue('2026-10-11');expect(await value(page,'c-h-invest')).toBe(84700);
  const qty=periods('weekly').reduce((sum,r)=>sum+99.9/r.buyPrice,0)+99.9/dailyPrices.get('2026-10-04');expect(await value(page,'c-h-value')).toBeCloseTo(qty*90000,2);
- await page.locator('[data-frequency=monthly]').click();await expect(page.locator('#c-start')).toHaveValue('2021-01');await expect(page.locator('#c-end')).toHaveValue('2021-02');
+ await page.locator('[data-frequency=monthly]').click();await expect(page.locator('#c-start')).toHaveValue('2021-01-01');await expect(page.locator('#c-end')).toHaveValue('2021-02-28');
 });
 
 test('A narrow logarithmic price range retains readable numeric ticks, chart height and exact day prices',async({page})=>{
@@ -180,7 +181,7 @@ test('Result-first mobile layout, all tabs, keyboard navigation and themes',asyn
   await page.setViewportSize({width,height:1000});
   for(const theme of ['light','dark']){
    await page.evaluate(t=>document.body.setAttribute('theme',t),theme);
-   for(const panel of ['history','future','market']){await page.locator('#c-tab-'+panel).click();expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);await expect(page.locator('#c-panel-'+panel)).toBeVisible();}
+   for(const panel of ['history','future','market']){await page.locator('#c-tab-'+panel).click();expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);await expect(page.locator('#c-panel-'+panel)).toBeVisible();if(panel!=='market'){const result=await page.locator('#c-panel-'+panel+' .history-results').boundingBox(),settings=await page.locator('#c-panel-'+panel+' fieldset').boundingBox();expect(result.y+result.height).toBeLessThan(settings.y);}}
   }
  }
  await page.setViewportSize({width:390,height:1000});await page.locator('#c-tab-history').click();const result=await page.locator('#c-h-value').boundingBox(),chart=await page.locator('#c-history-chart').boundingBox();expect(result.y).toBeLessThan(chart.y);
@@ -194,7 +195,7 @@ test('Compound weekly/monthly frequency uses effective annual return and indepen
  await expect(page.locator('[data-compound-frequency=weekly]')).toHaveAttribute('aria-pressed','true');
  await page.locator('#c-years').fill('1');await page.locator('[data-rate="0"]').click();
  expect(await value(page,'c-f-invest')).toBe(6200);expect(await value(page,'c-f-value')).toBe(6200);
- await expect(page.locator('#c-f-period')).toContainText('52 次');
+ await expect(page.locator('#c-f-period')).toContainText('每周 100.00 USD · 1 年 · 假设年收益 0%');
  await page.locator('[data-compound-frequency=monthly]').click();expect(await value(page,'c-f-value')).toBe(2200);await expect(page.locator('#c-add')).toHaveValue('100');
  await page.locator('#c-add').fill('0');await page.locator('[data-rate="5"]').click();expect(await value(page,'c-f-value')).toBeCloseTo(1050,2);
  await page.locator('[data-compound-frequency=weekly]').click();expect(await value(page,'c-f-value')).toBeCloseTo(1050,2);
@@ -308,6 +309,7 @@ test('A late fullscreen grant after closing cannot leave an empty fullscreen vie
 
 test('Custom history ranges support exact valuation dates, touch and keyboard, retaining its selection on redraw',async({page,context})=>{
  await setup(page);await setCustomRange(page);
+ await openInspection(page);
  const chart=page.locator('#c-history-chart'),detail=page.locator('#c-history-chart + .chart-detail');
  await page.locator('#c-point-date').fill('2022-05-18');await expect(page.locator('#c-point-date')).toHaveValue('2022-05-22');await expect(detail).toContainText('2022-05-22');
  const rows=periods('weekly').filter(r=>r.period>='2021-11'&&r.period<'2023-01'),through=rows.filter(r=>r.end<=Date.parse('2022-05-23T00:00:00Z'));
@@ -320,45 +322,46 @@ test('Custom history ranges support exact valuation dates, touch and keyboard, r
  await chart.scrollIntoViewIfNeeded();
  const point=await chart.evaluate(svg=>{const p=svg.createSVGPoint();p.x=51+(svg.viewBox.baseVal.width-63)*5/(61-1);p.y=svg.viewBox.baseVal.height-8;const screen=p.matrixTransform(svg.getScreenCTM());return {x:screen.x,y:screen.y};});
  await page.mouse.click(point.x,point.y);await expect(detail).toContainText('2021-12-12');
- const phone=await context.browser().newContext({hasTouch:true,viewport:{width:390,height:844}});const touch=await phone.newPage();await setup(touch);await setCustomRange(touch);
+ const phone=await context.browser().newContext({hasTouch:true,viewport:{width:390,height:844}});const touch=await phone.newPage();await setup(touch);await setCustomRange(touch);await openInspection(touch);
  await touch.locator('#c-history-chart').scrollIntoViewIfNeeded();
  const tap=await touch.locator('#c-history-chart').evaluate(svg=>{const p=svg.createSVGPoint();p.x=52;p.y=svg.viewBox.baseVal.height/2;const s=p.matrixTransform(svg.getScreenCTM());return {x:s.x,y:s.y};});await touch.touchscreen.tap(tap.x,tap.y);await expect(touch.locator('#c-history-chart + .chart-detail')).toContainText('2021-11-07');await phone.close();
- await page.locator('[data-frequency=monthly]').click();await setCustomRange(page);await page.locator('#c-point-date').fill('2022-05-18');await expect(detail).toContainText('2022-05-31');
+ await page.locator('[data-frequency=monthly]').click();await setCustomRange(page);await openInspection(page);await page.locator('#c-point-date').fill('2022-05-18');await expect(detail).toContainText('2022-05-31');
  await page.locator('[data-frequency=weekly]').click();await expect(detail).toContainText('2021-12-12');
  await page.locator('#c-point-date').fill('2020-01-01');await expect(page.locator('#c-point-error')).toContainText('当前回测区间');await expect(detail).toBeHidden();
 });
 
 test('Custom history uses an editable range with visible dates, independent recalculation and separate weekly/monthly custom spans',async({page})=>{
  await page.setViewportSize({width:390,height:844});await setup(page);await setCustomRange(page);
+ await openInspection(page);
  const start=page.locator('#c-start'),end=page.locator('#c-end'),custom=page.locator('#c-range-custom'),detail=page.locator('#c-history-chart + .chart-detail');
  await expect(page.locator('#c-options')).not.toHaveAttribute('open','');await expect(start).toBeVisible();await expect(end).toBeVisible();await expect(custom).toBeVisible();
  const assertRange=async(kind,from,to)=>{
-  const rows=periods(kind).filter(r=>r.period>=from&&r.period<=to),balance=rows.reduce((qty,r)=>qty+99.9/r.buyPrice,0)*rows.at(-1).valuePrice;
+  const rows=periods(kind).filter(r=>r.time>=Date.parse(from+'T00:00:00Z')&&r.end<Date.parse(to+'T00:00:00Z')+DAY),balance=rows.reduce((qty,r)=>qty+99.9/r.buyPrice,0)*rows.at(-1).valuePrice;
   expect(await value(page,'c-h-value')).toBeCloseTo(balance,2);expect(await value(page,'c-h-invest')).toBe(rows.length*100);expect(await value(page,'c-h-profit')).toBeCloseTo(balance-rows.length*100,2);
   await expect(page.locator('#c-trades tr')).toHaveCount(rows.length);
-  await expect(page.locator('#c-h-period')).toHaveText(`${new Date(rows[0].time).toISOString().slice(0,10)} — ${new Date(rows.at(-1).end).toISOString().slice(0,10)} UTC · ${rows.length} 次投入`);
+  await expect(page.locator('#c-h-period')).toHaveText(`有效回测 ${new Date(rows[0].time).toISOString().slice(0,10)} — ${new Date(rows.at(-1).end).toISOString().slice(0,10)} UTC · ${rows.length} 次投入`);
   await expect(page.locator('#c-history-chart')).toContainText(new Date(rows.at(-1).end).toISOString().slice(0,10));
  };
  const initialCurve=await page.locator('#c-history-chart path').last().getAttribute('d');await page.locator('#c-point-date').fill('2022-12-25');
- await start.fill('2022-05-04');await end.fill('2022-05-26');await expect(start).toHaveValue('2022-05-02');await expect(end).toHaveValue('2022-05-23');await assertRange('weekly','2022-05-02','2022-05-23');
+ await start.fill('2022-05-04');await end.fill('2022-05-26');await expect(start).toHaveValue('2022-05-04');await expect(end).toHaveValue('2022-05-26');await assertRange('weekly','2022-05-04','2022-05-26');
  await expect(custom).toBeVisible();await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','false');
  expect(await page.locator('#c-history-chart path').last().getAttribute('d')).not.toBe(initialCurve);await expect(detail).toBeHidden();await expect(page.locator('#c-point-date')).toHaveValue('');
  await start.fill('2019-05-06');await end.fill('2019-05-20');await assertRange('weekly','2019-05-06','2019-05-20');
- await page.locator('[data-frequency=monthly]').click();await setCustomRange(page);await expect(start).toHaveAttribute('type','month');await expect(start).toBeVisible();await expect(end).toBeVisible();
- await start.fill('2022-05');await end.fill('2022-07');await assertRange('monthly','2022-05','2022-07');await expect(custom).toBeVisible();
+ await page.locator('[data-frequency=monthly]').click();await setCustomRange(page);await expect(start).toHaveAttribute('type','date');await expect(start).toBeVisible();await expect(end).toBeVisible();
+ await start.fill('2022-05-01');await end.fill('2022-07-31');await assertRange('monthly','2022-05-01','2022-07-31');await expect(custom).toBeVisible();
  await page.locator('[data-frequency=weekly]').click();await expect(start).toHaveValue('2019-05-06');await expect(end).toHaveValue('2019-05-20');await assertRange('weekly','2019-05-06','2019-05-20');
  await page.locator('#c-tab-market').click();await page.locator('#c-refresh').click();await expect(page.locator('#c-refresh')).toBeEnabled();await page.locator('#c-tab-history').click();await expect(start).toHaveValue('2019-05-06');await expect(end).toHaveValue('2019-05-20');
- await page.locator('[data-frequency=monthly]').click();await expect(start).toHaveValue('2022-05');await expect(end).toHaveValue('2022-07');await assertRange('monthly','2022-05','2022-07');
- await page.locator('[data-period=all]').click();await expect(custom).toBeHidden();await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','true');await assertRange('monthly',periods('monthly')[0].period,periods('monthly').at(-1).period);
+ await page.locator('[data-frequency=monthly]').click();await expect(start).toHaveValue('2022-05-01');await expect(end).toHaveValue('2022-07-31');await assertRange('monthly','2022-05-01','2022-07-31');
+ await page.locator('[data-period=all]').click();await expect(custom).toBeHidden();await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','true');await assertRange('monthly',new Date(periods('monthly')[0].time).toISOString().slice(0,10),new Date(periods('monthly').at(-1).end).toISOString().slice(0,10));
 });
 
 test('Invalid custom history spans clear results, point readings and preset selection for both frequencies',async({page})=>{
  await setup(page);
  for(const kind of ['weekly','monthly']){
   await page.locator(`[data-frequency=${kind}]`).click();
-  const invalid=kind==='weekly'?[['c-start',''],['c-end',''],['c-start','2023-01-02'],['c-start','2010-07-12'],['c-end','2026-10-12']]:[['c-start',''],['c-end',''],['c-start','2023-01'],['c-start','2010-07'],['c-end','2026-10']];
+  const invalid=kind==='weekly'?[['c-start',''],['c-end',''],['c-start','2023-01-02'],['c-start','2010-07-17'],['c-end','2026-10-12']]:[['c-start',''],['c-end',''],['c-start','2023-01-01'],['c-start','2010-07-17'],['c-end','2026-10-08']];
   for(const [id,date] of invalid){
-   await setCustomRange(page);await page.locator('#c-point-date').fill('2022-05-18');await expect(page.locator('#c-history-chart + .chart-detail')).toBeVisible();await page.locator('#'+id).fill(date);
+   await setCustomRange(page);await openInspection(page);await page.locator('#c-point-date').fill('2022-05-18');await expect(page.locator('#c-history-chart + .chart-detail')).toBeVisible();await page.locator('#'+id).fill(date);
    await expect(page.locator('#c-h-error')).not.toBeEmpty();await expect(page.locator('#c-h-value')).toHaveText('—');await expect(page.locator('#c-h-invest')).toHaveText('—');await expect(page.locator('#c-h-profit')).toHaveText('—');
    await expect(page.locator('#c-trades tr')).toHaveCount(0);await expect(page.locator('#c-history-chart path')).toHaveCount(0);await expect(page.locator('#c-history-chart + .chart-detail')).toBeHidden();await expect(page.locator('#c-point-date')).toBeDisabled();
    await expect(page.locator('[data-period=all]')).toHaveAttribute('aria-pressed','false');await expect(page.locator('#c-range-custom')).toBeVisible();
@@ -367,9 +370,9 @@ test('Invalid custom history spans clear results, point readings and preset sele
 });
 
 test('History validates a new UTC day automatically and extends only an end following the latest full week',async({page})=>{
- const state=await setup(page);await expect(page.locator('#c-price-status')).toBeHidden();await openOptions(page);await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01');await page.locator('#c-end').fill('2021-02');await page.locator('[data-frequency=weekly]').click();
- state.priceMode='extended';await page.clock.fastForward(4*DAY);await expect.poll(()=>state.priceRequests).toBe(2);await expect(page.locator('#c-end')).toHaveValue('2026-10-05');expect(await value(page,'c-h-invest')).toBe(84700);
- await page.locator('[data-frequency=monthly]').click();await expect(page.locator('#c-start')).toHaveValue('2021-01');await expect(page.locator('#c-end')).toHaveValue('2021-02');
+ const state=await setup(page);await expect(page.locator('#c-price-status')).toBeHidden();await openOptions(page);await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2021-01-01');await page.locator('#c-end').fill('2021-02-28');await page.locator('[data-frequency=weekly]').click();
+ state.priceMode='extended';await page.clock.fastForward(4*DAY);await expect.poll(()=>state.priceRequests).toBe(2);await expect(page.locator('#c-end')).toHaveValue('2026-10-11');expect(await value(page,'c-h-invest')).toBe(84700);
+ await page.locator('[data-frequency=monthly]').click();await expect(page.locator('#c-start')).toHaveValue('2021-01-01');await expect(page.locator('#c-end')).toHaveValue('2021-02-28');
 });
 
 test('Online recovery during an active quote queues the shared history instead of losing it',async({page})=>{
@@ -392,8 +395,17 @@ test('History provenance follows the derived stale state before its next source 
  await expect(page.locator('#c-history-status')).toContainText('参考价格待更新');await expect(page.locator('#c-history-method-range')).toContainText('参考日期待更新');await expect(page.locator('#c-history-method-range')).not.toContainText('已核对最新');await expect(page.locator('#c-history-method-range')).toContainText('2026-10-07');
 });
 
-test('Native historical dates align to Monday, validate blanks and show readable trade figures',async({page})=>{
- await setup(page);await openOptions(page);await page.locator('#c-start').fill('2021-01-07');await expect(page.locator('#c-start')).toHaveValue('2021-01-04');await page.locator('#c-end').fill('2021-01-13');await expect(page.locator('#c-end')).toHaveValue('2021-01-11');expect(await value(page,'c-h-invest')).toBe(200);
+test('Exact historical dates preserve the interval and count only complete weekly or monthly cycles',async({page})=>{
+ await setup(page);await page.locator('#c-start').fill('2022-05-18');await page.locator('#c-end').fill('2022-06-01');
+ await expect(page.locator('#c-start')).toHaveValue('2022-05-18');await expect(page.locator('#c-end')).toHaveValue('2022-06-01');
+ const row=periods('weekly').find(row=>row.period==='2022-05-23');
+ expect(await value(page,'c-h-invest')).toBe(100);expect(await value(page,'c-h-value')).toBeCloseTo(99.9/row.buyPrice*row.valuePrice,2);
+ await expect(page.locator('#c-trades tr')).toHaveCount(1);await expect(page.locator('#c-trades tr')).toContainText('2022-05-23');
+ await expect(page.locator('#c-h-period')).toContainText('2022-05-23 — 2022-05-29');
  expect(await page.locator('#c-trades td').first().evaluate(e=>parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(14);
+ await page.locator('[data-frequency=monthly]').click();await page.locator('#c-start').fill('2022-05-18');await page.locator('#c-end').fill('2022-06-01');
+ await expect(page.locator('#c-h-error')).toContainText('没有完整的月周期');await expect(page.locator('#c-h-value')).toHaveText('—');await expect(page.locator('#c-trades tr')).toHaveCount(0);
+ await page.locator('#c-end').fill('2022-06-30');expect(await value(page,'c-h-invest')).toBe(100);await expect(page.locator('#c-trades tr')).toContainText('2022-06-01');
+ await page.locator('[data-frequency=weekly]').click();await expect(page.locator('#c-start')).toHaveValue('2022-05-18');await expect(page.locator('#c-end')).toHaveValue('2022-06-01');
  await expect(page.locator('#c-panel-history .result-label')).toContainText('参考模拟');await page.locator('#c-start').fill('');await expect(page.locator('#c-h-value')).toHaveText('—');await expect(page.locator('#c-point-date')).toBeDisabled();
 });

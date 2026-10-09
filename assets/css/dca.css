@@ -121,7 +121,7 @@ body[theme=dark] #mantou-dca-c .error{color:#ffb5a6}
 }
 @media(max-width:370px){#mantou-dca-c .controls{grid-template-columns:1fr}}
 
-/* A quiet reading order: settings, three results, chart, optional detail. */
+/* Three results first, then settings, chart and optional detail. */
 #mantou-dca-c .hero{padding:8px 0 18px}
 #mantou-dca-c .hero h1{margin:6px 0}
 #mantou-dca-c .hero-picture{width:150px}

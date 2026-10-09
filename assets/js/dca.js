@@ -23,8 +23,8 @@ const periods=()=>reference[frequency];
 const date=t=>new Date(t).toISOString().slice(0,10);
 const remember=()=>{ranges[frequency]={start:q('c-start').value,end:q('c-end').value};};
 let quoteState='snapshot', busy=false, pollTimer, historyQueued=true, lastHistoryAttemptDay, historyAttempts=0, historyRetryAt=0;
-const firstPeriod=()=>periods()[0].period;
-const lastPeriod=()=>periods().at(-1).period;
+const firstPeriod=()=>date(periods()[0].time);
+const lastPeriod=()=>date(periods().at(-1).end);
 const colors=()=>{const s=getComputedStyle(root);return {ink:s.getPropertyValue('--ink').trim(),muted:s.getPropertyValue('--muted').trim(),line:s.getPropertyValue('--line').trim(),orange:s.getPropertyValue('--orange').trim()};};
 function chart(svg,a,b,labels,unit='USD',names=['累计投入','资产价值'],times=null,logarithmic=false,selection=null,onSelect=null){
  const measured=svg.clientWidth;if(!measured)return;
@@ -84,18 +84,19 @@ function history(){
  const presets={all:start===firstPeriod()&&end===lastPeriod()};
  root.querySelectorAll('[data-period]').forEach(el=>el.setAttribute('aria-pressed',String(presets[el.dataset.period])));
  q('c-range-custom').hidden=presets.all;
- const validPeriod=value=>frequency==='monthly'?/^\d{4}-(0[1-9]|1[0-2])$/.test(value):/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T00:00:00Z'))&&new Date(value+'T00:00:00Z').getUTCDay()===1;
+ const validPeriod=value=>/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T00:00:00Z'))&&date(Date.parse(value+'T00:00:00Z'))===value;
  if(!q('c-monthly').value||!q('c-fee').value||!Number.isFinite(amount)||amount<1||amount>100000||!Number.isFinite(fee)||fee<0||fee>.05){clearHistory('请输入有效金额（1—100,000 USD）和费率（0—5%）。');return;}
- if(!validPeriod(start)||!validPeriod(end)||start<firstPeriod()||end>lastPeriod()){clearHistory('请选择可用历史范围内的起止日期。');return;}
+ if(!validPeriod(start)||!validPeriod(end)||start<prices.daily[0][0]||end>prices.daily.at(-1)[0]){clearHistory('请选择可用历史范围内的起止日期。');return;}
  if(start>end){clearHistory('开始周期不能晚于结束周期。');return;}
- const rows=periods().filter(d=>d.period>=start&&d.period<=end);
- if(!rows.length){clearHistory('所选区间没有可用历史数据。');return;}
+ const from=Date.parse(start+'T00:00:00Z'),through=Date.parse(end+'T00:00:00Z')+DAY;
+ const rows=periods().filter(d=>d.time>=from&&d.end<through);
+ if(!rows.length){clearHistory('所选区间没有完整的'+(frequency==='weekly'?'周':'月')+'周期，请扩大日期范围。');return;}
  q('c-h-error').textContent='';let qty=0,under=0;const a=[],b=[],labels=[];q('c-trades').replaceChildren();
  rows.forEach((row,i)=>{const added=amount*(1-fee)/row.buyPrice;qty+=added;const invested=amount*(i+1),value=qty*row.valuePrice;a.push(invested);b.push(value);labels.push(date(row.end));if(value<invested)under++;
  const tr=document.createElement('tr');[date(row.time),priceNumber(row.buyPrice),added.toFixed(8),number(invested),number(value)].forEach(text=>{const td=document.createElement('td');td.textContent=text;tr.appendChild(td);});q('c-trades').appendChild(tr);});
  q('c-h-invest').textContent=number(a.at(-1));q('c-h-value').textContent=number(b.at(-1));q('c-h-profit').textContent=number(b.at(-1)-a.at(-1));
  const endName=frequency==='weekly'?'周末':'月末';
- q('c-h-period').textContent=`${date(rows[0].time)} — ${date(rows.at(-1).end)} UTC · ${rows.length} 次投入`;
+ q('c-h-period').textContent=`有效回测 ${date(rows[0].time)} — ${date(rows.at(-1).end)} UTC · ${rows.length} 次投入`;
  q('c-h-note').textContent=`曾有 ${under} 个${endName}的持仓价值低于本金。`;
  q('c-h-detail').textContent=`累计买入 ${qty.toFixed(8)} BTC · 买入费用 ${number(amount*fee*rows.length)} USD · 盈亏未扣卖出费用`;
  inspectedRows=rows;const selection=historySelections[frequency];if(!labels.includes(selection.label))selection.label=null;
@@ -114,7 +115,7 @@ function future(){
  q('c-f-error').textContent='';
  const {invested:principal,value,gain,contributions:a,balances:b,periodsPerYear:p}=result;
  const labels=b.map((_,i)=>i===0?'现在':i%p===0?(i/p)+' 年':`${Math.floor(i/p)} 年 ${i%p} ${p===52?'周':'个月'}`);
- q('c-f-period').textContent=`${years} 年 · ${compoundFrequency==='weekly'?'每周':'每月'}追加，共 ${years*p} 次`;
+ q('c-f-period').textContent=`${compoundFrequency==='weekly'?'每周':'每月'} ${number(add)} USD · ${years} 年 · 假设年收益 ${annual}%`;
  q('c-f-invest').textContent=number(principal);q('c-f-value').textContent=number(value);q('c-f-profit').textContent=number(gain);
  if(principal===0){q('c-f-composition').textContent='尚未投入本金，模拟资产价值为 $0.00。';q('c-capital-bar').style.width='0%';q('c-return-bar').style.width='0%';}
  else if(gain>=0){q('c-f-composition').textContent=`期末每 100 美元中，${(principal/value*100).toFixed(1)} 美元来自投入，${(gain/value*100).toFixed(1)} 美元来自模拟收益。`;q('c-capital-bar').style.width=(principal/value*100)+'%';q('c-return-bar').style.width=(gain/value*100)+'%';}
@@ -146,15 +147,16 @@ function historyStatus(){
  q('c-history-method-range').textContent=`价格图与定投共用截至 ${prices.daily.at(-1)[0]} 的日参考价格。${method[state]||`${updateReason()}，保留现有数据。`}`;
 }
 function populate(){
- const saved=ranges[frequency]||{start:firstPeriod(),end:lastPeriod()};
- ['c-start','c-end'].forEach(id=>{q(id).type=frequency==='weekly'?'date':'month';q(id).placeholder=frequency==='weekly'?'YYYY-MM-DD':'YYYY-MM';q(id).min=firstPeriod();q(id).max=frequency==='weekly'?date(periods().at(-1).end):lastPeriod();});
+ const first=periods()[0],last=periods().at(-1),saved=ranges[frequency]||{start:date(first.time),end:date(last.end)};
+ ['c-start','c-end'].forEach(id=>{q(id).type='date';q(id).min=prices.daily[0][0];q(id).max=prices.daily.at(-1)[0];});
  q('c-start').value=saved.start;q('c-end').value=saved.end;
- q('c-start-label').textContent=frequency==='weekly'?'开始周（含）':'开始月份（含）';q('c-end-label').textContent=frequency==='weekly'?'结束周（含）':'结束月份（含）';
- q('c-date-hint').hidden=frequency!=='weekly';
+ q('c-start-label').textContent='开始日期';q('c-end-label').textContent='结束日期';
+ q('c-date-hint').hidden=false;q('c-date-hint').textContent='仅计所选区间内完整的'+(frequency==='weekly'?'周':'月')+'周期。';
  q('c-schedule').textContent=frequency==='weekly'?'每周一 08:00 买入（北京时间）':'每月 1 日 08:00 买入（北京时间）';
  root.querySelectorAll('[data-frequency]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.frequency===frequency)));
  historyStatus();
 }
+
 function updateQuoteStatus(){const el=q('c-quote-status');const age=Date.now()-Number(data.quote.closeTime);let state=quoteState;if(!navigator.onLine)state='offline';else if(state==='live'&&age>QUOTE_MAX_AGE)state='stale';el.dataset.state=state;el.textContent=({live:'行情已更新 · 每 60 秒刷新',snapshot:'随站点发布的快照 · 待更新',failed:'更新失败 · 显示旧报价',stale:'报价已过期 · 等待更新',offline:'离线 · 显示旧报价'})[state];}
 async function request(path){const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),8000);try{return await marketJSON(path,{signal:controller.signal});}finally{clearTimeout(timer);}}
 async function requestPrices(){const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),30000);try{return await priceHistoryJSON({signal:controller.signal});}finally{clearTimeout(timer);}}
@@ -172,7 +174,7 @@ async function refresh(includeHistory=false){
   const updated=parsePriceHistory(await requestPrices(),Date.now(),{allowPublicationLag:true});if(updated.length<prices.daily.length)throw Object.assign(new Error('Short price history'),{code:'invalid'});
   const nextReference={monthly:referencePeriods(updated,'monthly'),weekly:referencePeriods(updated,'weekly')};
   remember();
-  for(const key of ['monthly','weekly'])if(ranges[key]?.end===reference[key].at(-1).period)ranges[key].end=nextReference[key].at(-1).period;
+  for(const key of ['monthly','weekly'])if(ranges[key]?.end===date(reference[key].at(-1).end))ranges[key].end=date(nextReference[key].at(-1).end);
   prices.daily=updated;reference=nextReference;priceState=isCurrentPriceHistory(updated)?'fresh':'pending';populate();history();market();
  }catch(error){priceState=!navigator.onLine?'offline':error.name==='AbortError'?'timeout':error.code||'failed';priceStatus();historyStatus();}
  finally{if(!['fresh','invalid'].includes(priceState)&&historyAttempts<2)historyRetryAt=Date.now()+600000;}})():Promise.resolve();
@@ -186,12 +188,12 @@ tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>showPanel(tab.datase
 root.querySelector('.dca-tabs').hidden=false;showPanel('future');
 root.querySelectorAll('[data-compound-frequency]').forEach(el=>el.addEventListener('click',()=>{compoundFrequency=el.dataset.compoundFrequency;future();}));
 ['c-monthly','c-fee'].forEach(id=>q(id).addEventListener('input',history));
-['c-start','c-end'].forEach(id=>q(id).addEventListener('input',()=>{const input=q(id);if(frequency==='weekly'&&input.value){const time=Date.parse(input.value+'T00:00:00Z');if(Number.isFinite(time))input.value=date(time-((new Date(time).getUTCDay()+6)%7)*DAY);}history();}));
+['c-start','c-end'].forEach(id=>q(id).addEventListener('input',history));
 q('c-point-date').addEventListener('input',()=>{const value=q('c-point-date').value,time=Date.parse(value+'T00:00:00Z'),row=inspectedRows.find(row=>time>=row.time&&time<=row.end);historySelections[frequency].label=row?date(row.end):null;history();if(value&&!row){q('c-point-date').value=value;q('c-point-error').textContent='请选择当前回测区间内的日期。';}});
 ['prev','next'].forEach(direction=>q('c-point-'+direction).addEventListener('click',()=>{const index=inspectedRows.findIndex(row=>date(row.end)===historySelections[frequency].label),next=index+(direction==='prev'?-1:1);if(index>=0&&next>=0&&next<inspectedRows.length){historySelections[frequency].label=date(inspectedRows[next].end);history();}}));
 ['c-principal','c-add','c-years','c-rate'].forEach(id=>q(id).addEventListener('input',future));
 root.querySelectorAll('[data-rate]').forEach(el=>el.addEventListener('click',()=>{q('c-rate').value=el.dataset.rate;future();}));
-root.querySelectorAll('[data-period]').forEach(el=>el.addEventListener('click',()=>{const rows=periods();q('c-start').value=rows[0].period;q('c-end').value=rows.at(-1).period;history();}));
+root.querySelectorAll('[data-period]').forEach(el=>el.addEventListener('click',()=>{const rows=periods();q('c-start').value=date(rows[0].time);q('c-end').value=date(rows.at(-1).end);history();}));
 root.querySelectorAll('[data-market]').forEach(el=>el.addEventListener('click',()=>{marketLength=+el.dataset.market;market();}));
 if(typeof priceDialog.showModal==='function'){
  const layoutPriceScreen=()=>{

@@ -14,7 +14,7 @@ function harness({ offline = false, hidden = false, fail = false, deferred = fal
   const button = { addEventListener(name, fn) { events[name] = fn; } };
   let timer = 0, now = Date.UTC(2026,9,8,10);
   class Clock extends Date { static now() { return now; } }
-  const rows = [{ period: '2026-09' }];
+  const rows = [{ period: '2026-09', time: Date.UTC(2026, 8, 1), end: Date.UTC(2026, 9, 1) - 1 }];
   const respond = value => {
     if (fail) return Promise.reject(new Error('Unavailable'));
     if (deferred) return new Promise(resolve => pending.push(() => resolve(value)));
@@ -22,6 +22,7 @@ function harness({ offline = false, hidden = false, fail = false, deferred = fal
   };
   const context = vm.createContext({
     navigator: { onLine: !offline }, DAY: 86400000, Date: Clock, isCurrentPriceHistory: () => true,
+    date: time => new Date(time).toISOString().slice(0, 10),
     document: { hidden, addEventListener(name, fn) { events[name] = fn; } },
     window: { addEventListener(name, fn) { events[name] = fn; } },
     q: () => button,
