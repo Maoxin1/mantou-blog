@@ -200,7 +200,8 @@ test('DCA polls every minute and pauses while hidden',async({page})=>{
 });
 
 test('Result-first tools and the separate C market panel retain three tabs across widths and themes',async({page})=>{
- const errors=[];page.on('pageerror',e=>errors.push(e.message));await setup(page);
+ const errors=[],iconRequests=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',request=>{if(new URL(request.url()).pathname==='/images/identity/bitcoin-drip.png')iconRequests.push(request.url());});await setup(page);
+ expect(iconRequests).toEqual([]);
  for(const width of [320,390,820,1440]){
   await page.setViewportSize({width,height:1000});
   for(const theme of ['light','dark']){
@@ -219,7 +220,7 @@ test('Result-first tools and the separate C market panel retain three tabs acros
     }
     for(const box of boxes)expect(box.overflow).toBeLessThanOrEqual(1);
    }
-   await openMarket(page);expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
+   await openMarket(page);await expect.poll(()=>page.locator('.bitcoin-icon').evaluate(image=>image.complete&&image.naturalWidth===1120)).toBe(true);expect(iconRequests).toHaveLength(1);expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1);
   }
  }
  await page.setViewportSize({width:390,height:1000});await page.locator('#c-tab-history').click();const result=await page.locator('#c-h-value').boundingBox(),chart=await page.locator('#c-history-chart').boundingBox();expect(result.y).toBeLessThan(chart.y);
