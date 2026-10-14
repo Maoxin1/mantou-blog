@@ -77,7 +77,7 @@ test('公开案例链接指向的清单工作区仍可进入填写与下载流�
   await expect.poll(() => page.locator('#preview-forest').evaluate(image => image.naturalWidth), {
     timeout: 10_000,
   }).toBe(1080);
-  const reading = page.getByRole('slider', { name: '破界行动分钟' });
+  const reading = page.getByRole('slider', { name: '阅读与思考分钟' });
   await reading.press('Home');
   for (let step = 0; step < 18; step += 1) await reading.press('ArrowRight');
   await page.locator('#training-status').selectOption('力量训练');
