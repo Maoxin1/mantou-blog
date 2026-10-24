@@ -74,6 +74,7 @@ def main() -> int:
         require_href("homepage", pages["homepage"], "/works/", issues)
         require_href("homepage", pages["homepage"], "/works/body-sculpting/", issues)
         require_href("homepage", pages["homepage"], "/works/mantou-checklist-pwa/", issues)
+        require_href("homepage", pages["homepage"], "/works/codex-agents/", issues)
         require_href("homepage", pages["homepage"], "/posts/", issues)
         require_href("homepage", pages["homepage"], "/about/", issues)
         require_href("homepage", pages["homepage"], "/now/", issues)
@@ -81,7 +82,7 @@ def main() -> int:
         require_text(
             "works index",
             pages["works index"],
-            ('data-works-index', 'body-sculpting', 'mantou-checklist-pwa', 'codex-agents', '真实任务里的效果仍需继续记录'),
+            ('data-works-index', 'body-sculpting', 'mantou-checklist-pwa', 'codex-agents', '具体任务表现仍需继续记录'),
             issues,
         )
     if "PWA work" in pages:
@@ -110,9 +111,8 @@ def main() -> int:
     else:
         if not (PUBLIC_DIR / preview_image.lstrip("/")).is_file():
             issues.append(f"PWA work: preview image is missing from the build ({preview_image})")
-        for label in ("homepage", "PWA work"):
-            if label in pages:
-                require_text(label, pages[label], (preview_image,), issues)
+        if "PWA work" in pages:
+            require_text("PWA work", pages["PWA work"], (preview_image,), issues)
     if "RSS feed" in pages:
         require_text(
             "RSS feed",

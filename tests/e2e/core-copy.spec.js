@@ -15,11 +15,11 @@ test('首页同时呈现最近更新、精选文章和实际工具', async ({ pa
   await expect(home.locator('[data-home-selected]')).toContainText('友谊万岁：我的感动日记！');
   await expect(home.locator('[data-home-selected] a[href="/works/body-sculpting/"]')).toBeVisible();
   await expect(home.locator('[data-home-featured-work] .mantou-project-art')).toBeVisible();
-  await expect(home.getByRole('link', { name: /打开工具/ })).toHaveAttribute('href', 'https://mantou-checklist.pages.dev/editor');
+  await expect(home.getByRole('link', { name: /了解用途与安装/ })).toHaveAttribute('href', '/works/codex-agents/');
   await expect(home.getByRole('link', { name: /看当前进展/ })).toHaveAttribute('href', '/now/');
 });
 
-test('当前下注清单分别显示已完成复核与每周日复查计划', async ({ page }) => {
+test('近况保留真实记录日期，不展示未确认的复查计划', async ({ page }) => {
   await open(page, '/now/');
 
   const now = page.locator('[data-now-page]');
@@ -38,17 +38,14 @@ test('当前下注清单分别显示已完成复核与每周日复查计划', as
     const reviewed = item.locator('.now-item__updated:not(.now-item__review-date) time');
     const planned = item.locator('.now-item__review-date time');
     await expect(reviewed).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/);
-    await expect(planned).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/);
-    const reviewDate = await planned.getAttribute('datetime');
-    expect(new Date(`${reviewDate}T12:00:00Z`).getUTCDay()).toBe(0);
-    await expect(item.locator('.now-item__review-date')).toContainText('预计复查：');
+    await expect(planned).toHaveCount(0);
   }
-  await expect(now).toContainText('每周日复查一次');
+  await expect(now).not.toContainText('中文 X');
 
   await open(page, '/en/now/');
   const english = page.locator('[data-now-page]');
-  await expect(english.locator('.now-item__review-date')).toHaveCount(count);
-  await expect(english.locator('.now-item__review-date').first()).toContainText('Next review:');
+  await expect(english.locator('.now-item')).toHaveCount(count);
+  await expect(english.locator('.now-item__review-date')).toHaveCount(0);
 });
 
 test('作品集使用作品自身摘要引导读者进入公开案例', async ({ page }) => {
@@ -57,7 +54,7 @@ test('作品集使用作品自身摘要引导读者进入公开案例', async ({
   const index = page.locator('[data-works-index]');
   await expect(index).toContainText('七月的一次眩晕');
   await expect(index).toContainText('真实手机断网启动失败后');
-  await expect(index).toContainText('真实任务里的效果仍需继续记录');
+  await expect(index).toContainText('具体任务表现仍需继续记录');
 
   const firstCase = index.locator('.work-card__link').first();
   await expect(firstCase).toHaveAttribute('href', /\/works\/[^/]+\/$/);
@@ -83,6 +80,8 @@ test('关于页区分实践范围、公开证据和联系前提', async ({ page 
     'href',
     'https://github.com/Maoxin1',
   );
+  await expect(about.getByRole('link', { name: 'X · @mantouaoao' })).toHaveAttribute('href', 'https://x.com/mantouaoao');
+  await expect(about.getByRole('link', { name: /看 Agent 的使用与验证记录/ })).toHaveAttribute('href', '/works/codex-agents/');
 });
 
 test('关注页准确说明两种送达方式及第三方边界', async ({ page }) => {

@@ -4,6 +4,7 @@ const routes = [
   '/',
   '/works/',
   '/works/mantou-checklist-pwa/',
+  '/works/codex-agents/',
   '/about/',
   '/now/',
   '/follow/',
@@ -31,7 +32,16 @@ test('访客能从首页进入工具、目录与证据', async ({ page }) => {
   await expect(page.getByRole('heading', { name: /知不足而奋进，\s*望远山而前行。/ })).toBeVisible();
   await expect(page.locator('[data-proof-strip]')).toHaveCount(0);
 
-  await page.getByRole('link', { name: /制作记录/ }).click();
+  await page.getByRole('link', { name: /了解用途与安装/ }).click();
+  await expect(page).toHaveURL(/\/works\/codex-agents\/$/);
+  await expect(page.locator('[data-work-detail]')).toContainText('同事和朋友也已经重复使用');
+  await expect(page.locator('[data-work-detail]')).toContainText('输出仍需要自己判断');
+  await page.getByRole('link', { name: '留下反馈' }).click();
+  await expect(page).toHaveURL(/#comments$/);
+  await expect(page.locator('[data-reader-feedback]')).toBeInViewport();
+
+  // The previous featured PWA keeps its preview and verification evidence.
+  await open(page, '/works/mantou-checklist-pwa/');
   await expect(page).toHaveURL(/\/works\/mantou-checklist-pwa\/$/);
   await expect(page.locator('[data-work-detail]')).toBeVisible();
   await page.locator('.work-decisions summary').click();
