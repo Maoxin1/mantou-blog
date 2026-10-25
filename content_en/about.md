@@ -15,6 +15,8 @@ principles:
 - title: Finish, review, then iterate
   text: Complete the checks and review for each stage, then use the results of real use to decide whether to continue.
 directions:
+- title: Prompts and reasoning checks
+  text: One recent project is Codex Agents, for refining prompts and examining reasoning. Colleagues and friends use it repeatedly too. Its uses and limitations are documented in the case study.
 - title: Personal experiments
   text: Turn questions about attention, health, learning, and long-term skills into experiments I can record, test,
     and improve.
@@ -27,5 +29,5 @@ directions:
   text: Turn scattered practice into public case studies that explain the problem, evidence, limitations, and lessons.
 translation_status: reviewed
 translation_provider: Edited against the Chinese original
-translation_source_hash: feb75241ab014d362c010a9e7c9fcddea3169895a2a23e03694de86bf39a798a
+translation_source_hash: fc1d0bd97b7e1fce552d93a5f241ba27911807890f9624cc73ddb85bcc229ea0
 ---

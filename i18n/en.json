@@ -236,11 +236,14 @@
   "backProjects": {
     "other": "Back to projects"
   },
+  "agentCase": {
+    "other": "Read the Agent usage and validation notes"
+  },
   "aboutTitle": {
     "other": "About mantou"
   },
   "aboutIntro": {
-    "other": "I am mantou. I keep a diary, read, and build small tools for the everyday problems that keep coming back. Recent projects explore personal health, a mobile tool, and working with AI."
+    "other": "I turn recurring problems in my own life into tools. I am also learning to understand other people’s needs and improve my projects through real use."
   },
   "writingAndProjects": {
     "other": "Writing and projects"
@@ -267,7 +270,7 @@
     "other": "Have a specific problem? Let’s talk."
   },
   "contactLead": {
-    "other": "Email me what you are working on, where you are stuck, and any constraints. Putting the problem into words is a useful first step."
+    "other": "If you run into problems using these tools, or have a specific task you would like to discuss, get in touch. You do not need a complete plan: tell me what you want to do, where you are stuck, and what you have tried."
   },
   "emailMe": {
     "other": "Email me"
@@ -631,5 +634,8 @@
   },
   "searchProject": {
     "other": "Project"
+  },
+  "learnTool": {
+    "other": "Uses and installation"
   }
 }

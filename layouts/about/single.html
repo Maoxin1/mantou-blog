@@ -10,6 +10,7 @@
         <h1>{{ T "aboutTitle" }}</h1>
         <p>{{ T "aboutIntro" }}</p>
         <p class="about-hero__aside">{{ T "aboutAside" }}</p>
+        <a class="home-action" href="{{ "/works/codex-agents/" | relLangURL }}">{{ T "agentCase" }} →</a>
     </header>
     {{ partial "translation-note.html" . }}
 
@@ -58,6 +59,9 @@
         <div class="portfolio-hero__actions">
             <a class="portfolio-button portfolio-button--primary" href="mailto:2114206091@qq.com">{{ T "emailMe" }}</a>
             <a class="portfolio-button portfolio-button--secondary" href="https://github.com/Maoxin1" target="_blank" rel="noopener">{{ T "githubSource" }}</a>
+            {{- with .Site.Params.social.twitter -}}
+            <a class="portfolio-button portfolio-button--secondary" href="https://x.com/{{ . }}" target="_blank" rel="noopener">X · @{{ . }}</a>
+            {{- end -}}
         </div>
     </section>
 </div>

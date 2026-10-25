@@ -27,9 +27,10 @@ test('英文关注页先展示可用的 RSS，中文页先展示邮箱', async (
   await expect(page.locator('.follow-page__section').first().locator('h2')).toHaveText('邮箱提醒');
 });
 
-test('英文工具入口明确标注中文界面，短图文不显示零分钟', async ({ page }) => {
+test('英文首页提供 Agent 用途与安装说明，清单入口仍标注中文界面，短图文不显示零分钟', async ({ page }) => {
   await page.goto('/en/');
-  await expect(page.locator('[data-home-featured-work] .home-action').first()).toContainText('Open Chinese tool');
+  await expect(page.locator('[data-home-featured-work] .home-action').first()).toContainText('Uses and installation');
+  await expect(page.locator('[data-home-featured-work] .home-action').first()).toHaveAttribute('href', '/en/works/codex-agents/');
   await page.goto('/en/works/');
   await expect(page.locator('.work-card').filter({ hasText: 'offline mobile PWA' }).locator('.work-direct-link')).toContainText('Chinese interface');
   await page.goto('/en/works/mantou-checklist-pwa/');
