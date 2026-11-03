@@ -49,7 +49,7 @@ test('正式搜索可以找到并打开代表作品', async ({ page }) => {
   await searchbox.fill('定投清单');
 
   const result = page.locator('a.pagefind-ui__result-link', {
-    hasText: '把个人定投清单做成可离线运行的手机 PWA',
+    hasText: '每天三件事：可离线使用的行动记录工具',
   });
   await expect(result).toBeVisible({ timeout: 10_000 });
   await expect(result).toHaveAttribute('href', /\/works\/mantou-checklist-pwa\/?$/);
