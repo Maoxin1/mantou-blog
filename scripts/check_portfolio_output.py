@@ -118,7 +118,7 @@ def main() -> int:
             "RSS feed",
             pages["RSS feed"],
             (
-                "把个人定投清单做成可离线运行的手机 PWA",
+                "每天三件事：可离线使用的行动记录工具",
                 "https://mantou-blog.pages.dev/works/mantou-checklist-pwa/",
             ),
             issues,
