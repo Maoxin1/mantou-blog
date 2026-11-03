@@ -336,6 +336,12 @@ test('关注页、文章和作品结尾都提供可发现的关注路径', async
   await expect(workFollowCard.getByRole('link', { name: /关注馒头/ })).toHaveAttribute('href', '/follow/');
 });
 
+test('Codex Agent 发布版与当前仓库入口有明确区别', async ({ page }) => {
+  await open(page, '/works/codex-agents/');
+  await expect(page.getByRole('link', { name: '查看已发布版本 v0.1.1' })).toHaveAttribute('href', 'https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1');
+  await expect(page.getByRole('link', { name: '当前源码与试用状态' })).toHaveAttribute('href', 'https://github.com/Maoxin1/codex-agents');
+});
+
 test('中文搜索可以找到并打开公开作品', async ({ page }) => {
   await open(page, '/search/');
 
@@ -343,7 +349,7 @@ test('中文搜索可以找到并打开公开作品', async ({ page }) => {
   await expect(searchbox).toBeVisible();
   await searchbox.fill('定投清单');
 
-  const result = page.locator('.pagefind-ui__result-link', { hasText: '把个人定投清单做成可离线运行的手机 PWA' });
+  const result = page.locator('.pagefind-ui__result-link', { hasText: '每天三件事：可离线使用的行动记录工具' });
   await expect(result).toBeVisible({ timeout: 10_000 });
   await expect(result).toHaveAttribute('href', /\/works\/mantou-checklist-pwa\/?$/);
   await result.click();
@@ -362,7 +368,7 @@ test('搜索关键词能通过网址分享，并在返回搜索页时恢复', as
   await page.reload({ waitUntil: 'domcontentloaded' });
   await expect(searchbox).toHaveValue('定投清单');
   const result = page.locator('.pagefind-ui__result-link', {
-    hasText: '把个人定投清单做成可离线运行的手机 PWA',
+    hasText: '每天三件事：可离线使用的行动记录工具',
   });
   await expect(result).toBeVisible({ timeout: 10_000 });
 
