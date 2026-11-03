@@ -1,5 +1,5 @@
 ---
-home_status: "已发布 · 需要 Codex 环境"
+home_status: "8 位 Agent · 部分试用"
 home_title: "提示词优化与思路检查"
 home_summary: "我整理的一组 Codex 自定义 Agent，已被同事和朋友重复使用。这里记录它的用途、安装方式与使用边界。"
 title: "把四类重复判断整理成可安装的 Codex Agents"
@@ -15,7 +15,9 @@ constraints: "不包含私人笔记、持仓或受版权保护的原始资料；
 decision: "按任务拆分四个独立 Agent，以 TOML 配置、配套说明和共享支持文件组成安装包，并用 PowerShell 安装器和回归测试验证交付物。"
 outcome: "发布 codex-agents v0.1.1，可安装四个职责明确的 Agent，并能在不改动真实 Codex 目录的情况下验证安装结果。"
 artifact_url: "https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1"
+artifact_label: "查看已发布版本 v0.1.1"
 source_url: "https://github.com/Maoxin1/codex-agents"
+source_label: "当前源码与试用状态"
 evidence: "v0.1.1 已发布，仓库与隔离安装验证有记录。2026-10-24 补记：同事和朋友已重复使用，用来改善提示词、发现话术和思路中的漏洞；使用情况由我确认，尚未整理成可独立核对的任务记录。"
 limitations: "当前验证覆盖配置、文件完整性和安装行为，不证明不同模型与真实任务上的长期输出质量；使用者仍需具备兼容的 Codex 环境、PowerShell 和可用模型权限。"
 next_step: "现有 8 位 Agent 中部分仍属试用；先记录真实任务中的使用效果和人工修正，再决定是否继续完善。"
@@ -70,7 +72,7 @@ Codex 官方文档允许通过独立 TOML 文件定义个人或项目级自定�
 
 ## 本阶段产出与验证
 
-当前公开版本为 [v0.1.1](https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1)，源码与完整说明位于 [GitHub 仓库](https://github.com/Maoxin1/codex-agents)。这一阶段完成了：
+这一阶段发布的版本为 [v0.1.1](https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1)，源码与完整说明位于 [GitHub 仓库](https://github.com/Maoxin1/codex-agents)。这一阶段完成了：
 
 - 四个 Agent 的配置、职责说明和调用示例；
 - 支持预览与强制更新的 PowerShell 安装器；

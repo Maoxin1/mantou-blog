@@ -6,7 +6,7 @@ const fallbackImage = `${siteURL}/images/mantou-social.jpg`;
 const pages = [
   { path: '/', schema: 'WebSite', title: 'mantou の blog' },
   { path: '/works/', schema: 'CollectionPage', title: '作品集 - mantou の blog' },
-  { path: '/works/mantou-checklist-pwa/', schema: 'CreativeWork', title: '把个人定投清单做成可离线运行的手机 PWA - mantou の blog' },
+  { path: '/works/mantou-checklist-pwa/', schema: 'CreativeWork', title: '每天三件事：可离线使用的行动记录工具 - mantou の blog' },
   { path: '/p/20260406/', schema: 'BlogPosting', title: '对存储板块的更近一步的思考 - mantou の blog' },
   { path: '/about/', schema: 'AboutPage', title: '关于与合作 - mantou の blog' },
 ];

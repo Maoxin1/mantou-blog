@@ -12,6 +12,8 @@ test('首页同时呈现最近更新、精选文章和实际工具', async ({ pa
   const home = page.locator('[data-portfolio-home]');
   await expect(home.getByRole('heading', { level: 1 })).toHaveText('知不足而奋进，望远山而前行。');
   await expect(home.locator('[data-home-latest] li')).toHaveCount(5);
+  await expect(home.getByRole('link', { name: '看作品 →' })).toHaveAttribute('href', '/works/');
+  await expect(home.locator('.editorial-home__lead')).toContainText('可核对的作品');
   await expect(home.locator('[data-home-selected]')).toContainText('友谊万岁：我的感动日记！');
   await expect(home.locator('[data-home-selected] a[href="/works/body-sculpting/"]')).toBeVisible();
   await expect(home.locator('[data-home-featured-work] .mantou-project-art')).toBeVisible();
@@ -106,6 +108,6 @@ test('关注页准确说明两种送达方式及第三方边界', async ({ page 
     }
     return response.text();
   });
-  expect(feed).toContain('把个人定投清单做成可离线运行的手机 PWA');
+  expect(feed).toContain('每天三件事：可离线使用的行动记录工具');
   expect(feed).toContain('<title>First</title>');
 });

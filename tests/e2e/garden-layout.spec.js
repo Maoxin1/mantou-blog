@@ -74,7 +74,7 @@ test('390px 顶部导航滚动后仍可见，菜单可收起并保留搜索和�
   const search = page.getByRole('textbox', { name: '搜索文章…' });
   await expect(search).toBeVisible();
   await search.fill('定投清单');
-  await expect(page.locator('.pagefind-ui__result-link').filter({ hasText: '把个人定投清单做成可离线运行的手机 PWA' })).toBeVisible();
+  await expect(page.locator('.pagefind-ui__result-link').filter({ hasText: '每天三件事：可离线使用的行动记录工具' })).toBeVisible();
   await expectNoOverflow(page, 'mobile garden search results');
 
   await page.goto('/');
