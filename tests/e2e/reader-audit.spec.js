@@ -49,7 +49,7 @@ for (const prefix of ['', '/en']) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${prefix}/`);
     const updates = page.locator('[data-home-work-updates] li');
-    const latestUrls = await updates.locator('h3 a').allAttributes('href');
+    const latestUrls = await updates.locator('h3 a').evaluateAll(links => links.map(link => link.getAttribute('href')));
     expect(latestUrls.slice(0, 2).sort()).toEqual([
       `${prefix}/works/codex-agents/`,
       `${prefix}/works/mantou-checklist-pwa/`
