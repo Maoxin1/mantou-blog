@@ -49,13 +49,17 @@ for (const prefix of ['', '/en']) {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${prefix}/`);
     const updates = page.locator('[data-home-work-updates] li');
-    await expect(updates.first().locator('h3 a')).toHaveAttribute('href', `${prefix}/works/codex-agents/`);
+    const latestUrls = await updates.locator('h3 a').allAttributes('href');
+    expect(latestUrls.slice(0, 2).sort()).toEqual([
+      `${prefix}/works/codex-agents/`,
+      `${prefix}/works/mantou-checklist-pwa/`
+    ].sort());
     const item = updates.filter({ has: page.locator(`a[href="${prefix}/works/mantou-checklist-pwa/"]`) });
     const agent = updates.filter({ has: page.locator(`a[href="${prefix}/works/codex-agents/"]`) });
     await expect(agent.locator(':scope > time')).toHaveAttribute('datetime', '2026-09-14');
-    await expect(agent.locator('[data-work-updated] time')).toHaveAttribute('datetime', '2026-10-25');
+    await expect(agent.locator('[data-work-updated] time')).toHaveAttribute('datetime', '2026-11-03');
     await expect(item.locator(':scope > time')).toHaveAttribute('datetime', '2026-08-31');
-    await expect(item.locator('[data-work-updated] time')).toHaveAttribute('datetime', '2026-10-05');
+    await expect(item.locator('[data-work-updated] time')).toHaveAttribute('datetime', '2026-11-03');
     await expect(item.locator('[data-work-updated]')).toContainText(english ? 'Updated' : '更新于');
     await item.scrollIntoViewIfNeeded();
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
