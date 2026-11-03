@@ -4,11 +4,11 @@ home_title: "提示词优化与思路检查"
 home_summary: "我整理的一组 Codex 自定义 Agent，已被同事和朋友重复使用。这里记录它的用途、安装方式与使用边界。"
 title: "把四类重复判断整理成可安装的 Codex Agents"
 date: "2026-09-14"
-lastmod: "2026-10-25"
+lastmod: "2026-11-03"
 description: "把提示词优化、批判性思考、事实核验和投资研究整理成可安装、可验证、可维护的自定义 Agent 包。"
 list_summary: "用于提示词优化、思路检查等任务的 Codex 自定义 Agent。同事和朋友已有重复使用，具体任务表现仍需继续记录。"
 work_type: "methodology"
-stage: "v0.1.1 · 已发布"
+stage: "v0.1.1 已发布 · 现有 8 位 Agent（部分试用）"
 problem: "高频复杂任务长期依赖临时提示词，行为边界、证据标准和更新方式难以保持一致。"
 hypothesis: "如果把四类任务分别定义为窄职责 Agent，并补齐安装、验证与发布流程，就能降低重复配置成本，同时保留清晰的安全边界。"
 constraints: "不包含私人笔记、持仓或受版权保护的原始资料；不替用户执行证券交易；不把静态配置验证等同于真实任务质量。"
@@ -18,7 +18,7 @@ artifact_url: "https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1"
 source_url: "https://github.com/Maoxin1/codex-agents"
 evidence: "v0.1.1 已发布，仓库与隔离安装验证有记录。2026-10-24 补记：同事和朋友已重复使用，用来改善提示词、发现话术和思路中的漏洞；使用情况由我确认，尚未整理成可独立核对的任务记录。"
 limitations: "当前验证覆盖配置、文件完整性和安装行为，不证明不同模型与真实任务上的长期输出质量；使用者仍需具备兼容的 Codex 环境、PowerShell 和可用模型权限。"
-next_step: "先记录已有使用中的具体任务、输出问题和人工修正，再根据这些记录决定需要改什么。"
+next_step: "现有 8 位 Agent 中部分仍属试用；先记录真实任务中的使用效果和人工修正，再决定是否继续完善。"
 disclosure: "public"
 privacy_reviewed: true
 featured: true
@@ -26,6 +26,12 @@ follow_ups:
   - date: "2026-10-24"
     note: "同事和朋友已重复使用，主要用于提示词优化和话术、思路检查；具体任务表现仍需继续记录。"
 ---
+
+## 2026-11-03：当前版本与发布边界
+
+[源码仓库](https://github.com/Maoxin1/codex-agents)目前提供 **8 位 Agent**：原有的提示词优化、批判性思考、事实核验和投资研究，以及新增的研究方法、用户选择、改变与采用、研究落地等书籍顾问。其中四位扩展顾问仍处于试用阶段。
+
+本案例下方关于“四位 Agent”和 **v0.1.1** 的叙述是当时已发布版本的阶段记录，不代表当前仓库只有四位，也不代表新增顾问已经经过同等程度的真实任务验收。当前支持范围与验证情况以[仓库 README](https://github.com/Maoxin1/codex-agents#readme)和[验证状态](https://github.com/Maoxin1/codex-agents/blob/main/docs/verification-status.md)为准。下一阶段先收集真实使用差异，而非继续增加顾问数量。
 
 ## 它可以用来做什么
 
