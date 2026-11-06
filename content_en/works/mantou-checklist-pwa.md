@@ -2,17 +2,16 @@
 home_status: "Mobile-ready · Works offline"
 home_title: Three daily entries, one picture to keep
 home_summary: Log reading, exercise, and journaling. Save a picture; use it offline.
-title: Turning my daily practice checklist into an offline mobile PWA
+title: Three daily entries in an offline action-recording tool
 date: '2026-08-31'
-lastmod: '2026-10-05'
-description: An offline mobile PWA that now needs just three daily entries—focused reading, exercise, and journaling—to
-  summarize progress and export an image.
+lastmod: '2026-11-06'
+description: Log reading and thinking minutes, exercise status, and journal completion, then summarize the current week and export an image. Works offline, with limited customization.
 list_summary: An offline launch failed on a real phone. I fixed the routing and test environment; continued use
   then led me to reduce daily input to three entries.
 preview_image: /images/mantou-checklist-preview-20261005.png
 preview_alt: The October 2026 mobile preview, showing the action record and PNG export with default example data
 work_type: tools
-stage: V2 · Deployed
+stage: V2 · Deployed with limited customization
 problem: The web generator was quick to use, but I still had to open a URL. Offline cold starts had not been verified
   on a real phone.
 hypothesis: Installing the editor as a PWA and matching the launch URL to its cached route would let it perform
@@ -21,18 +20,17 @@ constraints: No accounts, cloud sync, or complicated settings. Keep a single pag
   data storage.
 decision: Align the installation entry and Cloudflare route, make automated tests reproduce production routing,
   and retest on a real phone.
-outcome: V1 added installation and offline use. V2 reduced daily input to focused-reading minutes, exercise status,
-  and journaling status, with weekly totals and one-click 1080 × 1536 PNG export.
+outcome: V1 added installation and offline use. V2 uses reading and thinking minutes, exercise status, and journaling status for current-week totals, 1080 × 1536 PNG export, and limited customization.
 artifact_url: https://mantou-checklist.pages.dev/editor
 artifact_language: zh-cn
 source_url: https://github.com/Maoxin1/mantou-checklist
 evidence: V1 passed five checks on a real Android phone. Production browser checks on October 5, 2026 covered
   editing, autosave, JSON backup restoration, 1080 × 1536 PNG export, and offline use in the current version.
-limitations: Data stays in the current browser and does not sync automatically between devices. Initial installation
-  and updates need a network connection.
-next_step: Use it to record focused reading, exercise, and journaling in the routine experiment. Add features only
-  when a specific difficulty appears again.
+limitations: Data stays in the current browser without automatic cross-device sync. Previous-week daily details are not retained after the week changes; cumulative journal days and stage settings remain. Export before the change if you need the details. Initial installation and updates need a connection.
+next_step: Keep recording reading and thinking, exercise, and journaling, and export backups as needed. Add features only when a specific difficulty appears again.
 follow_ups:
+- date: '2026-11-06'
+  note: Updated the case against current source to cover reading and thinking labels, the removed investment field, current-week retention, and the training card's separate role. This is a documentation update, not new functionality or another real-device acceptance result.
 - date: '2026-10-05'
   note: The current version opens the form first, then shows the action record in the preview tab. Warm paper colors
     and comic-style lines now match the blog. Production checks covered input, autosave, backup restoration, and
@@ -56,8 +54,22 @@ disclosure: public
 featured: true
 translation_status: reviewed
 translation_provider: Machine-assisted, edited against the Chinese source
-translation_source_hash: 8abb8cce0dd4f9da5964dafdb2679584db90f230a1b1928ce9528e49d74d1b4d
+translation_source_hash: 2a4599e715ad50ba95ef31b71d20743063183404312b31f2f6fb62523905265d
 ---
+
+## November 6, 2026: current entries and data boundaries
+
+The three daily entries are now **reading and thinking minutes, exercise status, and journal completion**. The default plan is 90 minutes a day, with a weekly minimum of 450 minutes. Time measures effort, not demonstrated understanding or skill. The current stage, reading materials, and optional weekly deliverables remain in low-frequency settings. The investment field has been removed from the form and image; old backup text is retained only for compatibility.
+
+Records and publication dates can only be selected within the current week, with backfilling allowed inside it. When a new week begins, only its daily log is retained; cumulative journal days and stage settings remain. Export JSON before the week changes if you need previous-week details. The tool does not maintain a long-term daily archive or sync automatically between devices.
+
+The [training card](https://github.com/Maoxin1/mantou-training) handles exercises, training feedback, food, and recovery; Checklist handles the three daily facts and the public image. The repository's current trial preset runs from October 27 to November 9, 2026, with two strength sessions a week and badminton at the weekend. At the end it prompts for review rather than automatically increasing training. A preset is not evidence that the activity happened.
+
+## November 3, 2026: limited customization from reader feedback
+
+Following a reader's suggestion in [Issue #25](https://github.com/Maoxin1/mantou-checklist/issues/25), the tool added customization for the PNG title, the three entry labels, and additional exercise options without changing the three input types. [PR #26](https://github.com/Maoxin1/mantou-checklist/pull/26) was merged. Production desktop and mobile-editor code checks passed, automated tests cover the feature, and the production smoke check passed.
+
+This is not a general-purpose habit tracker: the input types remain minutes, an activity selection, and a completion status. Additional activities do not automatically count toward weekly strength sessions. There are no accounts or automatic cross-device sync; backups remain manual. Automated browser regression covers customization, but production source checks are not a complete production end-to-end test of those interactions. Further changes depend on a concrete difficulty in use.
 
 ## The problem and the idea
 
@@ -110,7 +122,7 @@ V2 reduced daily input to three things:
 
 The reading entry changed from keyboard input to a **slider from 0–180 minutes in 5-minute steps**, with 90 minutes marked as the current target. Moving it updates the value, weekly totals, and public PNG together. Exercise and journaling remain status choices.
 
-Weekly information no longer needs to be entered twice: the tool totals focused-reading time and strength-training sessions. The current stage, book, investment status, and weekly deliverable remain available as less frequently changed settings.
+At that stage, the tool began totaling practice time and strength sessions instead of asking for weekly information twice, while other information moved to low-frequency settings. The current label is “reading and thinking,” and the investment field has since been removed. See the update at the beginning for current behavior.
 
 The original boundaries remain:
 
@@ -133,6 +145,7 @@ I checked editing, autosave, JSON backup restoration, 1080 × 1536 PNG export, a
 ## Limits and boundaries
 
 - Data lives in the current browser's local storage by default.
+- Only the current week's daily details are retained. When the week changes, cumulative journal days and stage settings remain; export beforehand if you need previous-week details.
 - Clearing site data or uninstalling the browser can lose it; backups must be exported deliberately.
 - Initial installation and new versions require a connection.
 - The fields serve my own practice checklist, rather than a general-purpose habit tracker.

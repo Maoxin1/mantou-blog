@@ -1,15 +1,14 @@
 ---
-home_status: "Released · Requires Codex"
-home_title: "Prompt refinement and reasoning checks"
-home_summary: "A set of custom Codex agents I put together, used repeatedly by colleagues and friends. This case covers their uses, installation, and limitations."
+home_status: "Two everyday entry points · New behavior on trial"
+home_title: "Understand goals, check judgments, clarify requests"
+home_summary: "manuel helps me understand goals, check judgments, and take a next step; mantou helps me clarify requests. The new behavior still needs evidence from use."
 title: Four recurring tasks, packaged as installable Codex agents
 date: '2026-09-14'
-lastmod: "2026-10-25"
-description: A set of custom agents for refining prompts, critical thinking, fact-checking, and investment research,
-  with installation and validation tools.
-list_summary: "Custom Codex agents for prompt refinement, reasoning checks, and related tasks. Colleagues and friends have used them repeatedly; task performance still needs documenting."
+lastmod: "2026-11-06"
+description: A Codex agent package that grew from four recurring tasks into two everyday entry points, manuel and mantou, with specialist roles available separately.
+list_summary: "Two default entry points and optional specialist roles. Earlier versions have seen repeated use; the new integration still needs real-task evaluation."
 work_type: methodology
-stage: v0.1.1 · Released
+stage: "Current source defaults to two entry points · Historical release v0.1.1"
 problem: Repeated complex tasks relied on ad hoc prompts, making task boundaries, evidence standards, and updates
   difficult to keep consistent.
 hypothesis: Narrowly scoped agents, supplied with installation, validation, and release procedures, could reduce
@@ -21,31 +20,48 @@ decision: Split the work into four agents, package their TOML configurations wit
 outcome: Released codex-agents v0.1.1 with four agents. Installation can be tested in an isolated directory without
   changing the actual Codex directory.
 artifact_url: https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1
+artifact_label: Historical release v0.1.1
 source_url: https://github.com/Maoxin1/codex-agents
+source_label: Current source and installation
 evidence: Version 0.1.1 is released, with repository and isolated installation checks documented. On 2026-10-24, I confirmed repeated use by colleagues and friends for prompts and reasoning checks; independently checkable task records are not yet available.
-limitations: Tests cover configuration, file integrity, and installation, not long-term output quality across models
-  and real tasks. Users need a compatible Codex environment, PowerShell, and access to a supported model.
-next_step: "Document specific tasks, output problems, and manual corrections from existing use, then decide what to change."
+limitations: Earlier use and validation do not establish the new integration's effectiveness. Personal understanding, the five-book methods, and the research workflow still need real evaluation. A compatible Codex environment, PowerShell, and model access are required.
+next_step: "Record goal confirmation, judgments, output problems, and manual corrections in real tasks using the two everyday entry points, then decide what to change."
 disclosure: public
 privacy_reviewed: true
 featured: true
 follow_ups:
+- date: '2026-11-06'
+  note: Updated the case against current source to cover two default entry points, optional specialist roles, and the research pilot. Earlier use and installation checks remain evidence for their own stages, not for the new behavior.
 - date: '2026-10-24'
   note: Colleagues and friends have used the agents repeatedly for prompts and reasoning checks; specific task performance still needs documenting.
 translation_status: reviewed
 translation_provider: Machine-assisted, edited against the Chinese source
-translation_source_hash: 3fa66912a49399638ffb6848c77fc3c4d62c676dc6261017c46c391c42d73201
+translation_source_hash: 06ea919f24312e57e20dae4bad5e6eaa6a5973907f49fb1ddaa0750a4df371f9
 ---
+
+## November 6, 2026: two default entry points
+
+The [current source and installation guide](https://github.com/Maoxin1/codex-agents#readme) now start with two everyday entry points: `_manuel` helps understand goals, check judgments, and take a next step; `_mantou` helps clarify requests.
+
+The default installer installs both, along with the five-book method materials used by manuel. The earlier book-specific advisers remain available as compatibility entry points, and fact-checking and investment research are optional specialist roles. Use `-All` to install all eight roles. A default update does not automatically remove roles already installed.
+
+As of this update, the latest formal GitHub Release is still the [historical v0.1.1 package](https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1). Follow the current source README to try the new behavior. The release package, current source, and results in real tasks each need to be checked separately.
+
+On November 3, the Chinese case recorded the expansion to eight agents. This update changes the default entry points. The four-agent and v0.1.1 descriptions below remain records of the earlier stage. The new integration and research workflow are on trial; earlier installation checks and answer records do not establish their effectiveness. See the [verification status](https://github.com/Maoxin1/codex-agents/blob/main/docs/verification-status.md).
 
 ## What you can use it for
 
-This is a set of custom Codex agents I put together for prompt refinement, reasoning checks, fact-checking, and investment research.
+I now start with the two everyday entry points and choose other roles when a task calls for them.
 
-Start with `_mantou` to clarify a vague request, or try `_manuel` to examine the assumptions, inferences, and omissions in a piece of writing. They help organize and check your work; their output still needs your judgment.
+Start with `_mantou` to clarify a vague request, or try `_manuel` to understand a goal, compare choices, or examine assumptions and inferences. manuel can use five-book methods as needed and consult notes you authorize. Its understanding of you is open to correction, not mind-reading; there is no automatic chat import or background monitoring.
+
+manuel also offers a [research and analysis-learning pilot](https://github.com/Maoxin1/codex-agents/blob/main/agents/_manuel/research.md): check sources, examine assumptions and contrary evidence, and learn a transferable method around a concrete question. Its effectiveness still needs testing in use; it does not promise accurate market predictions.
+
+These entry points help organize and check work; their output still needs your judgment.
 
 The GitHub repository contains [installation instructions and requirements](https://github.com/Maoxin1/codex-agents). You need a compatible Codex environment, PowerShell, and access to a supported model.
 
-## Use so far
+## Use of earlier versions
 
 Besides my own use, colleagues and friends have used the agents repeatedly, mainly to improve prompts and find gaps in wording and reasoning.
 
@@ -74,7 +90,7 @@ The boundary around public material is part of the package. Personal Obsidian pa
 
 ## What I shipped and checked
 
-The current public version is [v0.1.1](https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1). Source code and full instructions are in the [GitHub repository](https://github.com/Maoxin1/codex-agents). This stage delivered:
+The version released at that stage was [v0.1.1](https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1). Source code and full instructions are in the [GitHub repository](https://github.com/Maoxin1/codex-agents). This stage delivered:
 
 - Configurations, role descriptions, and invocation examples for four agents;
 - A PowerShell installer with preview and forced-update options;
