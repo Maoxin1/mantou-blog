@@ -5,6 +5,7 @@ const routes = [
   '/works/',
   '/works/mantou-checklist-pwa/',
   '/works/codex-agents/',
+  '/works/mantou-training/',
   '/about/',
   '/now/',
   '/follow/',
@@ -338,8 +339,9 @@ test('关注页、文章和作品结尾都提供可发现的关注路径', async
 
 test('Codex Agent 发布版与当前仓库入口有明确区别', async ({ page }) => {
   await open(page, '/works/codex-agents/');
-  await expect(page.getByRole('link', { name: '查看已发布版本 v0.1.1' })).toHaveAttribute('href', 'https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1');
-  await expect(page.getByRole('link', { name: '当前源码与试用状态' })).toHaveAttribute('href', 'https://github.com/Maoxin1/codex-agents');
+  const actions = page.locator('.work-detail__actions');
+  await expect(actions.getByRole('link', { name: '历史发布包 v0.1.1', exact: true })).toHaveAttribute('href', 'https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1');
+  await expect(actions.getByRole('link', { name: '当前源码与安装说明', exact: true })).toHaveAttribute('href', 'https://github.com/Maoxin1/codex-agents');
 });
 
 test('中文搜索可以找到并打开公开作品', async ({ page }) => {

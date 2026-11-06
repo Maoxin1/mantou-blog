@@ -1,49 +1,59 @@
 ---
-home_status: "8 位 Agent · 部分试用"
-home_title: "提示词优化与思路检查"
-home_summary: "我整理的一组 Codex 自定义 Agent，已被同事和朋友重复使用。这里记录它的用途、安装方式与使用边界。"
+home_status: "两个日常入口 · 新版试用中"
+home_title: "理解目标、检查判断，把需求说清楚"
+home_summary: "manuel 帮我理解目标、检查判断并迈出下一步；mantou 帮我把需求说清楚。新版的实际效果还需要继续记录。"
 title: "把四类重复判断整理成可安装的 Codex Agents"
 date: "2026-09-14"
-lastmod: "2026-11-03"
-description: "把提示词优化、批判性思考、事实核验和投资研究整理成可安装、可验证、可维护的自定义 Agent 包。"
-list_summary: "用于提示词优化、思路检查等任务的 Codex 自定义 Agent。同事和朋友已有重复使用，具体任务表现仍需继续记录。"
+lastmod: "2026-11-06"
+description: "从四类重复判断出发，逐步整理成以 manuel 和 mantou 为日常入口、专项角色按需安装的 Codex 自定义 Agent 包。"
+list_summary: "默认两个日常入口，另有可选专项角色。旧版已有重复使用，新版整合后的具体任务表现仍需继续记录。"
 work_type: "methodology"
-stage: "v0.1.1 已发布 · 现有 8 位 Agent（部分试用）"
+stage: "源码默认两个入口 · 历史发布包 v0.1.1"
 problem: "高频复杂任务长期依赖临时提示词，行为边界、证据标准和更新方式难以保持一致。"
 hypothesis: "如果把四类任务分别定义为窄职责 Agent，并补齐安装、验证与发布流程，就能降低重复配置成本，同时保留清晰的安全边界。"
 constraints: "不包含私人笔记、持仓或受版权保护的原始资料；不替用户执行证券交易；不把静态配置验证等同于真实任务质量。"
 decision: "按任务拆分四个独立 Agent，以 TOML 配置、配套说明和共享支持文件组成安装包，并用 PowerShell 安装器和回归测试验证交付物。"
 outcome: "发布 codex-agents v0.1.1，可安装四个职责明确的 Agent，并能在不改动真实 Codex 目录的情况下验证安装结果。"
 artifact_url: "https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1"
-artifact_label: "查看已发布版本 v0.1.1"
+artifact_label: "历史发布包 v0.1.1"
 source_url: "https://github.com/Maoxin1/codex-agents"
-source_label: "当前源码与试用状态"
+source_label: "当前源码与安装说明"
 evidence: "v0.1.1 已发布，仓库与隔离安装验证有记录。2026-10-24 补记：同事和朋友已重复使用，用来改善提示词、发现话术和思路中的漏洞；使用情况由我确认，尚未整理成可独立核对的任务记录。"
-limitations: "当前验证覆盖配置、文件完整性和安装行为，不证明不同模型与真实任务上的长期输出质量；使用者仍需具备兼容的 Codex 环境、PowerShell 和可用模型权限。"
-next_step: "现有 8 位 Agent 中部分仍属试用；先记录真实任务中的使用效果和人工修正，再决定是否继续完善。"
+limitations: "旧版使用与验证记录不证明新版整合后的效果；新版个人理解、五书方法与调研流程仍待真实评估。使用者需要兼容的 Codex 环境、PowerShell 和可用模型权限。"
+next_step: "记录两个日常入口在真实任务中的目标确认、判断、输出问题和人工修正，再决定需要改什么。"
 disclosure: "public"
 privacy_reviewed: true
 featured: true
 follow_ups:
+  - date: "2026-11-06"
+    note: "按当前源码同步默认两个入口、可选专项角色与调研试用流程；旧版使用记录和安装验收保留在原阶段，不作为新版效果的证明。"
   - date: "2026-10-24"
     note: "同事和朋友已重复使用，主要用于提示词优化和话术、思路检查；具体任务表现仍需继续记录。"
 ---
 
-## 2026-11-03：当前版本与发布边界
+## 2026-11-06：默认两个日常入口
 
-[源码仓库](https://github.com/Maoxin1/codex-agents)目前提供 **8 位 Agent**：原有的提示词优化、批判性思考、事实核验和投资研究，以及新增的研究方法、用户选择、改变与采用、研究落地等书籍顾问。其中四位扩展顾问仍处于试用阶段。
+[当前源码与安装说明](https://github.com/Maoxin1/codex-agents#readme)把日常使用收敛到两个入口：`_manuel` 帮助理解目标、检查判断并迈出下一步；`_mantou` 帮助把需求说清楚。
 
-本案例下方关于“四位 Agent”和 **v0.1.1** 的叙述是当时已发布版本的阶段记录，不代表当前仓库只有四位，也不代表新增顾问已经经过同等程度的真实任务验收。当前支持范围与验证情况以[仓库 README](https://github.com/Maoxin1/codex-agents#readme)和[验证状态](https://github.com/Maoxin1/codex-agents/blob/main/docs/verification-status.md)为准。下一阶段先收集真实使用差异，而非继续增加顾问数量。
+运行默认安装器会安装这两个入口，以及 manuel 所需的五本书方法资料。研究方法、用户选择、改变过程和研究落地等旧书籍顾问仍保留为兼容入口；事实核验与投资研究也可按需安装。使用 `-All` 才安装全部八个角色，默认更新不会自动删除已经安装的旧角色。
+
+截至这次同步，GitHub 最新正式 Release 仍为[历史发布包 v0.1.1](https://github.com/Maoxin1/codex-agents/releases/tag/v0.1.1)。要试用两个入口的新行为，请按当前源码 README 安装。旧发布包、当前源码和真实任务中的效果，是三件需要分别核对的事。
+
+11 月 3 日，本案例曾补记源码扩展到八位 Agent；这次调整的是默认使用入口。下方四位 Agent 与 v0.1.1 的说明保留为早期阶段记录。新版整合和调研流程仍在试用，已有的安装检查与旧版回答记录不能证明新版效果，具体范围见[验证状态](https://github.com/Maoxin1/codex-agents/blob/main/docs/verification-status.md)。
 
 ## 它可以用来做什么
 
-这是我整理的一组 Codex 自定义 Agent，分别用于提示词优化、思路检查、事实核验和投资研究。
+我现在从两个日常入口开始使用，遇到专项任务时再按需选择其他角色。
 
-如果你想把一个模糊的要求写清楚，可以从 `_mantou` 开始；如果想检查一段话里的前提、推论和遗漏，可以试试 `_manuel`。它们提供的是辅助整理和检查，输出仍需要自己判断。
+如果你想把一个模糊的要求写清楚，可以从 `_mantou` 开始；如果想弄清真正的目标、比较选择，或检查一段话里的前提和推论，可以试试 `_manuel`。manuel 按需要使用五本书的方法，也可以结合你授权的笔记理解问题。它对你的理解需要你纠正，不是读心，也没有自动导入聊天记录或后台监控。
+
+manuel 还提供[调研与分析学习流程](https://github.com/Maoxin1/codex-agents/blob/main/agents/_manuel/research.md)供试用：围绕具体问题核验来源、检查前提和反证，并学习一个可迁移的方法。实际效果待使用检验，不承诺市场预测准确率。
+
+这些入口提供辅助整理和检查，输出仍需要自己判断。
 
 [安装说明与环境要求](https://github.com/Maoxin1/codex-agents)在 GitHub 仓库中。使用前需要兼容的 Codex 环境、PowerShell 和可用模型权限。
 
-## 已有的使用情况
+## 旧版已有的使用情况
 
 除了我自己，同事和朋友也已经重复使用，主要用于改善提示词，以及发现话术和思路中的漏洞。
 
@@ -61,7 +71,7 @@ Codex 官方文档允许通过独立 TOML 文件定义个人或项目级自定�
 
 ## 约束与关键决策
 
-我没有制作一个什么都做的“万能助手”，而是按决策性质拆成四个角色：
+早期版本按决策性质拆成四个角色：
 
 - `_mantou` 只负责澄清和优化提示词，不执行提示词中的任务；
 - `_manuel` 用批判性思考框架检查问题、证据和推论；

@@ -32,7 +32,7 @@ test('英文首页提供 Agent 用途与安装说明，清单入口仍标注中�
   await expect(page.locator('[data-home-featured-work] .home-action').first()).toContainText('Uses and installation');
   await expect(page.locator('[data-home-featured-work] .home-action').first()).toHaveAttribute('href', '/en/works/codex-agents/');
   await page.goto('/en/works/');
-  await expect(page.locator('.work-card').filter({ hasText: 'offline mobile PWA' }).locator('.work-direct-link')).toContainText('Chinese interface');
+  await expect(page.locator('.work-card').filter({ has: page.locator('a[href="/en/works/mantou-checklist-pwa/"]') }).locator('.work-direct-link')).toContainText('Chinese interface');
   await page.goto('/en/works/mantou-checklist-pwa/');
   await expect(page.locator('.work-detail__actions .portfolio-button--primary')).toContainText('Chinese interface');
   await page.goto('/p/20260825/');
