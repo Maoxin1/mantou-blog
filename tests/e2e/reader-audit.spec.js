@@ -60,7 +60,7 @@ for (const prefix of ['', '/en']) {
     await expect(agent.locator(':scope > time')).toHaveAttribute('datetime', '2026-09-14');
     await expect(agent.locator('[data-work-updated] time')).toHaveAttribute('datetime', '2026-11-06');
     await expect(item.locator(':scope > time')).toHaveAttribute('datetime', '2026-08-31');
-    await expect(item.locator('[data-work-updated] time')).toHaveAttribute('datetime', '2026-11-06');
+    await expect(item.locator('[data-work-updated] time')).toHaveAttribute('datetime', '2026-11-10');
     await expect(item.locator('[data-work-updated]')).toContainText(english ? 'Updated' : '更新于');
     await item.scrollIntoViewIfNeeded();
     expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
