@@ -4,7 +4,7 @@ home_title: Three daily entries, one picture to keep
 home_summary: Log reading, exercise, and journaling. Save a picture; use it offline.
 title: Three daily entries in an offline action-recording tool
 date: '2026-08-31'
-lastmod: '2026-11-06'
+lastmod: '2026-11-10'
 description: Log reading and thinking minutes, exercise status, and journal completion, then summarize the current week and export an image. Works offline, with limited customization.
 list_summary: An offline launch failed on a real phone. I fixed the routing and test environment; continued use
   then led me to reduce daily input to three entries.
@@ -29,6 +29,8 @@ evidence: V1 passed five checks on a real Android phone. Production browser chec
 limitations: Data stays in the current browser without automatic cross-device sync. Previous-week daily details are not retained after the week changes; cumulative journal days and stage settings remain. Export before the change if you need the details. Initial installation and updates need a connection.
 next_step: Keep recording reading and thinking, exercise, and journaling, and export backups as needed. Add features only when a specific difficulty appears again.
 follow_ups:
+- date: '2026-11-10'
+  note: Continued from the reviewed two-week trial into an ongoing three-day strength phase with a reference target of three sessions a week. Previous trial dates, daily facts, and customization remain. Exercises and calendar-week reviews stay in training cards.
 - date: '2026-11-06'
   note: Updated the case against current source to cover reading and thinking labels, the removed investment field, current-week retention, and the training card's separate role. This is a documentation update, not new functionality or another real-device acceptance result.
 - date: '2026-10-05'
@@ -54,16 +56,16 @@ disclosure: public
 featured: true
 translation_status: reviewed
 translation_provider: Machine-assisted, edited against the Chinese source
-translation_source_hash: 2a4599e715ad50ba95ef31b71d20743063183404312b31f2f6fb62523905265d
+translation_source_hash: 1f7d5469378dbd7ce72974276b3dc731881bde44ff5de227b6d90c958731285f
 ---
 
-## November 6, 2026: current entries and data boundaries
+## November 10, 2026: current entries and data boundaries
 
 The three daily entries are now **reading and thinking minutes, exercise status, and journal completion**. The default plan is 90 minutes a day, with a weekly minimum of 450 minutes. Time measures effort, not demonstrated understanding or skill. The current stage, reading materials, and optional weekly deliverables remain in low-frequency settings. The investment field has been removed from the form and image; old backup text is retained only for compatibility.
 
 Records and publication dates can only be selected within the current week, with backfilling allowed inside it. When a new week begins, only its daily log is retained; cumulative journal days and stage settings remain. Export JSON before the week changes if you need previous-week details. The tool does not maintain a long-term daily archive or sync automatically between devices.
 
-The [training card](https://github.com/Maoxin1/mantou-training) handles exercises, training feedback, food, and recovery; Checklist handles the three daily facts and the public image. The repository's current trial preset runs from October 27 to November 9, 2026, with two strength sessions a week and badminton at the weekend. At the end it prompts for review rather than automatically increasing training. A preset is not evidence that the activity happened.
+The [training card](https://github.com/Maoxin1/mantou-training) handles exercises, training feedback, food, and recovery; Checklist handles the three daily facts and the public image. The October 27–November 9 trial has been reviewed. From November 10, Checklist continues into an ongoing three-day strength phase: Monday A, Wednesday B, Friday C, and badminton once at the weekend. Previous trial dates remain; no new two-week trial begins. The reference target is three strength sessions, separate from actual completion. Badminton does not count as strength. Checklist does not connect to the training-card account; daily facts still need entering.
 
 ## November 3, 2026: limited customization from reader feedback
 

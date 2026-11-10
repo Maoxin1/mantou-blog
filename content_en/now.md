@@ -15,13 +15,13 @@ directions:
   updated: '2026-09-22'
 translation_status: reviewed
 translation_provider: Edited against the Chinese original
-translation_source_hash: dc6b40a632bad6e79b1989ee9fa48db0d07174eb5c56af500acccd7a02d71e55
+translation_source_hash: d3ab18b5f1cd83e360abd7903bf0046f619bc9cedd0c2d63a6c2de30d738ee7e
 ---
 
 This is not a complete project list, just the few directions receiving my attention.
 
 Reading, training, and everyday writing remain part of the blog. There are no new review results for the routine experiment; its original record date remains, without moving the review date forward.
 
-2026-11-06: Tool updates are documented in the [training-card case](/works/mantou-training/) and [Checklist case](/works/mantou-checklist-pwa/). Training-card source is now 2.3.6, and Checklist's two-week trial preset runs from October 27 to November 9. These are tool and configuration updates, not evidence that the routine experiment is complete or has produced new benefits.
+2026-11-10: The two-week training trial has been reviewed, continuing into three strength sessions and one weekend badminton session per week. [Training cards 2.4.0](/works/mantou-training/) is live. Two-device upgrades, sync, and offline reopening on the phone passed real-device checks; first session creation and exercise entry await actual training. [Checklist](/works/mantou-checklist-pwa/) now reflects the ongoing three-day phase and a reference target of three sessions. Training progress does not establish acceptance of the whole routine experiment or long-term physique results.
 
 2026-10-08: I have abandoned the active investing system project and am no longer working on it. Related past articles remain available.
